@@ -1,7 +1,7 @@
 {
-  "name": "github-nlib-web-app-template",
-  "version": "1.0.0",
-  "description": "The git hub nlib web application template project.",
+  "name": "rater.web.v2.0.8v12",
+  "version": "2.0.8",
+  "description": "My Choice Rater Web v2.0.8 rev version 12.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chumpon-asaneerat/github-nlib-web-app-template.git"
+    "url": "git+https://github.com/chumpon-asaneerat/Rater.Web.v2.08v12.git"
   },
   "author": "Chumpon Asaneerat",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/chumpon-asaneerat/github-nlib-web-app-template/issues"
+    "url": "https://github.com/chumpon-asaneerat/Rater.Web.v2.08v12/issues"
   },
-  "homepage": "https://github.com/chumpon-asaneerat/github-nlib-web-app-template#readme",
+  "homepage": "https://github.com/chumpon-asaneerat/Rater.Web.v2.08v12#readme",
   "devDependencies": {
     "@types/compression": "^1.0.1",
     "@types/dot": "^1.1.3",
@@ -44,7 +44,7 @@
     "gulp-dot": "^1.5.0",
     "gulp-insert": "^0.5.0",
     "gulp-jsdoc3": "^2.0.0",
-    "gulp-nodemon": "^2.4.2",
+    "gulp-nodemon": "^2.5.0",
     "gulp-order": "^1.2.0",
     "gulp-riot": "^1.1.5",
     "gulp-rm": "^2.0.0",
@@ -55,6 +55,7 @@
     "gulp-watch": "^5.0.1",
     "js-beautify": "^1.10.0",
     "jsdoc": "^3.6.3",
+    "jsdom-quokka-plugin": "^1.0.14",
     "nodemon": "^1.18.11",
     "riot": "^3.13.2"
   },
@@ -77,14 +78,15 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
-    "express-status-monitor": "^1.2.6",
+    "express-status-monitor": "^1.2.8",
     "find": "^0.3.0",
     "formidable": "^1.2.1",
-    "helmet": "^3.21.2",
+    "helmet": "^3.21.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "mssql": "^5.1.0",
+    "quokka-jquery-loader": "0.0.3",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.2.0",
     "swagger-jsdoc": "^3.2.9",
