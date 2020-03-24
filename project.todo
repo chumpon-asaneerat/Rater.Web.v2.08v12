@@ -13,7 +13,13 @@ Project:
                 ✔ 01.Language. @done(20-03-25 00:06)
                 ✔ 02.LanguageView. @done(20-03-25 00:06)
             03.error.messages:
+                ✔ 01.SaveLanguage. @done(20-03-25 00:22)
+                ✔ 02.ErrorMessageML. @done(20-03-25 00:23)
+                ✔ 03.ErrorMessageView. @done(20-03-25 00:23)
+                ✔ 04.ErrorMessageMLView. @done(20-03-25 00:23)
             04.master.pk:
+                ☐ 
+                ☐ 
         02.functions:
             01.utilities:
                 ✔ 01.IsNullOrEmpty. @done(20-03-25 00:06)
@@ -35,6 +41,22 @@ Project:
                 ✔ 00.DropAll (Drop all stored procedures/views/tables/functions). @done(20-03-25 00:06)
                 ✔ 01.GetRandonCode. @done(20-03-25 00:06)
             02.error.messages:
+                01.GetErrorMsg:
+                    Required Tables and Views:
+                        ✔ ErrorMessage. @done(20-03-25 00:26)
+                02.SaveErrorMsg:
+                    Required Tables and Views:
+                        ✔ ErrorMessage. @done(20-03-25 00:27)
+                03.SaveErrorMsgML:
+                    Required Tables and Views:
+                        ✔ Language. @done(20-03-25 00:28)
+                        ✔ ErrorMessageML. @done(20-03-25 00:28)
+                    Required Functions:
+                        ✔ IsNullOrEmpty. @done(20-03-25 00:28)
+                        ✔ GetErrorMsg. @done(20-03-25 00:28)
+                04.GetErrorMsgs:
+                    Required Tables and Views:
+                        ✔ ErrorMessageMLView. @done(20-03-25 00:29)
             03.languages:
                 01.SaveLanguage:
                     Required Tables and Views:
