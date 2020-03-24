@@ -5,33 +5,60 @@ Project:
             ☐ Working with REST Api for each datae items to reduce login on client screen.
     Database Scripts:
         00.Drops:
-            ☐ DropAll (drop to DropAll stored procedure).
+            ✔ DropAll (drop to DropAll stored procedure). @done(20-03-25 00:06)
         01.tables.and.views:
             01.utilities:
-                ☐ 01.dboView.
+                ✔ 01.dboView. @done(20-03-25 00:06)
             02.languages:
+                ✔ 01.Language. @done(20-03-25 00:06)
+                ✔ 02.LanguageView. @done(20-03-25 00:06)
             03.error.messages:
             04.master.pk:
         02.functions:
             01.utilities:
-                ☐ 01.IsNullOrEmpty.
-                ☐ 02.IsSameDate.
-                ☐ 03.IsSameMonth.
-                ☐ 04.IsSameYear.
-                ☐ 05.NewSID (NewIDView vite required).
-                ☐ 06.MinDateTime.
-                ☐ 07.MaxDateTime.
-                ☐ 08.ToMinTime.
-                ☐ 09.ToMaxTime.
-                ☐ 10.IsLangExist (Language table required).
+                ✔ 01.IsNullOrEmpty. @done(20-03-25 00:06)
+                ✔ 02.IsSameDate. @done(20-03-25 00:06)
+                ✔ 03.IsSameMonth. @done(20-03-25 00:06)
+                ✔ 04.IsSameYear. @done(20-03-25 00:06)
+                05.NewSID:
+                    Required Tables and Views:
+                        ✔ NewIDView view. @done(20-03-25 00:10)
+                ✔ 06.MinDateTime. @done(20-03-25 00:06)
+                ✔ 07.MaxDateTime. @done(20-03-25 00:06)
+                ✔ 08.ToMinTime. @done(20-03-25 00:06)
+                ✔ 09.ToMaxTime. @done(20-03-25 00:06)
+                10.IsLangExist:
+                    Required Tables and Views:
+                        ✔ Language. @done(20-03-25 00:11)
         03.stored.procedures:
             01.utilities:
-                ☐ 00.DropAll (Drop all stored procedures/views/tables/functions).
-                ☐ 01.GetRandonCode.
-                ☐ 
+                ✔ 00.DropAll (Drop all stored procedures/views/tables/functions). @done(20-03-25 00:06)
+                ✔ 01.GetRandonCode. @done(20-03-25 00:06)
             02.error.messages:
             03.languages:
+                01.SaveLanguage:
+                    Required Tables and Views:
+                        ✔ Language. @done(20-03-25 00:11)
+                    Required Stored Procedures:
+                        ✔ GetErrorMsg. @done(20-03-25 00:16)
+                    Required Functions:
+                        ✔ IsNullOrEmpty. @done(20-03-25 00:17)
+                02.DisableLanguage:
+                    Required Tables and Views:
+                        ✔ Language. @done(20-03-25 00:13)
+                03.EnableLanguage:
+                    Required Tables and Views:
+                        ✔ Language. @done(20-03-25 00:13)
+                04.GetLanguages:
+                    Required Tables and Views:
+                        ✔ LanguageView. @done(20-03-25 00:13)
             04.master.pk:
+        10.Init.master.data:
+            01.InitLanguages:
+                Required Tables and Views:
+                    ✔ Language. @done(20-03-25 00:11)
+                Required Stored Procedures:
+                    ✔ SaveLanguage. @done(20-03-25 00:19)
         99.test.scripts:
     Features:
         ☐ Feature 1.
