@@ -13,6 +13,16 @@ Project:
             04.master.pk:
         02.functions:
             01.utilities:
+                ☐ 01.IsNullOrEmpty.
+                ☐ 02.IsSameDate.
+                ☐ 03.IsSameMonth.
+                ☐ 04.IsSameYear.
+                ☐ 05.NewSID (NewIDView vite required).
+                ☐ 06.MinDateTime.
+                ☐ 07.MaxDateTime.
+                ☐ 08.ToMinTime.
+                ☐ 09.ToMaxTime.
+                ☐ 10.IsLangExist (Language table required).
         03.stored.procedures:
             01.utilities:
             02.error.messages:
