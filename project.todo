@@ -1,4 +1,8 @@
 Project:
+    Web Server:
+        Express JS:
+            ☐ Checks how to make url work with and without tailing slash.
+            ☐ Working with REST Api for each datae items to reduce login on client screen.
     Features:
         ☐ Feature 1.
         ☐ Feature 2.
