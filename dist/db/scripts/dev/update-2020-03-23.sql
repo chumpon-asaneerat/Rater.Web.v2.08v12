@@ -186,18 +186,6 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE VIEW [dbo].[NewIDView] AS SELECT NEWID() NEW_ID;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
 -- =============================================
 -- Author: Chumpon Asaneerat
 -- Name: Language.
@@ -4339,6 +4327,48 @@ GO
 /*********** Script Update Date: 2020-03-23  ***********/
 SET ANSI_NULLS ON
 GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init supports languages
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitLanguages
+-- =============================================
+CREATE PROCEDURE [dbo].[InitLanguages]
+AS
+BEGIN
+    /*
+    EXEC SaveLanguage N'', N'', N'', 1, 1
+    */
+    EXEC SaveLanguage N'EN', N'US', N'English', 1, 1
+    EXEC SaveLanguage N'TH', N'TH', N'ไทย', 2, 1
+    EXEC SaveLanguage N'ZH', N'CN', N'中文', 3, 1
+    EXEC SaveLanguage N'JA', N'JP', N'中文', 4, 1
+    EXEC SaveLanguage N'DE', N'DE', N'Deutsche', 5, 0
+    EXEC SaveLanguage N'FR', N'FR', N'français', 6, 0
+    EXEC SaveLanguage N'KO', N'KR', N'한국어', 7, 1
+    EXEC SaveLanguage N'RU', N'RU', N'Россия', 8, 0
+    EXEC SaveLanguage N'ES', N'ES', N'Spanish', 9, 1
+END
+
+GO
+
+EXEC InitLanguages;
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
@@ -4648,6 +4678,57 @@ GO
 /*********** Script Update Date: 2020-03-23  ***********/
 SET ANSI_NULLS ON
 GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init Default user for EDL and add related reset all generate id for PK.
+-- [== History ==]
+-- <2016-10-30> :
+--	- Stored Procedure Created.
+-- <2017-06-07> :
+--	- Remove Auto Create EDL Admin User. Need to call manually.
+--
+-- [== Example ==]
+--
+--exec InitMasterPKs
+-- =============================================
+CREATE PROCEDURE [dbo].[InitMasterPKs] (
+  @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+	BEGIN TRY
+		-- For EDL
+		exec SetMasterPK N'UserInfo', 1, 'EDL-U', 3;
+		-- For Customer
+		exec SetMasterPK N'Customer', 2, 'EDL-C', 4;
+
+		IF (@errNum <> 0)
+		BEGIN
+			RETURN
+		END
+		SET @errNum = 0;
+		SET @errMsg = N'success';
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+EXEC InitMasterPKs;
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -4943,6 +5024,69 @@ BEGIN
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId,LangId))))
 	 ORDER BY SortOrder, PeriodUnitId
 END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init Init Period Units.
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+-- <2018-04-16> :
+--	- replace insert with sp call.
+--
+-- [== Example ==]
+--
+--exec InitPeriodUnits
+-- =============================================
+CREATE PROCEDURE [dbo].[InitPeriodUnits]
+AS
+BEGIN
+    EXEC SavePeriodUnit 1, N'day'
+    EXEC SavePeriodUnit 2, N'month'
+    EXEC SavePeriodUnit 3, N'year'
+
+	-- [ENGLISH]
+    EXEC SavePeriodUnitML 1, N'EN', N'day'
+    EXEC SavePeriodUnitML 2, N'EN', N'month'
+    EXEC SavePeriodUnitML 3, N'EN', N'year'
+	-- [THAI]
+    EXEC SavePeriodUnitML 1, N'TH', N'วัน'
+    EXEC SavePeriodUnitML 2, N'TH', N'เดือน'
+    EXEC SavePeriodUnitML 3, N'TH', N'ปี'
+	-- [CHINESE]
+	EXEC SavePeriodUnitML 1, N'ZH', N'天'
+	EXEC SavePeriodUnitML 2, N'ZH', N'月'
+	EXEC SavePeriodUnitML 3, N'ZH', N'年'
+	-- [JAPANESE]
+	EXEC SavePeriodUnitML 1, N'JA', N'日'
+	EXEC SavePeriodUnitML 2, N'JA', N'月'
+	EXEC SavePeriodUnitML 3, N'JA', N'年'
+	-- [GERMAN]
+	EXEC SavePeriodUnitML 1, N'DE', N'Tag'
+	EXEC SavePeriodUnitML 2, N'DE', N'Monat'
+	EXEC SavePeriodUnitML 3, N'DE', N'Jahr'
+	-- [FRENCH]
+	EXEC SavePeriodUnitML 1, N'FR', N'jour'
+	EXEC SavePeriodUnitML 2, N'FR', N'mois'
+	EXEC SavePeriodUnitML 3, N'FR', N'an'
+	-- [KOREAN]
+	EXEC SavePeriodUnitML 1, N'KO', N'일'
+	EXEC SavePeriodUnitML 2, N'KO', N'달'
+	EXEC SavePeriodUnitML 3, N'KO', N'년'
+END
+
+GO
+
+EXEC InitPeriodUnits;
 
 GO
 
@@ -5272,6 +5416,55 @@ GO
 /*********** Script Update Date: 2020-03-23  ***********/
 SET ANSI_NULLS ON
 GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init Init Limit Units.
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+-- <2018-04-16> :
+--	- replace insert with sp call.
+--
+-- [== Example ==]
+--
+--exec InitLimitUnits
+-- =============================================
+CREATE PROCEDURE [dbo].[InitLimitUnits]
+AS
+BEGIN
+	/* DEFAULT LIMIT UNITS. */
+    EXEC SaveLimitUnit 1, N'Number of Device(s)', N'device(s)'
+    EXEC SaveLimitUnit 2, N'Number of User(s)', N'user(s)'
+    EXEC SaveLimitUnit 3, N'Number of Client(s)', N'client(s)'
+
+	/* [== ENGLISH ==] */
+	EXEC SaveLimitUnitML 1, N'EN', N'Number of Device(s)', N'device(s)'
+	EXEC SaveLimitUnitML 2, N'EN', N'Number of User(s)', N'user(s)'
+	EXEC SaveLimitUnitML 3, N'EN', N'Number of Client(s)', N'client(s)'
+	/* [== THAI ==] */
+	EXEC SaveLimitUnitML 1, N'TH', N'จำนวนเครื่อง', N'เครื่อง'
+	EXEC SaveLimitUnitML 2, N'TH', N'จำนวนบัญชีผู้ใช้', N'คน'
+	EXEC SaveLimitUnitML 3, N'TH', N'จำนวนจุดติดตั้ง', N'จุด'
+	/* [== JAPANESE ==] */
+	EXEC SaveLimitUnitML 1, N'JA', N'番号', N'デバイス'
+	EXEC SaveLimitUnitML 2, N'JA', N'ユーザー数', N'人'
+	EXEC SaveLimitUnitML 3, N'JA', N'同時ユーザー', N'ポイント'
+END
+
+GO
+
+EXEC InitLimitUnits;
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -5321,6 +5514,111 @@ GO
 /*********** Script Update Date: 2020-03-23  ***********/
 SET ANSI_NULLS ON
 GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init Member Types.
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitMemberTypesS
+-- =============================================
+CREATE PROCEDURE [dbo].[InitMemberTypes]
+AS
+BEGIN
+    DELETE FROM MemberTypeML;
+    DELETE FROM MemberType;
+
+	-- [EDL - ADMIN]
+	INSERT INTO MemberType VALUES (100, N'EDL - Admin')
+	-- [EDL - POWER USER]
+	INSERT INTO MemberType VALUES (110, N'EDL - Power User')
+	-- [EDL - STAFF]
+	INSERT INTO MemberType VALUES (180, N'EDL - Staff')
+	-- [CUSTOMER - ADMIN]
+	INSERT INTO MemberType VALUES (200, N'Admin')
+	-- [CUSTOMER - EXCLUSIVE]
+	INSERT INTO MemberType VALUES (210, N'Exclusive')
+	-- [CUSTOMER - STAFF]
+	INSERT INTO MemberType VALUES (280, N'Staff')
+	-- [CUSTOMER - DEVICE]
+	INSERT INTO MemberType VALUES (290, N'Device')
+
+	-- [ENGLISH]
+	INSERT INTO MemberTypeML VALUES(100, N'EN', N'EDL - Admin');
+	INSERT INTO MemberTypeML VALUES(110, N'EN', N'EDL - Power User');
+	INSERT INTO MemberTypeML VALUES(180, N'EN', N'EDL - Staff');
+	INSERT INTO MemberTypeML VALUES(200, N'EN', N'Admin');
+	INSERT INTO MemberTypeML VALUES(210, N'EN', N'Exclusive');
+	INSERT INTO MemberTypeML VALUES(280, N'EN', N'Staff');
+	INSERT INTO MemberTypeML VALUES(290, N'EN', N'Device');
+	-- [THAI]
+	INSERT INTO MemberTypeML VALUES(100, N'TH', N'อีดีแอล - ผู้ดูแลระบบ');
+	INSERT INTO MemberTypeML VALUES(110, N'TH', N'อีดีแอล - เจ้าหน้าที่ระดับควบคุม');
+	INSERT INTO MemberTypeML VALUES(180, N'TH', N'อีดีแอล - เจ้าหน้าที่ปฏิบัติการ');
+	INSERT INTO MemberTypeML VALUES(200, N'TH', N'ผู้ดูแลระบบ');
+	INSERT INTO MemberTypeML VALUES(210, N'TH', N'ผู้บริหาร');
+	INSERT INTO MemberTypeML VALUES(280, N'TH', N'เจ้าหน้าที่ปฏิบัติการ');
+	INSERT INTO MemberTypeML VALUES(290, N'TH', N'อุปกรณ์');
+	-- [CHINESE]
+	INSERT INTO MemberTypeML VALUES(100, N'ZH', N'EDL - 管理员');
+	INSERT INTO MemberTypeML VALUES(110, N'ZH', N'EDL - 管理者');
+	INSERT INTO MemberTypeML VALUES(180, N'ZH', N'EDL - 员工');
+	INSERT INTO MemberTypeML VALUES(200, N'ZH', N'管理员');
+	INSERT INTO MemberTypeML VALUES(210, N'ZH', N'管理者');
+	INSERT INTO MemberTypeML VALUES(280, N'ZH', N'员工');
+	INSERT INTO MemberTypeML VALUES(290, N'ZH', N'设备');
+	-- [JAPANESE]
+	INSERT INTO MemberTypeML VALUES(100, N'JA', N'EDL - 支配人');
+	INSERT INTO MemberTypeML VALUES(110, N'JA', N'EDL - 監督');
+	INSERT INTO MemberTypeML VALUES(180, N'JA', N'EDL - 職員');
+	INSERT INTO MemberTypeML VALUES(200, N'JA', N'支配人');
+	INSERT INTO MemberTypeML VALUES(210, N'JA', N'監督');
+	INSERT INTO MemberTypeML VALUES(280, N'JA', N'職員');
+	INSERT INTO MemberTypeML VALUES(290, N'JA', N'デバイス');
+	-- [GERMAN]
+	INSERT INTO MemberTypeML VALUES(100, N'DE', N'EDL - Administrator');
+	INSERT INTO MemberTypeML VALUES(110, N'DE', N'EDL - Aufsicht');
+	INSERT INTO MemberTypeML VALUES(180, N'DE', N'EDL - Belegschaft');
+	INSERT INTO MemberTypeML VALUES(200, N'DE', N'Administrator');
+	INSERT INTO MemberTypeML VALUES(210, N'DE', N'Exklusiv');
+	INSERT INTO MemberTypeML VALUES(280, N'DE', N'Belegschaft');
+	INSERT INTO MemberTypeML VALUES(290, N'DE', N'Device');
+	-- [FRENCH]
+	INSERT INTO MemberTypeML VALUES(100, N'FR', N'EDL - Administrateur');
+	INSERT INTO MemberTypeML VALUES(110, N'FR', N'EDL - Superviseur');
+	INSERT INTO MemberTypeML VALUES(180, N'FR', N'EDL - Personnel');
+	INSERT INTO MemberTypeML VALUES(200, N'FR', N'Administrateur');
+	INSERT INTO MemberTypeML VALUES(210, N'FR', N'Exclusif');
+	INSERT INTO MemberTypeML VALUES(280, N'FR', N'Personnel');
+	INSERT INTO MemberTypeML VALUES(290, N'FR', N'Appareil');
+	-- [KOREAN]
+	INSERT INTO MemberTypeML VALUES(100, N'KO', N'EDL - 관리자');
+	INSERT INTO MemberTypeML VALUES(110, N'KO', N'EDL - 감독자');
+	INSERT INTO MemberTypeML VALUES(180, N'KO', N'EDL - 직원');
+	INSERT INTO MemberTypeML VALUES(200, N'KO', N'관리자');
+	INSERT INTO MemberTypeML VALUES(210, N'KO', N'감독자');
+	INSERT INTO MemberTypeML VALUES(280, N'KO', N'직원');
+	INSERT INTO MemberTypeML VALUES(290, N'KO', N'장치');
+END
+
+GO
+
+EXEC InitMemberTypes;
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -5356,6 +5654,90 @@ BEGIN
         AND UPPER(LTRIM(RTRIM(DeviceTypeId))) = UPPER(LTRIM(RTRIM(COALESCE(@deviceTypeId, DeviceTypeId))))
     ORDER BY SortOrder, LangId, deviceTypeId;
 END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Init Device Types.
+-- [== History ==]
+-- <2018-05-22> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitDeviceTypes
+-- =============================================
+CREATE PROCEDURE [dbo].[InitDeviceTypes]
+AS
+BEGIN
+	--DELETE FROM DeviceTypeML;
+	--DELETE FROM DeviceType;
+
+	-- Unknown
+	INSERT INTO DeviceType VALUES (0, N'Unknown')
+	-- Browser desktop - Chrome
+	INSERT INTO DeviceType VALUES (101, N'Chrome desktop browser')
+	-- Browser desktop - IE-Edge
+	INSERT INTO DeviceType VALUES (102, N'IE-Edge desktop browser')
+	-- Browser desktop - FireFox
+	INSERT INTO DeviceType VALUES (103, N'FireFox desktop browser')
+	-- Browser desktop - Opera
+	INSERT INTO DeviceType VALUES (104, N'Opera desktop browser')
+	-- Browser desktop - Safari
+	INSERT INTO DeviceType VALUES (105, N'Safari desktop browser')
+	-- Browser Mobile - Chrome
+	INSERT INTO DeviceType VALUES (201, N'Chrome mobile browser')
+	-- Browser Mobile - Andriod
+	INSERT INTO DeviceType VALUES (202, N'Andriod mobile browser')
+	-- Browser Mobile - FireFox
+	INSERT INTO DeviceType VALUES (203, N'FireFox mobile browser')
+	-- Browser Mobile - Opera
+	INSERT INTO DeviceType VALUES (204, N'Opera mobile browser')
+	-- Browser Mobile - Safari
+	INSERT INTO DeviceType VALUES (205, N'Safari mobile browser')
+	-- Browser Mobile - Safari
+	INSERT INTO DeviceType VALUES (206, N'Edge mobile browser')
+
+	-- [ENGLISH]
+	INSERT INTO DeviceTypeML VALUES(  0, N'EN', N'Unknown');
+	INSERT INTO DeviceTypeML VALUES(101, N'EN', N'Chrome desktop browser');
+	INSERT INTO DeviceTypeML VALUES(102, N'EN', N'IE-Edge desktop browser');
+	INSERT INTO DeviceTypeML VALUES(103, N'EN', N'FireFox desktop browser');
+	INSERT INTO DeviceTypeML VALUES(104, N'EN', N'Opera desktop browser');
+	INSERT INTO DeviceTypeML VALUES(105, N'EN', N'Safari desktop browser');
+	INSERT INTO DeviceTypeML VALUES(201, N'EN', N'Chrome mobile browser');
+	INSERT INTO DeviceTypeML VALUES(202, N'EN', N'Andriod mobile browser');
+	INSERT INTO DeviceTypeML VALUES(203, N'EN', N'FireFox mobile browser');
+	INSERT INTO DeviceTypeML VALUES(204, N'EN', N'Opera mobile browser');
+	INSERT INTO DeviceTypeML VALUES(205, N'EN', N'Safari mobile browser');
+	INSERT INTO DeviceTypeML VALUES(206, N'EN', N'Edge mobile browser');
+	-- [THAI]
+	INSERT INTO DeviceTypeML VALUES(  0, N'TH', N'ไม่ระบุ');
+	INSERT INTO DeviceTypeML VALUES(101, N'TH', N'โคลม เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(102, N'TH', N'ไออี-เอจ เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(103, N'TH', N'ไฟร์ฟอกซ์ เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(104, N'TH', N'โอเปร่า เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(105, N'TH', N'ซาฟารี เดสก์ท็อป เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(201, N'TH', N'โคลม โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(202, N'TH', N'แอนดรอยด์ โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(203, N'TH', N'ไฟร์ฟอกซ์ โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(204, N'TH', N'โอเปร่า โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(205, N'TH', N'ซาฟารี โมบาย เบราว์เซอร์');
+	INSERT INTO DeviceTypeML VALUES(206, N'TH', N'เอจ โมบาย เบราว์เซอร์');
+END
+
+GO
+
+EXEC InitDeviceTypes;
 
 GO
 
@@ -5790,6 +6172,93 @@ GO
 /*********** Script Update Date: 2020-03-23  ***********/
 SET ANSI_NULLS ON
 GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: InitLicenseTypes.
+-- Description:	Init Init License Types.
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitLicenseTypes
+-- =============================================
+CREATE PROCEDURE [dbo].[InitLicenseTypes]
+AS
+BEGIN
+DECLARE @id0 int;
+DECLARE @id1 int;
+DECLARE @id2 int;
+DECLARE @id3 int;
+	/* DELETE FIRST */
+	DELETE FROM LicenseTypeML;
+	DELETE FROM LicenseType;
+
+	SET @id0 = 0
+	SET @id1 = 1
+	SET @id2 = 2
+	SET @id3 = 3
+	
+	-- [DAY]
+	INSERT INTO LicenseType VALUES (@id0, N'Trial', N'Free Full Functional', 1, 15, 0.00, N'฿', N'BAHT')
+	-- [MONTH]
+	INSERT INTO LicenseType VALUES (@id1, N'Monthly', N'Save 33% with full functions', 2, 1, 55.99, N'฿', N'BAHT')
+	-- [6 Months]
+	INSERT INTO LicenseType VALUES (@id2, N'6 Months', N'Save 40% with full functions', 2, 6, 315.99, N'฿', N'BAHT')
+	-- [YEAR]
+	INSERT INTO LicenseType VALUES (@id3, N'Yearly', N'Save 60% with full functions', 3, 1, 420.99, N'฿', N'BAHT')
+
+	-- [ENGLISH]
+	EXEC SaveLicenseTypeML @id0, N'EN', N'Trial', N'Free Full Functional', 0.00
+	EXEC SaveLicenseTypeML @id1, N'EN', N'Monthly', N'Save 33% with full functions', 55.99
+	EXEC SaveLicenseTypeML @id2, N'EN', N'6 Months', N'Save 40% with full functions', 315.99
+	EXEC SaveLicenseTypeML @id3, N'EN', N'Yearly', N'Save 60% with full functions', 420.99
+	-- [THAI]
+	EXEC SaveLicenseTypeML @id0, N'TH', N'ทดลองใช้', N'ทดลองใช้ฟรี ทุกฟังก์ชั่น', 0.00, N'฿', N'บาท'
+	EXEC SaveLicenseTypeML @id1, N'TH', N'รายเดือน', N'ประหยัดทันที 33% พร้อมใช้งานทุกฟังก์ชั่น', 2000.00, N'฿', N'บาท'
+	EXEC SaveLicenseTypeML @id2, N'TH', N'6 เดือน', N'ประหยัดทันที 40% พร้อมใช้งานทุกฟังก์ชั่น', 10800.00, N'฿', N'บาท'
+	EXEC SaveLicenseTypeML @id3, N'TH', N'รายปี', N'ประหยัดทันที 60% พร้อมใช้งานทุกฟังก์ชั่น', 14400.00, N'฿', N'บาท'
+	-- [CHINESE]
+	EXEC SaveLicenseTypeML @id0, N'ZH', N'审讯', N'免费试用 所有可用的功能', NULL
+	EXEC SaveLicenseTypeML @id1, N'ZH', N'每月一次', N'ประหยัดทันที 33% 所有可用的功能', NULL
+	EXEC SaveLicenseTypeML @id2, N'ZH', N'6个月', N'ประหยัดทันที 40% 所有可用的功能', NULL
+	EXEC SaveLicenseTypeML @id3, N'ZH', N'每年', N'ประหยัดทันที 60% 所有可用的功能', NULL
+	-- [JAPANESE]
+	EXEC SaveLicenseTypeML @id0, N'JA', N'実験', N'無料体験. すべての利用可能な機能', NULL
+	EXEC SaveLicenseTypeML @id1, N'JA', N'毎月', N'33％を保存. すべての利用可能な機能', NULL
+	EXEC SaveLicenseTypeML @id2, N'JA', N'6 毎月', N'40％を保存. すべての利用可能な機能', NULL
+	EXEC SaveLicenseTypeML @id3, N'JA', N'毎年', N'60％を保存. すべての利用可能な機能', NULL
+	-- [GERMAN]
+	EXEC SaveLicenseTypeML @id0, N'DE', N'Versuch', N'Voll funktionsfähige Prüfung. Alle verfügbaren Funktionen.', NULL
+	EXEC SaveLicenseTypeML @id1, N'DE', N'monatlich', N'Sparen Sie 33%. Alle verfügbaren Funktionen.', NULL
+	EXEC SaveLicenseTypeML @id2, N'DE', N'6 monatlich', N'Sparen Sie 40%. Alle verfügbaren Funktionen.', NULL
+	EXEC SaveLicenseTypeML @id3, N'DE', N'jährlich', N'Sparen Sie 60%. Alle verfügbaren Funktionen.', NULL
+	-- [FRENCH]
+	EXEC SaveLicenseTypeML @id0, N'FR', N'épreuve', N'Complètement fonctionnel. Toutes les fonctions disponibles', NULL
+	EXEC SaveLicenseTypeML @id1, N'FR', N'mensuel', N'Économisez 33% Toutes les fonctions disponibles', NULL
+	EXEC SaveLicenseTypeML @id2, N'FR', N'6 mensuel', N'Économisez 40% Toutes les fonctions disponibles', NULL
+	EXEC SaveLicenseTypeML @id3, N'FR', N'annuel', N'Économisez 60% Toutes les fonctions disponibles', NULL
+	-- [KOREAN]
+	EXEC SaveLicenseTypeML @id0, N'KO', N'공판', N'완전 기능 시험 사용 가능한 모든 기능을합니다.', NULL
+	EXEC SaveLicenseTypeML @id1, N'KO', N'월', N'33 % 절감 사용 가능한 모든 기능을합니다.', NULL
+	EXEC SaveLicenseTypeML @id2, N'KO', N'6 월', N'40 % 절감 사용 가능한 모든 기능을합니다.', NULL
+	EXEC SaveLicenseTypeML @id3, N'KO', N'매년', N'50 % 절감 사용 가능한 모든 기능을합니다.', NULL
+END
+
+GO
+
+EXEC InitLicenseTypes;
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
 
 SET QUOTED_IDENTIFIER ON
 GO
@@ -6096,6 +6565,70 @@ BEGIN
 	   AND Enabled = 1
 	 Order By SortOrder, LicenseTypeId, Seq
 END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: InitLicenseFeatures.
+-- Description:	Init InitLicense Features.
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitLicenseFeatures
+-- =============================================
+CREATE PROCEDURE [dbo].[InitLicenseFeatures]
+AS
+BEGIN
+    -- DELETE FIRST.
+    DELETE FROM LicenseFeature
+
+	/* Trial */
+	INSERT INTO LicenseFeature
+		VALUES (0, 1, 1, 1);
+	INSERT INTO LicenseFeature
+		VALUES (0, 2, 2, 1);
+	INSERT INTO LicenseFeature
+		VALUES (0, 3, 3, 1);
+	/* Monthly */
+	INSERT INTO LicenseFeature
+		VALUES (1, 1, 1, 5);
+	INSERT INTO LicenseFeature
+		VALUES (1, 2, 2, 10);
+	INSERT INTO LicenseFeature
+		VALUES (1, 3, 3, 10);
+
+	/* 6 Months */
+	INSERT INTO LicenseFeature
+		VALUES (2, 1, 1, 5);
+	INSERT INTO LicenseFeature
+		VALUES (2, 2, 2, 10);
+	INSERT INTO LicenseFeature
+		VALUES (2, 3, 3, 10);
+
+	/* Yearly */
+	INSERT INTO LicenseFeature
+		VALUES (3, 1, 1, 10);
+	INSERT INTO LicenseFeature
+		VALUES (3, 2, 2, 20);
+	INSERT INTO LicenseFeature
+		VALUES (3, 3, 3, 20);
+END
+
+GO
+
+EXEC InitLicenseFeatures;
 
 GO
 
@@ -6503,6 +7036,44 @@ BEGIN
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId,LangId))))
 	 ORDER BY SortOrder, UserId
 END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-23  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: InitDefaultUser.
+-- Description:	Init Init Default User.
+-- [== History ==]
+-- <2017-08-06> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec InitDefaultUser
+-- =============================================
+CREATE PROCEDURE [dbo].[InitDefaultUser]
+AS
+BEGIN
+	DECLARE @errNum int = null;
+	DECLARE @errMsg nvarchar(MAX) = null;
+	DECLARE @userId nvarchar(30);
+	EXEC SaveUserInfo N'The', N'EDL', N'Administrator', N'raterweb2-admin@edl.co.th', N'1234', 100--, @userId out, @errNum out, @errMsg out;
+	--SELECT @userId AS userId, @errNum AS ErrNum, @errMsg AS ErrMsg;
+	EXEC SaveUserInfoML @userId, N'TH', N'[', N'แอดมิน', N']'--, @errNum out, @errMsg out;
+	--SELECT @userId AS userId, @errNum AS ErrNum, @errMsg AS ErrMsg;
+END
+
+GO
+
+EXEC InitDefaultUser;
 
 GO
 
@@ -13402,9 +13973,6 @@ GO
 
 
 /*********** Script Update Date: 2020-03-23  ***********/
-DROP PROCEDURE FilterOrgs;
-GO
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13412,7 +13980,7 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Name: FilterOrgs.
+-- Name: Filter Vote Orgs.
 -- Description:	Filter Vote Orgs from vote table that match date range.
 -- [== History ==]
 -- <2019-11-07> :
@@ -14942,589 +15510,6 @@ DECLARE @iCnt int = 0;
 		SET @errMsg = ERROR_MESSAGE();
 	END CATCH
 END
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Description:	Init supports languages
--- [== History ==]
--- <2017-08-06> :
---	- Stored Procedure Created.
---
--- [== Example ==]
---
---exec InitLanguages
--- =============================================
-CREATE PROCEDURE [dbo].[InitLanguages]
-AS
-BEGIN
-    /*
-    EXEC SaveLanguage N'', N'', N'', 1, 1
-    */
-    EXEC SaveLanguage N'EN', N'US', N'English', 1, 1
-    EXEC SaveLanguage N'TH', N'TH', N'ไทย', 2, 1
-    EXEC SaveLanguage N'ZH', N'CN', N'中文', 3, 1
-    EXEC SaveLanguage N'JA', N'JP', N'中文', 4, 1
-    EXEC SaveLanguage N'DE', N'DE', N'Deutsche', 5, 0
-    EXEC SaveLanguage N'FR', N'FR', N'français', 6, 0
-    EXEC SaveLanguage N'KO', N'KR', N'한국어', 7, 1
-    EXEC SaveLanguage N'RU', N'RU', N'Россия', 8, 0
-    EXEC SaveLanguage N'ES', N'ES', N'Spanish', 9, 1
-END
-
-GO
-
-EXEC InitLanguages;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Description:	Init Member Types.
--- [== History ==]
--- <2017-08-06> :
---	- Stored Procedure Created.
---
--- [== Example ==]
---
---exec InitMemberTypesS
--- =============================================
-CREATE PROCEDURE [dbo].[InitMemberTypes]
-AS
-BEGIN
-    DELETE FROM MemberTypeML;
-    DELETE FROM MemberType;
-
-	-- [EDL - ADMIN]
-	INSERT INTO MemberType VALUES (100, N'EDL - Admin')
-	-- [EDL - POWER USER]
-	INSERT INTO MemberType VALUES (110, N'EDL - Power User')
-	-- [EDL - STAFF]
-	INSERT INTO MemberType VALUES (180, N'EDL - Staff')
-	-- [CUSTOMER - ADMIN]
-	INSERT INTO MemberType VALUES (200, N'Admin')
-	-- [CUSTOMER - EXCLUSIVE]
-	INSERT INTO MemberType VALUES (210, N'Exclusive')
-	-- [CUSTOMER - STAFF]
-	INSERT INTO MemberType VALUES (280, N'Staff')
-	-- [CUSTOMER - DEVICE]
-	INSERT INTO MemberType VALUES (290, N'Device')
-
-	-- [ENGLISH]
-	INSERT INTO MemberTypeML VALUES(100, N'EN', N'EDL - Admin');
-	INSERT INTO MemberTypeML VALUES(110, N'EN', N'EDL - Power User');
-	INSERT INTO MemberTypeML VALUES(180, N'EN', N'EDL - Staff');
-	INSERT INTO MemberTypeML VALUES(200, N'EN', N'Admin');
-	INSERT INTO MemberTypeML VALUES(210, N'EN', N'Exclusive');
-	INSERT INTO MemberTypeML VALUES(280, N'EN', N'Staff');
-	INSERT INTO MemberTypeML VALUES(290, N'EN', N'Device');
-	-- [THAI]
-	INSERT INTO MemberTypeML VALUES(100, N'TH', N'อีดีแอล - ผู้ดูแลระบบ');
-	INSERT INTO MemberTypeML VALUES(110, N'TH', N'อีดีแอล - เจ้าหน้าที่ระดับควบคุม');
-	INSERT INTO MemberTypeML VALUES(180, N'TH', N'อีดีแอล - เจ้าหน้าที่ปฏิบัติการ');
-	INSERT INTO MemberTypeML VALUES(200, N'TH', N'ผู้ดูแลระบบ');
-	INSERT INTO MemberTypeML VALUES(210, N'TH', N'ผู้บริหาร');
-	INSERT INTO MemberTypeML VALUES(280, N'TH', N'เจ้าหน้าที่ปฏิบัติการ');
-	INSERT INTO MemberTypeML VALUES(290, N'TH', N'อุปกรณ์');
-	-- [CHINESE]
-	INSERT INTO MemberTypeML VALUES(100, N'ZH', N'EDL - 管理员');
-	INSERT INTO MemberTypeML VALUES(110, N'ZH', N'EDL - 管理者');
-	INSERT INTO MemberTypeML VALUES(180, N'ZH', N'EDL - 员工');
-	INSERT INTO MemberTypeML VALUES(200, N'ZH', N'管理员');
-	INSERT INTO MemberTypeML VALUES(210, N'ZH', N'管理者');
-	INSERT INTO MemberTypeML VALUES(280, N'ZH', N'员工');
-	INSERT INTO MemberTypeML VALUES(290, N'ZH', N'设备');
-	-- [JAPANESE]
-	INSERT INTO MemberTypeML VALUES(100, N'JA', N'EDL - 支配人');
-	INSERT INTO MemberTypeML VALUES(110, N'JA', N'EDL - 監督');
-	INSERT INTO MemberTypeML VALUES(180, N'JA', N'EDL - 職員');
-	INSERT INTO MemberTypeML VALUES(200, N'JA', N'支配人');
-	INSERT INTO MemberTypeML VALUES(210, N'JA', N'監督');
-	INSERT INTO MemberTypeML VALUES(280, N'JA', N'職員');
-	INSERT INTO MemberTypeML VALUES(290, N'JA', N'デバイス');
-	-- [GERMAN]
-	INSERT INTO MemberTypeML VALUES(100, N'DE', N'EDL - Administrator');
-	INSERT INTO MemberTypeML VALUES(110, N'DE', N'EDL - Aufsicht');
-	INSERT INTO MemberTypeML VALUES(180, N'DE', N'EDL - Belegschaft');
-	INSERT INTO MemberTypeML VALUES(200, N'DE', N'Administrator');
-	INSERT INTO MemberTypeML VALUES(210, N'DE', N'Exklusiv');
-	INSERT INTO MemberTypeML VALUES(280, N'DE', N'Belegschaft');
-	INSERT INTO MemberTypeML VALUES(290, N'DE', N'Device');
-	-- [FRENCH]
-	INSERT INTO MemberTypeML VALUES(100, N'FR', N'EDL - Administrateur');
-	INSERT INTO MemberTypeML VALUES(110, N'FR', N'EDL - Superviseur');
-	INSERT INTO MemberTypeML VALUES(180, N'FR', N'EDL - Personnel');
-	INSERT INTO MemberTypeML VALUES(200, N'FR', N'Administrateur');
-	INSERT INTO MemberTypeML VALUES(210, N'FR', N'Exclusif');
-	INSERT INTO MemberTypeML VALUES(280, N'FR', N'Personnel');
-	INSERT INTO MemberTypeML VALUES(290, N'FR', N'Appareil');
-	-- [KOREAN]
-	INSERT INTO MemberTypeML VALUES(100, N'KO', N'EDL - 관리자');
-	INSERT INTO MemberTypeML VALUES(110, N'KO', N'EDL - 감독자');
-	INSERT INTO MemberTypeML VALUES(180, N'KO', N'EDL - 직원');
-	INSERT INTO MemberTypeML VALUES(200, N'KO', N'관리자');
-	INSERT INTO MemberTypeML VALUES(210, N'KO', N'감독자');
-	INSERT INTO MemberTypeML VALUES(280, N'KO', N'직원');
-	INSERT INTO MemberTypeML VALUES(290, N'KO', N'장치');
-END
-
-GO
-
-EXEC InitMemberTypes;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Description:	Init Init Period Units.
--- [== History ==]
--- <2017-08-06> :
---	- Stored Procedure Created.
--- <2018-04-16> :
---	- replace insert with sp call.
---
--- [== Example ==]
---
---exec InitPeriodUnits
--- =============================================
-CREATE PROCEDURE [dbo].[InitPeriodUnits]
-AS
-BEGIN
-    EXEC SavePeriodUnit 1, N'day'
-    EXEC SavePeriodUnit 2, N'month'
-    EXEC SavePeriodUnit 3, N'year'
-
-	-- [ENGLISH]
-    EXEC SavePeriodUnitML 1, N'EN', N'day'
-    EXEC SavePeriodUnitML 2, N'EN', N'month'
-    EXEC SavePeriodUnitML 3, N'EN', N'year'
-	-- [THAI]
-    EXEC SavePeriodUnitML 1, N'TH', N'วัน'
-    EXEC SavePeriodUnitML 2, N'TH', N'เดือน'
-    EXEC SavePeriodUnitML 3, N'TH', N'ปี'
-	-- [CHINESE]
-	EXEC SavePeriodUnitML 1, N'ZH', N'天'
-	EXEC SavePeriodUnitML 2, N'ZH', N'月'
-	EXEC SavePeriodUnitML 3, N'ZH', N'年'
-	-- [JAPANESE]
-	EXEC SavePeriodUnitML 1, N'JA', N'日'
-	EXEC SavePeriodUnitML 2, N'JA', N'月'
-	EXEC SavePeriodUnitML 3, N'JA', N'年'
-	-- [GERMAN]
-	EXEC SavePeriodUnitML 1, N'DE', N'Tag'
-	EXEC SavePeriodUnitML 2, N'DE', N'Monat'
-	EXEC SavePeriodUnitML 3, N'DE', N'Jahr'
-	-- [FRENCH]
-	EXEC SavePeriodUnitML 1, N'FR', N'jour'
-	EXEC SavePeriodUnitML 2, N'FR', N'mois'
-	EXEC SavePeriodUnitML 3, N'FR', N'an'
-	-- [KOREAN]
-	EXEC SavePeriodUnitML 1, N'KO', N'일'
-	EXEC SavePeriodUnitML 2, N'KO', N'달'
-	EXEC SavePeriodUnitML 3, N'KO', N'년'
-END
-
-GO
-
-EXEC InitPeriodUnits;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Description:	Init Init Limit Units.
--- [== History ==]
--- <2017-08-06> :
---	- Stored Procedure Created.
--- <2018-04-16> :
---	- replace insert with sp call.
---
--- [== Example ==]
---
---exec InitLimitUnits
--- =============================================
-CREATE PROCEDURE [dbo].[InitLimitUnits]
-AS
-BEGIN
-	/* DEFAULT LIMIT UNITS. */
-    EXEC SaveLimitUnit 1, N'Number of Device(s)', N'device(s)'
-    EXEC SaveLimitUnit 2, N'Number of User(s)', N'user(s)'
-    EXEC SaveLimitUnit 3, N'Number of Client(s)', N'client(s)'
-
-	/* [== ENGLISH ==] */
-	EXEC SaveLimitUnitML 1, N'EN', N'Number of Device(s)', N'device(s)'
-	EXEC SaveLimitUnitML 2, N'EN', N'Number of User(s)', N'user(s)'
-	EXEC SaveLimitUnitML 3, N'EN', N'Number of Client(s)', N'client(s)'
-	/* [== THAI ==] */
-	EXEC SaveLimitUnitML 1, N'TH', N'จำนวนเครื่อง', N'เครื่อง'
-	EXEC SaveLimitUnitML 2, N'TH', N'จำนวนบัญชีผู้ใช้', N'คน'
-	EXEC SaveLimitUnitML 3, N'TH', N'จำนวนจุดติดตั้ง', N'จุด'
-	/* [== JAPANESE ==] */
-	EXEC SaveLimitUnitML 1, N'JA', N'番号', N'デバイス'
-	EXEC SaveLimitUnitML 2, N'JA', N'ユーザー数', N'人'
-	EXEC SaveLimitUnitML 3, N'JA', N'同時ユーザー', N'ポイント'
-END
-
-GO
-
-EXEC InitLimitUnits;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Name: InitLicenseTypes.
--- Description:	Init Init License Types.
--- [== History ==]
--- <2017-08-06> :
---	- Stored Procedure Created.
---
--- [== Example ==]
---
---exec InitLicenseTypes
--- =============================================
-CREATE PROCEDURE [dbo].[InitLicenseTypes]
-AS
-BEGIN
-DECLARE @id0 int;
-DECLARE @id1 int;
-DECLARE @id2 int;
-DECLARE @id3 int;
-	/* DELETE FIRST */
-	DELETE FROM LicenseTypeML;
-	DELETE FROM LicenseType;
-
-	SET @id0 = 0
-	SET @id1 = 1
-	SET @id2 = 2
-	SET @id3 = 3
-	
-	-- [DAY]
-	INSERT INTO LicenseType VALUES (@id0, N'Trial', N'Free Full Functional', 1, 15, 0.00, N'฿', N'BAHT')
-	-- [MONTH]
-	INSERT INTO LicenseType VALUES (@id1, N'Monthly', N'Save 33% with full functions', 2, 1, 55.99, N'฿', N'BAHT')
-	-- [6 Months]
-	INSERT INTO LicenseType VALUES (@id2, N'6 Months', N'Save 40% with full functions', 2, 6, 315.99, N'฿', N'BAHT')
-	-- [YEAR]
-	INSERT INTO LicenseType VALUES (@id3, N'Yearly', N'Save 60% with full functions', 3, 1, 420.99, N'฿', N'BAHT')
-
-	-- [ENGLISH]
-	EXEC SaveLicenseTypeML @id0, N'EN', N'Trial', N'Free Full Functional', 0.00
-	EXEC SaveLicenseTypeML @id1, N'EN', N'Monthly', N'Save 33% with full functions', 55.99
-	EXEC SaveLicenseTypeML @id2, N'EN', N'6 Months', N'Save 40% with full functions', 315.99
-	EXEC SaveLicenseTypeML @id3, N'EN', N'Yearly', N'Save 60% with full functions', 420.99
-	-- [THAI]
-	EXEC SaveLicenseTypeML @id0, N'TH', N'ทดลองใช้', N'ทดลองใช้ฟรี ทุกฟังก์ชั่น', 0.00, N'฿', N'บาท'
-	EXEC SaveLicenseTypeML @id1, N'TH', N'รายเดือน', N'ประหยัดทันที 33% พร้อมใช้งานทุกฟังก์ชั่น', 2000.00, N'฿', N'บาท'
-	EXEC SaveLicenseTypeML @id2, N'TH', N'6 เดือน', N'ประหยัดทันที 40% พร้อมใช้งานทุกฟังก์ชั่น', 10800.00, N'฿', N'บาท'
-	EXEC SaveLicenseTypeML @id3, N'TH', N'รายปี', N'ประหยัดทันที 60% พร้อมใช้งานทุกฟังก์ชั่น', 14400.00, N'฿', N'บาท'
-	-- [CHINESE]
-	EXEC SaveLicenseTypeML @id0, N'ZH', N'审讯', N'免费试用 所有可用的功能', NULL
-	EXEC SaveLicenseTypeML @id1, N'ZH', N'每月一次', N'ประหยัดทันที 33% 所有可用的功能', NULL
-	EXEC SaveLicenseTypeML @id2, N'ZH', N'6个月', N'ประหยัดทันที 40% 所有可用的功能', NULL
-	EXEC SaveLicenseTypeML @id3, N'ZH', N'每年', N'ประหยัดทันที 60% 所有可用的功能', NULL
-	-- [JAPANESE]
-	EXEC SaveLicenseTypeML @id0, N'JA', N'実験', N'無料体験. すべての利用可能な機能', NULL
-	EXEC SaveLicenseTypeML @id1, N'JA', N'毎月', N'33％を保存. すべての利用可能な機能', NULL
-	EXEC SaveLicenseTypeML @id2, N'JA', N'6 毎月', N'40％を保存. すべての利用可能な機能', NULL
-	EXEC SaveLicenseTypeML @id3, N'JA', N'毎年', N'60％を保存. すべての利用可能な機能', NULL
-	-- [GERMAN]
-	EXEC SaveLicenseTypeML @id0, N'DE', N'Versuch', N'Voll funktionsfähige Prüfung. Alle verfügbaren Funktionen.', NULL
-	EXEC SaveLicenseTypeML @id1, N'DE', N'monatlich', N'Sparen Sie 33%. Alle verfügbaren Funktionen.', NULL
-	EXEC SaveLicenseTypeML @id2, N'DE', N'6 monatlich', N'Sparen Sie 40%. Alle verfügbaren Funktionen.', NULL
-	EXEC SaveLicenseTypeML @id3, N'DE', N'jährlich', N'Sparen Sie 60%. Alle verfügbaren Funktionen.', NULL
-	-- [FRENCH]
-	EXEC SaveLicenseTypeML @id0, N'FR', N'épreuve', N'Complètement fonctionnel. Toutes les fonctions disponibles', NULL
-	EXEC SaveLicenseTypeML @id1, N'FR', N'mensuel', N'Économisez 33% Toutes les fonctions disponibles', NULL
-	EXEC SaveLicenseTypeML @id2, N'FR', N'6 mensuel', N'Économisez 40% Toutes les fonctions disponibles', NULL
-	EXEC SaveLicenseTypeML @id3, N'FR', N'annuel', N'Économisez 60% Toutes les fonctions disponibles', NULL
-	-- [KOREAN]
-	EXEC SaveLicenseTypeML @id0, N'KO', N'공판', N'완전 기능 시험 사용 가능한 모든 기능을합니다.', NULL
-	EXEC SaveLicenseTypeML @id1, N'KO', N'월', N'33 % 절감 사용 가능한 모든 기능을합니다.', NULL
-	EXEC SaveLicenseTypeML @id2, N'KO', N'6 월', N'40 % 절감 사용 가능한 모든 기능을합니다.', NULL
-	EXEC SaveLicenseTypeML @id3, N'KO', N'매년', N'50 % 절감 사용 가능한 모든 기능을합니다.', NULL
-END
-
-GO
-
-EXEC InitLicenseTypes;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Name: InitLicenseFeatures.
--- Description:	Init InitLicense Features.
--- [== History ==]
--- <2017-08-06> :
---	- Stored Procedure Created.
---
--- [== Example ==]
---
---exec InitLicenseFeatures
--- =============================================
-CREATE PROCEDURE [dbo].[InitLicenseFeatures]
-AS
-BEGIN
-    -- DELETE FIRST.
-    DELETE FROM LicenseFeature
-
-	/* Trial */
-	INSERT INTO LicenseFeature
-		VALUES (0, 1, 1, 1);
-	INSERT INTO LicenseFeature
-		VALUES (0, 2, 2, 1);
-	INSERT INTO LicenseFeature
-		VALUES (0, 3, 3, 1);
-	/* Monthly */
-	INSERT INTO LicenseFeature
-		VALUES (1, 1, 1, 5);
-	INSERT INTO LicenseFeature
-		VALUES (1, 2, 2, 10);
-	INSERT INTO LicenseFeature
-		VALUES (1, 3, 3, 10);
-
-	/* 6 Months */
-	INSERT INTO LicenseFeature
-		VALUES (2, 1, 1, 5);
-	INSERT INTO LicenseFeature
-		VALUES (2, 2, 2, 10);
-	INSERT INTO LicenseFeature
-		VALUES (2, 3, 3, 10);
-
-	/* Yearly */
-	INSERT INTO LicenseFeature
-		VALUES (3, 1, 1, 10);
-	INSERT INTO LicenseFeature
-		VALUES (3, 2, 2, 20);
-	INSERT INTO LicenseFeature
-		VALUES (3, 3, 3, 20);
-END
-
-GO
-
-EXEC InitLicenseFeatures;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Description:	Init Default user for EDL and add related reset all generate id for PK.
--- [== History ==]
--- <2016-10-30> :
---	- Stored Procedure Created.
--- <2017-06-07> :
---	- Remove Auto Create EDL Admin User. Need to call manually.
---
--- [== Example ==]
---
---exec InitMasterPKs
--- =============================================
-CREATE PROCEDURE [dbo].[InitMasterPKs] (
-  @errNum as int = 0 out
-, @errMsg as nvarchar(MAX) = N'' out)
-AS
-BEGIN
-	BEGIN TRY
-		-- For EDL
-		exec SetMasterPK N'UserInfo', 1, 'EDL-U', 3;
-		-- For Customer
-		exec SetMasterPK N'Customer', 2, 'EDL-C', 4;
-
-		IF (@errNum <> 0)
-		BEGIN
-			RETURN
-		END
-		SET @errNum = 0;
-		SET @errMsg = N'success';
-	END TRY
-	BEGIN CATCH
-		SET @errNum = ERROR_NUMBER();
-		SET @errMsg = ERROR_MESSAGE();
-	END CATCH
-END
-
-GO
-
-EXEC InitMasterPKs;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Description:	Init Device Types.
--- [== History ==]
--- <2018-05-22> :
---	- Stored Procedure Created.
---
--- [== Example ==]
---
---exec InitDeviceTypes
--- =============================================
-CREATE PROCEDURE [dbo].[InitDeviceTypes]
-AS
-BEGIN
-	--DELETE FROM DeviceTypeML;
-	--DELETE FROM DeviceType;
-
-	-- Unknown
-	INSERT INTO DeviceType VALUES (0, N'Unknown')
-	-- Browser desktop - Chrome
-	INSERT INTO DeviceType VALUES (101, N'Chrome desktop browser')
-	-- Browser desktop - IE-Edge
-	INSERT INTO DeviceType VALUES (102, N'IE-Edge desktop browser')
-	-- Browser desktop - FireFox
-	INSERT INTO DeviceType VALUES (103, N'FireFox desktop browser')
-	-- Browser desktop - Opera
-	INSERT INTO DeviceType VALUES (104, N'Opera desktop browser')
-	-- Browser desktop - Safari
-	INSERT INTO DeviceType VALUES (105, N'Safari desktop browser')
-	-- Browser Mobile - Chrome
-	INSERT INTO DeviceType VALUES (201, N'Chrome mobile browser')
-	-- Browser Mobile - Andriod
-	INSERT INTO DeviceType VALUES (202, N'Andriod mobile browser')
-	-- Browser Mobile - FireFox
-	INSERT INTO DeviceType VALUES (203, N'FireFox mobile browser')
-	-- Browser Mobile - Opera
-	INSERT INTO DeviceType VALUES (204, N'Opera mobile browser')
-	-- Browser Mobile - Safari
-	INSERT INTO DeviceType VALUES (205, N'Safari mobile browser')
-	-- Browser Mobile - Safari
-	INSERT INTO DeviceType VALUES (206, N'Edge mobile browser')
-
-	-- [ENGLISH]
-	INSERT INTO DeviceTypeML VALUES(  0, N'EN', N'Unknown');
-	INSERT INTO DeviceTypeML VALUES(101, N'EN', N'Chrome desktop browser');
-	INSERT INTO DeviceTypeML VALUES(102, N'EN', N'IE-Edge desktop browser');
-	INSERT INTO DeviceTypeML VALUES(103, N'EN', N'FireFox desktop browser');
-	INSERT INTO DeviceTypeML VALUES(104, N'EN', N'Opera desktop browser');
-	INSERT INTO DeviceTypeML VALUES(105, N'EN', N'Safari desktop browser');
-	INSERT INTO DeviceTypeML VALUES(201, N'EN', N'Chrome mobile browser');
-	INSERT INTO DeviceTypeML VALUES(202, N'EN', N'Andriod mobile browser');
-	INSERT INTO DeviceTypeML VALUES(203, N'EN', N'FireFox mobile browser');
-	INSERT INTO DeviceTypeML VALUES(204, N'EN', N'Opera mobile browser');
-	INSERT INTO DeviceTypeML VALUES(205, N'EN', N'Safari mobile browser');
-	INSERT INTO DeviceTypeML VALUES(206, N'EN', N'Edge mobile browser');
-	-- [THAI]
-	INSERT INTO DeviceTypeML VALUES(  0, N'TH', N'ไม่ระบุ');
-	INSERT INTO DeviceTypeML VALUES(101, N'TH', N'โคลม เดสก์ท็อป เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(102, N'TH', N'ไออี-เอจ เดสก์ท็อป เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(103, N'TH', N'ไฟร์ฟอกซ์ เดสก์ท็อป เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(104, N'TH', N'โอเปร่า เดสก์ท็อป เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(105, N'TH', N'ซาฟารี เดสก์ท็อป เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(201, N'TH', N'โคลม โมบาย เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(202, N'TH', N'แอนดรอยด์ โมบาย เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(203, N'TH', N'ไฟร์ฟอกซ์ โมบาย เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(204, N'TH', N'โอเปร่า โมบาย เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(205, N'TH', N'ซาฟารี โมบาย เบราว์เซอร์');
-	INSERT INTO DeviceTypeML VALUES(206, N'TH', N'เอจ โมบาย เบราว์เซอร์');
-END
-
-GO
-
-EXEC InitDeviceTypes;
-
-GO
-
-
-/*********** Script Update Date: 2020-03-23  ***********/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author: Chumpon Asaneerat
--- Name: InitDefaultUser.
--- Description:	Init Init Default User.
--- [== History ==]
--- <2017-08-06> :
---	- Stored Procedure Created.
---
--- [== Example ==]
---
---exec InitDefaultUser
--- =============================================
-CREATE PROCEDURE [dbo].[InitDefaultUser]
-AS
-BEGIN
-	DECLARE @errNum int = null;
-	DECLARE @errMsg nvarchar(MAX) = null;
-	DECLARE @userId nvarchar(30);
-	EXEC SaveUserInfo N'The', N'EDL', N'Administrator', N'raterweb2-admin@edl.co.th', N'1234', 100--, @userId out, @errNum out, @errMsg out;
-	--SELECT @userId AS userId, @errNum AS ErrNum, @errMsg AS ErrMsg;
-	EXEC SaveUserInfoML @userId, N'TH', N'[', N'แอดมิน', N']'--, @errNum out, @errMsg out;
-	--SELECT @userId AS userId, @errNum AS ErrNum, @errMsg AS ErrMsg;
-END
-
-GO
-
-EXEC InitDefaultUser;
 
 GO
 

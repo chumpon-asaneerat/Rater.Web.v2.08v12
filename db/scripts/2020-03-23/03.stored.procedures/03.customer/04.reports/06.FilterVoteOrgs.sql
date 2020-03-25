@@ -1,6 +1,3 @@
-DROP PROCEDURE FilterOrgs;
-GO
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8,7 +5,7 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Name: FilterOrgs.
+-- Name: Filter Vote Orgs.
 -- Description:	Filter Vote Orgs from vote table that match date range.
 -- [== History ==]
 -- <2019-11-07> :
