@@ -1297,6 +1297,78 @@ GO
 
 
 /*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[LogInView]
+AS
+SELECT UV.LangId
+     , NULL AS CustomerId
+     , UV.UserId AS MemberId, MemberType, IsEDLUser = Convert(bit, 1)
+     , UV.Prefix, UV.FirstName, UV.LastName, UV.FullName
+	 , UV.UserName, UV.Password, UV.ObjectStatus
+	 , UV.Enabled, UV.SortOrder
+  FROM UserInfoMLView UV
+UNION
+SELECT MV.LangId
+     , MV.CustomerId
+     , MV.MemberId, MemberType, IsEDLUser = Convert(bit, 0)
+     , MV.Prefix, MV.FirstName, MV.LastName, MV.FullName
+	 , MV.UserName, MV.Password, MV.ObjectStatus
+	 , MV.Enabled, MV.SortOrder
+  FROM MemberInfoMLView MV
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ClientAccess](
+	[AccessId] [nvarchar](30) NOT NULL,
+	[CustomerId] [nvarchar](30) NULL,
+	[MemberId] [nvarchar](30) NOT NULL,
+    [EDLCustomerId] [nvarchar](30) NULL,
+    [DeviceId] [nvarchar](30) NULL,
+	[CreateDate] [datetime] NOT NULL,
+ CONSTRAINT [PK_ClientAccess] PRIMARY KEY CLUSTERED 
+(
+	[AccessId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[ClientAccess] ADD  CONSTRAINT [DF_ClientAccess_CreateDate]  DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Unique Access Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ClientAccess', @level2type=N'COLUMN',@level2name=N'AccessId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id. Allow Null for EDL User.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ClientAccess', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Member Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ClientAccess', @level2type=N'COLUMN',@level2name=N'MemberId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The EDL Customer Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ClientAccess', @level2type=N'COLUMN',@level2name=N'EDLCustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Device Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ClientAccess', @level2type=N'COLUMN',@level2name=N'DeviceId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Created Date.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ClientAccess', @level2type=N'COLUMN',@level2name=N'CreateDate'
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
 
 
 /*********** Script Update Date: 2020-03-26  ***********/
@@ -4734,6 +4806,1132 @@ END
 GO
 
 EXEC InitLicenseFeatures;
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: Register.
+-- Description:	Register (Customer).
+-- [== History ==]
+-- <2016-11-02> :
+--	- Stored Procedure Created.
+-- <2019-10-01> :
+--	- auto add license history.
+--
+-- [== Example ==]
+--
+--EXEC Register N'Softbase Co., Ltd.', N'admin@softbase.co.th', N'1234', 0
+-- =============================================
+CREATE PROCEDURE [dbo].[Register] (
+  @customerName as nvarchar(50)
+, @userName as nvarchar(50)
+, @passWord as nvarchar(20)
+, @licenseTypeId int = null
+, @customerId as nvarchar(30) = null out
+, @memberId as nvarchar(30) = null out
+, @branchId as nvarchar(30) = null out
+, @orgId as nvarchar(30) = null out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out)
+AS
+BEGIN
+DECLARE @iCnt int = 0;
+DECLARE @iAdminCnt int = 0;
+DECLARE @iBranchCnt int = 0;
+DECLARE @iOrgCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1801 : CustomerName cannot be null or empty string.
+	-- 1802 : UserName and Password cannot be null or empty string.
+	-- 1803 : LicenseTypeId cannot be null.
+	-- 1804 : LicenseTypeId not exits.
+	-- 1805 : 
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerName) = 1)
+		BEGIN
+			EXEC GetErrorMsg 1801, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@customerName) = 1)
+		BEGIN
+			EXEC GetErrorMsg 1802, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@licenseTypeId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 1803, @errNum out, @errMsg out
+			RETURN
+		END
+		SELECT @iCnt = COUNT(LicenseTypeId) 
+		  FROM LicenseType 
+		 WHERE LicenseTypeId = @licenseTypeId
+		IF (@iCnt = 0)
+		BEGIN
+            -- Cannot found License Type Id.
+            EXEC GetErrorMsg 1804, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Save the customer */
+		exec SaveCustomer @customerName 
+						, null /* taxcode */
+						, null /* address1 */
+						, null /* address2 */
+						, null /* city */
+						, null /* province */
+						, null /* postalcode */
+						, null /* phone */
+						, null /* mobile */
+						, null /* fax */
+						, null /* email */
+						, @customerId out
+						, @errNum out
+						, @errMsg out
+
+		IF (@errNum <> 0 OR dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			RETURN;
+		END
+
+		-- Auto add license history.
+		EXEC SaveLicenseHistory @customerId, @licenseTypeId;
+
+		/* MEMBER INFO */
+		SELECT @iAdminCnt = COUNT(*)
+		  FROM MemberInfo
+  		 WHERE LOWER(MemberId) = LOWER(RTRIM(LTRIM(@memberId)))
+		   AND LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND MemberType = 200; /* customer's admin */
+
+		IF @iAdminCnt = 0
+		BEGIN
+			/* Save the admin member */
+			exec SaveMemberInfo @customerId
+							  , null /* prefix */
+							  , N'admin' /* firstname */
+							  , null /* lastname */
+							  , @userName /* username */
+							  , @passWord /* password */
+							  , 200 /* membertype */
+							  , null /* tagid */
+							  , null /* idcard */
+							  , null /* employeecode */
+							  , @memberId out
+							  , @errNum out
+							  , @errMsg out;
+		END
+
+		IF (@errNum <> 0 OR dbo.IsNullOrEmpty(@memberId) = 1)
+		BEGIN
+			RETURN;
+		END
+
+		/* BRANCH */
+		SELECT @iBranchCnt = COUNT(*)
+		  FROM Branch
+		 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+
+		IF @iBranchCnt = 0
+		BEGIN
+			exec SaveBranch @customerId
+			             , N'HQ'
+						 , @branchId out
+					     , @errNum out
+					     , @errMsg out;
+		END
+
+		IF (@errNum <> 0 OR dbo.IsNullOrEmpty(@branchId) = 1)
+		BEGIN
+			RETURN;
+		END
+
+		/* ORG */
+		SELECT @iOrgCnt = COUNT(*)
+		  FROM Org
+  		 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND (ParentId IS NULL OR LOWER(RTRIM(LTRIM(ParentId))) = N'');
+
+		IF @iOrgCnt = 0
+		BEGIN
+			/* Save the root org */
+			exec SaveOrg @customerId
+			           , null /* ParentId */
+					   , @branchId /* BranchId */
+					   , @customerName /* OrgName */
+					   , @orgId out
+					   , @errNum out
+					   , @errMsg out;
+		END
+
+		IF (@errNum <> 0 OR dbo.IsNullOrEmpty(@orgId) = 1)
+		BEGIN
+			RETURN;
+		END
+
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	CheckUsers
+-- [== History ==]
+-- <2016-12-15> :
+--	- Stored Procedure Created.
+-- <2016-12-16> :
+--	- Add returns langId column.
+--	- Change CustomerId to customerId.
+--	- Change MemberId to memberId.
+-- <2018-05-21> :
+--	- Add returns columns CustomerNameEN and CustomerNameNative.
+-- <2018-05-24> :
+--	- Rename from SignIn to CheckUsers.
+--	- Remove customerId parameter.
+-- <2018-05-26> :
+--	- Fixed code when customerId is null.
+--
+-- [== Example ==]
+--
+--exec CheckUsers N'admin@umi.co.th', N'1234';
+-- =============================================
+CREATE PROCEDURE [dbo].[CheckUsers] (
+  @langId nvarchar(3) = null
+, @userName nvarchar(50) = null
+, @passWord nvarchar(20) = null
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+
+    -- Error Code:
+    --   0 : Success
+    -- OTHER : SQL Error Number & Error Message.
+    BEGIN TRY
+		SELECT V.langId
+			 , V.customerId
+			 , V.FullName
+			 , V.CustomerName
+			 , V.ObjectStatus
+		  FROM 
+		  (
+			SELECT A.langId
+				 , A.customerId
+				 , A.memberId
+				 , A.FullName
+				 , B.CustomerName
+				 , A.ObjectStatus
+			  FROM LogInView A, CustomerMLView B
+			 WHERE LOWER(A.UserName) = LOWER(LTRIM(RTRIM(@userName)))
+			   AND LOWER(A.[Password]) = LOWER(LTRIM(RTRIM(@passWord)))
+			   AND LOWER(A.LangId) = LOWER(LTRIM(RTRIM(COALESCE(@langId, A.LangId))))
+			   AND B.CustomerId = A.CustomerId
+			   AND A.CustomerId IS NOT NULL
+			   AND B.LangId = A.LangId
+		  UNION ALL
+			SELECT A.langId
+				 , A.customerId
+				 , A.memberId
+				 , A.FullName
+				 , 'EDL Co., Ltd.' AS CustomerName
+				 , A.ObjectStatus
+			  FROM LogInView A
+			 WHERE LOWER(A.UserName) = LOWER(LTRIM(RTRIM(@userName)))
+			   AND LOWER(A.[Password]) = LOWER(LTRIM(RTRIM(@passWord)))
+			   AND LOWER(A.LangId) = LOWER(LTRIM(RTRIM(COALESCE(@langId, A.LangId))))
+			   AND A.CustomerId IS NULL
+		  ) AS V
+         ORDER BY V.CustomerId, V.MemberId
+
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	SignIn
+-- [== History ==]
+-- <2016-12-15> :
+--	- Stored Procedure Created.
+-- <2016-12-16> :
+--	- Add returns langId column.
+--	- Change CustomerId to customerId.
+--	- Change MemberId to memberId.
+-- <2018-05-21> :
+--	- Add returns columns CustomerNameEN and CustomerNameNative.
+-- <2018-05-24> :
+--	- Remove langId parameter.
+--  - Add accessId out parameter.
+-- <2018-05-25> :
+--  - Update Code insert/update access id to ClientAccess table.
+--  - Remove customerId checks in case EDL User.
+--
+-- [== Example ==]
+--
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002';
+-- =============================================
+CREATE PROCEDURE [dbo].[SignIn] (
+  @userName nvarchar(50) = null
+, @passWord nvarchar(20) = null
+, @customerId nvarchar(30) = null
+, @accessId nvarchar(30) = null out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iUsrCnt int = 0;
+DECLARE @iCnt int = 0;
+DECLARE @memberId nvarchar(30);
+    -- Error Code:
+    --    0 : Success
+	-- 1901 : User Name cannot be null or empty string.
+	-- 1902 : Password cannot be null or empty string.
+	-- 1903 : Cannot found User that match information.
+	-- 1904 : 
+    -- OTHER : SQL Error Number & Error Message.
+    BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@userName) = 1)
+		BEGIN
+            -- User Name cannot be null or empty string.
+            EXEC GetErrorMsg 1901, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@passWord) = 1)
+		BEGIN
+            -- Password cannot be null or empty string.
+            EXEC GetErrorMsg 1902, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			SELECT @memberId = MemberId, @iUsrCnt = COUNT(*)
+			  FROM LogInView
+			 WHERE LTRIM(RTRIM(UserName)) = LTRIM(RTRIM(@userName))
+			   AND LTRIM(RTRIM(PassWord)) = LTRIM(RTRIM(@passWord))
+			   AND UPPER(LTRIM(RTRIM(LangId))) = N'EN'
+			 GROUP BY MemberId;
+		END
+		ELSE
+		BEGIN
+			SELECT @memberId = MemberId, @iUsrCnt = COUNT(*)
+			  FROM LogInView
+			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+			   AND LTRIM(RTRIM(UserName)) = LTRIM(RTRIM(@userName))
+			   AND LTRIM(RTRIM(PassWord)) = LTRIM(RTRIM(@passWord))
+			   AND UPPER(LTRIM(RTRIM(LangId))) = N'EN'
+			 GROUP BY MemberId;
+		END
+
+		IF (@iUsrCnt = 0)
+		BEGIN
+            -- Cannot found User that match information.
+            EXEC GetErrorMsg 1903, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @accessId = AccessId, @iCnt = COUNT(*)
+		  FROM ClientAccess
+		 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+		   AND UPPER(LTRIM(RTRIM(MemberId))) = UPPER(LTRIM(RTRIM(@memberId)))
+		 GROUP BY AccessId
+
+		-- Keep data into session.
+		IF (@iCnt = 0)
+		BEGIN
+			-- NOT EXIST.
+			EXEC GetRandomCode 10, @accessId out; -- Generate 10 Chars Unique Id.
+			INSERT INTO ClientAccess
+			(
+				  AccessId
+				, CustomerId
+				, MemberId 
+			)
+			VALUES
+			(
+				  UPPER(LTRIM(RTRIM(@accessId)))
+				, UPPER(LTRIM(RTRIM(@customerId)))
+				, UPPER(LTRIM(RTRIM(@memberId))) 
+			);
+		END
+		ELSE
+		BEGIN
+			-- ALREADY EXIST.
+			UPDATE ClientAccess
+			   SET CustomerId = UPPER(LTRIM(RTRIM(@customerId)))
+			     , MemberId = UPPER(LTRIM(RTRIM(@memberId)))
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+		END
+
+		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: CheckAccess.
+-- Description:	Check Access.
+-- [== History ==]
+-- <2018-05-25> :
+--	- Stored Procedure Created.
+-- <2019-12-19> :
+--	- Add EDLCustomerId column in result.
+--
+-- [== Example ==]
+--
+--EXEC CheckAccess N'YSP1UVPHWJ';
+-- =============================================
+CREATE PROCEDURE [dbo].[CheckAccess]
+(
+  @accessId nvarchar(30)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @langId nvarchar(3) = N'EN';
+DECLARE @customerId nvarchar(30);
+DECLARE @iCnt int = 0;
+    -- Error Code:
+    --    0 : Success
+	-- 2301 : Access Id cannot be null or empty string.
+	-- 2302 : Access Id not found.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@accessId) = 1)
+		BEGIN
+            -- Access Id cannot be null or empty string.
+            EXEC GetErrorMsg 2301, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @customerId = CustomerId, @iCnt = COUNT(*)
+		  FROM ClientAccess
+		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+		 GROUP BY CustomerId;
+
+		IF (@iCnt = 0)
+		BEGIN
+            -- Access Id not found.
+            EXEC GetErrorMsg 2302, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@customerId IS NULL)
+		BEGIN
+			SELECT A.AccessId
+				 , B.CustomerId
+				 , A.MemberId
+				 , A.CreateDate
+				 , A.EDLCustomerId
+                 , A.DeviceId
+				 , B.MemberType
+				 , B.IsEDLUser
+			  FROM ClientAccess A, LogInView B
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+			   AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+			   And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+		END
+		ELSE
+		BEGIN
+			SELECT A.AccessId
+				 , A.CustomerId
+				 , A.MemberId
+				 , A.CreateDate
+				 , A.EDLCustomerId
+                 , A.DeviceId
+				 , B.MemberType
+				 , B.IsEDLUser
+			  FROM ClientAccess A, LogInView B
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+			   AND UPPER(LTRIM(RTRIM(B.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+			   AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+			   And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+		END
+		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetAccessUser.
+-- Description:	Get Access User.
+-- [== History ==]
+-- <2018-05-25> :
+--	- Stored Procedure Created.
+-- <2019-12-19> :
+--	- Add EDLCustomerId in result.
+--
+-- [== Example ==]
+--
+--EXEC GetAccessUser N'TH', N'YSP1UVPHWJ';
+-- =============================================
+CREATE PROCEDURE [dbo].[GetAccessUser]
+(
+  @langId nvarchar(3)
+, @accessId nvarchar(30)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @customerId nvarchar(30);
+DECLARE @iCnt int = 0;
+    -- Error Code:
+    --    0 : Success
+	-- 2303 : Lang Id cannot be null or empty string.
+	-- 2304 : Lang Id not found.
+	-- 2305 : Access Id cannot be null or empty string.
+	-- 2306 : Access Id not found.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+            -- Lang Id cannot be null or empty string.
+            EXEC GetErrorMsg 2303, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM LanguageView
+		 WHERE UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+		IF (@iCnt IS NULL OR @iCnt = 0)
+		BEGIN
+            -- Lang Id not found.
+            EXEC GetErrorMsg 2304, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@accessId) = 1)
+		BEGIN
+            -- Access Id cannot be null or empty string.
+            EXEC GetErrorMsg 2305, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @customerId = CustomerId, @iCnt = COUNT(*)
+		  FROM ClientAccess
+		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+		 GROUP BY CustomerId;
+
+		IF (@iCnt = 0)
+		BEGIN
+            -- Access Id not found.
+            EXEC GetErrorMsg 2306, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@customerId IS NULL)
+		BEGIN
+			SELECT /*A.AccessId
+				 , */A.CustomerId
+				 , N'EDL Co., Ltd.' AS CustomerName
+				 , A.MemberId
+				 , A.EDLCustomerId
+                 , A.DeviceId
+				 , B.FullName
+				 , B.IsEDLUser
+				 , B.MemberType
+				 , D.MemberTypeDescription
+			  FROM ClientAccess A
+			     , LogInView B
+				 --, CustomerMLView C
+				 , MemberTypeMLView D
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+			   AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+			   And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+			   --AND UPPER(LTRIM(RTRIM(C.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+			   --AND UPPER(LTRIM(RTRIM(C.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
+			   AND UPPER(LTRIM(RTRIM(D.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
+			   AND B.MemberType = D.MemberTypeId
+		END
+		ELSE
+		BEGIN
+			SELECT /*A.AccessId
+				 , */A.CustomerId
+				 , C.CustomerName
+				 , A.MemberId
+				 , A.EDLCustomerId
+                 , A.DeviceId
+				 , B.FullName
+				 , B.IsEDLUser
+				 , B.MemberType
+				 , D.MemberTypeDescription
+			  FROM ClientAccess A
+			     , LogInView B
+				 , CustomerMLView C
+				 , MemberTypeMLView D
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+			   AND UPPER(LTRIM(RTRIM(B.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+			   AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+			   And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+			   AND UPPER(LTRIM(RTRIM(C.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+			   AND UPPER(LTRIM(RTRIM(C.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
+			   AND UPPER(LTRIM(RTRIM(D.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
+			   AND B.MemberType = D.MemberTypeId
+		END
+		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SignOut.
+-- Description:	Sign Out.
+-- [== History ==]
+-- <2018-05-25> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC SignOut N'YSP1UVPHWJ';
+-- =============================================
+CREATE PROCEDURE [dbo].[SignOut]
+(
+  @accessId nvarchar(30)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @iCnt int = 0;
+    -- Error Code:
+    --    0 : Success
+	-- 2307 : Access Id cannot be null or empty string.
+	-- 2308 : Access Id not found.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@accessId) = 1)
+		BEGIN
+            -- Access Id cannot be null or empty string.
+            EXEC GetErrorMsg 2307, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM ClientAccess
+		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+
+		IF (@iCnt = 0)
+		BEGIN
+            -- Access Id not found.
+            EXEC GetErrorMsg 2308, @errNum out, @errMsg out
+			RETURN
+		END
+
+		DELETE FROM ClientAccess
+		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+
+		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SetDeviceOrg.
+-- Description:	Set Device Org.
+-- [== History ==]
+-- <2019-11-05> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC SetDeviceOrg N'EDL-C2019100003', N'D0001', N'O0003'
+-- =============================================
+CREATE PROCEDURE [dbo].[SetDeviceOrg] (
+  @customerId as nvarchar(30)
+, @deviceId as nvarchar(30)
+, @orgId as nvarchar(30)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iCustCnt int = 0;
+DECLARE @iDevCnt int = 0;
+DECLARE @iOrgCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 2901 : Customer Id cannot be null or empty string.
+	-- 2902 : Device Id cannot be null or empty string.
+	-- 2903 : Customer Id is not found.
+	-- 2904 : Device Id Not Found.
+	-- 2905 : Org Id is not found.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 2901, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@deviceId) = 1)
+		BEGIN
+			-- Device Id cannot be null or empty string.
+            EXEC GetErrorMsg 2902, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCustCnt = COUNT(*)
+		  FROM Customer
+		 WHERE RTRIM(LTRIM(CustomerId)) = RTRIM(LTRIM(@customerId));
+		IF (@iCustCnt = 0)
+		BEGIN
+			-- Customer Id is not found.
+            EXEC GetErrorMsg 2903, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iDevCnt = COUNT(*)
+		  FROM Device
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER(DeviceId) <> LOWER(RTRIM(LTRIM(@deviceId)));
+
+		IF @iDevCnt = 0
+		BEGIN
+			-- Device Id Not Found
+            EXEC GetErrorMsg 2904, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		IF (@orgId IS NULL OR RTRIM(LTRIM(@orgId)) = '')
+		BEGIN
+			UPDATE Device
+				SET OrgId = NULL
+			  WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				AND LOWER(DeviceId) = LOWER(RTRIM(LTRIM(@deviceId)))
+		END
+		ELSE
+		BEGIN
+			SELECT @iOrgCnt = COUNT(*)
+			  FROM Org
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(OrgId) <> LOWER(RTRIM(LTRIM(@orgId)));
+
+			IF (@iOrgCnt = 0)
+			BEGIN
+				-- Org Id Not Found
+				EXEC GetErrorMsg 2905, @errNum out, @errMsg out
+				RETURN;
+			END
+
+			UPDATE Device
+				SET OrgId = UPPER(RTRIM(LTRIM(@orgId)))
+			  WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				AND LOWER(DeviceId) = LOWER(RTRIM(LTRIM(@deviceId)))
+		END
+		
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SetDeviceUser.
+-- Description:	Set Device User.
+-- [== History ==]
+-- <2019-11-05> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC SetDeviceUser N'EDL-C2019100003', N'D0001', N'M00003'
+-- =============================================
+CREATE PROCEDURE [dbo].[SetDeviceUser] (
+  @customerId as nvarchar(30)
+, @deviceId as nvarchar(30)
+, @memberId as nvarchar(30)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iCustCnt int = 0;
+DECLARE @iDevCnt int = 0;
+DECLARE @iMemCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 3001 : Customer Id cannot be null or empty string.
+	-- 3002 : Device Id cannot be null or empty string.
+	-- 3003 : Customer Id is not found.
+	-- 3004 : Device Id Not Found.
+	-- 3005 : Member Id is not found.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 3001, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@deviceId) = 1)
+		BEGIN
+			-- Device Id cannot be null or empty string.
+            EXEC GetErrorMsg 3002, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCustCnt = COUNT(*)
+		  FROM Customer
+		 WHERE RTRIM(LTRIM(CustomerId)) = RTRIM(LTRIM(@customerId));
+		IF (@iCustCnt = 0)
+		BEGIN
+			-- Customer Id is not found.
+            EXEC GetErrorMsg 3003, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iDevCnt = COUNT(*)
+		  FROM Device
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER(DeviceId) <> LOWER(RTRIM(LTRIM(@deviceId)));
+
+		IF @iDevCnt = 0
+		BEGIN
+			-- Device Id Not Found
+            EXEC GetErrorMsg 3004, @errNum out, @errMsg out
+			RETURN;
+		END
+
+		IF (@memberId IS NULL OR RTRIM(LTRIM(@memberId)) = '')
+		BEGIN
+			UPDATE Device
+				SET MemberId = NULL
+			  WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				AND LOWER(DeviceId) = LOWER(RTRIM(LTRIM(@deviceId)))
+		END
+		ELSE
+		BEGIN
+			SELECT @iMemCnt = COUNT(*)
+			  FROM MemberInfo
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(MemberId) <> LOWER(RTRIM(LTRIM(@memberId)));
+
+			IF (@iMemCnt = 0)
+			BEGIN
+				-- Member Id Not Found
+				EXEC GetErrorMsg 3005, @errNum out, @errMsg out
+				RETURN;
+			END
+
+			UPDATE Device
+				SET MemberId = UPPER(RTRIM(LTRIM(@memberId)))
+			  WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				AND LOWER(DeviceId) = LOWER(RTRIM(LTRIM(@deviceId)))
+		END
+		
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: Set Access Device.
+-- Description:	Set Access Device.
+-- [== History ==]
+-- <2019-12-26> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC SetAccessDevice N'YSP1UVPHWJ', N'EDL-C2019100002' -- Reset
+--EXEC SetAccessDevice N'YSP1UVPHWJ', N'EDL-C2019100002', N'D0001' -- Change
+-- =============================================
+CREATE PROCEDURE [dbo].[SetAccessDevice]
+(
+  @accessId nvarchar(30)
+, @customerId nvarchar(30)
+, @deviceId nvarchar(30) = NULL
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @iCnt int = 0;
+    -- Error Code:
+    --    0 : Success
+	-- 4601 : Access Id cannot be null or empty string.
+	-- 4602 : Customer Id cannot be null or empty string.
+	-- 4603 : Access Id not found.
+	-- 4604 : Device Id not found.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@accessId) = 1)
+		BEGIN
+            -- Access Id cannot be null or empty string.
+            EXEC GetErrorMsg 4601, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+            -- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 4602, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM ClientAccess
+		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+		   AND (
+		            UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+			     OR UPPER(LTRIM(RTRIM(EDLCustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+			   )
+
+		IF (@iCnt = 0)
+		BEGIN
+            -- Access Id not found.
+            EXEC GetErrorMsg 4603, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@deviceId IS NULL)
+		BEGIN
+			UPDATE ClientAccess
+			   SET DeviceId = NULL
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+			   AND (
+						UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+					 OR UPPER(LTRIM(RTRIM(EDLCustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+				   )
+		END
+		ELSE
+		BEGIN
+			SELECT @iCnt = COUNT(*)
+			  FROM Device
+			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+			   AND UPPER(LTRIM(RTRIM(DeviceId))) = UPPER(LTRIM(RTRIM(@deviceId)))
+			IF (@iCnt = 0)
+			BEGIN
+				-- Device Id not found.
+				EXEC GetErrorMsg 4604, @errNum out, @errMsg out
+				RETURN
+			END
+			UPDATE ClientAccess
+			   SET DeviceId = UPPER(LTRIM(RTRIM(@deviceId)))
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+			   AND (
+						UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+					 OR UPPER(LTRIM(RTRIM(EDLCustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+				   )
+		END
+
+		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: Change Customer.
+-- Description:	Change Customer.
+-- [== History ==]
+-- <2019-12-19> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC ChangeUser N'YSP1UVPHWJ'; -- Reset
+--EXEC ChangeUser N'YSP1UVPHWJ' N'EDL-C2019100002'; -- Change
+-- =============================================
+CREATE PROCEDURE [dbo].[ChangeCustomer]
+(
+  @accessId nvarchar(30)
+, @customerId nvarchar(30) = NULL
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @iCnt int = 0;
+    -- Error Code:
+    --    0 : Success
+	-- 4501 : Access Id cannot be null or empty string.
+	-- 4502 : Access Id not found.
+	-- 4503 : Customer Id not found.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@accessId) = 1)
+		BEGIN
+            -- Access Id cannot be null or empty string.
+            EXEC GetErrorMsg 4501, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM ClientAccess
+		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+
+		IF (@iCnt = 0)
+		BEGIN
+            -- Access Id not found.
+            EXEC GetErrorMsg 4502, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@customerId IS NULL)
+		BEGIN
+			UPDATE ClientAccess
+			   SET EDLCustomerId = NULL
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+		END
+		ELSE
+		BEGIN
+			SELECT @iCnt = COUNT(*)
+			  FROM Customer
+			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+
+			IF (@iCnt = 0)
+			BEGIN
+				-- Customer Id not found.
+				EXEC GetErrorMsg 4503, @errNum out, @errMsg out
+				RETURN
+			END
+			UPDATE ClientAccess
+			   SET EDLCustomerId = UPPER(LTRIM(RTRIM(@customerId)))
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+		END
+
+		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
 
 GO
 
