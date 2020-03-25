@@ -10467,15 +10467,28 @@ GO
 -- <2018-05-25> :
 --  - Update Code insert/update access id to ClientAccess table.
 --  - Remove customerId checks in case EDL User.
+-- <2020-03-26> :
+--	- Add mode parameter.
 --
 -- [== Example ==]
 --
---exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002';
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'edl';
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'edl';
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'edl';
+
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'customer';
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'customer';
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'customer';
+
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'device';
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'device';
+--exec SignIn N'admin@umi.co.th', N'1234', N'EDL-C2017010002' N'device';
 -- =============================================
 CREATE PROCEDURE [dbo].[SignIn] (
   @userName nvarchar(50) = null
 , @passWord nvarchar(20) = null
 , @customerId nvarchar(30) = null
+, @mode nvarchar(30) = null
 , @accessId nvarchar(30) = null out
 , @errNum as int = 0 out
 , @errMsg as nvarchar(MAX) = N'' out)
@@ -10489,7 +10502,8 @@ DECLARE @memberId nvarchar(30);
 	-- 1901 : User Name cannot be null or empty string.
 	-- 1902 : Password cannot be null or empty string.
 	-- 1903 : Cannot found User that match information.
-	-- 1904 : 
+	-- 1904 : mode cannot be null or empty string.
+    -- 1905 : invalid mode.
     -- OTHER : SQL Error Number & Error Message.
     BEGIN TRY
 		IF (dbo.IsNullOrEmpty(@userName) = 1)
@@ -10526,6 +10540,13 @@ DECLARE @memberId nvarchar(30);
 			 GROUP BY MemberId;
 		END
 
+		IF (dbo.IsNullOrEmpty(@mode) = 1)
+		BEGIN
+            -- mode cannot be null or empty string.
+            EXEC GetErrorMsg 1904, @errNum out, @errMsg out
+			RETURN
+		END
+
 		IF (@iUsrCnt = 0)
 		BEGIN
             -- Cannot found User that match information.
@@ -10533,39 +10554,117 @@ DECLARE @memberId nvarchar(30);
 			RETURN
 		END
 
-		SELECT @accessId = AccessId, @iCnt = COUNT(*)
-		  FROM ClientAccess
-		 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-		   AND UPPER(LTRIM(RTRIM(MemberId))) = UPPER(LTRIM(RTRIM(@memberId)))
-		 GROUP BY AccessId
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
+            SELECT @accessId = AccessId, @iCnt = COUNT(*)
+              FROM EDLAccess
+             WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+               AND UPPER(LTRIM(RTRIM(MemberId))) = UPPER(LTRIM(RTRIM(@memberId)))
+             GROUP BY AccessId
 
-		-- Keep data into session.
-		IF (@iCnt = 0)
-		BEGIN
-			-- NOT EXIST.
-			EXEC GetRandomCode 10, @accessId out; -- Generate 10 Chars Unique Id.
-			INSERT INTO ClientAccess
-			(
-				  AccessId
-				, CustomerId
-				, MemberId 
-			)
-			VALUES
-			(
-				  UPPER(LTRIM(RTRIM(@accessId)))
-				, UPPER(LTRIM(RTRIM(@customerId)))
-				, UPPER(LTRIM(RTRIM(@memberId))) 
-			);
-		END
-		ELSE
-		BEGIN
-			-- ALREADY EXIST.
-			UPDATE ClientAccess
-			   SET CustomerId = UPPER(LTRIM(RTRIM(@customerId)))
-			     , MemberId = UPPER(LTRIM(RTRIM(@memberId)))
-			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
-		END
+            -- Keep data into session.
+            IF (@iCnt = 0)
+            BEGIN
+                -- NOT EXIST.
+                EXEC GetRandomCode 10, @accessId out; -- Generate 10 Chars Unique Id.
+                INSERT INTO EDLAccess
+                (
+                    AccessId
+                  , CustomerId
+                  , MemberId 
+                )
+                VALUES
+                (
+                    UPPER(LTRIM(RTRIM(@accessId)))
+                  , UPPER(LTRIM(RTRIM(@customerId)))
+                  , UPPER(LTRIM(RTRIM(@memberId))) 
+                );
+            END
+            ELSE
+            BEGIN
+                -- ALREADY EXIST.
+                UPDATE EDLAccess
+                   SET CustomerId = UPPER(LTRIM(RTRIM(@customerId)))
+                     , MemberId = UPPER(LTRIM(RTRIM(@memberId)))
+                 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+            END
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
+            SELECT @accessId = AccessId, @iCnt = COUNT(*)
+              FROM CustomerAccess
+             WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+               AND UPPER(LTRIM(RTRIM(MemberId))) = UPPER(LTRIM(RTRIM(@memberId)))
+             GROUP BY AccessId
 
+            -- Keep data into session.
+            IF (@iCnt = 0)
+            BEGIN
+                -- NOT EXIST.
+                EXEC GetRandomCode 10, @accessId out; -- Generate 10 Chars Unique Id.
+                INSERT INTO CustomerAccess
+                (
+                    AccessId
+                  , CustomerId
+                  , MemberId 
+                )
+                VALUES
+                (
+                    UPPER(LTRIM(RTRIM(@accessId)))
+                  , UPPER(LTRIM(RTRIM(@customerId)))
+                  , UPPER(LTRIM(RTRIM(@memberId))) 
+                );
+            END
+            ELSE
+            BEGIN
+                -- ALREADY EXIST.
+                UPDATE CustomerAccess
+                   SET CustomerId = UPPER(LTRIM(RTRIM(@customerId)))
+                     , MemberId = UPPER(LTRIM(RTRIM(@memberId)))
+                 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+            END
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            SELECT @accessId = AccessId, @iCnt = COUNT(*)
+              FROM DeviceAccess
+             WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+               AND UPPER(LTRIM(RTRIM(MemberId))) = UPPER(LTRIM(RTRIM(@memberId)))
+             GROUP BY AccessId
+
+            -- Keep data into session.
+            IF (@iCnt = 0)
+            BEGIN
+                -- NOT EXIST.
+                EXEC GetRandomCode 10, @accessId out; -- Generate 10 Chars Unique Id.
+                INSERT INTO DeviceAccess
+                (
+                    AccessId
+                  , CustomerId
+                  , MemberId 
+                )
+                VALUES
+                (
+                    UPPER(LTRIM(RTRIM(@accessId)))
+                  , UPPER(LTRIM(RTRIM(@customerId)))
+                  , UPPER(LTRIM(RTRIM(@memberId))) 
+                );
+            END
+            ELSE
+            BEGIN
+                -- ALREADY EXIST.
+                UPDATE DeviceAccess
+                   SET CustomerId = UPPER(LTRIM(RTRIM(@customerId)))
+                     , MemberId = UPPER(LTRIM(RTRIM(@memberId)))
+                 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+            END
+        END
+        ELSE
+        BEGIN
+            -- invalid mode.
+            EXEC GetErrorMsg 1905, @errNum out, @errMsg out
+			RETURN
+        END
 		-- SUCCESS
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
 	END TRY
@@ -10593,14 +10692,19 @@ GO
 --	- Stored Procedure Created.
 -- <2019-12-19> :
 --	- Add EDLCustomerId column in result.
+-- <2020-03-26> :
+--	- Add mode parameter.
 --
 -- [== Example ==]
 --
---EXEC CheckAccess N'YSP1UVPHWJ';
+--EXEC CheckAccess N'YSP1UVPHWJ', N'edl';
+--EXEC CheckAccess N'YSP1UVPHWJ', N'customer';
+--EXEC CheckAccess N'YSP1UVPHWJ', N'device';
 -- =============================================
 CREATE PROCEDURE [dbo].[CheckAccess]
 (
   @accessId nvarchar(30)
+, @mode nvarchar(30)
 , @errNum as int = 0 out
 , @errMsg as nvarchar(MAX) = N'' out
 )
@@ -10613,6 +10717,8 @@ DECLARE @iCnt int = 0;
     --    0 : Success
 	-- 2301 : Access Id cannot be null or empty string.
 	-- 2302 : Access Id not found.
+    -- 2309 : mode cannot be null or empty string.
+    -- 2310 : invalid mode.
     -- OTHER : SQL Error Number & Error Message.
 	BEGIN TRY
 		IF (dbo.IsNullOrEmpty(@accessId) = 1)
@@ -10622,10 +10728,40 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		SELECT @customerId = CustomerId, @iCnt = COUNT(*)
-		  FROM ClientAccess
-		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
-		 GROUP BY CustomerId;
+        IF (dbo.IsNullOrEmpty(@mode) = 1)
+		BEGIN
+            -- mode cannot be null or empty string.
+            EXEC GetErrorMsg 2309, @errNum out, @errMsg out
+			RETURN
+        END
+
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
+            SELECT @customerId = CustomerId, @iCnt = COUNT(*)
+              FROM EDLAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+             GROUP BY CustomerId;
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
+            SELECT @customerId = CustomerId, @iCnt = COUNT(*)
+              FROM CustomerAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+             GROUP BY CustomerId;
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            SELECT @customerId = CustomerId, @iCnt = COUNT(*)
+              FROM DeviceAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+             GROUP BY CustomerId;
+        END
+        ELSE
+        BEGIN
+            -- invalid mode.
+            EXEC GetErrorMsg 2310, @errNum out, @errMsg out
+			RETURN
+        END
 
 		IF (@iCnt = 0)
 		BEGIN
@@ -10634,37 +10770,103 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		IF (@customerId IS NULL)
-		BEGIN
-			SELECT A.AccessId
-				 , B.CustomerId
-				 , A.MemberId
-				 , A.CreateDate
-				 , A.EDLCustomerId
-                 , A.DeviceId
-				 , B.MemberType
-				 , B.IsEDLUser
-			  FROM ClientAccess A, LogInView B
-			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
-			   AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
-			   And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
-		END
-		ELSE
-		BEGIN
-			SELECT A.AccessId
-				 , A.CustomerId
-				 , A.MemberId
-				 , A.CreateDate
-				 , A.EDLCustomerId
-                 , A.DeviceId
-				 , B.MemberType
-				 , B.IsEDLUser
-			  FROM ClientAccess A, LogInView B
-			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
-			   AND UPPER(LTRIM(RTRIM(B.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
-			   AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
-			   And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
-		END
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
+            IF (@customerId IS NULL)
+            BEGIN
+                SELECT A.AccessId
+                     , B.CustomerId
+                     , A.MemberId
+                     , A.CreateDate
+                     , NULL AS DeviceId
+                     , B.MemberType
+                     , B.IsEDLUser
+                 FROM EDLAccess A, LogInView B
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+                  AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+                  And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+            END
+            ELSE
+            BEGIN
+                SELECT A.AccessId
+                     , A.CustomerId
+                     , A.MemberId
+                     , A.CreateDate
+                     , NULL AS DeviceId
+                     , B.MemberType
+                     , B.IsEDLUser
+                 FROM EDLAccess A, LogInView B
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+                  AND UPPER(LTRIM(RTRIM(B.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+                  AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+                  And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+            END
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
+            IF (@customerId IS NULL)
+            BEGIN
+                SELECT A.AccessId
+                     , B.CustomerId
+                     , A.MemberId
+                     , A.CreateDate
+                     , NULL AS DeviceId
+                     , B.MemberType
+                     , B.IsEDLUser
+                 FROM CustomerAccess A, LogInView B
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+                  AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+                  And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+            END
+            ELSE
+            BEGIN
+                SELECT A.AccessId
+                     , A.CustomerId
+                     , A.MemberId
+                     , A.CreateDate
+                     , NULL AS DeviceId
+                     , B.MemberType
+                     , B.IsEDLUser
+                 FROM CustomerAccess A, LogInView B
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+                  AND UPPER(LTRIM(RTRIM(B.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+                  AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+                  And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+            END
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            IF (@customerId IS NULL)
+            BEGIN
+                SELECT A.AccessId
+                     , B.CustomerId
+                     , A.MemberId
+                     , A.CreateDate
+                     , A.DeviceId
+                     , B.MemberType
+                     , B.IsEDLUser
+                 FROM DeviceAccess A, LogInView B
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+                  AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+                  And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+            END
+            ELSE
+            BEGIN
+                SELECT A.AccessId
+                     , A.CustomerId
+                     , A.MemberId
+                     , A.CreateDate
+                     , A.DeviceId
+                     , B.MemberType
+                     , B.IsEDLUser
+                 FROM DeviceAccess A, LogInView B
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+                  AND UPPER(LTRIM(RTRIM(B.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+                  AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+                  And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+            END
+        END
+
 		-- SUCCESS
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
 	END TRY
@@ -10692,15 +10894,20 @@ GO
 --	- Stored Procedure Created.
 -- <2019-12-19> :
 --	- Add EDLCustomerId in result.
+-- <2020-03-26> :
+--	- Add mode parameter.
 --
 -- [== Example ==]
 --
---EXEC GetAccessUser N'TH', N'YSP1UVPHWJ';
+--EXEC GetAccessUser N'TH', N'YSP1UVPHWJ', N'edl';
+--EXEC GetAccessUser N'TH', N'YSP1UVPHWJ', N'customer';
+--EXEC GetAccessUser N'TH', N'YSP1UVPHWJ', N'device';
 -- =============================================
 CREATE PROCEDURE [dbo].[GetAccessUser]
 (
   @langId nvarchar(3)
 , @accessId nvarchar(30)
+, @mode nvarchar(30)
 , @errNum as int = 0 out
 , @errMsg as nvarchar(MAX) = N'' out
 )
@@ -10714,6 +10921,8 @@ DECLARE @iCnt int = 0;
 	-- 2304 : Lang Id not found.
 	-- 2305 : Access Id cannot be null or empty string.
 	-- 2306 : Access Id not found.
+    -- 2309 : mode cannot be null or empty string.
+    -- 2310 : invalid mode.
     -- OTHER : SQL Error Number & Error Message.
 	BEGIN TRY
 		IF (dbo.IsNullOrEmpty(@langId) = 1)
@@ -10722,6 +10931,13 @@ DECLARE @iCnt int = 0;
             EXEC GetErrorMsg 2303, @errNum out, @errMsg out
 			RETURN
 		END
+
+        IF (dbo.IsNullOrEmpty(@mode) = 1)
+		BEGIN
+            -- mode cannot be null or empty string.
+            EXEC GetErrorMsg 2309, @errNum out, @errMsg out
+			RETURN
+        END
 
 		SELECT @iCnt = COUNT(*)
 		  FROM LanguageView
@@ -10740,10 +10956,33 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		SELECT @customerId = CustomerId, @iCnt = COUNT(*)
-		  FROM ClientAccess
-		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
-		 GROUP BY CustomerId;
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
+            SELECT @customerId = CustomerId, @iCnt = COUNT(*)
+              FROM EDLAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+             GROUP BY CustomerId;
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
+            SELECT @customerId = CustomerId, @iCnt = COUNT(*)
+              FROM CustomerAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+             GROUP BY CustomerId;
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            SELECT @customerId = CustomerId, @iCnt = COUNT(*)
+              FROM DeviceAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+             GROUP BY CustomerId;
+        END
+        ELSE
+        BEGIN
+            -- invalid mode.
+            EXEC GetErrorMsg 2310, @errNum out, @errMsg out
+			RETURN
+        END
 
 		IF (@iCnt = 0)
 		BEGIN
@@ -10752,19 +10991,18 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		IF (@customerId IS NULL)
-		BEGIN
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
 			SELECT /*A.AccessId
 				 , */A.CustomerId
 				 , N'EDL Co., Ltd.' AS CustomerName
 				 , A.MemberId
-				 , A.EDLCustomerId
-                 , A.DeviceId
+                 , NULL AS DeviceId
 				 , B.FullName
 				 , B.IsEDLUser
 				 , B.MemberType
 				 , D.MemberTypeDescription
-			  FROM ClientAccess A
+			  FROM EDLAccess A
 			     , LogInView B
 				 --, CustomerMLView C
 				 , MemberTypeMLView D
@@ -10775,20 +11013,19 @@ DECLARE @iCnt int = 0;
 			   --AND UPPER(LTRIM(RTRIM(C.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
 			   AND UPPER(LTRIM(RTRIM(D.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
 			   AND B.MemberType = D.MemberTypeId
-		END
-		ELSE
-		BEGIN
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
 			SELECT /*A.AccessId
 				 , */A.CustomerId
 				 , C.CustomerName
 				 , A.MemberId
-				 , A.EDLCustomerId
-                 , A.DeviceId
+                 , NULL AS DeviceId
 				 , B.FullName
 				 , B.IsEDLUser
 				 , B.MemberType
 				 , D.MemberTypeDescription
-			  FROM ClientAccess A
+			  FROM CustomerAccess A
 			     , LogInView B
 				 , CustomerMLView C
 				 , MemberTypeMLView D
@@ -10800,7 +11037,32 @@ DECLARE @iCnt int = 0;
 			   AND UPPER(LTRIM(RTRIM(C.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
 			   AND UPPER(LTRIM(RTRIM(D.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
 			   AND B.MemberType = D.MemberTypeId
-		END
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+			SELECT /*A.AccessId
+				 , */A.CustomerId
+				 , C.CustomerName
+				 , A.MemberId
+                 , A.DeviceId
+				 , B.FullName
+				 , B.IsEDLUser
+				 , B.MemberType
+				 , D.MemberTypeDescription
+			  FROM DeviceAccess A
+			     , LogInView B
+				 , CustomerMLView C
+				 , MemberTypeMLView D
+			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+			   AND UPPER(LTRIM(RTRIM(B.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+			   AND UPPER(LTRIM(RTRIM(B.MemberId))) = UPPER(LTRIM(RTRIM(A.MemberId)))
+			   And UPPER(LTRIM(RTRIM(B.LangId))) = UPPER(LTRIM(RTRIM(@langId)))
+			   AND UPPER(LTRIM(RTRIM(C.CustomerId))) = UPPER(LTRIM(RTRIM(A.CustomerId)))
+			   AND UPPER(LTRIM(RTRIM(C.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
+			   AND UPPER(LTRIM(RTRIM(D.LangId))) = UPPER(LTRIM(RTRIM(B.LangId)))
+			   AND B.MemberType = D.MemberTypeId
+        END
+
 		-- SUCCESS
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
 	END TRY
@@ -10826,14 +11088,19 @@ GO
 -- [== History ==]
 -- <2018-05-25> :
 --	- Stored Procedure Created.
+-- <2020-03-26> :
+--	- Add mode parameter.
 --
 -- [== Example ==]
 --
---EXEC SignOut N'YSP1UVPHWJ';
+--EXEC SignOut N'YSP1UVPHWJ', N'edl';
+--EXEC SignOut N'YSP1UVPHWJ', N'customer';
+--EXEC SignOut N'YSP1UVPHWJ', N'device';
 -- =============================================
 CREATE PROCEDURE [dbo].[SignOut]
 (
   @accessId nvarchar(30)
+, @mode nvarchar(30)  
 , @errNum as int = 0 out
 , @errMsg as nvarchar(MAX) = N'' out
 )
@@ -10844,18 +11111,48 @@ DECLARE @iCnt int = 0;
     --    0 : Success
 	-- 2307 : Access Id cannot be null or empty string.
 	-- 2308 : Access Id not found.
+    -- 2309 : mode cannot be null or empty string.
+    -- 2310 : invalid mode.
     -- OTHER : SQL Error Number & Error Message.
 	BEGIN TRY
 		IF (dbo.IsNullOrEmpty(@accessId) = 1)
 		BEGIN
             -- Access Id cannot be null or empty string.
-            EXEC GetErrorMsg 2307, @errNum out, @errMsg out
+            EXEC GetErrorMsg 2309, @errNum out, @errMsg out
 			RETURN
 		END
 
-		SELECT @iCnt = COUNT(*)
-		  FROM ClientAccess
-		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+        IF (dbo.IsNullOrEmpty(@mode) = 1)
+		BEGIN
+            -- mode cannot be null or empty string.
+            EXEC GetErrorMsg 2309, @errNum out, @errMsg out
+			RETURN
+        END
+
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
+            SELECT @iCnt = COUNT(*)
+              FROM EDLAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
+            SELECT @iCnt = COUNT(*)
+              FROM CustomerAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            SELECT @iCnt = COUNT(*)
+              FROM DeviceAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+        END
+        ELSE
+        BEGIN
+            -- invalid mode.
+            EXEC GetErrorMsg 2310, @errNum out, @errMsg out
+			RETURN
+        END
 
 		IF (@iCnt = 0)
 		BEGIN
@@ -10864,8 +11161,21 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		DELETE FROM ClientAccess
-		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
+            DELETE FROM EDLAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
+            DELETE FROM CustomerAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            DELETE FROM DeviceAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+        END
 
 		-- SUCCESS
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
@@ -11116,15 +11426,22 @@ GO
 -- [== History ==]
 -- <2019-12-26> :
 --	- Stored Procedure Created.
+-- <2020-03-26> :
+--	- Add mode parameter.
 --
 -- [== Example ==]
 --
---EXEC SetAccessDevice N'YSP1UVPHWJ', N'EDL-C2019100002' -- Reset
---EXEC SetAccessDevice N'YSP1UVPHWJ', N'EDL-C2019100002', N'D0001' -- Change
+--EXEC SetAccessDevice N'YSP1UVPHWJ', N'edl', N'EDL-C2019100002' -- Reset
+--EXEC SetAccessDevice N'YSP1UVPHWJ', N'edl', N'EDL-C2019100002', N'D0001' -- Change
+--EXEC SetAccessDevice N'YSP1UVPHWJ', N'customer', N'EDL-C2019100002' -- Reset
+--EXEC SetAccessDevice N'YSP1UVPHWJ', N'customer', N'EDL-C2019100002', N'D0001' -- Change
+--EXEC SetAccessDevice N'YSP1UVPHWJ', N'device', N'EDL-C2019100002' -- Reset
+--EXEC SetAccessDevice N'YSP1UVPHWJ', N'device', N'EDL-C2019100002', N'D0001' -- Change
 -- =============================================
 CREATE PROCEDURE [dbo].[SetAccessDevice]
 (
   @accessId nvarchar(30)
+, @mode nvarchar(30)  
 , @customerId nvarchar(30)
 , @deviceId nvarchar(30) = NULL
 , @errNum as int = 0 out
@@ -11139,6 +11456,8 @@ DECLARE @iCnt int = 0;
 	-- 4602 : Customer Id cannot be null or empty string.
 	-- 4603 : Access Id not found.
 	-- 4604 : Device Id not found.
+    -- 4605 : mode cannot be null or empty string.
+    -- 4606 : invalid mode.
     -- OTHER : SQL Error Number & Error Message.
 	BEGIN TRY
 		IF (dbo.IsNullOrEmpty(@accessId) = 1)
@@ -11148,6 +11467,13 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
+        IF (dbo.IsNullOrEmpty(@mode) = 1)
+		BEGIN
+            -- mode cannot be null or empty string.
+            EXEC GetErrorMsg 4605, @errNum out, @errMsg out
+			RETURN
+        END
+
 		IF (dbo.IsNullOrEmpty(@customerId) = 1)
 		BEGIN
             -- Customer Id cannot be null or empty string.
@@ -11155,13 +11481,19 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		SELECT @iCnt = COUNT(*)
-		  FROM ClientAccess
-		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
-		   AND (
-		            UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-			     OR UPPER(LTRIM(RTRIM(EDLCustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-			   )
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            SELECT @iCnt = COUNT(*)
+            FROM DeviceAccess
+            WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+              AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+        END
+        ELSE
+        BEGIN
+            -- invalid mode.
+            EXEC GetErrorMsg 4606, @errNum out, @errMsg out
+			RETURN
+        END
 
 		IF (@iCnt = 0)
 		BEGIN
@@ -11170,36 +11502,33 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		IF (@deviceId IS NULL)
-		BEGIN
-			UPDATE ClientAccess
-			   SET DeviceId = NULL
-			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
-			   AND (
-						UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-					 OR UPPER(LTRIM(RTRIM(EDLCustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-				   )
-		END
-		ELSE
-		BEGIN
-			SELECT @iCnt = COUNT(*)
-			  FROM Device
-			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-			   AND UPPER(LTRIM(RTRIM(DeviceId))) = UPPER(LTRIM(RTRIM(@deviceId)))
-			IF (@iCnt = 0)
-			BEGIN
-				-- Device Id not found.
-				EXEC GetErrorMsg 4604, @errNum out, @errMsg out
-				RETURN
-			END
-			UPDATE ClientAccess
-			   SET DeviceId = UPPER(LTRIM(RTRIM(@deviceId)))
-			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
-			   AND (
-						UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-					 OR UPPER(LTRIM(RTRIM(EDLCustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-				   )
-		END
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            IF (@deviceId IS NULL)
+            BEGIN
+                UPDATE DeviceAccess
+                SET DeviceId = NULL
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+                  AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+            END
+            ELSE
+            BEGIN
+                SELECT @iCnt = COUNT(*)
+                FROM Device
+                WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+                AND UPPER(LTRIM(RTRIM(DeviceId))) = UPPER(LTRIM(RTRIM(@deviceId)))
+                IF (@iCnt = 0)
+                BEGIN
+                    -- Device Id not found.
+                    EXEC GetErrorMsg 4604, @errNum out, @errMsg out
+                    RETURN
+                END
+                UPDATE DeviceAccess
+                SET DeviceId = UPPER(LTRIM(RTRIM(@deviceId)))
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+                  AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+            END
+        END
 
 		-- SUCCESS
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
@@ -11226,15 +11555,22 @@ GO
 -- [== History ==]
 -- <2019-12-19> :
 --	- Stored Procedure Created.
+-- <2020-03-26> :
+--	- Add mode parameter.
 --
 -- [== Example ==]
 --
---EXEC ChangeUser N'YSP1UVPHWJ'; -- Reset
---EXEC ChangeUser N'YSP1UVPHWJ' N'EDL-C2019100002'; -- Change
+--EXEC ChangeUser N'YSP1UVPHWJ', N'edl'; -- Reset
+--EXEC ChangeUser N'YSP1UVPHWJ', N'edl' N'EDL-C2019100002'; -- Change
+--EXEC ChangeUser N'YSP1UVPHWJ', N'customer'; -- Reset
+--EXEC ChangeUser N'YSP1UVPHWJ', N'customer' N'EDL-C2019100002'; -- Change
+--EXEC ChangeUser N'YSP1UVPHWJ', N'device'; -- Reset
+--EXEC ChangeUser N'YSP1UVPHWJ', N'edldevice' N'EDL-C2019100002'; -- Change
 -- =============================================
 CREATE PROCEDURE [dbo].[ChangeCustomer]
 (
   @accessId nvarchar(30)
+, @mode nvarchar(30)  
 , @customerId nvarchar(30) = NULL
 , @errNum as int = 0 out
 , @errMsg as nvarchar(MAX) = N'' out
@@ -11247,6 +11583,8 @@ DECLARE @iCnt int = 0;
 	-- 4501 : Access Id cannot be null or empty string.
 	-- 4502 : Access Id not found.
 	-- 4503 : Customer Id not found.
+    -- 4504 : mode cannot be null or empty string.
+    -- 4505 : invalid mode.
     -- OTHER : SQL Error Number & Error Message.
 	BEGIN TRY
 		IF (dbo.IsNullOrEmpty(@accessId) = 1)
@@ -11256,9 +11594,37 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		SELECT @iCnt = COUNT(*)
-		  FROM ClientAccess
-		 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+        IF (dbo.IsNullOrEmpty(@mode) = 1)
+		BEGIN
+            -- mode cannot be null or empty string.
+            EXEC GetErrorMsg 4504, @errNum out, @errMsg out
+			RETURN
+        END
+
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
+            SELECT @iCnt = COUNT(*)
+              FROM EDLAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
+            SELECT @iCnt = COUNT(*)
+              FROM CustomerAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            SELECT @iCnt = COUNT(*)
+              FROM DeviceAccess
+             WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)))
+        END
+        ELSE
+        BEGIN
+            -- invalid mode.
+            EXEC GetErrorMsg 4505, @errNum out, @errMsg out
+			RETURN
+        END
 
 		IF (@iCnt = 0)
 		BEGIN
@@ -11267,28 +11633,81 @@ DECLARE @iCnt int = 0;
 			RETURN
 		END
 
-		IF (@customerId IS NULL)
-		BEGIN
-			UPDATE ClientAccess
-			   SET EDLCustomerId = NULL
-			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
-		END
-		ELSE
-		BEGIN
-			SELECT @iCnt = COUNT(*)
-			  FROM Customer
-			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+        IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
+        BEGIN
+            IF (@customerId IS NULL)
+            BEGIN
+                UPDATE EDLAccess
+                SET CustomerId = NULL
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+            END
+            ELSE
+            BEGIN
+                SELECT @iCnt = COUNT(*)
+                FROM Customer
+                WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
 
-			IF (@iCnt = 0)
-			BEGIN
-				-- Customer Id not found.
-				EXEC GetErrorMsg 4503, @errNum out, @errMsg out
-				RETURN
-			END
-			UPDATE ClientAccess
-			   SET EDLCustomerId = UPPER(LTRIM(RTRIM(@customerId)))
-			 WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
-		END
+                IF (@iCnt = 0)
+                BEGIN
+                    -- Customer Id not found.
+                    EXEC GetErrorMsg 4503, @errNum out, @errMsg out
+                    RETURN
+                END
+                UPDATE EDLAccess
+                SET CustomerId = UPPER(LTRIM(RTRIM(@customerId)))
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+            END
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
+        BEGIN
+            IF (@customerId IS NULL)
+            BEGIN
+                UPDATE CustomerAccess
+                SET CustomerId = NULL
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+            END
+            ELSE
+            BEGIN
+                SELECT @iCnt = COUNT(*)
+                FROM Customer
+                WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+
+                IF (@iCnt = 0)
+                BEGIN
+                    -- Customer Id not found.
+                    EXEC GetErrorMsg 4503, @errNum out, @errMsg out
+                    RETURN
+                END
+                UPDATE CustomerAccess
+                SET CustomerId = UPPER(LTRIM(RTRIM(@customerId)))
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+            END
+        END
+        ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
+        BEGIN
+            IF (@customerId IS NULL)
+            BEGIN
+                UPDATE DeviceAccess
+                SET CustomerId = NULL
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+            END
+            ELSE
+            BEGIN
+                SELECT @iCnt = COUNT(*)
+                FROM Customer
+                WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
+
+                IF (@iCnt = 0)
+                BEGIN
+                    -- Customer Id not found.
+                    EXEC GetErrorMsg 4503, @errNum out, @errMsg out
+                    RETURN
+                END
+                UPDATE DeviceAccess
+                SET CustomerId = UPPER(LTRIM(RTRIM(@customerId)))
+                WHERE UPPER(LTRIM(RTRIM(AccessId))) = UPPER(LTRIM(RTRIM(@accessId)));
+            END
+        END
 
 		-- SUCCESS
 		EXEC GetErrorMsg 0, @errNum out, @errMsg out
@@ -11534,7 +11953,8 @@ BEGIN
     EXEC SaveErrorMsg 1901, N'User Name cannot be null or empty string.'
     EXEC SaveErrorMsg 1902, N'Password cannot be null or empty string.'
     EXEC SaveErrorMsg 1903, N'Cannot found User that match information.'
-    EXEC SaveErrorMsg 1904, N''
+    EXEC SaveErrorMsg 1904, N'mode cannot be null or empty string.'
+    EXEC SaveErrorMsg 1905, N'invalid mode.'
     -- GET VOTE SUMMARIES.
     EXEC SaveErrorMsg 2001, N'CustomerId cannot be null or empty string.'
     EXEC SaveErrorMsg 2002, N'QSetId cannot be null or empty string.'
@@ -11561,6 +11981,8 @@ BEGIN
     EXEC SaveErrorMsg 2306, N'Access Id not found.'
     EXEC SaveErrorMsg 2307, N'Access Id cannot be null or empty string.'
     EXEC SaveErrorMsg 2308, N'Access Id not found.'
+    EXEC SaveErrorMsg 2309, N'mode cannot be null or empty string.'
+    EXEC SaveErrorMsg 2310, N'invalid mode.'
     -- DEVICES
     EXEC SaveErrorMsg 2401, N'Customer Id cannot be null or empty string.'
     EXEC SaveErrorMsg 2402, N'Device Type Id not found.'
@@ -11647,11 +12069,15 @@ BEGIN
     EXEC SaveErrorMsg 4501, N'Access Id cannot be null or empty string.'
     EXEC SaveErrorMsg 4502, N'Access Id not found.'
     EXEC SaveErrorMsg 4503, N'Customer Id not found.'
+    EXEC SaveErrorMsg 4504, N'mode cannot be null or empty string.'
+    EXEC SaveErrorMsg 4505, N'invalid mode.'
     -- Set Access Device
     EXEC SaveErrorMsg 4601, N'Access Id cannot be null or empty string.'
     EXEC SaveErrorMsg 4602, N'Customer Id cannot be null or empty string.'
     EXEC SaveErrorMsg 4603, N'Access Id not found.'
     EXEC SaveErrorMsg 4604, N'Device Id not found.'
+    EXEC SaveErrorMsg 4605, N'mode cannot be null or empty string.'
+    EXEC SaveErrorMsg 4606, N'invalid mode.'
     -- Get QSet By Date
     EXEC SaveErrorMsg 4701, N'Customer Id cannot be null or empty string.'
     EXEC SaveErrorMsg 4702, N'Begin Date is null.'

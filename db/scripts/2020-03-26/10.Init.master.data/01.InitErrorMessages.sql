@@ -229,7 +229,8 @@ BEGIN
     EXEC SaveErrorMsg 1901, N'User Name cannot be null or empty string.'
     EXEC SaveErrorMsg 1902, N'Password cannot be null or empty string.'
     EXEC SaveErrorMsg 1903, N'Cannot found User that match information.'
-    EXEC SaveErrorMsg 1904, N''
+    EXEC SaveErrorMsg 1904, N'mode cannot be null or empty string.'
+    EXEC SaveErrorMsg 1905, N'invalid mode.'
     -- GET VOTE SUMMARIES.
     EXEC SaveErrorMsg 2001, N'CustomerId cannot be null or empty string.'
     EXEC SaveErrorMsg 2002, N'QSetId cannot be null or empty string.'
@@ -256,6 +257,8 @@ BEGIN
     EXEC SaveErrorMsg 2306, N'Access Id not found.'
     EXEC SaveErrorMsg 2307, N'Access Id cannot be null or empty string.'
     EXEC SaveErrorMsg 2308, N'Access Id not found.'
+    EXEC SaveErrorMsg 2309, N'mode cannot be null or empty string.'
+    EXEC SaveErrorMsg 2310, N'invalid mode.'
     -- DEVICES
     EXEC SaveErrorMsg 2401, N'Customer Id cannot be null or empty string.'
     EXEC SaveErrorMsg 2402, N'Device Type Id not found.'
@@ -342,11 +345,15 @@ BEGIN
     EXEC SaveErrorMsg 4501, N'Access Id cannot be null or empty string.'
     EXEC SaveErrorMsg 4502, N'Access Id not found.'
     EXEC SaveErrorMsg 4503, N'Customer Id not found.'
+    EXEC SaveErrorMsg 4504, N'mode cannot be null or empty string.'
+    EXEC SaveErrorMsg 4505, N'invalid mode.'
     -- Set Access Device
     EXEC SaveErrorMsg 4601, N'Access Id cannot be null or empty string.'
     EXEC SaveErrorMsg 4602, N'Customer Id cannot be null or empty string.'
     EXEC SaveErrorMsg 4603, N'Access Id not found.'
     EXEC SaveErrorMsg 4604, N'Device Id not found.'
+    EXEC SaveErrorMsg 4605, N'mode cannot be null or empty string.'
+    EXEC SaveErrorMsg 4606, N'invalid mode.'
     -- Get QSet By Date
     EXEC SaveErrorMsg 4701, N'Customer Id cannot be null or empty string.'
     EXEC SaveErrorMsg 4702, N'Begin Date is null.'
