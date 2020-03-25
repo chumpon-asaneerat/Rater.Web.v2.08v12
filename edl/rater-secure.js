@@ -61,3 +61,23 @@ const updateSecureObj = (req, res, obj) => {
 }
 
 //#endregion
+
+//#region RaterSecure class
+
+class RaterSecure { }
+
+RaterSecure.Client = class {
+    //#region middleware methods
+
+    //#endregion
+}
+
+RaterSecure.Device = class {
+    //#region middleware methods
+
+    //#endregion
+}
+
+//#endregion
+
+module.exports.RaterSecure = exports.RaterSecure = RaterSecure;
