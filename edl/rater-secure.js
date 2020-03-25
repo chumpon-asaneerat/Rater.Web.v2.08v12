@@ -29,34 +29,73 @@ const getSecure = (req, res) => {
     let rater = getRater(req, res)
     return (rater) ? rater.secure : null;
 }
+
+const updateSecureObjs = [
+    { 
+        mode:'edl', 
+        update: (secureObj, updateObj) => {
+            secureObj.edl.accessId = updateObj.AccessId
+            secureObj.edl.customerId = updateObj.CustomerId
+            secureObj.edl.memberId = updateObj.MemberId
+            secureObj.edl.memberType = updateObj.MemberType
+        } 
+    },
+    { 
+        mode:'customer', 
+        update: (secureObj, updateObj) => {
+            secureObj.customer.accessId = updateObj.AccessId
+            secureObj.customer.customerId = updateObj.CustomerId
+            secureObj.customer.memberId = updateObj.MemberId
+            secureObj.customer.memberType = updateObj.MemberType
+        } 
+    },
+    { 
+        mode:'device', 
+        update: (secureObj, updateObj) => {
+            secureObj.device.accessId = updateObj.AccessId
+            secureObj.device.customerId = updateObj.CustomerId
+            secureObj.device.memberId = updateObj.MemberId
+            secureObj.device.memberType = updateObj.MemberType
+            secureObj.device.deviceId = updateObj.DeviceId
+        } 
+    }
+]
+
+const updateSecureObjMaps = updateSecureObjs.map(obj => obj.mode )
+
 const updateSecureObj = (req, res, obj) => {
     if (!res.locals.rater) {
         // setup value for access in all routes.        
         res.locals.rater = {
             secure : {
-                accessId: '',
-                /*
-                deviceId: '',
-                customerId: '',
-                memberId: '',
-                memberType: 0,
-                IsEdlUser: false,
-                EDLCustomerId: null
-                */
+                mode: "",
+                edl : {
+                    accessId: '',
+                    memberId: '',
+                    memberType: 0,
+                    customerId: ''
+                },
+                customer: {
+                    accessId: '',
+                    memberId: '',
+                    memberType: 0,
+                    customerId: ''
+                },
+                device: {
+                    accessId: '',
+                    memberId: '',
+                    memberType: 0,
+                    customerId: '',
+                    deviceId: ''
+                }
             }
         }
     }
     let rater = res.locals.rater;
-    if (obj) {
-        rater.secure.accessId = obj.AccessId;
-        /*
-        rater.secure.deviceId = obj.DeviceId; // this value exist only on device screen.
-        rater.secure.customerId = obj.CustomerId;
-        rater.secure.memberId = obj.MemberId;
-        rater.secure.memberType = obj.MemberType;
-        rater.secure.IsEdlUser = obj.IsEDLUser,
-        rater.secure.EDLCustomerId = obj.EDLCustomerId
-        */
+    if (obj) {        
+        let idx = updateSecureObjMaps.indexOf(obj.mode)
+        let fn = (idx !== -1 ) ? updateSecureObjs[idx] : null
+        if (fn) fn.update(rater.secure, obj)
     }
 }
 
