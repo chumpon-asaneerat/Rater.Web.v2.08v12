@@ -64,12 +64,22 @@ const updateSecureObj = (req, res, obj) => {
 
 //#region RaterSecure class
 
-class RaterSecure { }
+class RaterSecure {
+    //#region middleware methods
+
+    static signin(req, res) {        
+    }
+
+    //#endregion
+}
 
 RaterSecure.EDL = class {
     //#region middleware methods
 
     static checkAccess(req, res, next) {
+    }
+    static signin(req, res) {
+        RaterSecure.signin()
     }
     static signout(req, res) {
     }
@@ -84,6 +94,9 @@ RaterSecure.Customer = class {
 
     static checkAccess(req, res, next) {
     }
+    static signin(req, res) {
+        RaterSecure.signin()
+    }
     static signout(req, res) {
     }
     static changeCustomer(req, res) {
@@ -96,6 +109,9 @@ RaterSecure.Device = class {
     //#region middleware methods
     
     static checkAccess(req, res, next) {
+    }
+    static signin(req, res) {
+        RaterSecure.signin()
     }
     static signout(req, res) {
     }
