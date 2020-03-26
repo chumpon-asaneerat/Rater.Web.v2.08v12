@@ -324,3 +324,387 @@ class ContentService {
 //#endregion
 
 //#endregion
+
+//#region Master Data Loader
+
+//#region avaliable events name for Master Data Loaders
+
+/** Master: Member Type List Changed. */
+window.events.name.MemberTypeListChanged = 'app:master:membertype:list:changed';
+/** Master: Device Type List Changed. */
+window.events.name.DeviceTypeListChanged = 'app:master:devicetype:list:changed';
+/** Master: Period Unit List Changed. */
+window.events.name.PeriodUnitListChanged = 'app:master:periodunit:list:changed';
+/** Master: Limit Unit List Changed. */
+window.events.name.LimitUnitListChanged = 'app:master:limitunit:list:changed';
+/** Master: License Type List Changed. */
+window.events.name.LicenseTypeListChanged = 'app:master:licensetype:list:changed';
+/** Master: License Feature List Changed. */
+window.events.name.LicenseFeatureListChanged = 'app:master:licensefeature:list:changed';
+
+//#endregion
+
+//#region Master Data Loaders and Service classes
+
+class MemberTypesLoader {
+    constructor() {
+        this.content = null;
+        this.current = null;
+        let self = this;
+        let contentChanged = (e) => {
+            self.updateCurrent();
+        }
+        document.addEventListener(events.name.LanguageChanged, contentChanged)
+    }
+    load() {
+        let self = this;
+        let url = '/api/membertypes';
+        let paramObj = {};
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            self.updateCurrent();
+        }
+        XHR.get(url, paramObj, fn);
+    }
+    getCurrent() {        
+        let match = this.content && this.content[this.langId];
+        let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
+        //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
+        // raise event
+        events.raise(events.name.MemberTypeListChanged)
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+
+class PeriodUnitsLoader {
+    constructor() {
+        this.content = null;
+        this.current = null
+        let self = this;
+        let contentChanged = (e) => {
+            self.updateCurrent();
+        }
+        document.addEventListener(events.name.LanguageChanged, contentChanged)
+    }
+    load() {
+        let self = this;
+        let url = '/api/periodunits';
+        let paramObj = {};
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            self.updateCurrent();
+        }
+        XHR.get(url, paramObj, fn);
+    }
+    getCurrent() {
+        let match = this.content && this.content[this.langId];
+        let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
+        //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
+        // raise event
+        events.raise(events.name.PeriodUnitListChanged)
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+
+class LimitUnitsLoader {
+    constructor() {
+        this.content = null;
+        this.current = null;
+        let self = this;
+        let contentChanged = (e) => {
+            self.updateCurrent();
+        }
+        document.addEventListener(events.name.LanguageChanged, contentChanged)
+    }
+    load() {
+        let self = this;
+        let url = '/api/limitunits';
+        let paramObj = {};
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            self.updateCurrent();
+        }
+        XHR.get(url, paramObj, fn);
+    }
+    getCurrent() {
+        let match = this.content && this.content[this.langId];
+        let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
+        //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
+        // raise event
+        events.raise(events.name.LimitUnitListChanged)
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+
+class DeviceTypesLoader {
+    constructor() {
+        this.content = null;
+        this.current = null;
+        let self = this;
+        let contentChanged = (e) => {
+            self.updateCurrent();
+        }
+        document.addEventListener(events.name.LanguageChanged, contentChanged)
+    }
+    load() {
+        let self = this;
+        let url = '/api/devicetypes';
+        let paramObj = {};
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            self.updateCurrent();
+        }
+        XHR.get(url, paramObj, fn);
+    }
+    getCurrent() {
+        let match = this.content && this.content[this.langId];
+        let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
+        // raise event
+        events.raise(events.name.DeviceTypeListChanged)
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+
+class LicenseTypesLoader {
+    constructor() {
+        this.content = null;
+        this.current = null;
+        let self = this;
+        let contentChanged = (e) => {
+            self.updateCurrent();
+        }
+        document.addEventListener(events.name.LanguageChanged, contentChanged)
+    }
+    load() {
+        let self = this;
+        let url = '/api/licensetypes';
+        let paramObj = {};
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            self.updateCurrent();
+        }
+        XHR.get(url, paramObj, fn);
+    }
+    getCurrent() {
+        let match = this.content && this.content[this.langId];
+        let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
+        //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
+        // raise event
+        events.raise(events.name.LicenseFeatureListChanged)
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+
+class LicenseFeaturesLoader {
+    constructor() {
+        this.content = null;
+        this.current = null;
+        let self = this;
+        let contentChanged = (e) => {
+            self.updateCurrent();
+        }
+        document.addEventListener(events.name.LanguageChanged, contentChanged)
+    }
+    load() {
+        let self = this;
+        let url = '/api/licensefeatures';
+        let paramObj = {};
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            self.updateCurrent();
+        }
+        XHR.get(url, paramObj, fn);
+    }
+    getCurrent() {
+        let match = this.content && this.content[this.langId];
+        let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
+        //console.log('Current:', ret);
+        return ret;
+    }
+    updateCurrent() {
+        this.current = this.getCurrent();
+        // raise event
+        events.raise(events.name.LicenseFeatureListChanged)
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+class MasterService {
+    constructor() {
+        this.membertypes = new MemberTypesLoader();
+        this.periodunits = new PeriodUnitsLoader();
+        this.limitunits = new LimitUnitsLoader();
+        this.devicetypes = new DeviceTypesLoader();
+        this.licesetypes = new LicenseTypesLoader();
+        this.licensefeatures = new LicenseFeaturesLoader();
+    }
+    /*
+    load() {
+        this.membertypes.load()
+        this.periodunits.load()
+        this.limitunits.load()
+        this.devicetypes.load()
+        this.licesetypes.load()
+        this.licensefeatures.load()
+    }
+    */
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+
+;(function () {
+    //console.log('Init content service...');
+    window.master = window.master || new MasterService();
+    //master.load();
+})();
+
+//#endregion
+
+//#endregion
+
+//#region Secure
+
+//#region avaliable events name for 
+
+/** Secure: Client User SignIn User List Changed. */
+window.events.name.UserListChanged = 'app:secure:user:list:changed';
+/** Secure: Client User SignIn Failed. */
+window.events.name.UserSignInFailed = 'app:secure:user:signin:failed';
+
+//#endregion
+
+//#region SecureService class
+
+class SecureService {
+    constructor() {
+        this.content = null;
+        this.account = { username: '', password: ''}
+    }
+    reset() {
+        this.content = null;
+        this.account = { username: '', password: ''}
+    }
+    verifyUsers(username, pwd) {
+        // may need to changed api route.
+        let url = '/api/customer/validate-accounts'
+        this.account = { username: username, password: pwd}
+
+        let self = this;
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            // Raise event.
+            events.raise(events.name.UserListChanged);
+        }
+        XHR.postJson(url, this.account, fn);
+    }
+    signin(customerId) {
+        // may need to changed api route.
+        let url = '/api/customer/signin'
+        let paramObj = {
+            customerId: customerId,
+            userName: this.account.username,
+            passWord: this.account.password
+        }
+        //console.log('Sign In:', paramObj);
+        let fn = (r) => {
+            let data = api.parse(r);
+            let err = data.errors;
+            if (err && err.hasError) {
+                // Raise event.
+                events.raise(events.name.UserSignInFailed, { error: err });
+            }
+            else {
+                //console.log('Sign In Success.');
+                nlib.nav.gotoUrl('/', true);
+            }            
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
+    signout() {
+        // may need to changed api route.
+        let url = '/api/customer/signout'
+        let fn = (r) => {
+            //console.log(r);
+            //console.log('sign out detected.');
+            nlib.nav.gotoUrl('/', true);
+        }
+        XHR.postJson(url, this.account, fn);
+    }
+    changeCustomer(customerId) {
+        // may need to changed api route.
+        let url = '/api/customer/change-customer'
+        let paramObj = {
+            customerId: customerId
+        }
+        //console.log('Sign In:', paramObj);
+        let fn = (r) => {
+            let data = api.parse(r);
+            let err = data.errors;
+            if (err && err.hasError) {
+                // change customer failed.
+                //console.log('Change customer failed:', err)
+            }
+            else {
+                //console.log('Change customer Success.');
+                nlib.nav.gotoUrl('/', true);
+            }            
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
+    nav(url) {
+        nlib.nav.gotoUrl(url);
+    }
+    get users() {
+        let ret = []
+        if (this.content) {
+            let usrs = (this.content[lang.langId]) ? this.content[lang.langId] : (this.content['EN']) ? this.content['EN'] : [];
+            ret = usrs;
+        }
+        return ret;
+    }
+}
+
+window.secure = window.secure || new SecureService();
+
+//#endregion
+
+//#endregion
