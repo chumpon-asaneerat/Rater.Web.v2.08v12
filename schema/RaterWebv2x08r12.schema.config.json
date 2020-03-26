@@ -112,5 +112,6 @@
     "SetDeviceUser": true,
     "SetAccessDevice": true,
     "ChangeCustomer": true,
-    "InitErrorMessages": false
+    "InitErrorMessages": false,
+    "InitSampleData": false
 }
