@@ -281,7 +281,7 @@
             "server": "localhost",
             "database": "RaterWebv2x08r12",
             "user": "sa",
-            "password": "winnt123",
+            "password": "P@ssw0rd",
             "pool": {
                 "max": 10,
                 "min": 0,
