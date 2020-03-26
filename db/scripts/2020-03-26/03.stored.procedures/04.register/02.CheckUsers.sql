@@ -23,7 +23,7 @@ GO
 --
 -- [== Example ==]
 --
---exec CheckUsers N'admin@umi.co.th', N'1234';
+--exec CheckUsers NULL, N'admin@umi.co.th', N'1234';
 -- =============================================
 CREATE PROCEDURE [dbo].[CheckUsers] (
   @langId nvarchar(3) = null
