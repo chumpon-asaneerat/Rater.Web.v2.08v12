@@ -9,6 +9,8 @@ GO
 -- [== History ==]
 -- <2018-05-15> :
 --	- Stored Procedure Created.
+-- <2020-03-26> :
+--	- Add choice parameter.
 --
 -- [== Example ==]
 --DECLARE @customerId nvarchar(30) = N'EDL-C2018050001';
@@ -17,12 +19,14 @@ GO
 --DECLARE @qSSeq int = NULL;
 --DECLARE @qText nvarchar(MAX);
 --DECLARE @isRemark bit = NULL;
+--DECLARE @choice int = NULL;
 --DECLARE @sortOrder int = NULL;
 --DECLARE @errNum int;
 --DECLARE @errMsg nvarchar(MAX);
 --
 --SET @qSSeq = NULL;
 --SET @qText = N'Choice 1';
+--SET @choice = 1;
 --SET @isRemark = NULL;
 --EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
 --					, @qText, @isRemark, @sortOrder
@@ -32,6 +36,7 @@ GO
 --
 --SET @qSSeq = NULL;
 --SET @qText = N'Choice 2';
+--SET @choice = 2;
 --SET @isRemark = NULL;
 --EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
 --					, @qText, @isRemark, @sortOrder
@@ -41,6 +46,7 @@ GO
 --
 --SET @qSSeq = NULL;
 --SET @qText = N'Choice 3';
+--SET @choice = 3;
 --SET @isRemark = NULL;
 --EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
 --					, @qText, @isRemark, @sortOrder
@@ -50,6 +56,7 @@ GO
 --
 --SET @qSSeq = NULL;
 --SET @qText = N'Choice 4';
+--SET @choice = 4;
 --SET @isRemark = NULL;
 --EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
 --					, @qText, @isRemark, @sortOrder
@@ -59,9 +66,10 @@ GO
 --
 --SET @qSSeq = NULL;
 --SET @qText = N'Remark';
+--SET @choice = 0;
 --SET @isRemark = 1;
 --EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
---					, @qText, @isRemark, @sortOrder
+--					, @qText, @isRemark, @choice, @sortOrder
 --					, @qSSeq out
 --					, @errNum out, @errMsg out
 --SELECT @qSSeq AS QSSeq, @errNum AS ErrNum, @errMsg AS ErrMsg;
@@ -72,6 +80,7 @@ CREATE PROCEDURE [dbo].[SaveQSlideItem] (
 , @qSeq as int
 , @qText as nvarchar(max) = null
 , @isRemark as bit = 0
+, @choice as int = null
 , @sortOrder int = 0
 , @qSSeq as int = 0 out
 , @errNum as int = 0 out

@@ -2490,6 +2490,649 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+CREATE TABLE [dbo].[QSet](
+	[QSetId] [nvarchar](30) NOT NULL,
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[HasRemark] [bit] NOT NULL,
+	[DisplayMode] [tinyint] NOT NULL,
+	[IsDefault] [bit] NOT NULL,
+	[BeginDate] [datetime] NOT NULL,
+	[EndDate] [datetime] NOT NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_QSet] PRIMARY KEY CLUSTERED 
+(
+	[QSetId] ASC,
+	[CustomerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[QSet] ADD  CONSTRAINT [DF_QSet_HasRemark]  DEFAULT ((0)) FOR [HasRemark]
+GO
+
+ALTER TABLE [dbo].[QSet] ADD  CONSTRAINT [DF_QSet_DisplayMode]  DEFAULT ((0)) FOR [DisplayMode]
+GO
+
+ALTER TABLE [dbo].[QSet] ADD  CONSTRAINT [DF_QSet_IsDefault]  DEFAULT ((0)) FOR [IsDefault]
+GO
+
+ALTER TABLE [dbo].[QSet] ADD  CONSTRAINT [DF_QSet_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Set Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'QSetId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Set Description.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'Description'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Is Question Set allow to enter remark.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'HasRemark'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - One slide per page, 1 Continuous slide' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'DisplayMode'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'1 to set as default Question Set.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'IsDefault'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The begin date.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'BeginDate'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The end date.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'EndDate'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 1 - Active' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSet', @level2type=N'COLUMN',@level2name=N'ObjectStatus'
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[QSetML](
+	[QSetId] [nvarchar](30) NOT NULL,
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[LangId] [nvarchar](3) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_QSetML] PRIMARY KEY CLUSTERED 
+(
+	[QSetId] ASC,
+	[CustomerId] ASC,
+	[LangId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Set Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSetML', @level2type=N'COLUMN',@level2name=N'QSetId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSetML', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Set Description.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSetML', @level2type=N'COLUMN',@level2name=N'Description'
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: QSetView.
+-- Description:	The QSet View.
+-- [== History ==]
+-- <2018-05-15> :
+--	- View Created.
+-- <2019-08-19> :
+--	- View Changes.
+--    - Remove DescriptionNative column.
+--    - Rename DescriptionEn column to Description.
+--
+-- [== Example ==]
+--
+-- =============================================
+CREATE VIEW [dbo].[QSetView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+	     --, LanguageView.Description
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+	     , QSet.QSetId
+	     , QSet.CustomerId
+		 , QSet.BeginDate
+		 , QSet.EndDate
+		 , QSet.Description
+		 , QSet.DisplayMode
+		 , QSet.HasRemark
+		 , QSet.IsDefault
+		 , QSet.ObjectStatus AS QSetStatus
+	  FROM LanguageView CROSS JOIN dbo.QSet
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: QSetMLView.
+-- Description:	The QSet ML View.
+-- [== History ==]
+-- <2018-05-15> :
+--	- View Created.
+-- <2019-08-19> :
+--	- View Changes.
+--    - Remove QSetDescriptionNative column.
+--    - Rename QSetDescriptionEn column to QSetDescription.
+--
+-- [== Example ==]
+--
+-- =============================================
+CREATE VIEW [dbo].[QSetMLView]
+AS
+	SELECT QSetV.LangId
+		 , QSetV.QSetId
+		 , QSetV.CustomerId
+		 , QSetV.BeginDate
+		 , QSetV.EndDate
+		 , CASE 
+			WHEN (QSetML.Description IS NULL OR LTRIM(RTRIM(QSetML.Description)) = '') THEN 
+				QSetV.Description
+			ELSE 
+				QSetML.Description 
+		   END AS QSetDescription
+		 , QSetV.DisplayMode
+		 , QSetV.HasRemark
+		 , QSetV.IsDefault
+		 , QSetV.QSetStatus
+		 , QSetV.Enabled
+		 , QSetV.SortOrder
+		FROM dbo.QSetML AS QSetML RIGHT OUTER JOIN QSetView AS QSetV
+		  ON (QSetML.LangId = QSetV.LangId 
+		  AND QSetML.QSetId = QSetV.QSetId
+		  AND QSetML.CustomerId = QSetV.CustomerId)
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[QSlide](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[QSetId] [nvarchar](30) NOT NULL,
+	[QSeq] [int] NOT NULL,
+	[QText] [nvarchar](max) NOT NULL,
+	[HasRemark] [bit] NOT NULL,
+	[SortOrder] [int] NOT NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_QSlide] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[QSetId] ASC,
+	[QSeq] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[QSlide] ADD  CONSTRAINT [DF_QSlide_HasRemark]  DEFAULT ((0)) FOR [HasRemark]
+GO
+
+ALTER TABLE [dbo].[QSlide] ADD  CONSTRAINT [DF_QSlide_SortOrder]  DEFAULT ((0)) FOR [SortOrder]
+GO
+
+ALTER TABLE [dbo].[QSlide] ADD  CONSTRAINT [DF_QSlide_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlide', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The QSet Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlide', @level2type=N'COLUMN',@level2name=N'QSetId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Sequence (Unique).' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlide', @level2type=N'COLUMN',@level2name=N'QSeq'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Text.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlide', @level2type=N'COLUMN',@level2name=N'QText'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Is Question Slide Has remark (0 - No Remark, 1 - Has Remark).' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlide', @level2type=N'COLUMN',@level2name=N'HasRemark'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Sort Order.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlide', @level2type=N'COLUMN',@level2name=N'SortOrder'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 1 - Active' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlide', @level2type=N'COLUMN',@level2name=N'ObjectStatus'
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[QSlideML](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[QSetId] [nvarchar](30) NOT NULL,
+	[QSeq] [int] NOT NULL,
+	[LangId] [nvarchar](3) NOT NULL,
+	[QText] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_QSlideML] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[QSetId] ASC,
+	[QSeq] ASC,
+	[LangId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideML', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The QSet Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideML', @level2type=N'COLUMN',@level2name=N'QSetId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Sequence (Unique).' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideML', @level2type=N'COLUMN',@level2name=N'QSeq'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Language Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideML', @level2type=N'COLUMN',@level2name=N'LangId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Text in specificed language.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideML', @level2type=N'COLUMN',@level2name=N'QText'
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: QSlideView.
+-- Description:	The QSlide View.
+-- [== History ==]
+-- <2018-05-15> :
+--	- View Created.
+-- <2019-08-19> :
+--	- View Changes.
+--    - Remove QSlideTextNative column.
+--    - Rename QSlideTextEn column to QSlideText.
+--
+-- [== Example ==]
+--
+-- =============================================
+CREATE VIEW [dbo].[QSlideView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+	     --, LanguageView.Description
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+	     , QSlide.CustomerId
+	     , QSlide.QSetId
+	     , QSlide.QSeq
+		 , QSlide.QText AS QSlideText
+		 , QSlide.HasRemark
+		 , QSlide.SortOrder AS QSlideOrder
+		 , QSlide.ObjectStatus AS QSlideStatus
+	  FROM LanguageView CROSS JOIN dbo.QSlide
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: QSlideMLView.
+-- Description:	The QSlide ML View.
+-- [== History ==]
+-- <2018-05-15> :
+--	- View Created.
+-- <2019-08-19> :
+--	- View Changes.
+--    - Remove QSlideTextNative column.
+--    - Rename QSlideTextEn column to QSlideText.
+--
+-- [== Example ==]
+--
+-- =============================================
+CREATE VIEW [dbo].[QSlideMLView]
+AS
+	SELECT QSlideV.LangId
+		 , QSlideV.CustomerId
+		 , QSlideV.QSetId
+		 , QSlideV.QSeq
+		 , CASE 
+			WHEN (QSlideML.QText IS NULL OR LTRIM(RTRIM(QSlideML.QText)) = '') THEN 
+				QSlideV.QSlideText
+			ELSE 
+				QSlideML.QText 
+		   END AS QSlideText
+		 , QSlideV.HasRemark
+		 , QSlideV.QSlideStatus
+		 , QSlideV.QSlideOrder
+		 , QSlideV.Enabled
+		 , QSlideV.SortOrder
+		FROM dbo.QSlideML AS QSlideML RIGHT OUTER JOIN QSlideView AS QSlideV
+		  ON (QSlideML.LangId = QSlideV.LangId 
+		  AND QSlideML.CustomerId = QSlideV.CustomerId
+		  AND QSlideML.QSetId = QSlideV.QSetId
+		  AND QSlideML.QSeq = QSlideV.QSeq)
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[QSlideItem](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[QSetId] [nvarchar](30) NOT NULL,
+	[QSeq] [int] NOT NULL,
+	[QSSeq] [int] NOT NULL,
+	[QText] [nvarchar](max) NOT NULL,
+	[IsRemark] [bit] NOT NULL,
+    [Choice] [int] NULL,
+	[SortOrder] [int] NOT NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_QSlideItem] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[QSetId] ASC,
+	[QSeq] ASC,
+	[QSSeq] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[QSlideItem] ADD  CONSTRAINT [DF_QSlideItem_IsRemark]  DEFAULT ((0)) FOR [IsRemark]
+GO
+
+ALTER TABLE [dbo].[QSlideItem] ADD  CONSTRAINT [DF_QSlideItem_SortOrder]  DEFAULT ((0)) FOR [SortOrder]
+GO
+
+ALTER TABLE [dbo].[QSlideItem] ADD  CONSTRAINT [DF_QSlideItem_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItem', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Set Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItem', @level2type=N'COLUMN',@level2name=N'QSetId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Slide Seq.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItem', @level2type=N'COLUMN',@level2name=N'QSeq'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Item Seq.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItem', @level2type=N'COLUMN',@level2name=N'QSSeq'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Item Text.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItem', @level2type=N'COLUMN',@level2name=N'QText'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Is Remark Item.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItem', @level2type=N'COLUMN',@level2name=N'IsRemark'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Item Sort Order.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItem', @level2type=N'COLUMN',@level2name=N'SortOrder'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 - Inactive, 1 - Active' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItem', @level2type=N'COLUMN',@level2name=N'ObjectStatus'
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[QSlideItemML](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[QSetId] [nvarchar](30) NOT NULL,
+	[QSeq] [int] NOT NULL,
+	[QSSeq] [int] NOT NULL,
+	[LangId] [nvarchar](3) NOT NULL,
+	[QText] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_QSlideItemML] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[QSetId] ASC,
+	[QSeq] ASC,
+	[QSSeq] ASC,
+	[LangId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Customer Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItemML', @level2type=N'COLUMN',@level2name=N'CustomerId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Set Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItemML', @level2type=N'COLUMN',@level2name=N'QSetId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Slide Seq.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItemML', @level2type=N'COLUMN',@level2name=N'QSeq'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Item Seq.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItemML', @level2type=N'COLUMN',@level2name=N'QSSeq'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Language Id.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItemML', @level2type=N'COLUMN',@level2name=N'LangId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Question Item Text.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'QSlideItemML', @level2type=N'COLUMN',@level2name=N'QText'
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: QSlideItemView.
+-- Description:	The QSlideItem View.
+-- [== History ==]
+-- <2018-05-15> :
+--	- View Created.
+-- <2019-08-19> :
+--	- View Changes.
+--    - Remove QItemTextNative column.
+--    - Rename QItemTextEn column to QItemText.
+-- <2020-03-26> :
+--	- Add choice parameter.
+--
+-- [== Example ==]
+--
+-- =============================================
+CREATE VIEW [dbo].[QSlideItemView]
+AS
+	SELECT LanguageView.LangId
+		 --, LanguageView.FlagId
+	     --, LanguageView.Description
+		 , LanguageView.Enabled
+		 , LanguageView.SortOrder
+	     , QSlideItem.CustomerId
+	     , QSlideItem.QSetId
+	     , QSlideItem.QSeq
+		 , QSlideItem.QSSeq
+		 , QSlideItem.QText AS QItemText
+		 , QSlideItem.IsRemark
+         , QSlideItem.Choice
+		 , QSlideItem.SortOrder AS QItemOrder
+		 , QSlideItem.ObjectStatus AS QItemStatus
+	  FROM LanguageView CROSS JOIN dbo.QSlideItem
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: QSlideItemMLView.
+-- Description:	The QSlide Item ML View.
+-- [== History ==]
+-- <2018-05-15> :
+--	- View Created.
+-- <2019-08-19> :
+--	- View Changes.
+--    - Remove QItemTextNative column.
+--    - Rename QItemTextEn column to QItemText.
+-- <2020-03-26> :
+--	- Add choice parameter.
+--
+-- [== Example ==]
+--
+-- =============================================
+CREATE VIEW [dbo].[QSlideItemMLView]
+AS
+	SELECT QItemV.LangId
+		 , QItemV.CustomerId
+		 , QItemV.QSetId
+		 , QItemV.QSeq
+		 , QItemV.QSSeq
+		 , CASE 
+			WHEN (QItemML.QText IS NULL OR LTRIM(RTRIM(QItemML.QText)) = '') THEN 
+				QItemV.QItemText
+			ELSE 
+				QItemML.QText 
+		   END AS QItemText
+		 , QItemV.IsRemark
+         , QItemV.Choice
+		 , QItemV.QItemStatus
+		 , QItemV.QItemOrder
+		 , QItemV.Enabled
+		 , QItemV.SortOrder
+		FROM dbo.QSlideItemML AS QItemML RIGHT OUTER JOIN QSlideItemView AS QItemV
+		  ON (QItemML.LangId = QItemV.LangId 
+		  AND QItemML.CustomerId = QItemV.CustomerId
+		  AND QItemML.QSetId = QItemV.QSetId
+		  AND QItemML.QSeq = QItemV.QSeq
+		  AND QItemML.QSSeq = QItemV.QSSeq)
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Vote](
+	[CustomerId] [nvarchar](30) NOT NULL,
+	[OrgId] [nvarchar](30) NOT NULL,
+	[BranchId] [nvarchar](30) NOT NULL,
+	[DeviceId] [nvarchar](30) NOT NULL,
+	[QSetId] [nvarchar](30) NOT NULL,
+	[QSeq] [int] NOT NULL,
+	[VoteSeq] [int] NOT NULL,
+	[UserId] [nvarchar](30) NULL,
+	[VoteDate] [datetime] NOT NULL,
+	[VoteValue] [int] NOT NULL,
+	[Remark] [nvarchar](100) NULL,
+	[ObjectStatus] [int] NOT NULL,
+ CONSTRAINT [PK_Vote] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC,
+	[OrgId] ASC,
+	[BranchId] ASC,
+	[DeviceId] ASC,
+	[QSetId] ASC,
+	[QSeq] ASC,
+	[VoteSeq] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING ON
+
+GO
+
+/****** Object:  Index [IX_UserId]    Script Date: 4/23/2018 04:32:54 ******/
+CREATE NONCLUSTERED INDEX [IX_UserId] ON [dbo].[Vote]
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+/****** Object:  Index [IX_VoteDate]    Script Date: 4/23/2018 04:32:54 ******/
+CREATE NONCLUSTERED INDEX [IX_VoteDate] ON [dbo].[Vote]
+(
+	[VoteDate] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+/****** Object:  Index [IX_VoteValue]    Script Date: 4/23/2018 04:32:54 ******/
+CREATE NONCLUSTERED INDEX [IX_VoteValue] ON [dbo].[Vote]
+(
+	[VoteValue] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Vote] ADD  CONSTRAINT [DF_Vote_ObjectStatus]  DEFAULT ((1)) FOR [ObjectStatus]
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 CREATE VIEW [dbo].[LogInView]
 AS
 SELECT UV.LangId
@@ -10184,6 +10827,3662 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
+-- Name: SaveQSet.
+-- Description:	Save Question Set.
+-- [== History ==]
+-- <2018-05-13> :
+--	- Stored Procedure Created.
+-- <2018-05-15> :
+--	- Add Check code for duplicate description (ERROR_CORE 1416).
+-- <2018-12-26> :
+--	- Remove date overlap check code (ERROR_CORE 1418).
+--	
+--
+-- [== Example ==]
+--DECLARE @customerId nvarchar(30) = NULL;
+--DECLARE @qsetId nvarchar(30) = NULL;
+--DECLARE @description nvarchar(MAX);
+--DECLARE @displayMode tinyint = 0;
+--DECLARE @hasRemark bit = 1;
+--DECLARE @isDefault bit = 0;
+--DECLARE @beginDate datetime = NULL;
+--DECLARE @endDate datetime = NULL;
+--DECLARE @errNum int;
+--DECLARE @errMsg nvarchar(MAX);
+--
+--SET @customerId = N'EDL-C2018050001';
+--SET @description = N'Question Set 1';
+--SET @beginDate = '2018-05-10';
+--SET @endDate = '2018-05-15';
+--
+--EXEC SaveQSet @customerId
+--			  , @description
+--			  , @hasRemark, @displayMode
+--			  , @isDefault
+--			  , @beginDate, @endDate
+--			  , @qsetId out
+--			  , @errNum out, @errMsg out
+--SELECT @errNum AS ErrNum, @errMsg AS ErrMsg, @qsetId AS QSetId;
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveQSet] (
+  @customerId as nvarchar(30)
+, @description as nvarchar(MAX)
+, @hasRemark as bit = 0
+, @displayMode as tinyint = 0
+, @isDefault as bit = 0
+, @beginDate as datetime = null
+, @endDate as datetime = null
+, @qSetId as nvarchar(30) = null out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iCustCnt int = 0;
+DECLARE @iQSetCnt int = 0;
+DECLARE @iVoteCnt int = 0;
+
+DECLARE @vBeginDate datetime;
+DECLARE @vEndDate datetime; 
+DECLARE @vBeginDateStr nvarchar(40);
+DECLARE @vEndDateStr nvarchar(40); 
+	-- Error Code:
+	--   0 : Success
+	-- 1401 : Customer Id cannot be null or empty string.
+	-- 1402 : Customer Id is not found.
+	-- 1403 : QSet Id is not found.
+	-- 1404 : QSet is already used in vote table.
+	-- 1405 : Begin Date and/or End Date should not be null.
+	-- 1406 : Display Mode is null or value is not in 0 to 1.
+	-- 1407 : Begin Date should less than End Date.
+	-- 1408 : Begin Date or End Date is overlap with another Question Set.
+	-- 1416 : Description (default) cannot be null or empty string.
+	-- 1417 : Description (default) already exists.
+	-- 1418 : Begin Date or End Date is overlap with another Question Set.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF @isDefault IS NULL
+		BEGIN
+			SET @isDefault = 0;
+		END
+
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1401, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCustCnt = COUNT(*)
+		  FROM Customer
+		 WHERE RTRIM(LTRIM(CustomerId)) = RTRIM(LTRIM(@customerId));
+		IF (@iCustCnt = 0)
+		BEGIN
+			-- Customer Id is not found.
+            EXEC GetErrorMsg 1504, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if QSetId exists */
+		IF (@qSetId IS NOT NULL AND LTRIM(RTRIM(@qSetId)) <> N'')
+		BEGIN
+			SELECT @iQSetCnt = COUNT(*)
+			  FROM QSet
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)));
+			IF (@iQSetCnt = 0)
+			BEGIN
+				-- QSet Id is not found.
+                EXEC GetErrorMsg 1403, @errNum out, @errMsg out
+				RETURN
+			END
+		END
+
+		IF (@beginDate is null or @endDate is null)
+		BEGIN
+			-- Begin Date and/or End Date should not be null.
+			EXEC GetErrorMsg 1405, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@displayMode is null or (@displayMode < 0 or @displayMode > 1))
+		BEGIN
+			-- Display Mode is null or value is not in 0 to 1.
+			EXEC GetErrorMsg 1406, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iQSetCnt = 0; -- Reset Counter.
+		-- Check the default is already exist or not.
+		SELECT @iQSetCnt = COUNT(*)
+		  FROM QSet
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND IsDefault = 1;
+
+		-- Checks IsDefault, Begin-End Date.
+		IF (@isDefault = 1)
+		BEGIN
+			IF (@iQSetCnt <> 0)
+			BEGIN
+				-- It's seem the default QSet is already exists.
+				-- Set the exists default default QSet to 0
+				UPDATE QSet
+				   SET IsDefault = 0
+				 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)));
+			END
+
+			-- CONVERT DATE
+			SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+								  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+								  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+								  N'00:00:00');
+			--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+			SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+			SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+								CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+								CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+								N'23:59:59');
+			--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+			SET @vEndDate = CAST(@vEndDateStr AS datetime)
+
+			IF (@vBeginDate > @vEndDate)
+			BEGIN
+				-- Begin Date should less than End Date.
+				EXEC GetErrorMsg 1407, @errNum out, @errMsg out
+				RETURN
+			END
+		END
+		ELSE
+		BEGIN
+			IF (@iQSetCnt = 0)
+			BEGIN
+				-- It's seem the default QSet is not exists.
+				-- Set current QSet as default.
+				SET @isDefault = 1
+			END
+
+			SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+								  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+								  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+								  N'00:00:00');
+			SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+
+			SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+								CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+								CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+								N'23:59:59');
+			SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+
+			IF (@vBeginDate > @vEndDate)
+			BEGIN
+				-- Begin Date should less than End Date.
+				EXEC GetErrorMsg 1407, @errNum out, @errMsg out
+				RETURN
+			END
+		END
+
+		IF (dbo.IsNullOrEmpty(@description) = 1)
+		BEGIN
+			-- Description (default) cannot be null or empty string.
+            EXEC GetErrorMsg 1416, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iQSetCnt = 0; -- Reset Counter.
+
+		-- Checks Duplicated desctiption.
+		IF (@qSetId IS NULL)
+		BEGIN
+			SELECT @iQSetCnt = COUNT(*)
+			  FROM QSet
+			 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(LTRIM(RTRIM(Description))) = LOWER(LTRIM(RTRIM(@description)))
+			IF (@iQSetCnt <> 0)
+			BEGIN
+				-- Description (default) already exists.
+                EXEC GetErrorMsg 1417, @errNum out, @errMsg out
+				RETURN
+			END
+		END
+		ELSE
+		BEGIN
+			SELECT @iQSetCnt = COUNT(*)
+			  FROM QSet
+			 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(LTRIM(RTRIM(QSetId))) <> LOWER(LTRIM(RTRIM(@qSetId)))
+			   AND LOWER(LTRIM(RTRIM(Description))) = LOWER(LTRIM(RTRIM(@description)))
+			IF (@iQSetCnt <> 0)
+			BEGIN
+				-- Description (default) already exists.
+                EXEC GetErrorMsg 1417, @errNum out, @errMsg out
+				RETURN
+			END
+		END
+
+		IF dbo.IsNullOrEmpty(@qSetId) = 1
+		BEGIN
+			EXEC NextCustomerPK @customerId
+			                , N'QSet'
+							, @qSetId out
+							, @errNum out
+							, @errMsg out;
+			IF @errNum <> 0
+			BEGIN
+				RETURN;
+			END	
+		END
+		ELSE
+		BEGIN
+			SELECT @iQSetCnt = COUNT(*)
+			  FROM QSet
+			 WHERE LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)))
+			   AND LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		END
+
+		-- Checks is already in used.
+		SELECT @iVoteCnt = COUNT(*)
+			FROM Vote
+			WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)));
+
+		IF (@iVoteCnt <> 0)
+		BEGIN
+			-- QSet is already used in vote table.
+            EXEC GetErrorMsg 1404, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF @iQSetCnt = 0
+		BEGIN
+			INSERT INTO QSet
+			(
+				  CustomerID
+				, QSetID
+				, [Description]
+				, HasRemark
+				, DisplayMode
+				, IsDefault
+				, BeginDate
+				, EndDate
+				, ObjectStatus
+			)
+			VALUES
+			(
+				  RTRIM(LTRIM(@customerId))
+				, RTRIM(LTRIM(@qSetId))
+				, RTRIM(LTRIM(@description))
+				, @hasRemark
+				, @displayMode
+				, @isDefault
+				, @vBeginDate
+				, @vEndDate
+				, 1
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE QSet
+			   SET [Description] = RTRIM(LTRIM(@description))
+			     , HasRemark = @hasRemark
+				 , DisplayMode = @displayMode
+			     , IsDefault = @isDefault
+				 , BeginDate = @vBeginDate
+				 , EndDate = @vEndDate
+			 WHERE LOWER(QSetID) = LOWER(RTRIM(LTRIM(@qSetId))) 
+			   AND LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)));
+		END
+		
+		-- SUCCESS
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveQSetML.
+-- Description:	Save Question Set ML.
+-- [== History ==]
+-- <2018-05-15> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec SaveQSetML N'EDL-C2018050001', N'QS00001', N'TH', N'คำถามที่ 1'
+--exec SaveQSetML N'EDL-C2018050001', N'QS00001', N'JA', N'質問 1'
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveQSetML] (
+  @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @langId as nvarchar(3)
+, @description as nvarchar(MAX)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iCnt int = 0;
+DECLARE @iLangCnt int = 0;
+DECLARE @iQSetCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1409 : Lang Id cannot be null or empty string.
+	-- 1410 : Lang Id not found.
+	-- 1411 : Customer Id cannot be null or empty string.
+	-- 1412 : Customer Id not found.
+	-- 1413 : QSetId cannot be null or empty string.
+	-- 1414 : No QSet match QSetId in specificed Customer Id.
+	-- 1415 : Description(ML) already exists.
+	-- 1418 : Description (ML) cannot be null or empty string.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		/* Check if lang id is not null. */
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- Lang Id cannot be null or empty string.
+            EXEC GetErrorMsg 1409, @errNum out, @errMsg out
+			RETURN
+		END
+		/* Check if language exists. */
+		SELECT @iLangCnt = COUNT(LangId)
+		  FROM Language
+		 WHERE UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		IF (@iLangCnt IS NULL OR @iLangCnt = 0) 
+		BEGIN
+			-- Lang Id not found.
+            EXEC GetErrorMsg 1410, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if customer id is not null. */
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1411, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Customer
+		 WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Customer Id not found.
+            EXEC GetErrorMsg 1412, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if QSetId is not null. */
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- QSetId cannot be null or empty string.
+            EXEC GetErrorMsg 1413, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check QSetId is in QSet table */ 
+		SELECT @iQSetCnt = COUNT(*)
+		  FROM QSet
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		IF (@iQSetCnt = 0)
+		BEGIN
+			-- No QSet match QSetId in specificed Customer Id.
+            EXEC GetErrorMsg 1414, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@description) = 1)
+		BEGIN
+			-- Description (ML) cannot be null or empty string.
+            EXEC GetErrorMsg 1418, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iQSetCnt = COUNT(*)
+		  FROM QSetML
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) <> UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)))
+		   AND UPPER(RTRIM(LTRIM(Description))) = UPPER(RTRIM(LTRIM(@description)));
+		IF (@iQSetCnt <> 0)
+		BEGIN
+			-- Description (ML) already exists.
+            EXEC GetErrorMsg 1415, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iQSetCnt = 0; -- Reset
+
+		/* check is need to insert or update? */
+		SELECT @iQSetCnt = COUNT(*)
+		  FROM QSetML
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) <> UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)))
+
+		IF (@iQSetCnt = 0)
+		BEGIN
+			INSERT INTO QSetML
+			(
+				  CustomerId
+				, QSetId
+				, LangId
+				, Description
+			)
+			VALUES
+			(
+				  UPPER(RTRIM(LTRIM(@customerId)))
+				, UPPER(RTRIM(LTRIM(@qSetId)))
+				, UPPER(RTRIM(LTRIM(@langId)))
+				, RTRIM(LTRIM(@description))
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE QSetML
+			   SET Description = RTRIM(LTRIM(@description))
+		     WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+			   AND UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+			   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		END
+		
+		-- SUCCESS
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetQSets.
+-- Description:	Get Question Sets.
+-- [== History ==]
+-- <2018-05-15> :
+--	- Stored Procedure Created.
+-- <2019-08-19> :
+--	- Stored Procedure Changes.
+--    - Remove QSetDescriptionNative column.
+--    - Rename QSetDescriptionEN column to QSetDescription.
+-- <2020-01-07> :
+--    - Add MinVoteDate, MaxVoteDate
+--
+-- [== Example ==]
+--
+--EXEC GetQSets NULL, NULL, NULL, 1
+--EXEC GetQSets N'EN', NULL, NULL, 1
+--EXEC GetQSets NULL, N'EDL-C2018050001', NULL, 1;
+--EXEC GetQSets N'EN', N'EDL-C2018050001', NULL, 1;
+--EXEC GetQSets NULL, N'EDL-C2018050001', N'QS00001', 1;
+--EXEC GetQSets N'EN', N'EDL-C2018050001', N'QS00001', 1;
+-- =============================================
+CREATE PROCEDURE [dbo].[GetQSets]
+(
+  @langId nvarchar(3) = NULL
+, @customerId nvarchar(30) = NULL
+, @qSetId nvarchar(30) = NULL
+, @enabled bit = NULL
+)
+AS
+BEGIN
+	SELECT A.langId
+		 , A.customerId
+		 , A.qSetId
+		 , A.BeginDate
+		 , A.EndDate
+		 , (
+			SELECT MIN(VoteDate) 
+			  FROM Vote 
+			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+			   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
+		   ) AS MinVoteDate
+		 , (
+			SELECT MAX(VoteDate) 
+			  FROM Vote 
+			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+			   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
+		   ) AS MaxVoteDate
+		 , A.QSetDescription
+		 , A.DisplayMode
+		 , A.HasRemark
+		 , A.IsDefault
+		 , A.QSetStatus
+		 , A.SortOrder
+		 , A.Enabled 
+	  FROM QSetMLView A
+	 WHERE A.[ENABLED] = COALESCE(@enabled, A.[ENABLED])
+	   AND UPPER(LTRIM(RTRIM(A.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, A.LangId))))
+	   AND UPPER(LTRIM(RTRIM(A.CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, A.CustomerId))))
+	   AND UPPER(LTRIM(RTRIM(A.QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, A.QSetId))))
+	 ORDER BY A.SortOrder, A.CustomerId, A.QSetId
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Delete QSet
+-- [== History ==]
+-- <2019-12-16> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC DeleteQSet N'EDL-C2019100003', N'QS00001'
+-- =============================================
+CREATE PROCEDURE [dbo].[DeleteQSet]
+(
+  @customerId nvarchar(30)
+, @qSetId nvarchar(30)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @iCnt int;
+    -- Error Code:
+    --   0 : Success
+	-- 4151: Customer Id cannot be null or empty string.
+	-- 4152: Qset Id cannot be null or empty string.
+	-- 4153: Cannot be remove qslide that already in used.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 4151, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- Qset Id cannot be null or empty string.
+            EXEC GetErrorMsg 4152, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iCnt = 0;
+		SELECT @iCnt = COUNT(*) 
+		  FROM Vote
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId)))
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+
+		IF (@iCnt > 0)
+		BEGIN
+			-- Cannot be remove qset that already in used.
+			EXEC GetErrorMsg 4153, @errNum out, @errMsg out
+			RETURN
+		END
+
+		DELETE FROM QSlideItemML
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+
+		DELETE FROM QSlideItem
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+
+		DELETE FROM QSlideML
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+
+		DELETE FROM QSlide 
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+
+		DELETE FROM QSetML
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+
+		DELETE FROM QSet
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetQSetByDate.
+-- Description:	Get Question Set By date(s).
+-- [== History ==]
+-- <2019-12-26> :
+--	- Stored Procedure Created.
+-- <2020-01-07> :
+--    - Add MinVoteDate, MaxVoteDate
+--
+-- [== Example ==]
+--
+--EXEC GetQSetByDate NULL, N'EDL-C2018050001', N'2019-12-01'
+--EXEC GetQSetByDate N'EN', N'EDL-C2018050001', N'2019-12-01'
+--EXEC GetQSetByDate NULL, N'EDL-C2018050001', N'2019-01-15', N'2019-02-15'
+-- =============================================
+CREATE PROCEDURE [dbo].[GetQSetByDate]
+(
+  @langId nvarchar(3) = NULL
+, @customerId nvarchar(30) = NULL
+, @beginDate datetime = NULL
+, @endDate datetime = NULL
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @vBeginDate datetime;
+DECLARE @vEndDate datetime; 
+DECLARE @vBeginDateStr nvarchar(40);
+DECLARE @vEndDateStr nvarchar(40); 
+DECLARE @qsetId nvarchar(30);
+DECLARE @iCase int;
+	-- Error Code:
+	--   0 : Success
+	-- 4701 : Customer Id cannot be null or empty string.
+	-- 4702 : Begin Date is null.
+	-- 4703 : Begin Date should less than End Date.
+	-- 4704 : No QSet Found.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1401, @errNum out, @errMsg out
+			RETURN
+		END
+		IF (@beginDate IS NULL)
+		BEGIN
+			-- Begin Date is null.
+            EXEC GetErrorMsg 1402, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@endDate IS NULL)
+		BEGIN
+			SET @endDate = @beginDate
+		END
+
+		-- CONVERT DATE
+		SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+							  N'00:00:00');
+		--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+		SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+		SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+							N'23:59:59');
+		--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+		SET @vEndDate = CAST(@vEndDateStr AS datetime)
+		IF (@vBeginDate > @vEndDate)
+		BEGIN
+			-- Begin Date should less than End Date.
+			EXEC GetErrorMsg 4703, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @qsetId = NULL
+		IF ((SELECT COUNT(*) 
+		       FROM QSet 
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND (   @vBeginDate BETWEEN BeginDate AND EndDate
+			        OR @vEndDate BETWEEN BeginDate AND EndDate)
+			   AND IsDefault = 0) > 0)
+		BEGIN
+			SET @iCase = 1
+			-- HAS QSet between date with that not set as default.
+			SELECT TOP 1 @qsetId = QSetId
+			  FROM QSet
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND (   @vBeginDate BETWEEN BeginDate AND EndDate
+			        OR @vEndDate BETWEEN BeginDate AND EndDate
+				   )
+			   AND IsDefault = 0
+			 --ORDER BY EndDate DESC
+			 ORDER BY QSetId DESC
+		END
+		ELSE IF ((SELECT COUNT(*) 
+		            FROM QSet 
+			       WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			         AND IsDefault = 1) > 0)
+		BEGIN
+			SET @iCase = 2
+			-- No QSet between date so used default if exists.
+			SELECT TOP 1 @qsetId = QSetId
+			  FROM QSet
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND IsDefault = 1
+			 --ORDER BY EndDate DESC
+			 ORDER BY QSetId DESC
+		END
+		ELSE IF ((SELECT count(*) FROM QSet 
+		  WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			AND IsDefault = 0) > 0)
+		BEGIN
+			SET @iCase = 3
+			-- No QSet between date and no default is assigned in all qsets.
+			-- Used top 1 (the last ones)
+			SELECT TOP 1 @qsetId = QSetId
+			  FROM QSet
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			 --ORDER BY EndDate DESC
+			 ORDER BY QSetId DESC
+		END
+
+		IF (@qsetId IS NULL)
+		BEGIN
+			-- No QSet Found.
+			EXEC GetErrorMsg 4704, @errNum out, @errMsg out
+			RETURN
+		END
+		ELSE
+		BEGIN
+			   SELECT langId
+				    , customerId
+					, qSetId
+					, BeginDate
+					, EndDate
+					, (
+						SELECT MIN(VoteDate) 
+						  FROM Vote 
+						 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+						   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
+					  ) AS MinVoteDate
+					, (
+						SELECT MAX(VoteDate) 
+						  FROM Vote 
+						 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+						   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
+					  ) AS MaxVoteDate
+					, QSetDescription as [Description]
+					, DisplayMode
+					, HasRemark
+					, IsDefault
+					--, QSetStatus
+					--, SortOrder
+					, Enabled 
+					--, @iCase as [Case]
+				 FROM QSetMLView 
+				WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				  AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
+				  AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(@qsetId)))
+				  --AND Enabled = 1
+			 ORDER BY SortOrder, CustomerId, QSetId
+		END
+
+		-- SUCCESS
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH	 
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveQSlide.
+-- Description:	Save New Question Slide.
+-- [== History ==]
+-- <2018-05-15> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec SaveQSlide N'EDL-C2018050001', N'QS00001', N'What do you feel today?'
+--exec SaveQSlide N'EDL-C2018050001', N'QS00001', N'What do you feel today?' /*, 0, 1, @qSeq out, @errNum out, @errMsg out*/
+--exec SaveQSlide N'EDL-C2018050001', N'QS00002', N'What do think about our service?'
+--exec SaveQSlide N'EDL-C2018050001', N'QS00002', N'What do think about our food taste?'
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveQSlide] (
+  @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @qText as nvarchar(max) = null
+, @hasRemark as bit = 0
+, @sortOrder int = 0
+, @qSeq as int = 0 out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out)
+AS
+BEGIN
+DECLARE @iCustCnt int = 0;
+DECLARE @iQSetCnt int = 0;
+DECLARE @iQSeqCnt int = 0;
+DECLARE @iLastSeq int = 0;
+DECLARE @vQSeq int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1501 : Customer Id cannot be null or empty string.
+	-- 1502 : Question Set Id cannot be null or empty string.
+	-- 1503 : Question Text cannot be null or empty string.
+	-- 1504 : Customer Id is not found.
+	-- 1505 : QSetId is not found. 
+	-- 1506 : QSeq is not found.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+			EXEC GetErrorMsg 1501, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- Question Set Id cannot be null or empty string.
+			EXEC GetErrorMsg 1502, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qText) = 1)
+		BEGIN
+			-- Question Text cannot be null or empty string.
+			EXEC GetErrorMsg 1503, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCustCnt = COUNT(*)
+		  FROM Customer
+		 WHERE RTRIM(LTRIM(CustomerId)) = RTRIM(LTRIM(@customerId));
+		IF (@iCustCnt = 0)
+		BEGIN
+			-- Customer Id is not found.
+            EXEC GetErrorMsg 1504, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if QSetId exists */
+		IF (@qSetId IS NOT NULL AND LTRIM(RTRIM(@qSetId)) <> N'')
+		BEGIN
+			SELECT @iQSetCnt = COUNT(*)
+			  FROM QSet
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)));
+			IF (@iQSetCnt = 0)
+			BEGIN
+				-- QSetId is not found.
+                EXEC GetErrorMsg 1505, @errNum out, @errMsg out
+				RETURN
+			END
+		END
+
+		-- Checks is Seq has value and exists
+		IF (@qSeq IS NULL OR @qSeq <= 0)
+		BEGIN
+			SELECT @vQSeq = MAX(QSeq)
+			  FROM QSlide
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)));
+			IF (@vQSeq IS NULL OR @vQSeq <= 0)
+			BEGIN
+				-- SET SEQ TO 1.
+				SET @iLastSeq = 1;
+			END
+			ELSE
+			BEGIN
+				-- INCREACE SEQ.
+				SET @iLastSeq = @vQSeq + 1;
+			END
+			-- Set sort order if required.
+			IF @sortOrder is null or @sortOrder <= 0
+			BEGIN
+				SET @sortOrder = @iLastSeq;
+			END
+			-- Check Has Remark.
+			IF @hasRemark is null
+			BEGIN
+				SET @hasRemark = 0; -- default
+			END
+			-- INSERT
+			INSERT INTO QSlide
+			(
+				  CustomerId
+				, QSetId
+				, QSeq
+				, QText
+				, HasRemark
+				, SortOrder
+				, ObjectStatus
+			)
+			VALUES
+			(
+				  RTRIM(LTRIM(@customerId))
+				, RTRIM(LTRIM(@qSetId))
+				, @iLastSeq
+				, RTRIM(LTRIM(@qText))
+				, @hasRemark
+				, @sortOrder
+				, 1
+			);
+			-- SET OUTPUT.
+			SET @qSeq = @iLastSeq;
+		END
+		ELSE
+		BEGIN
+			-- CHECKS QSeq exist.
+			SELECT @iQSeqCnt = COUNT(QSeq)
+			  FROM QSlide
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)))
+			   AND QSeq = @qSeq;
+			IF (@iQSeqCnt IS NULL OR @iQSeqCnt <= 0)
+			BEGIN
+				-- QSeq is not found.
+                EXEC GetErrorMsg 1506, @errNum out, @errMsg out
+				RETURN
+			END
+			-- Set sort order if required.
+			IF (@sortOrder IS NOT NULL AND @sortOrder <= 0)
+			BEGIN
+				SET @sortOrder = @qSeq;
+			END
+			-- UPDATE
+			UPDATE QSlide
+			   SET QText = RTRIM(LTRIM(@qText))
+			     , HasRemark = COALESCE(@hasRemark, HasRemark)
+				 , SortOrder = COALESCE(@sortOrder, SortOrder)
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)))
+			   AND QSeq = @qSeq;
+		END
+ 		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveQSlideML.
+-- Description:	Save Question Slide ML.
+-- [== History ==]
+-- <2018-05-15> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec SaveQSlideML N'EDL-C2018050001', N'QS00001', 1, N'TH', N'คำถามที่ 1'
+--exec SaveQSlideML N'EDL-C2018050001', N'QS00001', 1, N'JA', N'質問 1'
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveQSlideML] (
+  @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @qSeq as int
+, @langId as nvarchar(3)
+, @qText as nvarchar(MAX)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iCnt int = 0;
+DECLARE @iLangCnt int = 0;
+DECLARE @iQSetCnt int = 0;
+DECLARE @iQSlideCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1507 : Lang Id cannot be null or empty string.
+	-- 1508 : Lang Id not found.
+	-- 1509 : Customer Id cannot be null or empty string.
+	-- 1510 : Customer Id not found.
+	-- 1511 : QSetId cannot be null or empty string.
+	-- 1512 : No QSet match QSetId in specificed Customer Id.
+	-- 1513 : QSeq is null or less than zero.
+	-- 1514 : No QSlide match QSetId and QSeq.
+	-- 1515 : Question Text (ML) cannot be null or empty string.
+	-- 1516 : Question Text (ML) already exists.
+	-- 1517 : 
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		/* Check if lang id is not null. */
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- Lang Id cannot be null or empty string.
+            EXEC GetErrorMsg 1507, @errNum out, @errMsg out
+			RETURN
+		END
+		/* Check if language exists. */
+		SELECT @iLangCnt = COUNT(LangId)
+		  FROM Language
+		 WHERE UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		IF (@iLangCnt IS NULL OR @iLangCnt = 0) 
+		BEGIN
+			-- Lang Id not found.
+            EXEC GetErrorMsg 1508, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if customer id is not null. */
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1509, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Customer
+		 WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Customer Id not found.
+            EXEC GetErrorMsg 1510, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if QSetId is not null. */
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- QSetId cannot be null or empty string.
+            EXEC GetErrorMsg 1511, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check QSetId is in QSet table */ 
+		SELECT @iQSetCnt = COUNT(*)
+		  FROM QSet
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		IF (@iQSetCnt = 0)
+		BEGIN
+			-- No QSet match QSetId in specificed Customer Id.
+            EXEC GetErrorMsg 1512, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@qSeq IS NULL OR @qSeq <= 0)
+		BEGIN
+			-- QSeq is null or less than zero.
+            EXEC GetErrorMsg 1513, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check QSetId, QSeq is in QSlide table */
+		SELECT @iQSlideCnt = COUNT(*)
+		  FROM QSlide
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND QSeq = @qSeq
+		IF (@iQSlideCnt = 0)
+		BEGIN
+			-- No QSlide match QSetId and QSeq.
+            EXEC GetErrorMsg 1514, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qText) = 1)
+		BEGIN
+			-- Question Text (ML) cannot be null or empty string.
+            EXEC GetErrorMsg 1515, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iQSlideCnt = COUNT(*)
+		  FROM QSlideML
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND QSeq <> @qSeq
+		   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)))
+		   AND UPPER(RTRIM(LTRIM(QText))) = UPPER(RTRIM(LTRIM(@qText)));
+		IF (@iQSlideCnt <> 0)
+		BEGIN
+			-- Question Text (ML) already exists.
+            EXEC GetErrorMsg 1516, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iQSlideCnt = 0; -- Reset
+
+		/* check is need to insert or update? */
+		SELECT @iQSlideCnt = COUNT(*)
+		  FROM QSlideML
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND QSeq = @qSeq
+		   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)))
+
+		IF (@iQSlideCnt = 0)
+		BEGIN
+			INSERT INTO QSlideML
+			(
+				  CustomerId
+				, QSetId
+				, QSeq
+				, LangId
+				, QText
+			)
+			VALUES
+			(
+				  UPPER(RTRIM(LTRIM(@customerId)))
+				, UPPER(RTRIM(LTRIM(@qSetId)))
+				, @qSeq
+				, UPPER(RTRIM(LTRIM(@langId)))
+				, RTRIM(LTRIM(@qText))
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE QSlideML
+			   SET QText = RTRIM(LTRIM(@qText))
+		     WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+			   AND UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+			   AND QSeq = @qSeq
+			   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		END
+		
+		-- SUCCESS
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetQSlides.
+-- Description:	Get Question Slides.
+-- [== History ==]
+-- <2018-05-15> :
+--	- Stored Procedure Created.
+-- <2019-08-19> :
+--	- Stored Procedure Changes.
+--    - Remove QSlideTextNative column.
+--    - Rename QSlideTextEN column to QSlideText.
+--
+-- [== Example ==]
+--
+--EXEC GetQSlides NULL, NULL, NULL, NULL, 1
+--EXEC GetQSlides N'EN', NULL, NULL, NULL, 1
+--EXEC GetQSlides NULL, N'EDL-C2018050001', NULL, NULL, 1;
+--EXEC GetQSlides N'EN', N'EDL-C2018050001', NULL, NULL, 1;
+--EXEC GetQSlides NULL, N'EDL-C2018050001', N'QS00002', NULL, 1;
+--EXEC GetQSlides N'EN', N'EDL-C2018050001', N'QS00002', NULL, 1;
+-- =============================================
+CREATE PROCEDURE [dbo].[GetQSlides]
+(
+  @langId nvarchar(3) = NULL
+, @customerId nvarchar(30) = NULL
+, @qSetId nvarchar(30) = NULL
+, @qSeq int = NULL
+, @enabled bit = NULL
+)
+AS
+BEGIN
+	SELECT langId
+		 , customerId
+		 , qSetId
+		 , qSeq
+		 , QSlideText
+		 , HasRemark
+		 , QSlideStatus
+		 , QSlideOrder
+		 , Enabled 
+	  FROM QSlideMLView
+	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
+	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
+	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+	   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
+	   AND QSeq = COALESCE(@qSeq, QSeq)
+	 ORDER BY SortOrder, CustomerId, QSetId, QSeq
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Delete QSlide
+-- [== History ==]
+-- <2019-12-16> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC DeleteQSlide N'EDL-C2019100003', N'QS00001', 2
+-- =============================================
+CREATE PROCEDURE [dbo].[DeleteQSlide]
+(
+  @customerId nvarchar(30)
+, @qSetId nvarchar(30)
+, @qSeq int
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @iCnt int;
+    -- Error Code:
+    --   0 : Success
+	-- 4201: Customer Id cannot be null or empty string.
+	-- 4202: Qset Id cannot be null or empty string.
+	-- 4203: QSeq cannot be null.
+	-- 4204: Cannot be remove qslide that already in used.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 4201, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- Qset Id cannot be null or empty string.
+            EXEC GetErrorMsg 4202, @errNum out, @errMsg out
+			RETURN
+		END
+		
+		IF (@qSeq IS NULL)
+		BEGIN
+			-- QSeq cannot be null.
+            EXEC GetErrorMsg 4203, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iCnt = 0;
+		SELECT @iCnt = COUNT(*) 
+		  FROM Vote
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId)))
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+		   AND QSeq = @qSeq
+
+		IF (@iCnt > 0)
+		BEGIN
+			-- Cannot be remove qslideitem that already in used.
+			EXEC GetErrorMsg 4254, @errNum out, @errMsg out
+			RETURN
+		END
+
+		DELETE FROM QSlideItemML
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+		   AND LTRIM(RTRIM(LOWER(QSeq))) = LTRIM(RTRIM(LOWER(@qSeq))) 
+
+		DELETE FROM QSlideItem
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+		   AND LTRIM(RTRIM(LOWER(QSeq))) = LTRIM(RTRIM(LOWER(@qSeq))) 
+
+		DELETE FROM QSlideML
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+		   AND LTRIM(RTRIM(LOWER(QSeq))) = LTRIM(RTRIM(LOWER(@qSeq))) 
+
+		DELETE FROM QSlide 
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+		   AND LTRIM(RTRIM(LOWER(QSeq))) = LTRIM(RTRIM(LOWER(@qSeq))) 
+
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveQSlideItem.
+-- Description:	Save New Question Slide Item.
+-- [== History ==]
+-- <2018-05-15> :
+--	- Stored Procedure Created.
+-- <2020-03-26> :
+--	- Add choice parameter.
+--
+-- [== Example ==]
+--DECLARE @customerId nvarchar(30) = N'EDL-C2018050001';
+--DECLARE @qsetId nvarchar(30) = 'QS00001';
+--DECLARE @qSeq int = 1;
+--DECLARE @qSSeq int = NULL;
+--DECLARE @qText nvarchar(MAX);
+--DECLARE @isRemark bit = NULL;
+--DECLARE @choice int = NULL;
+--DECLARE @sortOrder int = NULL;
+--DECLARE @errNum int;
+--DECLARE @errMsg nvarchar(MAX);
+--
+--SET @qSSeq = NULL;
+--SET @qText = N'Choice 1';
+--SET @choice = 1;
+--SET @isRemark = NULL;
+--EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
+--					, @qText, @isRemark, @sortOrder
+--					, @qSSeq out
+--					, @errNum out, @errMsg out
+--SELECT @qSSeq AS QSSeq, @errNum AS ErrNum, @errMsg AS ErrMsg;
+--
+--SET @qSSeq = NULL;
+--SET @qText = N'Choice 2';
+--SET @choice = 2;
+--SET @isRemark = NULL;
+--EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
+--					, @qText, @isRemark, @sortOrder
+--					, @qSSeq out
+--					, @errNum out, @errMsg out
+--SELECT @qSSeq AS QSSeq, @errNum AS ErrNum, @errMsg AS ErrMsg;
+--
+--SET @qSSeq = NULL;
+--SET @qText = N'Choice 3';
+--SET @choice = 3;
+--SET @isRemark = NULL;
+--EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
+--					, @qText, @isRemark, @sortOrder
+--					, @qSSeq out
+--					, @errNum out, @errMsg out
+--SELECT @qSSeq AS QSSeq, @errNum AS ErrNum, @errMsg AS ErrMsg;
+--
+--SET @qSSeq = NULL;
+--SET @qText = N'Choice 4';
+--SET @choice = 4;
+--SET @isRemark = NULL;
+--EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
+--					, @qText, @isRemark, @sortOrder
+--					, @qSSeq out
+--					, @errNum out, @errMsg out
+--SELECT @qSSeq AS QSSeq, @errNum AS ErrNum, @errMsg AS ErrMsg;
+--
+--SET @qSSeq = NULL;
+--SET @qText = N'Remark';
+--SET @choice = 0;
+--SET @isRemark = 1;
+--EXEC SaveQSlideItem @customerId, @qsetId, @qSeq
+--					, @qText, @isRemark, @choice, @sortOrder
+--					, @qSSeq out
+--					, @errNum out, @errMsg out
+--SELECT @qSSeq AS QSSeq, @errNum AS ErrNum, @errMsg AS ErrMsg;
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveQSlideItem] (
+  @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @qSeq as int
+, @qText as nvarchar(max) = null
+, @isRemark as bit = 0
+, @choice as int = null
+, @sortOrder int = 0
+, @qSSeq as int = 0 out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out)
+AS
+BEGIN
+DECLARE @iCustCnt int = 0;
+DECLARE @iQSetCnt int = 0;
+DECLARE @iQSlideCnt int = 0;
+DECLARE @iQSSeqCnt int = 0;
+DECLARE @iLastSSeq int = 0;
+DECLARE @vQSSeq int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1601 : Customer Id cannot be null or empty string.
+	-- 1602 : Question Set Id cannot be null or empty string.
+	-- 1603 : QSeq cannot be null or less than zero.
+	-- 1604 : Question Text cannot be null or empty string.
+	-- 1605 : Customer Id is not found.
+	-- 1606 : QSetId is not found. 
+	-- 1607 : QSlide is not found.
+	-- 1608 : QSSeq is not found.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+			EXEC GetErrorMsg 1601, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- Question Set Id cannot be null or empty string.
+			EXEC GetErrorMsg 1602, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@qSeq IS NULL OR @qSeq <= 0)
+		BEGIN
+			-- QSeq cannot be null or less than zero.
+			EXEC GetErrorMsg 1603, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qText) = 1)
+		BEGIN
+			-- Question Text cannot be null or empty string.
+			EXEC GetErrorMsg 1604, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCustCnt = COUNT(*)
+		  FROM Customer
+		 WHERE RTRIM(LTRIM(CustomerId)) = RTRIM(LTRIM(@customerId));
+		IF (@iCustCnt = 0)
+		BEGIN
+			-- Customer Id is not found.
+            EXEC GetErrorMsg 1605, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if QSetId exists */
+		IF (@qSetId IS NOT NULL AND LTRIM(RTRIM(@qSetId)) <> N'')
+		BEGIN
+			SELECT @iQSetCnt = COUNT(*)
+			  FROM QSet
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)));
+			IF (@iQSetCnt = 0)
+			BEGIN
+				-- QSetId is not found.
+                EXEC GetErrorMsg 1606, @errNum out, @errMsg out
+				RETURN
+			END
+		END
+
+		/* Check if QSlide exists */
+		SELECT @iQSlideCnt = COUNT(*)
+		  FROM QSlide
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)))
+		   AND QSeq = @qSeq;
+		IF (@iQSlideCnt = 0)
+		BEGIN
+			-- QSlide is not found.
+            EXEC GetErrorMsg 1607, @errNum out, @errMsg out
+			RETURN
+		END
+
+		-- Checks is QSSeq has value and exists
+		IF (@qSSeq IS NULL OR @qSSeq <= 0)
+		BEGIN
+			SELECT @vQSSeq = MAX(QSSeq)
+			  FROM QSlideItem
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)))
+			   AND QSeq = @qSeq;
+			IF (@vQSSeq IS NULL OR @vQSSeq <= 0)
+			BEGIN
+				-- SET SEQ TO 1.
+				SET @iLastSSeq = 1;
+			END
+			ELSE
+			BEGIN
+				-- INCREACE SEQ.
+				SET @iLastSSeq = @vQSSeq + 1;
+			END
+			-- Set sort order if required.
+			IF @sortOrder is null or @sortOrder <= 0
+			BEGIN
+				SET @sortOrder = @iLastSSeq;
+			END
+			-- Check Has Remark.
+			IF @isRemark is null
+			BEGIN
+				SET @isRemark = 0; -- default
+			END
+			-- INSERT
+			INSERT INTO QSlideItem
+			(
+				  CustomerId
+				, QSetId
+				, QSeq
+				, QSSeq
+				, QText
+				, IsRemark
+				, SortOrder
+				, ObjectStatus
+			)
+			VALUES
+			(
+				  RTRIM(LTRIM(@customerId))
+				, RTRIM(LTRIM(@qSetId))
+				, @qSeq
+				, @iLastSSeq
+				, RTRIM(LTRIM(@qText))
+				, @isRemark
+				, @sortOrder
+				, 1
+			);
+			-- SET OUTPUT.
+			SET @qSSeq = @iLastSSeq;
+		END
+		ELSE
+		BEGIN
+			-- CHECKS QSSeq exist.
+			SELECT @iQSSeqCnt = COUNT(QSSeq)
+			  FROM QSlideItem
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)))
+			   AND QSeq = @qSeq
+			   AND QSSeq = @qSSeq;
+			IF (@iQSSeqCnt IS NULL OR @iQSSeqCnt <= 0)
+			BEGIN
+				-- QSSeq is not found.
+                EXEC GetErrorMsg 1608, @errNum out, @errMsg out
+				RETURN
+			END
+			-- Set sort order if required.
+			IF (@sortOrder IS NOT NULL AND @sortOrder <= 0)
+			BEGIN
+				SET @sortOrder = @qSSeq;
+			END
+			-- UPDATE
+			UPDATE QSlideItem
+			   SET QText = RTRIM(LTRIM(@qText))
+			     , IsRemark = COALESCE(@isRemark, IsRemark)
+				 , SortOrder = COALESCE(@sortOrder, SortOrder)
+			 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+			   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qSetId)))
+			   AND QSeq = @qSeq
+			   AND QSSeq = @qSSeq;
+		END
+ 		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveQSlideItemML.
+-- Description:	Save Question Slide Item ML.
+-- [== History ==]
+-- <2018-05-15> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec SaveQSlideItemML N'EDL-C2018050001', N'QS00001', 1, N'TH', N'คำถามที่ 1'
+--exec SaveQSlideItemML N'EDL-C2018050001', N'QS00001', 1, N'JA', N'質問 1'
+--DECLARE @customerId nvarchar(30) = N'EDL-C2018050001';
+--DECLARE @qsetId nvarchar(30) = 'QS00001';
+--DECLARE @langId nvarchar(3) = NULL;
+--DECLARE @qSeq int = 1;
+--DECLARE @qSSeq int = 1;
+--DECLARE @qText nvarchar(MAX);
+--DECLARE @isRemark bit = NULL;
+--DECLARE @sortOrder int = NULL;
+--DECLARE @errNum int;
+--DECLARE @errMsg nvarchar(MAX);
+
+--SET @langId = N'TH';
+--SET @qText = N'ตัวเลือกที่ 1';
+--EXEC SaveQSlideItemML @customerId, @qsetId, @qSeq, @qSSeq, @langId
+--					  , @qText
+--					  , @errNum out, @errMsg out
+--SELECT @errNum AS ErrNum, @errMsg AS ErrMsg;
+--
+--SET @langId = N'JA';
+--SET @qText = N'選択肢 1';
+--EXEC SaveQSlideItemML @customerId, @qsetId, @qSeq, @qSSeq, @langId
+--					  , @qText
+--					  , @errNum out, @errMsg out
+--SELECT @errNum AS ErrNum, @errMsg AS ErrMsg;
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveQSlideItemML] (
+  @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @qSeq as int
+, @qSSeq as int
+, @langId as nvarchar(3)
+, @qText as nvarchar(MAX)
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @iCnt int = 0;
+DECLARE @iLangCnt int = 0;
+DECLARE @iQSetCnt int = 0;
+DECLARE @iQSlideCnt int = 0;
+DECLARE @iQSlideItemCnt int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1609 : Lang Id cannot be null or empty string.
+	-- 1610 : Lang Id not found.
+	-- 1611 : Customer Id cannot be null or empty string.
+	-- 1612 : Customer Id not found.
+	-- 1613 : QSetId cannot be null or empty string.
+	-- 1614 : No QSet match QSetId in specificed Customer Id.
+	-- 1615 : QSeq is null or less than zero.
+	-- 1616 : No QSlide match QSetId and QSeq.
+	-- 1617 : QSSeq is null or less than zero.
+	-- 1618 : No QSlideItem match QSetId, QSeq and QSSeq.
+	-- 1619 : Question Item Text (ML) cannot be null or empty string.
+	-- 1620 : Question Item Text (ML) already exists.
+	-- 1621 : 
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		/* Check if lang id is not null. */
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- Lang Id cannot be null or empty string.
+            EXEC GetErrorMsg 1609, @errNum out, @errMsg out
+			RETURN
+		END
+		/* Check if language exists. */
+		SELECT @iLangCnt = COUNT(LangId)
+		  FROM Language
+		 WHERE UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		IF (@iLangCnt IS NULL OR @iLangCnt = 0) 
+		BEGIN
+			-- Lang Id not found.
+            EXEC GetErrorMsg 1610, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if customer id is not null. */
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1611, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Customer
+		 WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Customer Id not found.
+            EXEC GetErrorMsg 1612, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check if QSetId is not null. */
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- QSetId cannot be null or empty string.
+            EXEC GetErrorMsg 1613, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check QSetId is in QSet table */ 
+		SELECT @iQSetCnt = COUNT(*)
+		  FROM QSet
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		IF (@iQSetCnt = 0)
+		BEGIN
+			-- No QSet match QSetId in specificed Customer Id.
+            EXEC GetErrorMsg 1614, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@qSeq IS NULL OR @qSeq <= 0)
+		BEGIN
+			-- QSeq is null or less than zero.
+            EXEC GetErrorMsg 1615, @errNum out, @errMsg out
+			RETURN
+		END
+
+		/* Check QSetId, QSeq is in QSlide table */
+		SELECT @iQSlideCnt = COUNT(*)
+		  FROM QSlide
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND QSeq = @qSeq
+		IF (@iQSlideCnt = 0)
+		BEGIN
+			-- No QSlide match QSetId and QSeq.
+            EXEC GetErrorMsg 1616, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@qSSeq IS NULL OR @qSSeq <= 0)
+		BEGIN
+			-- QSSeq is null or less than zero.
+            EXEC GetErrorMsg 1617, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iQSlideItemCnt = COUNT(*)
+		  FROM QSlideItem
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND QSeq = @qSeq
+		   AND QSSeq = @qSSeq;
+
+		IF (@iQSlideItemCnt = 0)
+		BEGIN
+			-- No QSlideItem match QSetId, QSeq and QSSeq.
+            EXEC GetErrorMsg 1618, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qText) = 1)
+		BEGIN
+			-- Question Item Text (ML) cannot be null or empty string.
+            EXEC GetErrorMsg 1619, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iQSlideItemCnt = COUNT(*)
+		  FROM QSlideItemML
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND QSeq = @qSeq
+		   AND QSSeq <> @qSSeq
+		   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)))
+		   AND UPPER(RTRIM(LTRIM(QText))) = UPPER(RTRIM(LTRIM(@qText)));
+		IF (@iQSlideItemCnt <> 0)
+		BEGIN
+			-- Question Item Text (ML) already exists.
+            EXEC GetErrorMsg 1620, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iQSlideItemCnt = 0; -- Reset
+
+		/* check is need to insert or update? */
+		SELECT @iQSlideItemCnt = COUNT(*)
+		  FROM QSlideItemML
+		 WHERE UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+		   AND UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+		   AND QSeq = @qSeq
+		   AND QSSeq = @qSSeq
+		   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)))
+
+		IF (@iQSlideItemCnt = 0)
+		BEGIN
+			INSERT INTO QSlideItemML
+			(
+				  CustomerId
+				, QSetId
+				, QSeq
+				, QSSeq
+				, LangId
+				, QText
+			)
+			VALUES
+			(
+				  UPPER(RTRIM(LTRIM(@customerId)))
+				, UPPER(RTRIM(LTRIM(@qSetId)))
+				, @qSeq
+				, @qSSeq
+				, UPPER(RTRIM(LTRIM(@langId)))
+				, RTRIM(LTRIM(@qText))
+			);
+		END
+		ELSE
+		BEGIN
+			UPDATE QSlideItemML
+			   SET QText = RTRIM(LTRIM(@qText))
+		     WHERE UPPER(RTRIM(LTRIM(CustomerId))) = UPPER(RTRIM(LTRIM(@customerId)))
+			   AND UPPER(RTRIM(LTRIM(QSetId))) = UPPER(RTRIM(LTRIM(@qSetId)))
+			   AND QSeq = @qSeq
+			   AND QSSeq = @qSSeq
+			   AND UPPER(RTRIM(LTRIM(LangId))) = UPPER(RTRIM(LTRIM(@langId)));
+		END
+		
+		-- SUCCESS
+        EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: GetQSlideItems.
+-- Description:	Get Question Slide Items.
+-- [== History ==]
+-- <2018-05-15> :
+--	- Stored Procedure Created.
+-- <2019-08-19> :
+--	- Stored Procedure Changes.
+--    - Remove QItemTextNative column.
+--    - Rename QItemTextEN column to QItemText.
+-- <2020-03-26> :
+--	- Add choice parameter.
+--
+-- [== Example ==]
+--
+--EXEC GetQSlideItems NULL, NULL, NULL, NULL, NULL, 1
+--EXEC GetQSlideItems N'EN', NULL, NULL, NULL, NULL, 1
+--EXEC GetQSlideItems NULL, N'EDL-C2018050001', NULL, NULL, NULL, 1;
+--EXEC GetQSlideItems N'EN', N'EDL-C2018050001', NULL, NULL, NULL, 1;
+--EXEC GetQSlideItems NULL, N'EDL-C2018050001', N'QS00001', NULL, NULL, 1;
+--EXEC GetQSlideItems N'JA', N'EDL-C2018050001', N'QS00001', NULL, NULL, 1;
+-- =============================================
+CREATE PROCEDURE [dbo].[GetQSlideItems]
+(
+  @langId nvarchar(3) = NULL
+, @customerId nvarchar(30) = NULL
+, @qSetId nvarchar(30) = NULL
+, @qSeq int = NULL
+, @qSSeq int = NULL
+, @enabled bit = NULL
+)
+AS
+BEGIN
+	SELECT langId
+		 , customerId
+		 , qSetId
+		 , qSeq
+		 , qSSeq
+		 , QItemText
+		 , IsRemark
+         , Choice
+		 , QItemStatus
+		 , QItemOrder
+		 , Enabled 
+	  FROM QSlideItemMLView
+	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
+	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
+	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+	   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
+	   AND QSeq = COALESCE(@qSeq, QSeq)
+	   AND QSSeq = COALESCE(@qSSeq, QSSeq)
+	 ORDER BY SortOrder, CustomerId, QSetId, QSeq
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Delete QSlide Item
+-- [== History ==]
+-- <2019-12-16> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC DeleteQSlideItem N'EDL-C2019100003', N'QS00001', 2, 1
+-- =============================================
+CREATE PROCEDURE [dbo].[DeleteQSlideItem]
+(
+  @customerId nvarchar(30)
+, @qSetId nvarchar(30)
+, @qSeq int
+, @qSSeq int
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+DECLARE @iCnt int;
+    -- Error Code:
+    --   0 : Success
+	-- 4251: Customer Id cannot be null or empty string.
+	-- 4252: Qset Id cannot be null or empty string.
+	-- 4253: QSeq cannot be null.
+	-- 4254: QSSeq cannot be null.
+	-- 4255: Cannot be remove qslideitem that already in used.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 4251, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- Qset Id cannot be null or empty string.
+            EXEC GetErrorMsg 4252, @errNum out, @errMsg out
+			RETURN
+		END
+		
+		IF (@qSeq IS NULL)
+		BEGIN
+			-- QSeq cannot be null.
+            EXEC GetErrorMsg 4253, @errNum out, @errMsg out
+			RETURN
+		END
+		
+		IF (@qSSeq IS NULL)
+		BEGIN
+			-- QSSeq cannot be null.
+            EXEC GetErrorMsg 4254, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SET @iCnt = 0;
+		SELECT @iCnt = COUNT(*) 
+		  FROM Vote
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId)))
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+		   AND QSeq = @qSeq
+		   AND VoteValue = @qSSeq
+
+		IF (@iCnt > 0)
+		BEGIN
+			-- Cannot be remove qslideitem that already in used.
+			EXEC GetErrorMsg 4255, @errNum out, @errMsg out
+			RETURN
+		END
+
+		DELETE FROM QSlideItemML
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+		   AND LTRIM(RTRIM(LOWER(QSeq))) = LTRIM(RTRIM(LOWER(@qSeq))) 
+		   AND LTRIM(RTRIM(LOWER(QSSeq))) = LTRIM(RTRIM(LOWER(@qSSeq))) 
+
+		DELETE FROM QSlideItem 
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId))) 
+		   AND LTRIM(RTRIM(LOWER(QSeq))) = LTRIM(RTRIM(LOWER(@qSeq))) 
+		   AND LTRIM(RTRIM(LOWER(QSSeq))) = LTRIM(RTRIM(LOWER(@qSSeq))) 
+
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: SaveVote.
+-- Description:	Save Vote.
+-- [== History ==]
+-- <2018-01-30> :
+--	- Stored Procedure Created.
+-- <2018-05-10> :
+--	- remove branchId from parameter.
+-- <2018-05-22> :
+--	- deviceId parameter change size from nvarchar(50) to nvarchar(30).
+--
+-- [== Example ==]
+--
+-- [== Complex Example ==]
+/*
+DECLARE @errNum int;
+DECLARE @errMsg nvarchar(MAX);
+DECLARE @customerId nvarchar(30);
+DECLARE @orgId nvarchar(30);
+DECLARE @deviceId nvarchar(30);
+DECLARE @qSetId nvarchar(30);
+DECLARE @qSeq int;
+DECLARE @userId nvarchar(30);
+DECLARE @voteSeq int = null
+DECLARE @voteDate datetime;
+DECLARE @voteValue int;
+DECLARE @remark nvarchar(100)
+
+SET @customerId = N'EDL-C2017060005';
+SET @orgId = N'O0001';
+SET @deviceId = N'4dff3f4640374939a856d892bc57bf1c';
+SET @qSetId = 'QS2018010001';
+SET @userId = NULL;
+SET @voteDate = GETDATE();
+SET @remark = NULL;
+
+SET @qSeq = 1;
+SET @voteValue = 1;
+exec SaveVote @customerId, @orgId
+            , @deviceId
+			, @qSetId, @qSeq
+			, @userId
+			, @voteDate, @voteValue, @remark
+            , @voteSeq out, @errNum out, @errMsg out
+SELECT @voteSeq as VoteSeq, @errNum AS ErrNum, @errMsg AS ErrMsg
+
+SET @qSeq = 1;
+SET @voteValue = 2;
+exec SaveVote @customerId, @orgId
+            , @deviceId
+			, @qSetId, @qSeq
+			, @userId
+			, @voteDate, @voteValue, @remark
+            , @voteSeq out, @errNum out, @errMsg out 
+SELECT @voteSeq as VoteSeq, @errNum AS ErrNum, @errMsg AS ErrMsg
+
+SET @qSeq = 1;
+SET @voteValue = 2;
+exec SaveVote @customerId, @orgId
+            , @deviceId
+			, @qSetId, @qSeq
+			, @userId
+			, @voteDate, @voteValue, @remark
+            , @voteSeq out, @errNum out, @errMsg out 
+SELECT @voteSeq as VoteSeq, @errNum AS ErrNum, @errMsg AS ErrMsg
+*/
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveVote] (
+  @customerId as nvarchar(30)
+, @orgId as nvarchar(30) = null
+, @deviceId as nvarchar(30) = null
+, @qSetId as nvarchar(30) = null
+, @qSeq as int = 0
+, @userId as nvarchar(30) = null
+, @voteDate as datetime = null
+, @voteValue as int = 0
+, @remark as nvarchar(100) = null
+, @voteSeq as int = 0 out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out)
+AS
+BEGIN
+DECLARE @branchId nvarchar(30);
+DECLARE @iCnt int = 0;
+DECLARE @iVoteSeq int = 0;
+	-- Error Code:
+	--    0 : Success
+	-- 1701 : Customer Id cannot be null or empty string.
+	-- 1702 : Customer Id not found.
+	-- 1703 : Branch Id cannot be null or empty string.
+	-- 1704 : Branch Id not found.
+	-- 1705 : Org Id cannot be null or empty string.
+	-- 1706 : Org Id not found.
+	-- 1707 : QSet Id cannot be null or empty string.
+	-- 1708 : QSet Id not found.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 1701, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Customer
+		 WHERE LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Customer Id not found.
+            EXEC GetErrorMsg 1702, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@orgId) = 1)
+		BEGIN
+			-- Org Id cannot be null or empty string.
+            EXEC GetErrorMsg 1705, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Org
+		 WHERE LOWER(OrgID) = LOWER(RTRIM(LTRIM(@orgId)))
+           --AND LOWER(BranchID) = LOWER(RTRIM(LTRIM(@branchId)))
+		   AND LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Org Id not found.
+            EXEC GetErrorMsg 1706, @errNum out, @errMsg out
+			RETURN
+		END
+
+		-- Find Branch Id from customerid and orgid.
+		SELECT @branchId = BranchId
+		  FROM Org
+		 WHERE OrgID = @orgId
+		   AND CustomerId = @customerId;
+
+		-- NOTE: No Need to Check Branch Id.
+		/*
+		IF (dbo.IsNullOrEmpty(@branchId) = 1)
+		BEGIN
+			-- Branch Id cannot be null or empty string.
+            EXEC GetErrorMsg 1703, @errNum out, @errMsg out
+			RETURN
+		END
+
+		SELECT @iCnt = COUNT(*)
+		  FROM Branch
+		 WHERE LOWER(BranchID) = LOWER(RTRIM(LTRIM(@branchId)))
+		   AND LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- Branch Id not found.
+            EXEC GetErrorMsg 1704, @errNum out, @errMsg out
+			RETURN
+		END
+		*/
+
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- QSet Id cannot be null or empty string.
+            EXEC GetErrorMsg 1707, @errNum out, @errMsg out
+			RETURN
+		END
+
+		-- NOTE: Temporary disable check QSet code.
+		/*
+		SELECT @iCnt = COUNT(*)
+		  FROM QSet
+		 WHERE LOWER(QSetID) = LOWER(RTRIM(LTRIM(@qSetId)))
+		   AND LOWER(CustomerID) = LOWER(RTRIM(LTRIM(@customerId)))
+		IF (@iCnt = 0)
+		BEGIN
+			-- QSet Id not found.
+            EXEC GetErrorMsg 1708, @errNum out, @errMsg out
+			RETURN
+		END
+		*/
+
+		/* RESET COUNTER*/
+		SET @iVoteSeq = 0;
+		SELECT @iVoteSeq = MAX(VoteSeq)
+		  FROM Vote
+		 WHERE CustomerId = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND OrgId = LOWER(RTRIM(LTRIM(@orgId)))
+		   AND BranchId = LOWER(RTRIM(LTRIM(@branchId)))
+		   AND DeviceId = LOWER(RTRIM(LTRIM(@deviceId)))
+		   AND QSetId = LOWER(RTRIM(LTRIM(@qSetId)))
+		   AND QSeq = LOWER(RTRIM(LTRIM(@qSeq)))
+
+		IF (@iVoteSeq IS NULL OR @iVoteSeq <= 0)
+		BEGIN
+			SET @voteSeq = 1;
+		END
+		ELSE
+		BEGIN
+			SET @voteSeq = @iVoteSeq + 1;
+		END
+
+		INSERT INTO Vote
+		(
+			  CustomerId
+			, OrgId
+			, BranchId
+			, DeviceId
+			, QSetId
+			, QSeq
+			, VoteSeq
+			, UserId
+			, VoteDate
+			, VoteValue
+			, Remark
+			, ObjectStatus
+		)
+		VALUES
+		(
+			  RTRIM(LTRIM(@customerId))
+			, RTRIM(LTRIM(@orgId))
+			, RTRIM(LTRIM(@branchId))
+			, RTRIM(LTRIM(@deviceId))
+			, RTRIM(LTRIM(@qSetId))
+			, @qSeq
+			, @voteSeq
+			, RTRIM(LTRIM(@userId))
+			, @voteDate
+			, @voteValue
+			, RTRIM(LTRIM(@remark))
+			, 1
+		);
+
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Delete Vote
+-- [== History ==]
+-- <2019-12-16> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC DeleteVote N'EDL-C2019100003', N'O0008', N'QS00001', 2, 1, N'2019-10-10 16:58:13.650'
+-- =============================================
+CREATE PROCEDURE [dbo].[DeleteVote]
+(
+  @customerId nvarchar(30)
+, @orgId nvarchar(30)
+, @qSetId nvarchar(30)
+, @qSeq int
+, @voteSeq int
+, @voteDate datetime
+, @errNum as int = 0 out
+, @errMsg as nvarchar(MAX) = N'' out
+)
+AS
+BEGIN
+    -- Error Code:
+    --   0 : Success
+	-- 4351: Customer Id cannot be null or empty string.
+	-- 4352: Org Id cannot be null or empty string.
+	-- 4353: QSet Id cannot be null or empty string.
+	-- 4354: QSeq cannot be null.
+	-- 4355: VoteSeq cannot be null.
+	-- 4356: Vote Date cannot be null.
+    -- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- Customer Id cannot be null or empty string.
+            EXEC GetErrorMsg 4351, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@orgId) = 1)
+		BEGIN
+			-- Org Id cannot be null or empty string.
+            EXEC GetErrorMsg 4352, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			-- QSet Id cannot be null or empty string.
+            EXEC GetErrorMsg 4353, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@qSeq IS NULL)
+		BEGIN
+			-- QSeq cannot be null.
+            EXEC GetErrorMsg 4354, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@voteSeq IS NULL)
+		BEGIN
+			-- Vote Seq cannot be null.
+            EXEC GetErrorMsg 4355, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@voteDate IS NULL)
+		BEGIN
+			-- Vote Date cannot be null.
+            EXEC GetErrorMsg 4356, @errNum out, @errMsg out
+			RETURN
+		END
+
+		DELETE FROM Vote 
+		 WHERE LTRIM(RTRIM(LOWER(CustomerId))) = LTRIM(RTRIM(LOWER(@customerId))) 
+		 AND LTRIM(RTRIM(LOWER(OrgId))) = LTRIM(RTRIM(LOWER(@orgId)))
+		   AND LTRIM(RTRIM(LOWER(QSetId))) = LTRIM(RTRIM(LOWER(@qSetId)))
+		   AND QSeq = @qSeq
+		   AND VoteSeq = @voteSeq
+		   AND VoteDate = @voteDate
+
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: __GenerateSubOrgInClause
+-- Description:	Internal Get Sub Org In Clause (use internally).
+-- [== History ==]
+-- <2018-05-09> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--EXEC __GenerateSubOrgInClause N'EDL-C2017030001', N'O0001'
+-- =============================================
+CREATE PROCEDURE __GenerateSubOrgInClause
+(
+  @customerId nvarchar(30)
+, @orgID nvarchar(30)
+, @includeSubOrg bit = 1
+, @retVal As nvarchar(MAX) = N'' output
+)
+AS
+BEGIN
+DECLARE @subOrgID As nvarchar(30)
+DECLARE @itemCnt As int
+DECLARE @maxCnt As int
+DECLARE @retSubVal As nvarchar(MAX)
+
+	SET @itemCnt = 0;
+	SET @maxCnt = 0;
+	SET @retVal = N'';
+
+	SELECT @maxCnt = COUNT(*) 
+	  FROM ORG
+ 	 WHERE ObjectStatus = 1 AND 
+		   ParentId = @orgID AND
+		   CustomerId = @customerId;
+	DECLARE ORG_CURSOR CURSOR 
+			LOCAL
+			FORWARD_ONLY 
+			READ_ONLY 
+			FAST_FORWARD 
+		FOR  
+		SELECT OrgID
+		  FROM ORG 
+		 WHERE ObjectStatus = 1 
+           AND ParentId = @orgID 
+           AND CustomerId = @customerId
+
+	OPEN ORG_CURSOR  
+	FETCH NEXT FROM ORG_CURSOR INTO @subOrgID
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN
+		--PRINT @subOrgID;				
+		IF @itemCnt = 0
+		BEGIN
+			SET @retVal = N'''' + @subOrgID + N'''';
+		END
+		ELSE
+		BEGIN
+			SET @retVal = @retVal + N', ''' + @subOrgID + N'''';
+		END
+		
+		IF @IncludeSubOrg =  1 AND @maxCnt > 0
+		BEGIN
+			SET @retSubVal = N'';
+			EXEC __GenerateSubOrgInClause @customerId, @subOrgID, @includeSubOrg, @retSubVal output;
+			
+			IF @retSubVal <> ''
+			BEGIN
+				--PRINT @retSubVal;
+				SET @retVal = @retVal + N', ' + @retSubVal;
+			END
+		END
+		
+		SET @itemCnt = @itemCnt + 1;
+		
+		FETCH NEXT FROM ORG_CURSOR INTO @subOrgID
+	END  
+
+	CLOSE ORG_CURSOR  
+	DEALLOCATE ORG_CURSOR 	
+END
+
+GO
+
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Generate Sub Org In Clause.
+-- [== History ==]
+-- <2018-05-09> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+-- EXEC GenerateSubOrgInClause N'EDL-C2017030001', N'O0001' -- Get in clause for root note
+-- EXEC GenerateSubOrgInClause N'EDL-C2017030001', N'O0001', 0 -- Get in clause for root note not include sub org
+-- =============================================
+CREATE PROCEDURE GenerateSubOrgInClause
+(
+  @customerId nvarchar(30)
+, @orgID nvarchar(30)
+, @includeSubOrg bit = 1
+, @ShowOutput bit = 0
+, @retVal As nvarchar(MAX) = N'' output
+)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET @retVal = N'';
+	
+	IF @IncludeSubOrg <> 0
+	BEGIN
+		EXEC __GenerateSubOrgInClause @customerId, @orgID, @includeSubOrg, @retVal output;
+	END
+	
+	--PRINT @retVal;
+	
+	IF @retVal <> N''
+	BEGIN
+		--PRINT N'HAS SUB ORG';
+		SET @retVal = N'''' + @orgID + N''', ' + @retVal;
+	END
+	ELSE
+	BEGIN
+		--PRINT N'NO SUB ORG';
+		SET @retVal = N'''' + @orgID + N'''';
+	END
+	IF @ShowOutput <> 0
+	BEGIN
+		SELECT @retVal AS InClause;
+	END
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: __BuildTotalVoteCountQuery.
+-- Description:	Build Query for select votevalue and total vote count for that votevalue.
+-- [== History ==]
+-- <2018-05-09> :
+--	- Stored Procedure Created.
+-- <2020-01-14> :
+--	- Update time ckecking code.
+--
+-- [== Example ==]
+--
+--DECLARE @customerId nvarchar(30) = N'EDL-C2018040002'
+--DECLARE @orgId nvarchar(30) = N'O0001';
+--DECLARE @deviceId nvarchar(50) = N'233356614';
+--DECLARE @qsetId nvarchar(30) = N'QS2018040001';
+--DECLARE @qSeq int = 1; -- has single question.
+--DECLARE @userId nvarchar(30) = NULL;
+--DECLARE @beginDate datetime = N'2018-01-01';
+--DECLARE @endDate datetime = N'2018-12-31';
+--DECLARE @sql nvarchar(MAx);
+--SET @orgId = NULL;
+--SET @deviceId = NULL;
+--
+--EXEC __BuildTotalVoteCountQuery @customerId
+--							    , @qsetId, @qSeq
+--							    , @beginDate, @endDate
+--							    , @orgId, @deviceId, @userId
+--							    , @sql output;
+-- =============================================
+CREATE PROCEDURE [dbo].[__BuildTotalVoteCountQuery]
+(
+  @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @qSeq as int
+, @beginDate As DateTime = null
+, @endDate As DateTime = null
+, @orgId as nvarchar(30) = null
+, @deviceId as nvarchar(30) = null
+, @userId as nvarchar(30) = null
+, @sql as nvarchar(MAX) output
+)
+AS
+BEGIN
+DECLARE @showOutput as int = 0;
+DECLARE @objectStatus as int = 1;
+DECLARE @includeSubOrg bit = 1;
+DECLARE @inClause as nvarchar(MAX);
+DECLARE @vBeginDateStr nvarchar(40);
+DECLARE @vEndDateStr nvarchar(40); 
+--DECLARE @vBeginDate as DateTime;
+--DECLARE @vEndDate as DateTime;
+
+	IF (dbo.IsNullOrEmpty(@orgId) = 0) -- OrgId Exist.
+	BEGIN
+		EXEC GenerateSubOrgInClause @customerId, @orgId, @includeSubOrg, @showOutput, @inClause output
+	END
+
+	-- CONVERT DATE
+	SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+						  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+						  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+						  N'00:00:00');
+	--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+	--SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+	SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+						CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+						CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+						N'23:59:59');
+	--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+	--SET @vEndDate = CAST(@vEndDateStr AS datetime)
+
+	SET @sql = N'';
+	SET @sql = @sql + 'SELECT VoteValue' + CHAR(13);
+	SET @sql = @sql + '     , Count(VoteValue) AS TotalVote' + CHAR(13);
+	SET @sql = @sql + '     , VoteValue * Count(VoteValue) AS TotalXCount' + CHAR(13);
+	SET @sql = @sql + '     , Count(Remark) AS TotalRemark' + CHAR(13);
+	SET @sql = @sql + '  FROM VOTE ' + CHAR(13);
+	SET @sql = @sql + ' WHERE ' + CHAR(13);
+	SET @sql = @sql + '		ObjectStatus = ' + convert(nvarchar, @objectStatus) + ' AND ' + CHAR(13);
+	SET @sql = @sql + '		CustomerID = N''' + @customerId + ''' AND ' + CHAR(13);
+
+	IF (dbo.IsNullOrEmpty(@userId) = 0)
+	BEGIN
+		SET @sql = @sql + '		UserID = N''' + @userId + ''' AND ' + CHAR(13);
+	END
+
+	IF (dbo.IsNullOrEmpty(@deviceId) = 0)
+	BEGIN
+		SET @sql = @sql + '		DeviceID = N''' + @deviceId + ''' AND ' + CHAR(13);
+	END
+
+	IF (dbo.IsNullOrEmpty(@orgId) = 0)
+	BEGIN
+		SET @sql = @sql + '		OrgID in (' + @inClause + ') AND ' + CHAR(13);
+	END
+
+	SET @sql = @sql + '		QSetID = N''' + @qSetId + ''' AND ' + CHAR(13);
+	SET @sql = @sql + '		QSeq = ' + convert(nvarchar, @qSeq) + ' AND ' + CHAR(13);
+
+	SET @sql = @sql + '		(VoteDate >= ''' + @vBeginDateStr + ''' AND ' + CHAR(13);
+	SET @sql = @sql + '		 VoteDate <= ''' + @vEndDateStr + ''') ' + CHAR(13);
+
+	SET @sql = @sql + ' GROUP BY VoteValue ' + CHAR(13);
+	SET @sql = @sql + ' ORDER BY VoteValue ' + CHAR(13);
+
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Get Vote Summaries.
+-- [== History ==]
+-- <2017-04-12> :
+--	- Stored Procedure Created.
+-- <2018-05-10> :
+--	- Changes code supports unlimited choices.
+--	- Add Remark count.
+--	- Add langId parameter.
+-- <2018-05-13> :
+--  - Add QSetId, QSeq in result query.
+--
+-- [== Example ==]
+--
+--EXEC GetVoteSummaries NULL, N'EDL-C2017050001', N'QS00001', 1, '2017-01-01', '2017-12-31', null, null, null
+--EXEC GetVoteSummaries  N'TH', N'EDL-C2017050001', N'QS00001', 1, '2017-01-01', '2017-12-31', N'O0001', null, null
+-- =============================================
+CREATE PROCEDURE [dbo].[GetVoteSummaries] (
+  @langId as nvarchar(3)
+, @customerId as nvarchar(30)
+, @qSetId as nvarchar(30)
+, @qSeq as int
+, @BeginDate As DateTime = null
+, @EndDate As DateTime = null
+, @orgId as nvarchar(30) = null
+, @deviceId as nvarchar(50) = null
+, @userId as nvarchar(30) = null
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out)
+AS
+BEGIN
+DECLARE @ShowOutput bit = 0;
+DECLARE @branchId nvarchar(30);
+	-- Error Code:
+	--    0 : Success
+	-- 2001 : CustomerId cannot be null or empty string.
+	-- 2002 : QSetId cannot be null or empty string.
+	-- 2003 : QSeq cannot be null.
+	-- 2004 : The default OrgId not found.
+	-- 2005 : The BranchId not found.
+	-- 2006 : 
+	-- OTHER : SQL Error Number & Error Message.
+
+	CREATE TABLE #VOTEDATA
+	(
+		VoteValue tinyint,
+		TotalVote Int,
+		TotalXCount int,
+		TotalRemark Int
+	) 
+
+	CREATE TABLE #VOTESUM
+	(
+		Choice int,				-- choice value.
+		Cnt int,				-- count = current choice count.
+		Pct decimal(18, 2),		-- percent = (current choice count * 100 / overall choices count).
+		RemarkCnt int,			-- Remark count.
+		MaxChoice tinyint,		-- max choice value.
+		TotCnt int,				-- Total count -> overall choices count.
+		TotCntXChoice int,		-- Total count * choice value. (for internal calc).
+		AvgPct decimal(18, 2),	-- Choice Average Percent
+		AvgTot decimal(18, 2),	-- Choice Average Total = (TotCntXChoice / TotCnt).
+		CustomerId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		BranchId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		OrgId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		UserId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		DeviceId nvarchar(50) COLLATE DATABASE_DEFAULT,
+		QSetId nvarchar(30) COLLATE DATABASE_DEFAULT,
+		QSeq int
+	)
+
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 2001, @errNum out, @errMsg out
+			RETURN
+		END
+		IF (dbo.IsNullOrEmpty(@qSetId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 2002, @errNum out, @errMsg out
+			RETURN
+		END
+		IF (@qSeq IS NULL)
+		BEGIN
+			EXEC GetErrorMsg 2003, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@orgId) = 1)
+		BEGIN
+			-- OrgID not exist so find root org id and branch id.
+			SELECT @orgId = OrgId
+				 , @branchId = BranchId
+			  FROM Org
+			 WHERE LOWER(LTRIM(RTRIM(CustomerId))) = LOWER(LTRIM(RTRIM(@customerId)))
+			   AND (ParentId IS NULL OR LOWER(RTRIM(LTRIM(ParentId))) = N'');
+		END
+		ELSE
+		BEGIN
+			-- OrgID exist so find branch id.
+			SELECT @branchId = BranchId
+			  FROM Org
+			 WHERE LOWER(LTRIM(RTRIM(CustomerId))) = LOWER(LTRIM(RTRIM(@customerId)))
+			   AND LOWER(LTRIM(RTRIM(OrgId))) = LOWER(LTRIM(RTRIM(@orgId)))
+		END
+		
+		IF (dbo.IsNullOrEmpty(@orgId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 2004, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@branchId) = 1)
+		BEGIN
+			EXEC GetErrorMsg 2005, @errNum out, @errMsg out
+			RETURN
+		END
+
+		DECLARE @sqlCommand as nvarchar(MAX);
+
+		EXEC __BuildTotalVoteCountQuery @customerId
+									  , @qsetId, @qSeq
+									  , @beginDate, @endDate
+									  , @orgId, @deviceId, @userId
+									  , @sqlCommand output
+
+		--SELECT @sqlCommand;
+		INSERT INTO #VOTEDATA EXECUTE sp_executesql @sqlCommand -- Insert into temp table
+
+		DECLARE @iChoice tinyint;
+		DECLARE @iCnt int;
+		DECLARE @maxChoice as tinyint;
+		DECLARE @decimalPlaces as int = 2;
+
+		DECLARE @totalCount int;
+		DECLARE @totalXCount int;
+
+		SELECT @maxChoice = COUNT(*)
+		  FROM QSlideItem
+		 WHERE QSetId = @qSetId
+		   AND QSeq = @qSeq
+		   AND CustomerId = @customerId
+		   AND ObjectStatus = 1
+		
+		--SET @maxChoice = 4; -- Fake max choice.
+
+		SET @iChoice = 1;
+		WHILE (@iChoice <= @maxChoice)
+		BEGIN
+			SELECT @iCnt = COUNT(*) 
+			  FROM #VOTEDATA 
+			 WHERE VoteValue = @iChoice;
+			IF (@iCnt IS NULL OR @iCnt = 0)
+			BEGIN
+				INSERT INTO #VOTEDATA(
+					  VoteValue
+					, TotalVote
+					, TotalRemark)
+				VALUES(
+					  @iChoice
+					, 0
+					, 0);
+			END
+			SET @iChoice = @iChoice + 1; -- increase.
+		END
+
+		SELECT @totalCount = SUM(TotalVote)
+		     , @totalXCount = SUM(TotalXCount)
+		  FROM #VOTEDATA;
+
+		-- Insert Non calc values.
+		INSERT INTO #VOTESUM
+		(
+			 CustomerID
+			,BranchID
+			,OrgID
+			,UserId
+			,DeviceId
+			,QSetId
+			,QSeq
+			,MaxChoice
+			,TotCnt
+			,TotCntXChoice
+			,Choice
+			,Cnt
+			,RemarkCnt
+		)
+		SELECT @customerId AS CustomerId
+			 , @branchId AS BranchId
+			 , @orgId AS OrgId
+			 , @userId AS UserId
+			 , @deviceId AS DeviceId
+			 , @qSetId AS QSetId
+			 , @qSeq AS QSeq
+			 , @maxChoice AS MaxChoice
+			 , @totalCount AS TotCnt
+			 , @totalXCount AS TotCntXChoice
+			 , VoteValue AS Choice
+			 , TotalVote AS Cnt
+			 , TotalRemark AS RemarkCnt
+		  FROM #VOTEDATA;
+
+		-- Update Calc Percent value, Total avarage.
+		UPDATE #VOTESUM
+		   SET Pct = vd.Pct
+		     , AvgTot = vd.AvgTot
+			 , AvgPct = vd.AvgPct
+		  FROM (
+			SELECT t1.Choice
+			     , t2.Pct
+				 , t2.AvgTot
+				 , CASE WHEN MaxChoice = 0 THEN
+					ROUND(0, @decimalPlaces)
+				   ELSE
+					ROUND((100 / Convert(decimal(18,2), MaxChoice)) * t2.AvgTot, @decimalPlaces)
+				   END AS AvgPct
+				FROM #VOTESUM t1 INNER JOIN 
+				(
+					SELECT Choice,
+						   CASE WHEN TotCnt = 0 THEN
+							 ROUND(0, @decimalPlaces)
+						   ELSE
+							 ROUND(Convert(decimal(18,2), (Cnt * 100)) / Convert(decimal(18,2), TotCnt), @decimalPlaces)
+						   END AS Pct,
+						   CASE WHEN TotCnt = 0 THEN
+							 ROUND(0, @decimalPlaces)
+						   ELSE
+							 ROUND(Convert(decimal(18,2), TotCntXChoice) / Convert(decimal(18,2), TotCnt), @decimalPlaces)
+						   END AS AvgTot
+					  FROM #VOTESUM
+				) AS t2 ON t2.Choice = t1.Choice
+		  ) AS vd
+		 WHERE vd.Choice = #VOTESUM.Choice
+
+		-- SUCCESS
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+
+	IF (dbo.IsNullOrEmpty(@userId) = 1)
+	BEGIN
+		SELECT vs.Choice
+			 , vs.Cnt
+			 , vs.Pct
+			 , vs.RemarkCnt
+			 , vs.MaxChoice
+			 , vs.TotCnt
+			 , vs.AvgPct
+			 , vs.AvgTot
+			 , lgv.LangId
+			 , vs.CustomerId
+			 , cmlv.CustomerName
+			 , vs.BranchId
+			 , omlv.BranchName
+			 , vs.OrgId
+			 , omlv.ParentId
+			 , omlv.OrgName
+			 , vs.QSetId
+			 , vs.QSeq
+			 , vs.UserId
+			 , NULL AS FullName
+			 , vs.DeviceId
+		  FROM #VOTESUM as vs
+			 , LanguageView lgv
+			 , CustomerMLView cmlv
+			 , OrgMLView omlv
+			 --, LogInView lmlv
+		 WHERE lgv.LangId = COALESCE(@langId, lgv.LangId)
+		   AND lgv.Enabled = 1
+		   AND cmlv.CustomerId = vs.CustomerId
+		   AND cmlv.LangId = lgv.LangId
+		   AND omlv.CustomerId = vs.CustomerId
+		   AND omlv.OrgId = vs.OrgId 
+		   AND omlv.LangId = lgv.LangId
+		   --AND lmlv.CustomerId = COALESCE(@customerId, omlv.CustomerId) 
+		   --AND lmlv.MemberId = COALESCE(@userId, lmlv.MemberId)
+		   --AND lmlv.LangId = lgv.LangId
+		 ORDER BY lgv.SortOrder, vs.QSetId, vs.QSeq, vs.Choice
+	END
+	ELSE
+	BEGIN
+		SELECT vs.Choice
+			 , vs.Cnt
+			 , vs.Pct
+			 , vs.RemarkCnt
+			 , vs.MaxChoice
+			 , vs.TotCnt
+			 , vs.AvgPct
+			 , vs.AvgTot
+			 , lgv.LangId
+			 , vs.CustomerId
+			 , cmlv.CustomerName
+			 , vs.BranchId
+			 , omlv.BranchName
+			 , vs.OrgId
+			 , omlv.ParentId
+			 , omlv.OrgName
+			 , vs.QSetId
+			 , vs.QSeq
+			 , vs.UserId
+			 , lmlv.FullName
+			 , vs.DeviceId
+		  FROM #VOTESUM as vs
+			 , LanguageView lgv
+			 , CustomerMLView cmlv
+			 , OrgMLView omlv
+			 , LogInView lmlv
+		 WHERE lgv.LangId = COALESCE(@langId, lgv.LangId)
+		   AND lgv.Enabled = 1
+		   AND cmlv.CustomerId = vs.CustomerId
+		   AND cmlv.LangId = lgv.LangId
+		   AND omlv.CustomerId = vs.CustomerId
+		   AND omlv.OrgId = vs.OrgId 
+		   AND omlv.LangId = lgv.LangId
+		   AND lmlv.CustomerId = COALESCE(@customerId, omlv.CustomerId) 
+		   AND lmlv.MemberId = COALESCE(@userId, lmlv.MemberId)
+		   AND lmlv.LangId = lgv.LangId
+		 ORDER BY lgv.SortOrder, vs.QSetId, vs.QSeq, vs.Choice
+	END
+
+	DROP TABLE #VOTESUM
+	DROP TABLE #VOTEDATA
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Description:	Get Raw Votes.
+-- [== History ==]
+-- <2016-10-30> :
+--	- Stored Procedure Created.
+-- <2016-12-14> :
+--	- Add supports pagination.
+-- <2018-05-14> :
+--	- Add lang Id.
+-- <2019-11-07> :
+--	- Add Org Id and Member Id.
+-- <2020-01-14> :
+--	- Update time ckecking code.
+--
+-- [== Example ==]
+--
+--EXEC GetRawVotes N'TH'
+--				 , N'EDL-C2018040002'
+--				 , N'QS2018040001', 1
+--				 , NULL -- OrgId
+--				 , NULL -- UserId (MemberId)
+--				 , N'2018-05-09 00:00:00', N'2018-05-11 23:59:59';
+-- =============================================
+CREATE PROCEDURE [dbo].[GetRawVotes] 
+(
+  @langId as nvarchar(3)
+, @customerId as nvarchar(30)
+, @qsetId as nvarchar(30)
+, @qseq as int
+, @beginDate As DateTime = null
+, @endDate As DateTime = null
+, @orgId as nvarchar(30) = null
+, @memberId as nvarchar(30) = null
+, @pageNum as int = 1 out
+, @rowsPerPage as int = 10 out
+, @totalRecords as int = 0 out
+, @maxPage as int = 0 out
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out
+)
+AS
+BEGIN
+DECLARE @vBeginDateStr nvarchar(40);
+DECLARE @vEndDateStr nvarchar(40); 
+DECLARE @vBeginDate as DateTime;
+DECLARE @vEndDate as DateTime;
+	-- Error Code:
+	--   0 : Success
+	-- 2101 : CustomerId cannot be null or empty string.
+	-- 2102 : QSetId cannot be null or empty string.
+	-- 2103 : QSeq cannot be null or less than 1.
+	-- 2104 : Begin Date and End Date cannot be null.
+	-- 2105 : LangId Is Null Or Empty String.
+	-- OTHER : SQL Error Number & Error Message.
+	BEGIN TRY
+		SET @pageNum = isnull(@pageNum, 1);
+		SET @rowsPerPage = isnull(@rowsPerPage, 10);
+
+		IF (@rowsPerPage <= 0) SET @rowsPerPage = 10;
+		IF (@pageNum <= 0) SET @pageNum = 1;
+
+		SET @totalRecords = 0;
+
+		IF (dbo.IsNullOrEmpty(@customerId) = 1)
+		BEGIN
+			-- CustomerId cannot be null or empty string.
+			EXEC GetErrorMsg 2101, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (dbo.IsNullOrEmpty(@qsetId) = 1)
+		BEGIN
+			-- QSetId cannot be null or empty string.
+			EXEC GetErrorMsg 2102, @errNum out, @errMsg out
+			RETURN
+		END
+
+		IF (@qseq IS NULL OR @qseq < 1)
+		BEGIN
+			-- QSeq cannot be null or less than 1.
+			EXEC GetErrorMsg 2103, @errNum out, @errMsg out
+			RETURN
+		END
+		
+		IF (@beginDate IS NULL OR @endDate IS NULL)
+		BEGIN
+			-- Begin Date and End Date cannot be null.
+			EXEC GetErrorMsg 2104, @errNum out, @errMsg out
+			RETURN
+		END
+		
+		IF (dbo.IsNullOrEmpty(@langId) = 1)
+		BEGIN
+			-- LangId Is Null Or Empty String.
+			EXEC GetErrorMsg 2105, @errNum out, @errMsg out
+			RETURN
+		END
+
+		-- CONVERT DATE
+		SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+							  N'00:00:00');
+		--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+		SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+		SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+							N'23:59:59');
+		--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+		SET @vEndDate = CAST(@vEndDateStr AS datetime)
+
+		-- calculate total record and maxpages
+		SELECT @totalRecords = COUNT(*) 
+		  FROM Vote
+		 WHERE LOWER(CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER(QSetId) = LOWER(RTRIM(LTRIM(@qsetId)))
+		   AND QSeq = @qseq
+		   AND VoteDate >= @vBeginDate
+		   AND VoteDate <= @vEndDate
+		   AND UPPER(LTRIM(RTRIM(OrgId))) = UPPER(LTRIM(RTRIM(COALESCE(@orgId, OrgId))))
+		   AND UPPER(LTRIM(RTRIM(UserId))) = UPPER(LTRIM(RTRIM(COALESCE(@memberId, UserId))))
+		   AND ObjectStatus = 1;
+
+		SELECT @maxPage = 
+			CASE WHEN (@totalRecords % @rowsPerPage > 0) THEN 
+				(@totalRecords / @rowsPerPage) + 1
+			ELSE 
+				(@totalRecords / @rowsPerPage)
+			END;
+
+		WITH SQLPaging AS
+		( 
+			SELECT TOP(@rowsPerPage * @pageNum) ROW_NUMBER() OVER (ORDER BY A.VoteDate) AS RowNo
+				, @pageNum PageNo
+				, L.LangId
+				, A.VoteDate
+				, A.VoteSeq
+				, A.CustomerId
+				, A.QSetId
+				, A.QSeq
+				, A.VoteValue
+				, A.Remark
+				, A.OrgId
+				, O.OrgName
+				, A.BranchId
+				, B.BranchName
+				, A.DeviceId
+				--, D.[Description]
+				, A.UserId
+				, M.FullName
+			FROM Vote A 
+					INNER JOIN LanguageView L ON (
+							L.LangId = @langId
+					)
+					INNER JOIN OrgMLView O ON (
+							O.OrgId = A.OrgId 
+						AND O.CustomerId = A.CustomerId
+						AND O.LangId = L.LangId
+					)
+					INNER JOIN BranchMLView B ON (
+							B.BranchId = A.BranchId 
+						AND B.CustomerId = A.CustomerId
+						AND B.LangId = L.LangId
+					)
+					--INNER JOIN Device D ON (
+					--		D.DeviceId = A.DeviceId 
+					--	AND D.CustomerId = A.CustomerId
+					--)
+					LEFT OUTER JOIN MemberInfoMLView M ON (
+							M.MemberId = A.UserId 
+						AND M.CustomerId = A.CustomerId
+						AND M.LangId = L.LangId
+					)
+			WHERE LOWER(A.CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+				AND LOWER(A.QSetId) = LOWER(RTRIM(LTRIM(@qsetId)))
+				AND A.QSeq = @qseq
+				AND A.ObjectStatus = 1
+			    AND VoteDate >= @vBeginDate
+			    AND VoteDate <= @vEndDate
+			    AND UPPER(LTRIM(RTRIM(A.OrgId))) = UPPER(LTRIM(RTRIM(COALESCE(@orgId, A.OrgId))))
+			    AND UPPER(LTRIM(RTRIM(A.UserId))) = UPPER(LTRIM(RTRIM(COALESCE(@memberId, A.UserId))))
+			ORDER BY A.VoteDate, A.VoteSeq
+		)
+		SELECT * FROM SQLPaging WITH (NOLOCK) 
+			WHERE RowNo > ((@pageNum - 1) * @rowsPerPage);
+
+		-- success
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: Filter Vote Orgs.
+-- Description:	Filter Vote Orgs from vote table that match date range.
+-- [== History ==]
+-- <2019-11-07> :
+--	- Stored Procedure Created.
+-- <2020-01-07> :
+--	- Rename from FilterOrgs to FilterVoteOrgs.
+--
+-- [== Example ==]
+--
+--exec FilterVoteOrgs N'TH', N'EDL-C2019100003', N'QS00001', N'2019-10-01', N'2019-11-01'
+--exec FilterVoteOrgs N'EN', N'EDL-C2019100003', N'QS00001', N'2019-10-01', N'2019-11-01'
+-- =============================================
+CREATE PROCEDURE [dbo].[FilterVoteOrgs] 
+(
+  @langId as nvarchar(3)
+, @customerId as nvarchar(30)
+, @qsetId as nvarchar(30)
+, @beginDate As DateTime = null
+, @endDate As DateTime = null
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out
+)
+AS
+BEGIN
+DECLARE @vBeginDateStr nvarchar(40);
+DECLARE @vEndDateStr nvarchar(40); 
+DECLARE @vBeginDate as DateTime;
+DECLARE @vEndDate as DateTime;
+	BEGIN TRY
+		-- CONVERT DATE
+		SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+							  N'00:00:00');
+		--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+		SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+		SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+							N'23:59:59');
+		--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+		SET @vEndDate = CAST(@vEndDateStr AS datetime)
+
+		SELECT DISTINCT L.langId
+		              , A.customerId
+					  , A.orgId
+					  , O.OrgName
+					  , A.BranchId
+					  , B.BranchName
+		  FROM VOTE A
+			   INNER JOIN LanguageView L ON (
+						  UPPER(LTRIM(RTRIM(L.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, L.LangId))))
+			   )
+			   INNER JOIN OrgMLView O ON (
+						  O.OrgId = A.OrgId 
+					  AND O.CustomerId = A.CustomerId
+					  AND O.LangId = L.LangId
+			   )
+			   INNER JOIN BranchMLView B ON (
+						  B.BranchId = A.BranchId 
+				      AND B.CustomerId = A.CustomerId
+					  AND B.LangId = L.LangId
+			   )
+		 WHERE A.ObjectStatus = 1
+		   AND LOWER(A.CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER(A.QSetId) = LOWER(RTRIM(LTRIM(@qsetId)))
+		   AND A.VoteDate >= @vBeginDate
+		   AND A.VoteDate <= @vEndDate
+
+		-- success
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: FilterVoteMembers.
+-- Description:	Filter Vote Members from vote table that match date range.
+-- [== History ==]
+-- <2019-11-07> :
+--	- Stored Procedure Created.
+-- <2020-01-07> :
+--	- Rename SP name from FilterMembers to FilterVoteMembers.
+-- <2020-01-15> :
+--	- Supports include sub org(s).
+--
+-- [== Example ==]
+--
+--exec FilterVoteMembers N'TH', N'EDL-C2019100003', N'QS00001', NULL, N'2019-10-01', N'2019-11-01'
+--exec FilterVoteMembers N'EN', N'EDL-C2019100003', N'QS00001', N'O0010', N'2019-10-01', N'2019-11-01'
+-- =============================================
+CREATE PROCEDURE [dbo].[FilterVoteMembers] 
+(
+  @langId as nvarchar(3)
+, @customerId as nvarchar(30)
+, @qsetId as nvarchar(30)
+, @orgId as nvarchar(30) = null
+, @beginDate As DateTime = null
+, @endDate As DateTime = null
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out
+)
+AS
+BEGIN
+DECLARE @showOutput as int = 0;
+DECLARE @objectStatus as int = 1;
+DECLARE @includeSubOrg bit = 1;
+DECLARE @inClause as nvarchar(MAX);
+DECLARE @sql as nvarchar(MAX)
+DECLARE @vBeginDateStr nvarchar(40);
+DECLARE @vEndDateStr nvarchar(40); 
+DECLARE @vBeginDate as DateTime;
+DECLARE @vEndDate as DateTime;
+	BEGIN TRY
+		IF (dbo.IsNullOrEmpty(@orgId) = 0) -- OrgId Exist.
+		BEGIN
+			EXEC GenerateSubOrgInClause @customerId, @orgId, @includeSubOrg, @showOutput, @inClause output
+		END
+
+		-- CONVERT DATE
+		SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+							  N'00:00:00');
+		--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+		SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+		SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+							N'23:59:59');
+		--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+		SET @vEndDate = CAST(@vEndDateStr AS datetime)
+
+		SET @sql = N'';
+		SET @sql = @sql + '';
+		SET @sql = @sql + 'SELECT DISTINCT L.langId ' + CHAR(13);
+		SET @sql = @sql + '              --, A.customerId ' + CHAR(13);
+		SET @sql = @sql + '			  --, A.orgId ' + CHAR(13);
+		SET @sql = @sql + '			  --, O.OrgName ' + CHAR(13);
+		SET @sql = @sql + '			  --, A.BranchId ' + CHAR(13);
+		SET @sql = @sql + '			  --, B.BranchName ' + CHAR(13);
+		SET @sql = @sql + '			  , A.UserId ' + CHAR(13);
+		SET @sql = @sql + '			  , M.FullName ' + CHAR(13);
+		SET @sql = @sql + '  FROM VOTE A ' + CHAR(13);
+		SET @sql = @sql + '	   INNER JOIN LanguageView L ON ( ' + CHAR(13);
+		IF (dbo.IsNullOrEmpty(@langId) = 0) -- LangId Exist.
+		BEGIN
+			SET @sql = @sql + '				  UPPER(LTRIM(RTRIM(L.LangId))) = UPPER(LTRIM(RTRIM(N''' + @langId + ''')))' + CHAR(13);
+		END
+		ELSE
+		BEGIN
+			SET @sql = @sql + '				  UPPER(LTRIM(RTRIM(L.LangId))) = UPPER(LTRIM(RTRIM(L.LangId)))' + CHAR(13);
+		END
+		SET @sql = @sql + '	   ) ' + CHAR(13);
+		SET @sql = @sql + '	   LEFT OUTER JOIN MemberInfoMLView M ON ( ' + CHAR(13);
+		SET @sql = @sql + '				  M.MemberId = A.UserId ' + CHAR(13);
+		SET @sql = @sql + '			  AND M.CustomerId = A.CustomerId ' + CHAR(13);
+		SET @sql = @sql + '			  AND M.LangId = L.LangId ' + CHAR(13);
+		SET @sql = @sql + '	   ) ' + CHAR(13);
+		SET @sql = @sql + ' WHERE A.ObjectStatus = 1 ' + CHAR(13);
+		SET @sql = @sql + '   AND LOWER(A.CustomerId) = LOWER(RTRIM(LTRIM(N''' + @customerId + '''))) ' + CHAR(13);
+		SET @sql = @sql + '   AND LOWER(A.QSetId) = LOWER(RTRIM(LTRIM(N''' + @qsetId + '''))) ' + CHAR(13);
+		IF (dbo.IsNullOrEmpty(@orgId) = 0) -- OrgId Exist.
+		BEGIN
+			SET @sql = @sql + '   AND A.OrgId IN (' + @inClause + ') ' + CHAR(13);
+		END
+
+		SET @sql = @sql + '   AND A.VoteDate >= ''' + @vBeginDateStr + ''' ' + CHAR(13);
+		SET @sql = @sql + '   AND A.VoteDate <= ''' + @vEndDateStr + ''' ' + CHAR(13);
+
+		--SELECT @sql
+		EXECUTE sp_executesql @sql
+		-- success
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: FilterVoteDevices.
+-- Description:	Filter Devices from vote table that match date range.
+-- [== History ==]
+-- <2020-01-13> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec FilterVoteDevices N'TH', N'EDL-C2019100004', N'QS00004', NULL, N'2019-10-01', N'2021-11-01'
+--exec FilterVoteDevices N'TH', N'EDL-C2019100004', N'QS00004', N'O0010', N'2019-10-01', N'2021-11-01'
+-- =============================================
+CREATE PROCEDURE [dbo].[FilterVoteDevices] 
+(
+  @langId as nvarchar(3)
+, @customerId as nvarchar(30)
+, @qsetId as nvarchar(30)
+, @orgId as nvarchar(30) = null
+, @beginDate As DateTime = null
+, @endDate As DateTime = null
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out
+)
+AS
+BEGIN
+DECLARE @vBeginDateStr nvarchar(40);
+DECLARE @vEndDateStr nvarchar(40); 
+DECLARE @vBeginDate as DateTime;
+DECLARE @vEndDate as DateTime;
+	BEGIN TRY
+		-- CONVERT DATE
+		SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+							  N'00:00:00');
+		--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+		SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+		SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+							N'23:59:59');
+		--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+		SET @vEndDate = CAST(@vEndDateStr AS datetime)
+
+		SELECT DISTINCT L.langId
+		              , A.customerId
+					  , A.orgId
+					  , O.OrgName
+					  , A.BranchId
+					  , B.BranchName
+					  , A.DeviceId
+					  , M.DeviceName
+					  , M.Location
+					  , M.DeviceTypeId
+		  FROM VOTE A
+			   INNER JOIN LanguageView L ON (
+						  UPPER(LTRIM(RTRIM(L.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, L.LangId))))
+			   )
+			   INNER JOIN OrgMLView O ON (
+						  O.OrgId = A.OrgId 
+					  AND O.CustomerId = A.CustomerId
+					  AND O.LangId = L.LangId
+			   )
+			   INNER JOIN BranchMLView B ON (
+						  B.BranchId = A.BranchId 
+				      AND B.CustomerId = A.CustomerId
+					  AND B.LangId = L.LangId
+			   )
+			   LEFT OUTER JOIN DeviceMLView M ON (
+						  M.DeviceId = A.DeviceId 
+					  AND M.CustomerId = A.CustomerId
+					  AND M.LangId = L.LangId
+			   )
+		 WHERE A.ObjectStatus = 1
+		   AND LOWER(A.CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER(A.QSetId) = LOWER(RTRIM(LTRIM(@qsetId)))
+		   AND UPPER(LTRIM(RTRIM(A.OrgId))) = UPPER(LTRIM(RTRIM(COALESCE(@orgId, A.OrgId))))
+		   AND A.VoteDate >= @vBeginDate
+		   AND A.VoteDate <= @vEndDate
+
+		-- success
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
+-- Name: FilterVoteDeviceMembers.
+-- Description:	Filter Members from vote table that match date range, orgId and deviceId.
+-- [== History ==]
+-- <2020-01-13> :
+--	- Stored Procedure Created.
+--
+-- [== Example ==]
+--
+--exec FilterVoteDeviceMembers N'TH', N'EDL-C2019100004', N'QS00004', N'O0002', N'D0004', N'2019-10-01', N'2021-11-01'
+-- =============================================
+CREATE PROCEDURE [dbo].[FilterVoteDeviceMembers] 
+(
+  @langId as nvarchar(3)
+, @customerId as nvarchar(30)
+, @qsetId as nvarchar(30)
+, @orgId as nvarchar(30)
+, @deviceId as nvarchar(30)
+, @beginDate As DateTime = null
+, @endDate As DateTime = null
+, @errNum as int = 0 out
+, @errMsg as nvarchar(100) = N'' out
+)
+AS
+BEGIN
+DECLARE @vBeginDateStr nvarchar(40);
+DECLARE @vEndDateStr nvarchar(40); 
+DECLARE @vBeginDate as DateTime;
+DECLARE @vEndDate as DateTime;
+	BEGIN TRY
+		-- CONVERT DATE
+		SET @vBeginDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(mm, @beginDate)) + '-' +
+							  CONVERT(nvarchar(2), DatePart(dd, @beginDate)) + ' ' +
+							  N'00:00:00');
+		--SET @vBeginDate = CONVERT(datetime, @vBeginDateStr, 121);
+		SET @vBeginDate = CAST(@vBeginDateStr AS datetime)
+
+		SET @vEndDateStr = (CONVERT(nvarchar(4), DatePart(yyyy, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(mm, @endDate)) + '-' +
+							CONVERT(nvarchar(2), DatePart(dd, @endDate)) + ' ' +
+							N'23:59:59');
+		--SET @vEndDate = CONVERT(datetime, @vEndDateStr, 121);
+		SET @vEndDate = CAST(@vEndDateStr AS datetime)
+
+		SELECT DISTINCT L.langId
+		              , A.customerId
+					  , A.orgId
+					  , O.OrgName
+					  , A.BranchId
+					  , B.BranchName
+					  , A.DeviceId
+					  , M.DeviceName
+					  , M.Location
+					  , M.DeviceTypeId
+					  , A.UserId AS MemberId
+					  , N.FullName
+		  FROM VOTE A
+			   INNER JOIN LanguageView L ON (
+						  UPPER(LTRIM(RTRIM(L.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, L.LangId))))
+			   )
+			   INNER JOIN OrgMLView O ON (
+						  O.OrgId = A.OrgId 
+					  AND O.CustomerId = A.CustomerId
+					  AND O.LangId = L.LangId
+			   )
+			   INNER JOIN BranchMLView B ON (
+						  B.BranchId = A.BranchId 
+				      AND B.CustomerId = A.CustomerId
+					  AND B.LangId = L.LangId
+			   )
+			   LEFT OUTER JOIN DeviceMLView M ON (
+						  M.DeviceId = A.DeviceId 
+					  AND M.CustomerId = A.CustomerId
+					  AND M.LangId = L.LangId
+			   )
+			   LEFT OUTER JOIN MemberInfoMLView N ON (
+						  N.MemberId = A.UserId 
+					  AND N.CustomerId = A.CustomerId
+					  AND N.LangId = L.LangId
+			   )
+		 WHERE A.ObjectStatus = 1
+		   AND LOWER(A.CustomerId) = LOWER(RTRIM(LTRIM(@customerId)))
+		   AND LOWER(A.QSetId) = LOWER(RTRIM(LTRIM(@qsetId)))
+		   AND UPPER(LTRIM(RTRIM(A.OrgId))) = UPPER(LTRIM(RTRIM(COALESCE(@orgId, A.OrgId))))
+		   AND UPPER(LTRIM(RTRIM(A.DeviceId))) = UPPER(LTRIM(RTRIM(COALESCE(@deviceId, A.DeviceId))))
+		   AND A.VoteDate >= @vBeginDate
+		   AND A.VoteDate <= @vEndDate
+
+		-- success
+		EXEC GetErrorMsg 0, @errNum out, @errMsg out
+	END TRY
+	BEGIN CATCH
+		SET @errNum = ERROR_NUMBER();
+		SET @errMsg = ERROR_MESSAGE();
+	END CATCH
+END
+
+GO
+
+
+/*********** Script Update Date: 2020-03-26  ***********/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author: Chumpon Asaneerat
 -- Name: Register.
 -- Description:	Register (Customer).
 -- [== History ==]
@@ -10382,7 +14681,7 @@ GO
 --
 -- [== Example ==]
 --
---exec CheckUsers N'admin@umi.co.th', N'1234';
+--exec CheckUsers NULL, N'admin@umi.co.th', N'1234';
 -- =============================================
 CREATE PROCEDURE [dbo].[CheckUsers] (
   @langId nvarchar(3) = null

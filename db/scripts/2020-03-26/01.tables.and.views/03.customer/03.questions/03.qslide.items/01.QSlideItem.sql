@@ -11,6 +11,7 @@ CREATE TABLE [dbo].[QSlideItem](
 	[QSSeq] [int] NOT NULL,
 	[QText] [nvarchar](max) NOT NULL,
 	[IsRemark] [bit] NOT NULL,
+    [Choice] [int] NULL,
 	[SortOrder] [int] NOT NULL,
 	[ObjectStatus] [int] NOT NULL,
  CONSTRAINT [PK_QSlideItem] PRIMARY KEY CLUSTERED 

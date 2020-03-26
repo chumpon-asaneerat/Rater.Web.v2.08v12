@@ -15,6 +15,8 @@ GO
 --	- Stored Procedure Changes.
 --    - Remove QItemTextNative column.
 --    - Rename QItemTextEN column to QItemText.
+-- <2020-03-26> :
+--	- Add choice parameter.
 --
 -- [== Example ==]
 --
@@ -43,6 +45,7 @@ BEGIN
 		 , qSSeq
 		 , QItemText
 		 , IsRemark
+         , Choice
 		 , QItemStatus
 		 , QItemOrder
 		 , Enabled 

@@ -15,6 +15,8 @@ GO
 --	- View Changes.
 --    - Remove QItemTextNative column.
 --    - Rename QItemTextEn column to QItemText.
+-- <2020-03-26> :
+--	- Add choice parameter.
 --
 -- [== Example ==]
 --
@@ -32,6 +34,7 @@ AS
 		 , QSlideItem.QSSeq
 		 , QSlideItem.QText AS QItemText
 		 , QSlideItem.IsRemark
+         , QSlideItem.Choice
 		 , QSlideItem.SortOrder AS QItemOrder
 		 , QSlideItem.ObjectStatus AS QItemStatus
 	  FROM LanguageView CROSS JOIN dbo.QSlideItem

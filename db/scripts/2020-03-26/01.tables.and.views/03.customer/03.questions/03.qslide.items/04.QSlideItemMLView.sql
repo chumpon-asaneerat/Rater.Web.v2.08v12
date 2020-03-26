@@ -15,6 +15,8 @@ GO
 --	- View Changes.
 --    - Remove QItemTextNative column.
 --    - Rename QItemTextEn column to QItemText.
+-- <2020-03-26> :
+--	- Add choice parameter.
 --
 -- [== Example ==]
 --
@@ -33,6 +35,7 @@ AS
 				QItemML.QText 
 		   END AS QItemText
 		 , QItemV.IsRemark
+         , QItemV.Choice
 		 , QItemV.QItemStatus
 		 , QItemV.QItemOrder
 		 , QItemV.Enabled
