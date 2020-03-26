@@ -192,7 +192,7 @@ class LanguageService {
             self.change(self.pref.langId, true); // set langId from preference.
             self.loaded = true;
         }
-        XHR.get('/api/languages/search', { enable: true }, fn);
+        XHR.get('/api/languages', { enable: true }, fn);
     }
     change(langId, forced) {
         let newId = (langId) ? langId.toUpperCase() : LanguageService.defaultId;
