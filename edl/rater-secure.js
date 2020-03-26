@@ -109,6 +109,23 @@ class RaterSecure {
     static checkUsers(req, res) {
     }
     static signin(req, res) {
+        /*
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+        let fn = async () => {
+            return db.SignIn(params);
+        }
+        exec(db, fn).then(data => {
+            let result = validate(db, data);
+            if (result && !result.errors.hasError && result.out.errNum === 0) {
+                let obj = {
+                    accessId: result.out.accessId
+                }
+                WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
+            }
+            WebServer.sendJson(req, res, result);
+        })
+        */
     }
 
     //#endregion
