@@ -643,8 +643,7 @@ class SecureService {
         this.account = { username: '', password: ''}
     }
     verifyUsers(username, pwd) {
-        // may need to changed api route.
-        let url = '/api/customer/validate-accounts'
+        let url = '/api/validate-accounts'
         this.account = { username: username, password: pwd}
 
         let self = this;
@@ -658,7 +657,7 @@ class SecureService {
     }
     signin(customerId) {
         // may need to changed api route.
-        let url = '/api/customer/signin'
+        let url = '/api/signin'
         let paramObj = {
             customerId: customerId,
             userName: this.account.username,
@@ -681,7 +680,7 @@ class SecureService {
     }
     signout() {
         // may need to changed api route.
-        let url = '/api/customer/signout'
+        let url = '/api/signout'
         let fn = (r) => {
             //console.log(r);
             //console.log('sign out detected.');
@@ -691,7 +690,7 @@ class SecureService {
     }
     changeCustomer(customerId) {
         // may need to changed api route.
-        let url = '/api/customer/change-customer'
+        let url = '/api/change-customer'
         let paramObj = {
             customerId: customerId
         }
