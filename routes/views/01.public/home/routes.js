@@ -37,7 +37,7 @@ const routes = class {
 
 //#endregion
 
-router.get('/', routes.home)
+router.get('/', secure.checkAccess, routes.home)
 //router.get('/', secure.checkAccess, secure.checkRedirect, routes.home)
 router.get('/contents', routes.getContents)
 router.get('/js/:file', routes.getjsfile)

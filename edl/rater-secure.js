@@ -106,6 +106,38 @@ const updateSecureObj = (req, res, obj) => {
 class RaterSecure {
     //#region middleware methods
 
+    static checkAccess(req, res, next) {
+        // check access object is exists in signed cookie.
+        let obj = WebServer.signedCookie.readObject(req, res);
+        // if cookie not exists create new one.
+
+        // original code.
+        /*
+        let db = new sqldb();
+        let params = { 
+            accessId: obj.accessId
+        };
+        let fn = async () => {
+            return db.CheckAccess(params);
+        }
+        exec(db, fn).then(result => {
+            if (!result.errors.hasError && result.data && result.data.length > 0) {
+                let row = result.data[0];
+                updateSecureObj(req, res, row);
+            }
+            if (next) next();
+        });
+        */
+
+        // so after this step cookie should exists then process next step
+        //if (next) next(req, res, next)
+        if (next) next()
+    }
+
+    //#endregion
+
+    //#region routes methods
+
     static checkUsers(req, res) {
     }
     static signin(req, res) {
