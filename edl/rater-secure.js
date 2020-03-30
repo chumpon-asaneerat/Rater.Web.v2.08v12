@@ -47,11 +47,11 @@ const checkForError = (data) => {
 //#region Urls
 
 const getFullUrl = (req) => {
-    return req.protocol + '://' + req.get('host') + req.originalUrl;
+    return req.protocol + '://' + req.get('hostname') + req.originalUrl;
 }
 const getRoutePath = (req) => {
     let url = getFullUrl(req);
-    let rootUrl = req.protocol + '://' + req.get('host');
+    let rootUrl = req.protocol + '://' + req.get('hostname');
     let ret = url.replace(rootUrl, '');
     return ret;
 }
@@ -97,6 +97,50 @@ const getSecure = (req, res) => {
     return (rater) ? rater.secure : null;
 }
 
+const initCookies = (req, res) => {
+    // setup value for access in all routes.        
+    res.locals.rater = {
+        secure : {
+            mode: "",
+            edl : {
+                accessId: '',
+                memberId: '',
+                memberType: 0,
+                customerId: ''
+            },
+            customer: {
+                accessId: '',
+                memberId: '',
+                memberType: 0,
+                customerId: ''
+            },
+            device: {
+                accessId: '',
+                memberId: '',
+                memberType: 0,
+                customerId: '',
+                deviceId: ''
+            }
+        }
+    }
+}
+const saveCookies = (req, res) => {
+    // write secure object to cookie.
+    let rater = res.locals.rater;
+    if (!rater || !rater.mode) {
+        initCookies(req, res)
+    }
+    WebServer.signedCookie.writeObject(req, res, rater, WebServer.expires.in(5).years);
+}
+const loadCookies = (req, res) => {
+    res.locals.rater = WebServer.signedCookie.readObject(req, res);
+    let rater = res.locals.rater;
+    if (!rater || !rater.mode) {
+        initCookies(req, res)
+    }
+    return rater;
+}
+
 const updateSecureObjs = [
     { 
         mode:'edl', 
@@ -132,31 +176,8 @@ const updateSecureObjMaps = updateSecureObjs.map(obj => obj.mode )
 
 const updateSecureObj = (req, res, obj) => {
     if (!res.locals.rater) {
-        // setup value for access in all routes.        
-        res.locals.rater = {
-            secure : {
-                mode: "",
-                edl : {
-                    accessId: '',
-                    memberId: '',
-                    memberType: 0,
-                    customerId: ''
-                },
-                customer: {
-                    accessId: '',
-                    memberId: '',
-                    memberType: 0,
-                    customerId: ''
-                },
-                device: {
-                    accessId: '',
-                    memberId: '',
-                    memberType: 0,
-                    customerId: '',
-                    deviceId: ''
-                }
-            }
-        }
+        // setup value for access in all routes.
+        initCookies(req, res);
     }
     let rater = res.locals.rater;
     if (obj) {        
@@ -179,7 +200,7 @@ class RaterSecure {
 
     static checkAccess(req, res, next) {
         // check access object is exists in signed cookie.
-        let obj = WebServer.signedCookie.readObject(req, res);
+        let obj = loadCookies(req, res);
         if (!obj || !obj.mode) {
             // if cookie not exists create new one.
             updateSecureObj(req, res, obj)
@@ -207,6 +228,7 @@ class RaterSecure {
             if (!result.errors.hasError && result.data && result.data.length > 0) {
                 let row = result.data[0];
                 updateSecureObj(req, res, row);
+                saveCookies(req, res);
             }
             if (next) next();
         });
