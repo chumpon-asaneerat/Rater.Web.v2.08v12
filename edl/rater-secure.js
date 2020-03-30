@@ -190,6 +190,8 @@ const updateSecureObj = (req, res, obj) => {
             // write secure object to cookie.
             saveCookies(req, res);
         }
+        // test write secure object to cookie.
+        //saveCookies(req, res);
     }
 }
 
