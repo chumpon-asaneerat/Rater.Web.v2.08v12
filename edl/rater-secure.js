@@ -44,6 +44,37 @@ const checkForError = (data) => {
 
 //#endregion
 
+//#region Urls
+
+const getFullUrl = (req) => {
+    return req.protocol + '://' + req.get('host') + req.originalUrl;
+}
+const getRoutePath = (req) => {
+    let url = getFullUrl(req);
+    let rootUrl = req.protocol + '://' + req.get('host');
+    let ret = url.replace(rootUrl, '');
+    return ret;
+}
+const isStartsWith = (src, sPath) => {
+    let lsrc = src.toLowerCase();
+    if (lsrc.charAt(0) === '/') lsrc = lsrc.substring(1); // remove slash
+    let lpath = sPath.toLowerCase();
+    if (lpath.charAt(0) === '/') lpath = lpath.substring(1); // remove slash
+    let ret = lsrc.startsWith(lpath);
+    return ret;
+}
+const isHome = (url) => {
+    let lsrc = url.toLowerCase();
+    if (lsrc.charAt(0) === '/') lsrc = lsrc.substring(1); // remove slash
+    let ret = (lsrc.length === 0);
+    return ret;
+}
+const isEDL = (url) => { return isStartsWith(url, 'edl'); }
+const isCustomer = (url) => { return isStartsWith(url, 'customer'); }
+const isDevice = (url) => { return isStartsWith(url, 'rating'); }
+
+//#endregion
+
 //#region Cookies
 
 const hasValue = (obj, name) => {
