@@ -131,6 +131,8 @@ const saveCookies = (req, res) => {
         initCookies(req, res)
     }
     WebServer.signedCookie.writeObject(req, res, rater, WebServer.expires.in(5).years);
+    // write client access cookie.
+    WebServer.cookie.writeObject(req, res, rater.secure, WebServer.expires.in(5).years);    
 }
 const loadCookies = (req, res) => {
     res.locals.rater = WebServer.signedCookie.readObject(req, res);
@@ -183,11 +185,11 @@ const updateSecureObj = (req, res, obj) => {
     if (obj) {        
         let idx = updateSecureObjMaps.indexOf(obj.mode)
         let fn = (idx !== -1 ) ? updateSecureObjs[idx] : null
-        if (fn) fn.update(rater.secure, obj)
-        // write secure object to cookie.
-        WebServer.signedCookie.writeObject(req, res, rater, WebServer.expires.in(5).years);
-        // write client access cookie.
-        WebServer.cookie.writeObject(req, res, rater.secure, WebServer.expires.in(5).years);    
+        if (fn) {
+            fn.update(rater.secure, obj)
+            // write secure object to cookie.
+            saveCookies(req, res);
+        }
     }
 }
 
@@ -228,7 +230,6 @@ class RaterSecure {
             if (!result.errors.hasError && result.data && result.data.length > 0) {
                 let row = result.data[0];
                 updateSecureObj(req, res, row);
-                saveCookies(req, res);
             }
             if (next) next();
         });
