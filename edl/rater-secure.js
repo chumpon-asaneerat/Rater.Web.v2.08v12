@@ -195,6 +195,16 @@ const updateSecureObj = (req, res, obj) => {
 
 //#endregion
 
+
+// Key notes:
+// 1. res.locals var is used for pass data between middleware function.
+// 2. Cookies object store/retrive can do via methods.
+//    - WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years)
+//    - WebServer.cookie.writeObject(req, res, obj, WebServer.expires.in(5).years)
+//    - WebServer.signedCookie.readObject(req, res)
+//    - WebServer.cookie.readObject(req, res)
+
+
 //#region RaterSecure class
 
 class RaterSecure {
