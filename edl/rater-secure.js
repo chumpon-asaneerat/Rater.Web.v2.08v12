@@ -8,6 +8,42 @@ const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r12.db'));
 
 //#endregion
 
+//#region exec/validate wrapper method
+
+const exec = async (db, callback) => {
+    let ret;
+    let connected = await db.connect();
+    if (connected) {
+        ret = await callback();
+        await db.disconnect();
+    }
+    else {
+        ret = db.error(db.errorNumbers.CONNECT_ERROR, 'No database connection.');
+    }
+    return ret;
+}
+const validate = (db, data) => {
+    let result = data;
+    if (!result) {
+        result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
+    }
+    else {
+        result = checkForError(data);
+    }
+    return result;
+}
+const checkForError = (data) => {
+    let result = data;
+    if (result.out && result.out.errNum && result.out.errNum !== 0) {
+        result.errors.hasError = true;
+        result.errors.errNum = result.out.errNum;
+        result.errors.errMsg = result.out.errMsg;
+    }
+    return result;
+}
+
+//#endregion
+
 //#region Cookies
 
 const hasValue = (obj, name) => {
@@ -96,6 +132,10 @@ const updateSecureObj = (req, res, obj) => {
         let idx = updateSecureObjMaps.indexOf(obj.mode)
         let fn = (idx !== -1 ) ? updateSecureObjs[idx] : null
         if (fn) fn.update(rater.secure, obj)
+        // write secure object to cookie.
+        WebServer.signedCookie.writeObject(req, res, rater, WebServer.expires.in(5).years);
+        // write client access cookie.
+        WebServer.cookie.writeObject(req, res, rater.secure, WebServer.expires.in(5).years);    
     }
 }
 
@@ -109,14 +149,26 @@ class RaterSecure {
     static checkAccess(req, res, next) {
         // check access object is exists in signed cookie.
         let obj = WebServer.signedCookie.readObject(req, res);
-        // if cookie not exists create new one.
+        if (!obj || !obj.mode) {
+            // if cookie not exists create new one.
+            updateSecureObj(req, res, obj)
+        }
+        let secure = getSecure(req, res);
 
-        // original code.
-        /*
         let db = new sqldb();
         let params = { 
-            accessId: obj.accessId
+            accessId: '',
+            mode: secure.mode
         };
+
+        if (secure.mode === 'edl') {
+            params.accessId = secure.edl.accessId
+        }
+        else if (secure.mode === 'customer') {
+            params.accessId = secure.customer.accessId
+        }
+        else {
+        }
         let fn = async () => {
             return db.CheckAccess(params);
         }
@@ -127,11 +179,6 @@ class RaterSecure {
             }
             if (next) next();
         });
-        */
-
-        // so after this step cookie should exists then process next step
-        //if (next) next(req, res, next)
-        if (next) next()
     }
 
     //#endregion
@@ -141,9 +188,12 @@ class RaterSecure {
     static checkUsers(req, res) {
     }
     static signin(req, res) {
-        /*
         let db = new sqldb();
         let params = WebServer.parseReq(req).data;
+
+        let result = { text: 'signin', params: params }
+        WebServer.sendJson(req, res, result);
+        /*
         let fn = async () => {
             return db.SignIn(params);
         }

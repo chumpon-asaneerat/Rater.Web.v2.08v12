@@ -661,9 +661,10 @@ class SecureService {
         let paramObj = {
             customerId: customerId,
             userName: this.account.username,
-            passWord: this.account.password
+            passWord: this.account.password,
+            IsEDLUser: this.account.IsEDLUser
         }
-        //console.log('Sign In:', paramObj);
+        console.log('Sign In:', paramObj);
         let fn = (r) => {
             let data = api.parse(r);
             let err = data.errors;

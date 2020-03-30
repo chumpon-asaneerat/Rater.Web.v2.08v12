@@ -42,6 +42,7 @@ BEGIN
 			 , V.customerId
 			 , V.FullName
 			 , V.CustomerName
+			 , V.IsEDLUser
 			 , V.ObjectStatus
 		  FROM 
 		  (
@@ -49,6 +50,7 @@ BEGIN
 				 , A.customerId
 				 , A.memberId
 				 , A.FullName
+				 , A.IsEDLUser
 				 , B.CustomerName
 				 , A.ObjectStatus
 			  FROM LogInView A, CustomerMLView B
@@ -63,6 +65,7 @@ BEGIN
 				 , A.customerId
 				 , A.memberId
 				 , A.FullName
+				 , A.IsEDLUser
 				 , 'EDL Co., Ltd.' AS CustomerName
 				 , A.ObjectStatus
 			  FROM LogInView A

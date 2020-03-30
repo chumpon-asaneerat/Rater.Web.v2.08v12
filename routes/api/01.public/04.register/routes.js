@@ -102,6 +102,7 @@ const routes = class {
                 }
                 nobj.FullName = rec.FullName;
                 nobj.CustomerName = rec.CustomerName;
+                nobj.IsEDLUser = rec.IsEDLUser;
             })
             // set to result.
             result.data = ret;
@@ -132,7 +133,8 @@ router.post('/register', routes.register)
 
 router.post('/validate-accounts', routes.CheckUsers)
 
-router.post('/signin', routes.signin)
+//router.post('/signin', routes.signin)
+router.post('/signin', secure.signin)
 
 //router.post('/signout', secure.signout)
 //router.post('/change-customer', secure.changeCustomer)
