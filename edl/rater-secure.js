@@ -71,7 +71,7 @@ const isHome = (url) => {
 }
 const isEDL = (url) => { return isStartsWith(url, 'edl'); }
 const isCustomer = (url) => { return isStartsWith(url, 'customer'); }
-const isDevice = (url) => { return isStartsWith(url, 'rating'); }
+const isDevice = (url) => { return isStartsWith(url, 'rater'); }
 
 //#endregion
 
