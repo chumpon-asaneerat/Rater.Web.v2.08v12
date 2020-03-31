@@ -42,7 +42,7 @@ const checkForError = (data) => {
     return result;
 }
 
-const hasData = (data) => {
+const hasData = (result) => {
     return !result.errors.hasError && result.data && result.data.length > 0 && result.data[0];
 }
 
@@ -228,7 +228,7 @@ class RaterSecure {
         let db = new sqldb();
         let params = { 
             accessId: '',
-            mode: secure.mode
+            mode: null//secure.mode
         };
 
         let fn = async () => {
