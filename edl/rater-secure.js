@@ -197,8 +197,28 @@ class RaterSecure {
 }
 
 RaterSecure.CheckAccess = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.userId = null
+        return params
+     }
+    static async call(db, params) {
+        return await db.CheckAccess(params)
+    }
+    static parse(db, data, callback) {
+        let result = validate(db, data)
+        callback(result)
+    }
     static route(req, res, next) {
-
+        let api = RaterSecure.CheckAccess
+        let db = new sqldb()
+        let params = api.prepare(req, res)
+        let fn = async () => { return api.call(db, params) }
+        exec(db, fn).then(data => {
+            api.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            })
+        })
     }
 }
 RaterSecure.SignIn = class {
