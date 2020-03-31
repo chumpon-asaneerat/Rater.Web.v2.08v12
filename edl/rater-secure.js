@@ -206,7 +206,7 @@ RaterSecure.CheckAccess = class {
         return await db.CheckAccess(params)
     }
     static parse(db, data, callback) {
-        let result = validate(db, data)
+        let result = dbutils.validate(db, data)
         callback(result)
     }
     static route(req, res, next) {
@@ -231,7 +231,7 @@ RaterSecure.SignIn = class {
         return await db.SignIn(params)
     }
     static parse(db, data, callback) {
-        let result = validate(db, data)
+        let result = dbutils.validate(db, data)
         callback(result)
     }
     static route(req, res, next) {
