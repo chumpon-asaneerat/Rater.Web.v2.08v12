@@ -10,6 +10,9 @@ const dbutils = require('./db-utils').DbUtils;
 const urls = require('./url-utils').UrlUtils;
 const cookies = require('./cookie-utils').CookieUtils;
 
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('YOUR_KEY@123');
+
 //#endregion
 
 //#region API classes.
@@ -81,22 +84,49 @@ api.SignIn = class {
 
 
 const createSecureCookie = () => {
-    let obj = {
-        secure: {
-            mode: '',
-            edl: {},
-            customer: {},
-            device: {}
+    let secure = {
+        mode: 'customer',
+        edl: {
+            accessId: 'ACC001',
+            memberId: 'M0001',
+            memberType: 0,
+            customerId: 'EDL-2020030001'
+        },
+        customer: {
+            accessId: 'ACC001',
+            memberId: 'M0001',
+            memberType: 0,
+            customerId: 'EDL-2020030001'
+        },
+        device: {
+            accessId: 'ACC001',
+            memberId: 'M0001',
+            memberType: 0,
+            customerId: 'EDL-2020030001',
+            deviceId: 'D0001'
         }
     }
+    let obj = { 
+        secure: cryptr.encrypt(JSON.stringify(secure))
+    }
+
+    // to read back
+    //let secureStr = cryptr.decrypt(obj.secure)
+    //console.log(JSON.parse(secureStr))
+
     return obj;
 }
 const createClientCookie = () => {
-    let obj = {
-        client: {
-            screenId: '',
-            selection: {}
+    let client = {
+        screenId: 'sample',
+        selection: {
+            'customerId': 'EDL-2020030001',
+            'memberId': 'M0001',
         }
+    }
+    let obj = {
+        //client: JSON.stringify(client)
+        client: client
     }
     return obj;
 }
@@ -110,6 +140,8 @@ const checkLocalVar = (req, res) => {
         cookies.saveSignedCookies(req, res, res.locals.rater.secure)
         cookies.saveCookies(req, res, res.locals.rater.client)
     }
+    console.log('Cookie:', req.cookies)
+    console.log('Signed Cookie:', req.signedCookies)
 }
 
 /*

@@ -26,7 +26,9 @@ class CookieUtils {
     }
     static saveCookies = (req, res, obj) => {
         // write object to cookie (client accessible).
-        WebServer.cookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
+        // Note: the httpOnly flag need to set to false to allow access via 
+        // client side javascript.
+        WebServer.cookie.writeObject(req, res, obj, WebServer.expires.in(5).years, false);
     }
     static loadCookies = (req, res) => {
         // read cookie to object (client accessible).
