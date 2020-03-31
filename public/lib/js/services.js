@@ -728,3 +728,36 @@ window.secure = window.secure || new SecureService();
 //#endregion
 
 //#endregion
+
+class SecureService2
+{
+    signin(customerId) {
+        // may need to changed api route.
+        let url = '/api/signin'
+        let paramObj = {
+            customerId: customerId,
+            userName: this.account.username,
+            passWord: this.account.password,
+            IsEDLUser: this.account.IsEDLUser
+        }
+        console.log('Sign In:', paramObj);
+        let fn = (r) => {
+            let data = api.parse(r);
+            let err = data.errors;
+            if (err && err.hasError) {
+                // Raise event.
+                events.raise(events.name.UserSignInFailed, { error: err });
+            }
+            else {
+                //console.log('Sign In Success.');
+                nlib.nav.gotoUrl('/', true);
+            }            
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
+    nav(url) {
+        nlib.nav.gotoUrl(url);
+    }
+}
+
+window.secure2 = window.secure2 || new SecureService2();
