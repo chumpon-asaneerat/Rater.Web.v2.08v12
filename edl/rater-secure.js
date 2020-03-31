@@ -97,6 +97,9 @@ const getSecure = (req, res) => {
     return (rater) ? rater.secure : null;
 }
 
+
+
+/*
 const initCookies = (req, res) => {
     // setup value for access in all routes.        
     res.locals.rater = {
@@ -142,6 +145,9 @@ const loadCookies = (req, res) => {
     }
     return rater;
 }
+*/
+
+
 
 /*
 const updateSecureObjs = [
