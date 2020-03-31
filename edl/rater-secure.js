@@ -5,13 +5,10 @@ const rootPath = process.env['ROOT_PATHS'];
 const nlib = require(path.join(rootPath, 'nlib', 'nlib'));
 const WebServer = require(path.join(rootPath, 'nlib', 'nlib-express'));
 const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r12.db'));
-
 const dbutils = require('./db-utils').DbUtils;
-const urls = require('./url-utils').UrlUtils;
-const cookies = require('./cookie-utils').CookieUtils;
 
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr('YOUR_KEY@123');
+const cookies = require('./cookie-utils').CookieUtils;
+const urls = require('./url-utils').UrlUtils;
 
 //#endregion
 
@@ -72,6 +69,35 @@ api.SignIn = class {
     }
     static route(req, res, next) {
         let ref = api.SignIn
+        ref.exec(req, res, (result) => {
+            WebServer.sendJson(req, res, result)
+        })
+    }
+}
+api.SignOut = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.userId = null
+        return params
+     }
+    static async call(db, params) {
+        return await db.SignOut(params)
+    }
+    static parse(db, data, callback) {
+        let result = dbutils.validate(db, data)
+        callback(result)
+    }
+    static exec(req, res, callback) {
+        let ref = api.SignOut
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, callback)
+        })
+    }
+    static route(req, res, next) {
+        let ref = api.SignOut
         ref.exec(req, res, (result) => {
             WebServer.sendJson(req, res, result)
         })
@@ -150,37 +176,6 @@ const checkLocalVar = (req, res) => {
 }
 
 /*
-const initCookies = (req, res) => {
-    // setup value for access in all routes.        
-    res.locals.rater = {
-        secure : {
-            mode: "",
-            edl : {
-                accessId: '',
-                memberId: '',
-                memberType: 0,
-                customerId: ''
-            },
-            customer: {
-                accessId: '',
-                memberId: '',
-                memberType: 0,
-                customerId: ''
-            },
-            device: {
-                accessId: '',
-                memberId: '',
-                memberType: 0,
-                customerId: '',
-                deviceId: ''
-            }
-        }
-    }
-}
-*/
-
-
-/*
 const updateSecureObjs = [
     { 
         mode:'edl', 
@@ -236,6 +231,50 @@ const updateSecureObj = (req, res, obj) => {
 
 //#endregion
 
+class RaterStorage {
+    constructor(req, res) {
+        this.req = req
+        this.res = res
+    }
+    load() {
+        if (this.req && this.res) {
+            this.res.locals.rater = {
+                secure: cookies.loadSignedCookies(this.req, this.res, 'secure'),
+                client: cookies.loadCookies(this.req, this.res, 'client')
+            }
+        }
+    }
+    commit() {
+        if (this.req && this.res) {
+            cookies.saveSignedCookies(this.req, this.res, 'secure', this.secure)
+            cookies.saveCookies(this.req, this.res, 'client', this.client)
+        }
+    }
+    get rater() { return this.res.locals.rater; }
+    get secure() {
+        if (!this.res.locals.rater.secure) this.res.locals.rater.secure = { mode: '' }
+        if (!this.res.locals.rater.secure.edl) this.res.locals.rater.secure.edl = { }
+        if (!this.res.locals.rater.secure.customer) this.res.locals.rater.secure.customer = { }
+        if (!this.res.locals.rater.secure.device) this.res.locals.rater.secure.device = { }
+
+        return this.res.locals.rater.secure;
+    }
+    set secure(value) {
+        this.res.locals.rater.secure = value;
+    }
+    get client() {
+        if (!this.res.locals.rater.client) this.res.locals.rater.client = {}
+        if (!this.res.locals.rater.client.keys) this.res.locals.rater.client.keys = {}
+        if (!this.res.locals.rater.client.selection) this.res.locals.rater.client.selection = {}
+
+        return this.res.locals.rater.client;
+    }
+    set client(value) {
+        this.res.locals.rater.client = value;
+    }
+}
+
+
 
 // Key notes:
 // 1. res.locals var is used for pass data between middleware function.
@@ -259,7 +298,13 @@ class RaterSecure {
         //    1.2.2. if accessid not found goto step 2.
         // 2. forward to next middleware route.
 
-        checkLocalVar(req, res)
+        //checkLocalVar(req, res)
+        let storage = new RaterStorage(req, res);
+        storage.load();
+        storage.secure.mode = 'edl'
+        storage.secure.edl.accessId = 'XYZ123'
+        storage.client.keys.id1 = 'K01'
+        storage.commit();
 
         if (next) next();
 
