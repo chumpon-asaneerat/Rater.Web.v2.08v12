@@ -12,6 +12,71 @@ const cookies = require('./cookie-utils').CookieUtils;
 
 //#endregion
 
+//#region API classes.
+
+class api {}
+api.CheckAccess = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.accessId = null
+        params.mode = null
+        return params
+     }
+    static async call(db, params) {
+        return await db.CheckAccess(params)
+    }
+    static parse(db, data, callback) {
+        let result = dbutils.validate(db, data)
+        callback(result)
+    }
+    static exec(req, res, callback) {
+        let ref = api.CheckAccess
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, callback)
+        })
+    }
+    static route(req, res, next) {
+        let ref = api.CheckAccess
+        ref.exec(req, res, (result) => {
+            WebServer.sendJson(req, res, result)
+        })
+    }
+}
+api.SignIn = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.userId = null
+        return params
+     }
+    static async call(db, params) {
+        return await db.SignIn(params)
+    }
+    static parse(db, data, callback) {
+        let result = dbutils.validate(db, data)
+        callback(result)
+    }
+    static exec(req, res, callback) {
+        let ref = api.SignIn
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, callback)
+        })
+    }
+    static route(req, res, next) {
+        let ref = api.SignIn
+        ref.exec(req, res, (result) => {
+            WebServer.sendJson(req, res, result)
+        })
+    }
+}
+
+//#endregion
+
 //#region Cookies
 
 /*
@@ -194,65 +259,6 @@ class RaterSecure {
     }
 
     //#endregion
-}
-
-RaterSecure.CheckAccess = class {
-    static prepare(req, res) {
-        let params = WebServer.parseReq(req).data
-        params.userId = null
-        return params
-     }
-    static async call(db, params) {
-        return await db.CheckAccess(params)
-    }
-    static parse(db, data, callback) {
-        let result = dbutils.validate(db, data)
-        callback(result)
-    }
-    static exec(req, res, callback) {
-        let api = RaterSecure.CheckAccess
-        let db = new sqldb()
-        let params = api.prepare(req, res)
-        let fn = async () => { return api.call(db, params) }
-        dbutils.exec(db, fn).then(data => {
-            api.parse(db, data, callback)
-        })
-    }
-    static route(req, res, next) {
-        let api = RaterSecure.CheckAccess
-        api.exec(req, res, (result) => {
-            WebServer.sendJson(req, res, result)
-        })
-    }
-}
-RaterSecure.SignIn = class {
-    static prepare(req, res) {
-        let params = WebServer.parseReq(req).data
-        params.userId = null
-        return params
-     }
-    static async call(db, params) {
-        return await db.SignIn(params)
-    }
-    static parse(db, data, callback) {
-        let result = dbutils.validate(db, data)
-        callback(result)
-    }
-    static exec(req, res, callback) {
-        let api = RaterSecure.SignIn
-        let db = new sqldb()
-        let params = api.prepare(req, res)
-        let fn = async () => { return api.call(db, params) }
-        dbutils.exec(db, fn).then(data => {
-            api.parse(db, data, callback)
-        })
-    }
-    static route(req, res, next) {
-        let api = RaterSecure.SignIn
-        api.exec(req, res, (result) => {
-            WebServer.sendJson(req, res, result)
-        })
-    }
 }
 
 //#endregion
