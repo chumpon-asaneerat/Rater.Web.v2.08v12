@@ -12,100 +12,7 @@ const cookies = require('./cookie-utils').CookieUtils;
 
 //#endregion
 
-//#region exec/validate wrapper method
-
-const exec = async (db, callback) => {
-    let ret;
-    let connected = await db.connect();
-    if (connected) {
-        ret = await callback();
-        await db.disconnect();
-    }
-    else {
-        ret = db.error(db.errorNumbers.CONNECT_ERROR, 'No database connection.');
-    }
-    return ret;
-}
-const validate = (db, data) => {
-    let result = data;
-    if (!result) {
-        result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
-    }
-    else {
-        result = checkForError(data);
-    }
-    return result;
-}
-const checkForError = (data) => {
-    let result = data;
-    if (result.out && result.out.errNum && result.out.errNum !== 0) {
-        result.errors.hasError = true;
-        result.errors.errNum = result.out.errNum;
-        result.errors.errMsg = result.out.errMsg;
-    }
-    return result;
-}
-
-const hasData = (result) => {
-    return !result.errors.hasError && result.data && result.data.length > 0 && result.data[0];
-}
-
-//#endregion
-
-//#region Urls
-
-const getFullUrl = (req) => {
-    return req.protocol + '://' + req.get('hostname') + req.originalUrl;
-}
-const getRoutePath = (req) => {
-    let url = getFullUrl(req);
-    let rootUrl = req.protocol + '://' + req.get('hostname');
-    let ret = url.replace(rootUrl, '');
-    return ret;
-}
-const isStartsWith = (src, sPath) => {
-    let lsrc = src.toLowerCase();
-    if (lsrc.charAt(0) === '/') lsrc = lsrc.substring(1); // remove slash
-    let lpath = sPath.toLowerCase();
-    if (lpath.charAt(0) === '/') lpath = lpath.substring(1); // remove slash
-    let ret = lsrc.startsWith(lpath);
-    return ret;
-}
-const isHome = (url) => {
-    let lsrc = url.toLowerCase();
-    if (lsrc.charAt(0) === '/') lsrc = lsrc.substring(1); // remove slash
-    let ret = (lsrc.length === 0);
-    return ret;
-}
-const isEDL = (url) => { return isStartsWith(url, 'edl'); }
-const isCustomer = (url) => { return isStartsWith(url, 'customer'); }
-const isDevice = (url) => { return isStartsWith(url, 'rater'); }
-
-//#endregion
-
 //#region Cookies
-
-const hasValue = (obj, name) => {
-    let ret = false;
-    ret = (obj && obj[name] !== undefined && obj[name] !== null);
-    return ret;
-}
-const getValue = (obj, name) =>{
-    let ret = '';
-    ret = (hasValue(obj, name)) ? obj[name] : null;
-    ret = (ret) ? ret : '';
-    return ret;
-}
-
-const getRater = (req, res) => {
-    return (res.locals.rater) ? res.locals.rater : null;
-}
-const getSecure = (req, res) => {
-    let rater = getRater(req, res)
-    return (rater) ? rater.secure : null;
-}
-
-
 
 /*
 const initCookies = (req, res) => {
@@ -135,26 +42,7 @@ const initCookies = (req, res) => {
         }
     }
 }
-const saveCookies = (req, res) => {
-    // write secure object to cookie.
-    let rater = res.locals.rater;
-    if (!rater || !rater.mode) {
-        initCookies(req, res)
-    }
-    WebServer.signedCookie.writeObject(req, res, rater, WebServer.expires.in(5).years);
-    // write client access cookie.
-    WebServer.cookie.writeObject(req, res, rater.secure, WebServer.expires.in(5).years);    
-}
-const loadCookies = (req, res) => {
-    res.locals.rater = WebServer.signedCookie.readObject(req, res);
-    let rater = res.locals.rater;
-    if (!rater || !rater.mode) {
-        initCookies(req, res)
-    }
-    return rater;
-}
 */
-
 
 
 /*
@@ -236,22 +124,7 @@ class RaterSecure {
         //    1.2.2. if accessid not found goto step 2.
         // 2. forward to next middleware route.
 
-        let db = new sqldb();
-        let params = { 
-            accessId: '',
-            mode: null//secure.mode
-        };
-
-        let fn = async () => {
-            return db.CheckAccess(params);
-        }
-        exec(db, fn).then(result => {
-            if (hasData(result)) {
-                let row = result.data[0];
-                console.log(row)
-            }
-            if (next) next();
-        })
+        if (next) next();
 
         //#region comment out
         /*
