@@ -2,6 +2,8 @@ const path = require('path');
 const rootPath = process.env['ROOT_PATHS'];
 const nlib = require(path.join(rootPath, 'nlib', 'nlib'));
 const WebServer = require(path.join(rootPath, 'nlib', 'nlib-express'));
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('YOUR_KEY@123');
 
 class CookieUtils {
     static hasValue(obj, name) {
@@ -15,24 +17,30 @@ class CookieUtils {
         ret = (ret) ? ret : '';
         return ret;
     }
-    static saveSignedCookies = (req, res, obj) => {
+    static saveSignedCookies = (req, res, key, obj) => {
         // write secure object to cookie.
-        WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
+        let data = {}
+        data[key] = cryptr.encrypt(JSON.stringify(obj))
+        WebServer.signedCookie.writeObject(req, res, data, WebServer.expires.in(5).years);
     }
-    static loadSignedCookies = (req, res) => {
+    static loadSignedCookies = (req, res, key) => {
         // read secure cookie to object.
-        let obj = WebServer.signedCookie.readObject(req, res);
+        let data = WebServer.signedCookie.readObject(req, res);
+        let obj = JSON.parse(cryptr.decrypt(data[key]))
         return obj;
     }
-    static saveCookies = (req, res, obj) => {
+    static saveCookies = (req, res, key, obj) => {
         // write object to cookie (client accessible).
         // Note: the httpOnly flag need to set to false to allow access via 
         // client side javascript.
-        WebServer.cookie.writeObject(req, res, obj, WebServer.expires.in(5).years, false);
+        let data = {}
+        data[key] = JSON.stringify(obj)
+        WebServer.cookie.writeObject(req, res, data, WebServer.expires.in(5).years, false);
     }
-    static loadCookies = (req, res) => {
+    static loadCookies = (req, res, key) => {
         // read cookie to object (client accessible).
-        let obj = WebServer.cookie.readObject(req, res);
+        let data = WebServer.cookie.readObject(req, res);
+        let obj = JSON.parse(data[key])
         return obj;
     }
 }

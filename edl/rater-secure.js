@@ -84,7 +84,7 @@ api.SignIn = class {
 
 
 const createSecureCookie = () => {
-    let secure = {
+    let obj = {
         mode: 'customer',
         edl: {
             accessId: 'ACC001',
@@ -106,42 +106,43 @@ const createSecureCookie = () => {
             deviceId: 'D0001'
         }
     }
-    let obj = { 
-        secure: cryptr.encrypt(JSON.stringify(secure))
-    }
-
-    // to read back
-    //let secureStr = cryptr.decrypt(obj.secure)
-    //console.log(JSON.parse(secureStr))
-
     return obj;
 }
 const createClientCookie = () => {
-    let client = {
+    let obj = {
         screenId: 'sample',
         selection: {
             'customerId': 'EDL-2020030001',
             'memberId': 'M0001',
         }
     }
-    let obj = {
-        //client: JSON.stringify(client)
-        client: client
-    }
     return obj;
 }
 
 const checkLocalVar = (req, res) => {
     if (!res.locals.rater) {
+        let secure = createSecureCookie()
+        let client = createClientCookie()
+        cookies.saveSignedCookies(req, res, 'secure', secure)
+        cookies.saveCookies(req, res, 'client', client)
+
         res.locals.rater = {
-            secure: createSecureCookie(),
-            client: createClientCookie()
+            secure: secure,
+            client: client
         }
-        cookies.saveSignedCookies(req, res, res.locals.rater.secure)
-        cookies.saveCookies(req, res, res.locals.rater.client)
     }
-    console.log('Cookie:', req.cookies)
-    console.log('Signed Cookie:', req.signedCookies)
+    else {
+        let secure = cookies.loadSignedCookies(req, res, 'secure')
+        let client = cookies.loadCookies(req, res, 'client')
+
+        res.locals.rater = {
+            secure: secure,
+            client: client
+        }
+    }
+
+    console.log('secure:', res.locals.rater.secure)
+    console.log('client:', res.locals.rater.client)
 }
 
 /*
@@ -300,8 +301,6 @@ class RaterSecure {
 
     //#region routes methods
 
-    static checkUsers(req, res) {
-    }
     static signin(req, res) {
         let db = new sqldb();
         let params = WebServer.parseReq(req).data;
