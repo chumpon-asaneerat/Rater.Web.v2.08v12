@@ -143,6 +143,7 @@ const loadCookies = (req, res) => {
     return rater;
 }
 
+/*
 const updateSecureObjs = [
     { 
         mode:'edl', 
@@ -194,6 +195,7 @@ const updateSecureObj = (req, res, obj) => {
         //saveCookies(req, res);
     }
 }
+*/
 
 //#endregion
 
@@ -213,6 +215,10 @@ class RaterSecure {
     //#region middleware methods
 
     static checkAccess(req, res, next) {
+        if (next) next();
+
+        //#region comment out
+        /*
         // check access object is exists in signed cookie.
         let obj = loadCookies(req, res);
         if (!obj || !obj.mode) {
@@ -245,6 +251,8 @@ class RaterSecure {
             }
             if (next) next();
         });
+        */
+       //#endregion
     }
 
     //#endregion

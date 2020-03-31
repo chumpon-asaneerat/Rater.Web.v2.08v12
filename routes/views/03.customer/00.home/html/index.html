@@ -23,6 +23,8 @@
 </head>
 <body>
     <h3>Customer Home.</h3>
+    <p>Result:</p>
+    <p id="txtResule"></p>
 
     <!-- JQuery -->
     <script src="/dist/js/jquery.min.js"></script>
@@ -48,6 +50,10 @@
     <!-- local scripts -->
     <script src="customer/js/app.js"></script>
     <script>
+        let updateResult= (result) => {
+            let el = document.querySelector('txtResult')
+            el.innerHTML = result;
+        }
     </script>
 </body>
 </html>
