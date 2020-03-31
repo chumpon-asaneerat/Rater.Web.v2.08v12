@@ -209,15 +209,19 @@ RaterSecure.CheckAccess = class {
         let result = dbutils.validate(db, data)
         callback(result)
     }
-    static route(req, res, next) {
+    static exec(req, res, callback) {
         let api = RaterSecure.CheckAccess
         let db = new sqldb()
         let params = api.prepare(req, res)
         let fn = async () => { return api.call(db, params) }
-        exec(db, fn).then(data => {
-            api.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result)
-            })
+        dbutils.exec(db, fn).then(data => {
+            api.parse(db, data, callback)
+        })
+    }
+    static route(req, res, next) {
+        let api = RaterSecure.CheckAccess
+        api.exec(req, res, (result) => {
+            WebServer.sendJson(req, res, result)
         })
     }
 }
@@ -234,15 +238,19 @@ RaterSecure.SignIn = class {
         let result = dbutils.validate(db, data)
         callback(result)
     }
-    static route(req, res, next) {
+    static exec(req, res, callback) {
         let api = RaterSecure.SignIn
         let db = new sqldb()
         let params = api.prepare(req, res)
         let fn = async () => { return api.call(db, params) }
-        exec(db, fn).then(data => {
-            api.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result)
-            })
+        dbutils.exec(db, fn).then(data => {
+            api.parse(db, data, callback)
+        })
+    }
+    static route(req, res, next) {
+        let api = RaterSecure.SignIn
+        api.exec(req, res, (result) => {
+            WebServer.sendJson(req, res, result)
         })
     }
 }
