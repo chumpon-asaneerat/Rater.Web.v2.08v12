@@ -79,6 +79,39 @@ api.SignIn = class {
 
 //#region Cookies
 
+
+const createSecureCookie = () => {
+    let obj = {
+        secure: {
+            mode: '',
+            edl: {},
+            customer: {},
+            device: {}
+        }
+    }
+    return obj;
+}
+const createClientCookie = () => {
+    let obj = {
+        client: {
+            screenId: '',
+            selection: {}
+        }
+    }
+    return obj;
+}
+
+const checkLocalVar = (req, res) => {
+    if (!res.locals.rater) {
+        res.locals.rater = {
+            secure: createSecureCookie(),
+            client: createClientCookie()
+        }
+        cookies.saveSignedCookies(req, res, res.locals.rater.secure)
+        cookies.saveCookies(req, res, res.locals.rater.client)
+    }
+}
+
 /*
 const initCookies = (req, res) => {
     // setup value for access in all routes.        
@@ -188,6 +221,8 @@ class RaterSecure {
         //    1.2.1. if match accessid and mode redirect to proper url.
         //    1.2.2. if accessid not found goto step 2.
         // 2. forward to next middleware route.
+
+        checkLocalVar(req, res)
 
         if (next) next();
 
