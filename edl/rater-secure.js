@@ -225,6 +225,13 @@ class RaterSecure {
     //#region middleware methods
 
     static checkAccess(req, res, next) {
+        // 1. Check current secure object
+        //    1.1. no secure object goto step 2.
+        //    1.2. secure object exists check database.
+        //    1.2.1. if match accessid and mode redirect to proper url.
+        //    1.2.2. if accessid not found goto step 2.
+        // 2. forward to next middleware route.
+
         let db = new sqldb();
         let params = { 
             accessId: '',
@@ -239,7 +246,6 @@ class RaterSecure {
                 let row = result.data[0];
                 console.log(row)
             }
-
             if (next) next();
         })
 
@@ -311,6 +317,17 @@ class RaterSecure {
     }
 
     //#endregion
+}
+
+RaterSecure.CheckAccess = class {
+    static route(req, res, next) {
+
+    }
+}
+RaterSecure.SignIn = class {
+    static route(req, res, next) {
+
+    }
 }
 
 RaterSecure.EDL = class {
