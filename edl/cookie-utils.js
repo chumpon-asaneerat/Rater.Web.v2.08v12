@@ -19,28 +19,38 @@ class CookieUtils {
     }
     static saveSignedCookies = (req, res, key, obj) => {
         // write secure object to cookie.
-        let data = {}
-        data[key] = cryptr.encrypt(JSON.stringify(obj))
-        WebServer.signedCookie.writeObject(req, res, data, WebServer.expires.in(5).years);
+        if (obj) {
+            let data = {}
+            data[key] = cryptr.encrypt(JSON.stringify(obj))
+            WebServer.signedCookie.writeObject(req, res, data, WebServer.expires.in(5).years);
+        }
     }
     static loadSignedCookies = (req, res, key) => {
         // read secure cookie to object.
-        let data = WebServer.signedCookie.readObject(req, res);
-        let obj = JSON.parse(cryptr.decrypt(data[key]))
+        let data = WebServer.signedCookie.readObject(req, res)
+        let obj = null;
+        if (data && data[key]) {
+            obj = JSON.parse(cryptr.decrypt(data[key]))
+        }
         return obj;
     }
     static saveCookies = (req, res, key, obj) => {
         // write object to cookie (client accessible).
         // Note: the httpOnly flag need to set to false to allow access via 
         // client side javascript.
-        let data = {}
-        data[key] = JSON.stringify(obj)
-        WebServer.cookie.writeObject(req, res, data, WebServer.expires.in(5).years, false);
+        if (obj) {
+            let data = {}
+            data[key] = JSON.stringify(obj)
+            WebServer.cookie.writeObject(req, res, data, WebServer.expires.in(5).years, false);
+        }
     }
     static loadCookies = (req, res, key) => {
         // read cookie to object (client accessible).
-        let data = WebServer.cookie.readObject(req, res);
-        let obj = JSON.parse(data[key])
+        let data = WebServer.cookie.readObject(req, res)
+        let obj = null
+        if (data && data[key]) {
+            obj = JSON.parse(data[key])
+        }
         return obj;
     }
 }
