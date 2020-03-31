@@ -42,6 +42,10 @@ const checkForError = (data) => {
     return result;
 }
 
+const hasData = (data) => {
+    return !result.errors.hasError && result.data && result.data.length > 0 && result.data[0];
+}
+
 //#endregion
 
 //#region Urls
@@ -221,7 +225,23 @@ class RaterSecure {
     //#region middleware methods
 
     static checkAccess(req, res, next) {
-        if (next) next();
+        let db = new sqldb();
+        let params = { 
+            accessId: '',
+            mode: secure.mode
+        };
+
+        let fn = async () => {
+            return db.CheckAccess(params);
+        }
+        exec(db, fn).then(result => {
+            if (hasData(result)) {
+                let row = result.data[0];
+                console.log(row)
+            }
+
+            if (next) next();
+        })
 
         //#region comment out
         /*
