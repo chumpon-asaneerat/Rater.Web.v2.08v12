@@ -120,6 +120,9 @@ const createClientCookie = () => {
 }
 
 const checkLocalVar = (req, res) => {
+    // Every time request occur the res.locals.rater should be null
+    // So we need to get exists cookie to re-assigned value into
+    // local variable res.locals.rater on each time.
     if (!res.locals.rater) {
         let secure = createSecureCookie()
         let client = createClientCookie()
