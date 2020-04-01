@@ -5,10 +5,10 @@ const rootPath = process.env['ROOT_PATHS'];
 const nlib = require(path.join(rootPath, 'nlib', 'nlib'));
 const WebServer = require(path.join(rootPath, 'nlib', 'nlib-express'));
 const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r12.db'));
-const dbutils = require('./db-utils').DbUtils;
 
-const cookies = require('./cookie-utils').CookieUtils;
-const urls = require('./url-utils').UrlUtils;
+const dbutils = require('./utils/db-utils').DbUtils;
+const cookies = require('./utils/cookie-utils').CookieUtils;
+const urls = require('./utils/url-utils').UrlUtils;
 
 //#endregion
 
