@@ -770,13 +770,7 @@ class SecureService2
         let self = this
         let url = '/api/signout'
         //self.accessId = data.out.accessId
-        let paramObj = {
-            // when reload this value will reset
-            // so remove it after implements signin api to 
-            // keep cookie data.
-            accessId: self.accessId,
-            mode: 'customer'
-        }
+        let paramObj = {}
         let fn = (r) => {
             //console.log('Sign out Success.');
             nlib.nav.gotoUrl('/', true);

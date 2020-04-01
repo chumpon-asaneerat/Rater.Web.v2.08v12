@@ -76,7 +76,13 @@ api.ClientSignIn = class {
 }
 api.ClientSignOut = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data
+        //let params = WebServer.parseReq(req).data
+        let storage = new RaterStorage(req, res)
+        let mode = storage.secure.mode
+        let params = {
+            accessId: storage.secure[mode].accessId,
+            mode: mode
+        }
         return params
      }
     static async call(db, params) {
@@ -136,6 +142,8 @@ class RaterStorage {
             let mode = this.secure.mode
             // reset accessId in exist mode.
             this.res.locals.rater.secure[mode].accessId = ''
+            this.res.locals.rater.secure[mode].memberId = ''
+            this.res.locals.rater.secure[mode].memberType = 0
             // reset mode.
             this.secure.mode = '';
         }
@@ -177,7 +185,7 @@ class RaterStorage {
 class RaterSecure {
     //#region middleware methods
 
-    static checkAccess(req, res, next) {
+    static verifyStorage(req, res, next) {
         // 1. Check current secure object
         //    1.1. no secure object goto step 2.
         //    1.2. secure object exists check database.
@@ -234,14 +242,14 @@ class RaterSecure {
     //#region api routes methods
 
     static clientSignIn(req, res) {
-        // we need to keep access data here.
-        let storage = new RaterStorage(req, res)
-        let params = WebServer.parseReq(req).data
-        let mode = (params.IsEDLUser) ? 'edl' : 'customer'
         api.ClientSignIn.exec(req, res, (data) => {
             if (data && !data.errors.hasError) {
+                let storage = new RaterStorage(req, res)
+                let params = WebServer.parseReq(req).data
+                let mode = (params.IsEDLUser) ? 'edl' : 'customer'
                 storage.secure.mode = mode
                 storage.secure[mode].accessId = data.out.accessId
+                // set client side id.
                 storage.client.keys.id1 = data.out.accessId
                 storage.commit();
             }
@@ -249,8 +257,10 @@ class RaterSecure {
         })
     }
     static clientSignOut(req, res) { 
-        let storage = new RaterStorage(req, res)
         api.ClientSignOut.exec(req, res, (data) => {
+            let storage = new RaterStorage(req, res)
+            // clear client side id.
+            storage.client.keys.id1 = ''
             storage.reset();
             storage.commit();
             WebServer.sendJson(req, res, data);
