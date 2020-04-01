@@ -249,7 +249,7 @@ class RaterSecure {
 
     static checkAccess(req, res, next) {
         api.CheckAccess.exec(req, res, (result) => {
-            if (result && !result.errors.hasError && result.data.length > 0) {
+            if (dbutils.hasData(result)) {
                 let storage = new RaterStorage(req, res);
                 let row = result.data[0];
                 //console.log(row)
@@ -272,7 +272,8 @@ class RaterSecure {
         let storage = new RaterStorage(req, res);
         console.log('secure:', storage.secure)
         console.log('client:', storage.client)
-        //let url = urls.getFullUrl(req)
+
+        /*
         let url = getRoutePath(req)
         if (urls.isHome(url)) {
         }
@@ -282,7 +283,10 @@ class RaterSecure {
         }
         else if (urls.isDevice(url)) {
         }
+        */
+
         if (next) next();
+
         /*
 
         const isAdmin = (url) => { return isStartsWith(url, 'customer/admin'); }
