@@ -59,7 +59,7 @@ api.ClientSignIn = class {
         callback(result)
     }
     static exec(req, res, callback) {
-        let ref = api.SignIn
+        let ref = api.ClientSignIn
         let db = new sqldb()
         let params = ref.prepare(req, res)
         let fn = async () => { return ref.call(db, params) }
@@ -68,7 +68,7 @@ api.ClientSignIn = class {
         })
     }
     static route(req, res, next) {
-        let ref = api.SignIn
+        let ref = api.ClientSignIn
         ref.exec(req, res, (result) => {
             WebServer.sendJson(req, res, result)
         })
@@ -88,7 +88,7 @@ api.ClientSignOut = class {
         callback(result)
     }
     static exec(req, res, callback) {
-        let ref = api.SignOut
+        let ref = api.ClientSignOut
         let db = new sqldb()
         let params = ref.prepare(req, res)
         let fn = async () => { return ref.call(db, params) }
@@ -97,7 +97,7 @@ api.ClientSignOut = class {
         })
     }
     static route(req, res, next) {
-        let ref = api.SignOut
+        let ref = api.ClientSignOut
         ref.exec(req, res, (result) => {
             WebServer.sendJson(req, res, result)
         })
@@ -357,7 +357,7 @@ class RaterSecure {
     //#region api routes methods
 
     static clientSignIn(req, res) {
-        api.SignIn.exec(req, res, (data) => {
+        api.ClientSignIn.exec(req, res, (data) => {
             WebServer.sendJson(req, res, data);
         })
     }

@@ -22,7 +22,7 @@ class DbUtils {
             result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
         }
         else {
-            result = checkForError(data);
+            result = DbUtils.checkForError(data);
         }
         return result;
     }

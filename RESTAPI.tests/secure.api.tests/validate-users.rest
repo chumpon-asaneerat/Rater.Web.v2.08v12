@@ -1,0 +1,9 @@
+### Change Customer to EDL-C2019100002
+POST http://localhost:3000/api/validate-accounts
+content-type: application/json
+
+{
+    "langId": "EN",
+    "userName": "a&a.co.th",
+    "passWord": "1234"
+}

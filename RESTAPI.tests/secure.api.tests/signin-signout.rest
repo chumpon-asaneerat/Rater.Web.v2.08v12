@@ -1,0 +1,19 @@
+### Sign In
+POST http://localhost:3000/api/signin
+content-type: application/json
+
+{
+    "userName": "a&a.co.th",
+    "passWord": "1234",
+    "customerId": "EDL-C2020030001",
+    "IsEDLUser": false
+}
+
+### Sign Out
+POST http://localhost:3000/api/signout
+content-type: application/json
+
+{
+    "accessId": "SRGP9H2ZNW",
+    "mode": "customer"
+}
