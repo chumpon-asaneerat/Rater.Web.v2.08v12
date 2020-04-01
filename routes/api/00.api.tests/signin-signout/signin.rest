@@ -1,0 +1,10 @@
+### Change Customer to EDL-C2019100002
+POST http://localhost:3000/api/signin
+content-type: application/json
+
+{
+    "userName": "a&a.co.th",
+    "passWord": "1234",
+    "customerId": "a&a.co.th",
+    "mode": "edl"
+}

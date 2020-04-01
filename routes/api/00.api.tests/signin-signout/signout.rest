@@ -1,0 +1,8 @@
+### Change Customer to EDL-C2019100002
+POST http://localhost:3000/api/customer/change-customer
+content-type: application/json
+
+{
+    "accessId": "6QQ6C7TS9J",
+    "mode": "edl"
+}
