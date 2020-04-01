@@ -379,3 +379,4 @@ class RaterSecure {
 //#endregion
 
 module.exports.RaterSecure = exports.RaterSecure = RaterSecure;
+module.exports.RaterStorage = exports.RaterStorage = RaterStorage;
