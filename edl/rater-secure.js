@@ -352,7 +352,7 @@ class RaterSecure {
 
     static clientSignIn(req, res) {
         api.ClientSignIn.exec(req, res, (result) => {
-            if (result && !result.errors.hasError) {
+            if (dbutils.hasData(result)) {
                 let storage = new RaterStorage(req, res)
                 let params = WebServer.parseReq(req).data
                 let mode = (params.IsEDLUser) ? 'edl' : 'customer'
@@ -379,7 +379,7 @@ class RaterSecure {
     static deviceSignIn(req, res) { 
         api.ClientSignIn.exec(req, res, (result) => {
             let storage = new RaterStorage(req, res)
-            if (result && !result.errors.hasError) {
+            if (dbutils.hasData(result)) {
                 let mode = 'device'
                 storage.secure.mode = mode
                 storage.secure[mode].accessId = result.out.accessId
