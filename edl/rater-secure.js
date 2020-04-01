@@ -348,7 +348,7 @@ class RaterSecure {
 
     //#endregion
 
-    //#region routes methods
+    //#region api routes methods
 
     static signin(req, res) {
         let db = new sqldb();
@@ -371,6 +371,8 @@ class RaterSecure {
             WebServer.sendJson(req, res, result);
         })
         */
+    }
+    static signout(req, res) { 
     }
 
     //#endregion
