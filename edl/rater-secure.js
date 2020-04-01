@@ -102,7 +102,6 @@ api.ClientSignOut = class {
         })
     }
 }
-
 api.DeviceSignIn = class {
 }
 
@@ -115,6 +114,7 @@ class RaterStorage {
     constructor(req, res) {
         this.req = req
         this.res = res
+        this.load()
     }
     load() {
         if (this.req && this.res) {
@@ -131,11 +131,20 @@ class RaterStorage {
         }
     }
     get rater() { return this.res.locals.rater; }
+    reset() {
+        if (this.secure && this.secure.mode && this.secure.mode !== '') {
+            let mode = this.secure.mode
+            // reset accessId in exist mode.
+            this.res.locals.rater.secure[mode].accessId = ''
+            // reset mode.
+            this.secure.mode = '';
+        }
+    }
     get secure() {
         if (!this.res.locals.rater.secure) this.res.locals.rater.secure = { mode: '' }
-        if (!this.res.locals.rater.secure.edl) this.res.locals.rater.secure.edl = { }
-        if (!this.res.locals.rater.secure.customer) this.res.locals.rater.secure.customer = { }
-        if (!this.res.locals.rater.secure.device) this.res.locals.rater.secure.device = { }
+        if (!this.res.locals.rater.secure.edl) this.res.locals.rater.secure.edl = {}
+        if (!this.res.locals.rater.secure.customer) this.res.locals.rater.secure.customer = {}
+        if (!this.res.locals.rater.secure.device) this.res.locals.rater.secure.device = {}
 
         return this.res.locals.rater.secure;
     }
@@ -175,14 +184,10 @@ class RaterSecure {
         //    1.2.1. if match accessid and mode redirect to proper url.
         //    1.2.2. if accessid not found goto step 2.
         // 2. forward to next middleware route.
-
-        //checkLocalVar(req, res)
+        
         let storage = new RaterStorage(req, res);
-        storage.load();
-        storage.secure.mode = 'edl'
-        storage.secure.edl.accessId = 'XYZ123'
-        storage.client.keys.id1 = 'K01'
-        storage.commit();
+        console.log('secure:', storage.secure)
+        console.log('client:', storage.client)
 
         if (next) next();
 
@@ -229,12 +234,25 @@ class RaterSecure {
     //#region api routes methods
 
     static clientSignIn(req, res) {
+        // we need to keep access data here.
+        let storage = new RaterStorage(req, res)
+        let params = WebServer.parseReq(req).data
+        let mode = (params.IsEDLUser) ? 'edl' : 'customer'
         api.ClientSignIn.exec(req, res, (data) => {
+            if (data && !data.errors.hasError) {
+                storage.secure.mode = mode
+                storage.secure[mode].accessId = data.out.accessId
+                storage.client.keys.id1 = data.out.accessId
+                storage.commit();
+            }
             WebServer.sendJson(req, res, data);
         })
     }
     static clientSignOut(req, res) { 
+        let storage = new RaterStorage(req, res)
         api.ClientSignOut.exec(req, res, (data) => {
+            storage.reset();
+            storage.commit();
             WebServer.sendJson(req, res, data);
         })
     }

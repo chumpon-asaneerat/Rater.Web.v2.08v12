@@ -769,7 +769,7 @@ class SecureService2
     signout() {
         let self = this
         let url = '/api/signout'
-        self.accessId = data.out.accessId
+        //self.accessId = data.out.accessId
         let paramObj = {
             // when reload this value will reset
             // so remove it after implements signin api to 
