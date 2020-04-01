@@ -758,7 +758,7 @@ class SecureService2
             else {
                 console.log('Sign In Success. Id:', data.out);
                 self.accessId = data.out.accessId
-                nlib.nav.gotoUrl('/', true);
+                //nlib.nav.gotoUrl('/', true);
             }            
         }
         XHR.postJson(url, paramObj, fn);
@@ -767,7 +767,8 @@ class SecureService2
         let self = this
         let url = '/api/signout'
         let paramObj = {
-            accessId: self.accessId
+            accessId: self.accessId,
+            mode: 'customer'
         }
         let fn = (r) => {
             //console.log('Sign out Success.');
