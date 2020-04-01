@@ -80,14 +80,14 @@ api.CheckAccess = class {
         let storage = new RaterStorage(req, res)
         let params = {
             mode: '',
-            accessId: ''            
+            accessId: ''
         }
         let mode = (storage.secure) ? storage.secure.mode : null
         if (mode) {
             params.mode = mode
             params.accessId = (storage.secure[mode]) ? storage.secure[mode].accessId : ''
         }        
-        console.log(params)
+        //console.log(params)
         return params
      }
     static async call(db, params) {
@@ -255,13 +255,14 @@ class RaterSecure {
                 //console.log(row)
                 let mode = storage.secure.mode
                 // for secure
-                storage.secure[mode].memberId = row.memberId
-                storage.secure[mode].memberType = row.memberType
+                storage.secure[mode].memberId = row.MemberId
+                storage.secure[mode].memberType = row.MemberType
                 // for client
                 storage.client.keys.user = {
-                    memberId: row.memberId,
-                    memberType: row.memberType,
+                    memberId: row.MemberId,
+                    memberType: row.MemberType,
                 }
+                storage.commit()
             }
             if (next) next();
         })
