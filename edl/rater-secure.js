@@ -185,17 +185,14 @@ class RaterStorage {
 class RaterSecure {
     //#region middleware methods
 
-    static verifyStorage(req, res, next) {
+    static checkAccess(req, res, next) {
         // 1. Check current secure object
         //    1.1. no secure object goto step 2.
         //    1.2. secure object exists check database.
         //    1.2.1. if match accessid and mode redirect to proper url.
         //    1.2.2. if accessid not found goto step 2.
-        // 2. forward to next middleware route.
-        
+        // 2. forward to next middleware route.        
         let storage = new RaterStorage(req, res);
-        console.log('secure:', storage.secure)
-        console.log('client:', storage.client)
 
         if (next) next();
 
@@ -237,14 +234,22 @@ class RaterSecure {
        //#endregion
     }
 
+    static checkRedirect(req, res, next) {
+        let storage = new RaterStorage(req, res);
+        console.log('secure:', storage.secure)
+        console.log('client:', storage.client)
+
+        if (next) next();
+    }
+
     //#endregion
 
     //#region api routes methods
 
     static clientSignIn(req, res) {
         api.ClientSignIn.exec(req, res, (data) => {
+            let storage = new RaterStorage(req, res)
             if (data && !data.errors.hasError) {
-                let storage = new RaterStorage(req, res)
                 let params = WebServer.parseReq(req).data
                 let mode = (params.IsEDLUser) ? 'edl' : 'customer'
                 storage.secure.mode = mode
@@ -270,26 +275,6 @@ class RaterSecure {
     }
     static deviceSignOut(req, res) { 
     }
-    // From secure route.
-    /*
-    static signin(req, res) {
-        let db = new sqldb();
-        let params = WebServer.parseReq(req).data;
-        let fn = async () => {
-            return db.SignIn(params);
-        }
-        exec(db, fn).then(data => {
-            let result = validate(db, data);
-            if (result && !result.errors.hasError && result.out.errNum === 0) {
-                let obj = {
-                    accessId: result.out.accessId
-                }
-                WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
-            }
-            WebServer.sendJson(req, res, result);
-        })
-    }
-    */
     
     //#endregion
 }

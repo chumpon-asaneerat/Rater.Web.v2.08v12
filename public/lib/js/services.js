@@ -731,9 +731,6 @@ window.secure = window.secure || new SecureService();
 
 class SecureService2
 {    
-    constructor() {
-        this.accessId = '';
-    }
     signin(customerId, userName, passWord, isEDLUser) {
         let self = this
         // may need to changed api route.
@@ -756,11 +753,7 @@ class SecureService2
                 events.raise(events.name.UserSignInFailed, { error: err });
             }
             else {
-                console.log('Sign In Success. Id:', data.out);
-                // when reload this value will reset
-                // so remove it after implements signin api to 
-                // keep cookie data.
-                self.accessId = data.out.accessId
+                //console.log('Sign In Success. Id:', data.out);
                 nlib.nav.gotoUrl('/', true);
             }            
         }
