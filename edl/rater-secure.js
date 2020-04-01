@@ -272,7 +272,8 @@ class RaterSecure {
         let storage = new RaterStorage(req, res);
         console.log('secure:', storage.secure)
         console.log('client:', storage.client)
-        let url = urls.getFullUrl(req)
+        //let url = urls.getFullUrl(req)
+        let url = getRoutePath(req)
         if (urls.isHome(url)) {
         }
         else if (urls.isEDL(url)) {
@@ -282,6 +283,63 @@ class RaterSecure {
         else if (urls.isDevice(url)) {
         }
         if (next) next();
+        /*
+
+        const isAdmin = (url) => { return isStartsWith(url, 'customer/admin'); }
+        const isExcuisive = (url) => { return isStartsWith(url, 'customer/exclusive'); }
+        const isStaff = (url) => { return isStartsWith(url, 'customer/staff'); }
+        const isEDLAdmin = (url) => { return isStartsWith(url, 'edl/admin'); }
+        const isEDLSupervisor = (url) => { return isStartsWith(url, 'edl/supervisor'); }
+        const isEDLStaff = (url) => { return isStartsWith(url, 'edl/staff'); }
+        const isEDLCustomer = (url) => { return isStartsWith(url, 'edl/customer'); }
+
+        // for redirect and permission for routes
+        const homeurls = [
+            { code:   0, redirect: gotoHome },
+            { code: 200, redirect: gotoAdmin },
+            { code: 210, redirect: gotoExcuisive },
+            { code: 280, redirect: gotoStaff },
+            //{ code: 290, redirect: gotoDevice }, // not implements.
+            { code: 100, redirect: gotoEDLAdmin },
+            { code: 110, redirect: gotoEDLSupervisor },
+            { code: 180, redirect: gotoEDLStaff },
+            { code: 900, redirect: gotoEDLCustomer }
+        ]
+
+        const goHome = (memberType) => {
+            let map = homeurls.map(urlObj => urlObj.code )
+            let idx = map.indexOf(memberType);
+            let ret = homeurls[0].redirect; // default to root page.
+            if (idx !== -1) {
+                ret = homeurls[idx].redirect;
+            }
+            return ret;
+        }
+
+        // check redirect.
+        let url = getRoutePath(req);
+        let secure = (res.locals.rater) ? res.locals.rater.secure : null;
+        let mtype = 0;
+        let edlCustomerId;
+        if (secure) {
+            if (secure.memberType !== undefined && secure.memberType !== null) {
+                mtype = secure.memberType;
+            }
+            if (secure.EDLCustomerId !== undefined && secure.EDLCustomerId !== null) {
+                edlCustomerId = secure.EDLCustomerId;
+            }
+        }
+        // auto redirct if not match home url.
+        let fn;
+        if (edlCustomerId) {
+            fn = goHome(900);
+        }
+        else {
+            fn = goHome(mtype);
+        }
+        fn(req, res, next, url);
+
+        */
     }
 
     //#endregion
