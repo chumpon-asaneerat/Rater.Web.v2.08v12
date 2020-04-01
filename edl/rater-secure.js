@@ -18,6 +18,7 @@ class api {}
 api.CheckAccess = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
+        console.log(params)
         params.accessId = null
         params.mode = null
         return params
@@ -50,7 +51,7 @@ api.ClientSignIn = class {
         let params = WebServer.parseReq(req).data
         params.mode = (params.IsEDLUser) ? 'edl' : 'customer'
         return params
-     }
+    }
     static async call(db, params) {
         return await db.SignIn(params)
     }
@@ -84,7 +85,7 @@ api.ClientSignOut = class {
             mode: mode
         }
         return params
-     }
+    }
     static async call(db, params) {
         return await db.SignOut(params)
     }
@@ -109,9 +110,67 @@ api.ClientSignOut = class {
     }
 }
 api.DeviceSignIn = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.mode = 'device' // overide mode
+        return params
+    }
+    static async call(db, params) {
+        return await db.SignIn(params)
+    }
+    static parse(db, data, callback) {
+        let result = dbutils.validate(db, data)
+        callback(result)
+    }
+    static exec(req, res, callback) {
+        let ref = api.DeviceSignIn
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, callback)
+        })
+    }
+    static route(req, res, next) {
+        let ref = api.DeviceSignIn
+        ref.exec(req, res, (result) => {
+            WebServer.sendJson(req, res, result)
+        })
+    }
 }
-
 api.DeviceSignOut = class {
+    static prepare(req, res) {
+        //let params = WebServer.parseReq(req).data
+        let storage = new RaterStorage(req, res)
+        let mode = 'device'
+        let params = {
+            accessId: storage.secure[mode].accessId,
+            mode: mode
+        }
+        return params
+    }
+    static async call(db, params) {
+        return await db.SignOut(params)
+    }
+    static parse(db, data, callback) {
+        let result = dbutils.validate(db, data)
+        callback(result)
+    }
+    static exec(req, res, callback) {
+        let ref = api.DeviceSignOut
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, callback)
+        })
+    }
+    static route(req, res, next) {
+        let ref = api.DeviceSignOut
+        ref.exec(req, res, (result) => {
+            WebServer.sendJson(req, res, result)
+        })
+    }
 }
 
 //#endregion
@@ -191,7 +250,7 @@ class RaterSecure {
         //    1.2. secure object exists check database.
         //    1.2.1. if match accessid and mode redirect to proper url.
         //    1.2.2. if accessid not found goto step 2.
-        // 2. forward to next middleware route.        
+        // 2. forward to next middleware route.
         let storage = new RaterStorage(req, res);
 
         if (next) next();
@@ -272,8 +331,28 @@ class RaterSecure {
         })
     }
     static deviceSignIn(req, res) { 
+        api.ClientSignIn.exec(req, res, (data) => {
+            let storage = new RaterStorage(req, res)
+            if (data && !data.errors.hasError) {
+                let mode = 'device'
+                storage.secure.mode = mode
+                storage.secure[mode].accessId = data.out.accessId
+                // set client side id.
+                storage.client.keys.id2 = data.out.accessId
+                storage.commit();
+            }
+            WebServer.sendJson(req, res, data);
+        })
     }
     static deviceSignOut(req, res) { 
+        api.DeviceSignOut.exec(req, res, (data) => {
+            let storage = new RaterStorage(req, res)
+            // clear client side id.
+            storage.client.keys.id2 = ''
+            storage.reset();
+            storage.commit();
+            WebServer.sendJson(req, res, data);
+        })
     }
     
     //#endregion
