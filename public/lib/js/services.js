@@ -730,8 +730,12 @@ window.secure = window.secure || new SecureService();
 //#endregion
 
 class SecureService2
-{
+{    
+    constructor() {
+        this.accessId = '';
+    }
     signin(customerId, userName, passWord, isEDLUser) {
+        let self = this
         // may need to changed api route.
         let url = '/api/signin'
         let paramObj = {
@@ -753,15 +757,17 @@ class SecureService2
             }
             else {
                 console.log('Sign In Success. Id:', data.out);
+                self.accessId = data.out.accessId
                 nlib.nav.gotoUrl('/', true);
             }            
         }
         XHR.postJson(url, paramObj, fn);
     }
-    signout(accessId) {
+    signout() {
+        let self = this
         let url = '/api/signout'
         let paramObj = {
-            accessId: accessId
+            accessId: self.accessId
         }
         let fn = (r) => {
             //console.log('Sign out Success.');

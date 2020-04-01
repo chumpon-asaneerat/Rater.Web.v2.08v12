@@ -10,6 +10,6 @@ let app;
        secure2.signin('EDL-C2020030001', 'a&a.co.th', '1234')
    }
    nlib.signout = () => {
-    secure2.signout('accessId')
+    secure2.signout()
 }
 })();
