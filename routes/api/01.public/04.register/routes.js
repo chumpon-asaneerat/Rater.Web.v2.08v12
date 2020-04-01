@@ -108,30 +108,11 @@ const routes = class {
             WebServer.sendJson(req, res, result);
         })
     }
-    static signin(req, res) {
-        let db = new sqldb();
-        let params = WebServer.parseReq(req).data;
-        let fn = async () => {
-            return db.SignIn(params);
-        }
-        exec(db, fn).then(data => {
-            let result = validate(db, data);
-            if (result && !result.errors.hasError && result.out.errNum === 0) {
-                let obj = {
-                    accessId: result.out.accessId
-                }
-                WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
-            }
-            WebServer.sendJson(req, res, result);
-        })
-    }
 }
 
 router.post('/register', routes.register)
-
 router.post('/validate-accounts', routes.CheckUsers)
 
-//router.post('/signin', routes.signin)
 router.post('/signin', secure.clientSignIn)
 router.post('/signout', secure.clientSignOut)
 //router.post('/change-customer', secure.changeCustomer)

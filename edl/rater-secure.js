@@ -12,7 +12,7 @@ const urls = require('./utils/url-utils').UrlUtils;
 
 //#endregion
 
-//#region API classes.
+//#region Secure API classes.
 
 class api {}
 api.CheckAccess = class {
@@ -111,131 +111,6 @@ api.DeviceSignOut = class {
 
 //#endregion
 
-//#region Cookies
-
-
-const createSecureCookie = () => {
-    let obj = {
-        mode: 'customer',
-        edl: {
-            accessId: 'ACC001',
-            memberId: 'M0001',
-            memberType: 0,
-            customerId: 'EDL-2020030001'
-        },
-        customer: {
-            accessId: 'ACC001',
-            memberId: 'M0001',
-            memberType: 0,
-            customerId: 'EDL-2020030001'
-        },
-        device: {
-            accessId: 'ACC001',
-            memberId: 'M0001',
-            memberType: 0,
-            customerId: 'EDL-2020030001',
-            deviceId: 'D0001'
-        }
-    }
-    return obj;
-}
-const createClientCookie = () => {
-    let obj = {
-        screenId: 'sample',
-        selection: {
-            'customerId': 'EDL-2020030001',
-            'memberId': 'M0001',
-        }
-    }
-    return obj;
-}
-
-const checkLocalVar = (req, res) => {
-    // Every time request occur the res.locals.rater should be null
-    // So we need to get exists cookie to re-assigned value into
-    // local variable res.locals.rater on each time.
-    res.locals.rater = {
-        secure: cookies.loadSignedCookies(req, res, 'secure'),
-        client: cookies.loadCookies(req, res, 'client')
-    }
-    // Check Secure Cookie
-    if (!res.locals.rater.secure) {
-        //console.log('No secure cookie.')
-        let secure = createSecureCookie()
-        cookies.saveSignedCookies(req, res, 'secure', secure)
-        // set to local variable
-        res.locals.rater.secure = secure
-    }
-
-    // Check Client Cookie
-    if (!res.locals.rater.client) {
-        //console.log('No client cookie.')
-        let client = createClientCookie()
-        cookies.saveCookies(req, res, 'client', client)
-        // set to local variable
-        res.locals.rater.client = client
-    }
-
-    //console.log('secure:', res.locals.rater.secure)
-    //console.log('client:', res.locals.rater.client)
-}
-
-/*
-const updateSecureObjs = [
-    { 
-        mode:'edl', 
-        update: (secureObj, updateObj) => {
-            secureObj.edl.accessId = updateObj.AccessId
-            secureObj.edl.customerId = updateObj.CustomerId
-            secureObj.edl.memberId = updateObj.MemberId
-            secureObj.edl.memberType = updateObj.MemberType
-        } 
-    },
-    { 
-        mode:'customer', 
-        update: (secureObj, updateObj) => {
-            secureObj.customer.accessId = updateObj.AccessId
-            secureObj.customer.customerId = updateObj.CustomerId
-            secureObj.customer.memberId = updateObj.MemberId
-            secureObj.customer.memberType = updateObj.MemberType
-        } 
-    },
-    { 
-        mode:'device', 
-        update: (secureObj, updateObj) => {
-            secureObj.device.accessId = updateObj.AccessId
-            secureObj.device.customerId = updateObj.CustomerId
-            secureObj.device.memberId = updateObj.MemberId
-            secureObj.device.memberType = updateObj.MemberType
-            secureObj.device.deviceId = updateObj.DeviceId
-        } 
-    }
-]
-
-const updateSecureObjMaps = updateSecureObjs.map(obj => obj.mode )
-
-const updateSecureObj = (req, res, obj) => {
-    if (!res.locals.rater) {
-        // setup value for access in all routes.
-        initCookies(req, res);
-    }
-    let rater = res.locals.rater;
-    if (obj) {        
-        let idx = updateSecureObjMaps.indexOf(obj.mode)
-        let fn = (idx !== -1 ) ? updateSecureObjs[idx] : null
-        if (fn) {
-            fn.update(rater.secure, obj)
-            // write secure object to cookie.
-            saveCookies(req, res);
-        }
-        // test write secure object to cookie.
-        //saveCookies(req, res);
-    }
-}
-*/
-
-//#endregion
-
 class RaterStorage {
     constructor(req, res) {
         this.req = req
@@ -278,8 +153,6 @@ class RaterStorage {
         this.res.locals.rater.client = value;
     }
 }
-
-
 
 // Key notes:
 // 1. res.locals var is used for pass data between middleware function.
@@ -369,7 +242,27 @@ class RaterSecure {
     }
     static deviceSignOut(req, res) { 
     }
-
+    // From secure route.
+    /*
+    static signin(req, res) {
+        let db = new sqldb();
+        let params = WebServer.parseReq(req).data;
+        let fn = async () => {
+            return db.SignIn(params);
+        }
+        exec(db, fn).then(data => {
+            let result = validate(db, data);
+            if (result && !result.errors.hasError && result.out.errNum === 0) {
+                let obj = {
+                    accessId: result.out.accessId
+                }
+                WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
+            }
+            WebServer.sendJson(req, res, result);
+        })
+    }
+    */
+    
     //#endregion
 }
 
