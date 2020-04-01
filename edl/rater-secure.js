@@ -77,7 +77,6 @@ api.ClientSignIn = class {
 api.ClientSignOut = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
-        params.userId = null
         return params
      }
     static async call(db, params) {
@@ -362,6 +361,9 @@ class RaterSecure {
         })
     }
     static clientSignOut(req, res) { 
+        api.ClientSignOut.exec(req, res, (data) => {
+            WebServer.sendJson(req, res, data);
+        })
     }
     static deviceSignIn(req, res) { 
     }
