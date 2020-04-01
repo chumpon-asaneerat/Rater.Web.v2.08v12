@@ -272,7 +272,15 @@ class RaterSecure {
         let storage = new RaterStorage(req, res);
         console.log('secure:', storage.secure)
         console.log('client:', storage.client)
-
+        let url = urls.getFullUrl(req)
+        if (urls.isHome(url)) {
+        }
+        else if (urls.isEDL(url)) {
+        }
+        else if (urls.isCustomer(url)) {
+        }
+        else if (urls.isDevice(url)) {
+        }
         if (next) next();
     }
 
