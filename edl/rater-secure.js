@@ -12,15 +12,82 @@ const urls = require('./utils/url-utils').UrlUtils;
 
 //#endregion
 
+//#region RaterStorage
+
+class RaterStorage {
+    constructor(req, res) {
+        this.req = req
+        this.res = res
+        this.load()
+    }
+    load() {
+        if (this.req && this.res) {
+            this.res.locals.rater = {
+                secure: cookies.loadSignedCookies(this.req, this.res, 'secure'),
+                client: cookies.loadCookies(this.req, this.res, 'client')
+            }
+        }
+    }
+    commit() {
+        if (this.req && this.res) {
+            cookies.saveSignedCookies(this.req, this.res, 'secure', this.secure)
+            cookies.saveCookies(this.req, this.res, 'client', this.client)
+        }
+    }
+    get rater() { return this.res.locals.rater; }
+    reset() {
+        if (this.secure && this.secure.mode && this.secure.mode !== '') {
+            let mode = this.secure.mode
+            // reset accessId in exist mode.
+            this.res.locals.rater.secure[mode].accessId = ''
+            this.res.locals.rater.secure[mode].memberId = ''
+            this.res.locals.rater.secure[mode].memberType = 0
+            // reset mode.
+            this.secure.mode = '';
+        }
+    }
+    get secure() {
+        if (!this.res.locals.rater.secure) this.res.locals.rater.secure = { mode: '' }
+        if (!this.res.locals.rater.secure.edl) this.res.locals.rater.secure.edl = {}
+        if (!this.res.locals.rater.secure.customer) this.res.locals.rater.secure.customer = {}
+        if (!this.res.locals.rater.secure.device) this.res.locals.rater.secure.device = {}
+
+        return this.res.locals.rater.secure;
+    }
+    set secure(value) {
+        this.res.locals.rater.secure = value;
+    }
+    get client() {
+        if (!this.res.locals.rater.client) this.res.locals.rater.client = {}
+        if (!this.res.locals.rater.client.keys) this.res.locals.rater.client.keys = {}
+        if (!this.res.locals.rater.client.selection) this.res.locals.rater.client.selection = {}
+
+        return this.res.locals.rater.client;
+    }
+    set client(value) {
+        this.res.locals.rater.client = value;
+    }
+}
+
+//#endregion
+
 //#region Secure API classes.
 
 class api {}
 api.CheckAccess = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data
+        //let params = WebServer.parseReq(req).data
+        let storage = new RaterStorage(req, res)
+        let params = {
+            mode: '',
+            accessId: ''            
+        }
+        let mode = (storage.secure) ? storage.secure.mode : null
+        if (mode) {
+            params.mode = mode
+            params.accessId = (storage.secure[mode]) ? storage.secure[mode].accessId : ''
+        }        
         console.log(params)
-        params.accessId = null
-        params.mode = null
         return params
      }
     static async call(db, params) {
@@ -175,122 +242,29 @@ api.DeviceSignOut = class {
 
 //#endregion
 
-class RaterStorage {
-    constructor(req, res) {
-        this.req = req
-        this.res = res
-        this.load()
-    }
-    load() {
-        if (this.req && this.res) {
-            this.res.locals.rater = {
-                secure: cookies.loadSignedCookies(this.req, this.res, 'secure'),
-                client: cookies.loadCookies(this.req, this.res, 'client')
-            }
-        }
-    }
-    commit() {
-        if (this.req && this.res) {
-            cookies.saveSignedCookies(this.req, this.res, 'secure', this.secure)
-            cookies.saveCookies(this.req, this.res, 'client', this.client)
-        }
-    }
-    get rater() { return this.res.locals.rater; }
-    reset() {
-        if (this.secure && this.secure.mode && this.secure.mode !== '') {
-            let mode = this.secure.mode
-            // reset accessId in exist mode.
-            this.res.locals.rater.secure[mode].accessId = ''
-            this.res.locals.rater.secure[mode].memberId = ''
-            this.res.locals.rater.secure[mode].memberType = 0
-            // reset mode.
-            this.secure.mode = '';
-        }
-    }
-    get secure() {
-        if (!this.res.locals.rater.secure) this.res.locals.rater.secure = { mode: '' }
-        if (!this.res.locals.rater.secure.edl) this.res.locals.rater.secure.edl = {}
-        if (!this.res.locals.rater.secure.customer) this.res.locals.rater.secure.customer = {}
-        if (!this.res.locals.rater.secure.device) this.res.locals.rater.secure.device = {}
-
-        return this.res.locals.rater.secure;
-    }
-    set secure(value) {
-        this.res.locals.rater.secure = value;
-    }
-    get client() {
-        if (!this.res.locals.rater.client) this.res.locals.rater.client = {}
-        if (!this.res.locals.rater.client.keys) this.res.locals.rater.client.keys = {}
-        if (!this.res.locals.rater.client.selection) this.res.locals.rater.client.selection = {}
-
-        return this.res.locals.rater.client;
-    }
-    set client(value) {
-        this.res.locals.rater.client = value;
-    }
-}
-
-// Key notes:
-// 1. res.locals var is used for pass data between middleware function.
-// 2. Cookies object store/retrive can do via methods.
-//    - WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years)
-//    - WebServer.cookie.writeObject(req, res, obj, WebServer.expires.in(5).years)
-//    - WebServer.signedCookie.readObject(req, res)
-//    - WebServer.cookie.readObject(req, res)
-
-
 //#region RaterSecure class
 
 class RaterSecure {
     //#region middleware methods
 
     static checkAccess(req, res, next) {
-        // 1. Check current secure object
-        //    1.1. no secure object goto step 2.
-        //    1.2. secure object exists check database.
-        //    1.2.1. if match accessid and mode redirect to proper url.
-        //    1.2.2. if accessid not found goto step 2.
-        // 2. forward to next middleware route.
-        let storage = new RaterStorage(req, res);
-
-        if (next) next();
-
-        //#region comment out
-        /*
-        // check access object is exists in signed cookie.
-        let obj = loadCookies(req, res);
-        if (!obj || !obj.mode) {
-            // if cookie not exists create new one.
-            updateSecureObj(req, res, obj)
-        }
-        let secure = getSecure(req, res);
-
-        let db = new sqldb();
-        let params = { 
-            accessId: '',
-            mode: secure.mode
-        };
-
-        if (secure.mode === 'edl') {
-            params.accessId = secure.edl.accessId
-        }
-        else if (secure.mode === 'customer') {
-            params.accessId = secure.customer.accessId
-        }
-        else {
-        }
-        let fn = async () => {
-            return db.CheckAccess(params);
-        }
-        exec(db, fn).then(result => {
-            if (!result.errors.hasError && result.data && result.data.length > 0) {
+        api.CheckAccess.exec(req, res, (result) => {
+            if (result && !result.errors.hasError && result.data.length > 0) {
+                let storage = new RaterStorage(req, res);
                 let row = result.data[0];
-                updateSecureObj(req, res, row);
+                //console.log(row)
+                let mode = storage.secure.mode
+                // for secure
+                storage.secure[mode].memberId = row.memberId
+                storage.secure[mode].memberType = row.memberType
+                // for client
+                storage.client.keys.user = {
+                    memberId: row.memberId,
+                    memberType: row.memberType,
+                }
             }
             if (next) next();
-        });
-        */
-       //#endregion
+        })
     }
 
     static checkRedirect(req, res, next) {
@@ -306,42 +280,43 @@ class RaterSecure {
     //#region api routes methods
 
     static clientSignIn(req, res) {
-        api.ClientSignIn.exec(req, res, (data) => {
-            let storage = new RaterStorage(req, res)
-            if (data && !data.errors.hasError) {
+        api.ClientSignIn.exec(req, res, (result) => {
+            if (result && !result.errors.hasError) {
+                let storage = new RaterStorage(req, res)
                 let params = WebServer.parseReq(req).data
                 let mode = (params.IsEDLUser) ? 'edl' : 'customer'
                 storage.secure.mode = mode
-                storage.secure[mode].accessId = data.out.accessId
+                storage.secure[mode].accessId = result.out.accessId
                 // set client side id.
-                storage.client.keys.id1 = data.out.accessId
+                storage.client.keys.id1 = result.out.accessId                
                 storage.commit();
             }
-            WebServer.sendJson(req, res, data);
+            WebServer.sendJson(req, res, result);
         })
     }
     static clientSignOut(req, res) { 
         api.ClientSignOut.exec(req, res, (data) => {
             let storage = new RaterStorage(req, res)
+            storage.reset();
             // clear client side id.
             storage.client.keys.id1 = ''
-            storage.reset();
+            storage.client.keys.user = {}
             storage.commit();
             WebServer.sendJson(req, res, data);
         })
     }
     static deviceSignIn(req, res) { 
-        api.ClientSignIn.exec(req, res, (data) => {
+        api.ClientSignIn.exec(req, res, (result) => {
             let storage = new RaterStorage(req, res)
-            if (data && !data.errors.hasError) {
+            if (result && !result.errors.hasError) {
                 let mode = 'device'
                 storage.secure.mode = mode
-                storage.secure[mode].accessId = data.out.accessId
+                storage.secure[mode].accessId = result.out.accessId
                 // set client side id.
-                storage.client.keys.id2 = data.out.accessId
+                storage.client.keys.id2 = result.out.accessId
                 storage.commit();
             }
-            WebServer.sendJson(req, res, data);
+            WebServer.sendJson(req, res, result);
         })
     }
     static deviceSignOut(req, res) { 
@@ -349,6 +324,7 @@ class RaterSecure {
             let storage = new RaterStorage(req, res)
             // clear client side id.
             storage.client.keys.id2 = ''
+            storage.client.keys.user = {}
             storage.reset();
             storage.commit();
             WebServer.sendJson(req, res, data);
