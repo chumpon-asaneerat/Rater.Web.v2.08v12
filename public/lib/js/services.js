@@ -757,8 +757,11 @@ class SecureService2
             }
             else {
                 console.log('Sign In Success. Id:', data.out);
+                // when reload this value will reset
+                // so remove it after implements signin api to 
+                // keep cookie data.
                 self.accessId = data.out.accessId
-                //nlib.nav.gotoUrl('/', true);
+                nlib.nav.gotoUrl('/', true);
             }            
         }
         XHR.postJson(url, paramObj, fn);
@@ -766,7 +769,11 @@ class SecureService2
     signout() {
         let self = this
         let url = '/api/signout'
+        self.accessId = data.out.accessId
         let paramObj = {
+            // when reload this value will reset
+            // so remove it after implements signin api to 
+            // keep cookie data.
             accessId: self.accessId,
             mode: 'customer'
         }
