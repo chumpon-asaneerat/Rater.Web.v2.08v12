@@ -6,5 +6,5 @@ content-type: application/json
     "userName": "a&a.co.th",
     "passWord": "1234",
     "customerId": "a&a.co.th",
-    "mode": "edl"
+    "isEDLUser": false
 }

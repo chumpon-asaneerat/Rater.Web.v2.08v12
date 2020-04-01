@@ -134,8 +134,8 @@ router.post('/register', routes.register)
 router.post('/validate-accounts', routes.CheckUsers)
 
 //router.post('/signin', routes.signin)
-router.post('/signin', secure.signin)
-router.post('/signout', secure.signout)
+router.post('/signin', secure.clientSignIn)
+router.post('/signout', secure.clientSignOut)
 //router.post('/change-customer', secure.changeCustomer)
 
 const init_routes = (svr) => {

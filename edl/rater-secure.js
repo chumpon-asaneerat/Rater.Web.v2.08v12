@@ -45,10 +45,10 @@ api.CheckAccess = class {
         })
     }
 }
-api.SignIn = class {
+api.ClientSignIn = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
-        params.userId = null
+        params.mode = (params.IsEDLUser) ? 'edl' : 'customer'
         return params
      }
     static async call(db, params) {
@@ -74,7 +74,7 @@ api.SignIn = class {
         })
     }
 }
-api.SignOut = class {
+api.ClientSignOut = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
         params.userId = null
@@ -102,6 +102,12 @@ api.SignOut = class {
             WebServer.sendJson(req, res, result)
         })
     }
+}
+
+api.DeviceSignIn = class {
+}
+
+api.DeviceSignOut = class {
 }
 
 //#endregion
@@ -350,29 +356,16 @@ class RaterSecure {
 
     //#region api routes methods
 
-    static signin(req, res) {
-        let db = new sqldb();
-        let params = WebServer.parseReq(req).data;
-
-        let result = { text: 'signin', params: params }
-        WebServer.sendJson(req, res, result);
-        /*
-        let fn = async () => {
-            return db.SignIn(params);
-        }
-        exec(db, fn).then(data => {
-            let result = validate(db, data);
-            if (result && !result.errors.hasError && result.out.errNum === 0) {
-                let obj = {
-                    accessId: result.out.accessId
-                }
-                WebServer.signedCookie.writeObject(req, res, obj, WebServer.expires.in(5).years);
-            }
-            WebServer.sendJson(req, res, result);
+    static clientSignIn(req, res) {
+        api.SignIn.exec(req, res, (data) => {
+            WebServer.sendJson(req, res, data);
         })
-        */
     }
-    static signout(req, res) { 
+    static clientSignOut(req, res) { 
+    }
+    static deviceSignIn(req, res) { 
+    }
+    static deviceSignOut(req, res) { 
     }
 
     //#endregion
