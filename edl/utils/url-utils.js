@@ -14,15 +14,19 @@ const getRoutePath = (req) => {
     let ret = url.replace(rootUrl, '');
     return ret;
 }
-const isStartsWith = (src, sPath) => {
-    let lsrc = src.toLowerCase();
-    if (lsrc.charAt(0) === '/') lsrc = lsrc.substring(1); // remove slash
+const removeEndSlash = (sPath) => {
     let lpath = sPath.toLowerCase();
     if (lpath.charAt(0) === '/') lpath = lpath.substring(1); // remove slash
+    return lpath;
+}
+/*
+const isStartsWith = (src, sPath) => {
+    let lsrc = removeEndSlash(src)
+    let lpath = removeEndSlash(sPath);
     let ret = lsrc.startsWith(lpath);
     return ret;
 }
-
+*/
 //#endregion
 
 //#region Home route
@@ -59,6 +63,10 @@ const edlAdminUrls = [
     'edl/admin'
 ]
 const isEDLAdminRoute = (url) => {
+    let urls = edlAdminUrls
+    let idx = urls.indexOf(removeEndSlash(url))
+    return (idx !== -1)
+    /*
     let match = false
     let urls = edlAdminUrls
     for (let i = 0; i < urls.length; ++i) {
@@ -68,6 +76,7 @@ const isEDLAdminRoute = (url) => {
         }
     }
     return match;
+    */
 }
 const gotoEDLAdmin = (req, res, next, url) => {
     if (!isEDLAdminRoute(url)) {
@@ -83,6 +92,10 @@ const edlSupervisorUrls = [
     'edl/supervisor'
 ]
 const isEDLSupervisorRoute = (url) => {
+    let urls = edlSupervisorUrls
+    let idx = urls.indexOf(removeEndSlash(url))
+    return (idx !== -1)
+    /*
     let match = false
     let urls = edlSupervisorUrls
     for (let i = 0; i < urls.length; ++i) {
@@ -92,6 +105,7 @@ const isEDLSupervisorRoute = (url) => {
         }
     }
     return match;
+    */
 }
 const gotoEDLSupervisor = (req, res, next, url) => {
     if (!isEDLSupervisorRoute(url)) {
@@ -107,6 +121,10 @@ const edlStaffUrls = [
     'edl/staff'
 ]
 const isEDLStaffRoute = (url) => {
+    let urls = edlStaffUrls
+    let idx = urls.indexOf(removeEndSlash(url))
+    return (idx !== -1)
+    /*
     let match = false
     let urls = edlStaffUrls
     for (let i = 0; i < urls.length; ++i) {
@@ -116,6 +134,7 @@ const isEDLStaffRoute = (url) => {
         }
     }
     return match;
+    */
 }
 const gotoEDLStaff = (req, res, next, url) => {
     if (!isEDLStaffRoute(url)) {
@@ -145,6 +164,10 @@ const adminUrls = [
     'customer/admin'
 ]
 const isAdminRoute = (url) => {
+    let urls = adminUrls
+    let idx = urls.indexOf(removeEndSlash(url))
+    return (idx !== -1)
+    /*
     let match = false
     let urls = adminUrls
     for (let i = 0; i < urls.length; ++i) {
@@ -154,6 +177,7 @@ const isAdminRoute = (url) => {
         }
     }
     return match;
+    */
 }
 const gotoAdmin = (req, res, next, url) => {
     if (!isAdminRoute(url)) {
@@ -172,6 +196,10 @@ const exclusiveUrls = [
     'customer/exclusive'
 ]
 const isExcuisiveRoute = (url) => {
+    let urls = exclusiveUrls
+    let idx = urls.indexOf(removeEndSlash(url))
+    return (idx !== -1)
+    /*
     let match = false
     let urls = exclusiveUrls
     for (let i = 0; i < urls.length; ++i) {
@@ -181,6 +209,7 @@ const isExcuisiveRoute = (url) => {
         }
     }
     return match;
+    */
 }
 const gotoExcuisive = (req, res, next, url) => {
     if (!isExcuisiveRoute(url)) {
@@ -195,6 +224,10 @@ const staffUrls = [
     'customer/staff'
 ]
 const isStaffRoute = (url) => {
+    let urls = staffUrls
+    let idx = urls.indexOf(removeEndSlash(url))
+    return (idx !== -1)
+    /*
     let match = false
     let urls = staffUrls
     for (let i = 0; i < urls.length; ++i) {
@@ -204,6 +237,7 @@ const isStaffRoute = (url) => {
         }
     }
     return match;
+    */
 }
 const gotoStaff = (req, res, next, url) => {
     if (!isStaffRoute(url)) {
