@@ -18,7 +18,12 @@ class RaterStorage {
     constructor(req, res) {
         this.req = req
         this.res = res
-        this.load()
+        if (!this.res.locals.rater) {
+            // auto load if local var is null or undefined
+            // this normally should execute on first middleware method
+            // i.e. secure.checkAccess.
+            this.load()
+        }
     }
     load() {
         if (this.req && this.res) {
@@ -359,7 +364,7 @@ class RaterSecure {
                 storage.secure.mode = mode
                 storage.secure[mode].accessId = result.out.accessId
                 // set client side id.
-                storage.client.keys.id1 = result.out.accessId                
+                storage.client.keys.id1 = result.out.accessId
                 storage.commit();
             }
             WebServer.sendJson(req, res, result);

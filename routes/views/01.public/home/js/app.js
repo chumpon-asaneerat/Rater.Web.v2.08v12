@@ -47,18 +47,26 @@ let app;
     }
     nlib.customer.exclusive = {}
     nlib.customer.exclusive.signin = () => {
-
+        secure.account = {
+            username: 'sodsri@edl.co.th', 
+            password: '1234',
+            IsEDLUser: false
+        }
+        secure.signin('EDL-C2020030001')
     }
     nlib.customer.staff = {}
     nlib.customer.staff.signin = () => {
-
+        secure.account = {
+            username: 'kanya@edl.co.th', 
+            password: '1234',
+            IsEDLUser: false
+        }
+        secure.signin('EDL-C2020030001')
     }
     nlib.device = {}
-    nlib.signin = () => {
-    }
-    nlib.signout = () => {
-        secure.signout()
-    }
+    
+    nlib.signout = () => { secure.signout() }
+
     nlib.info = () => {
         if (!app.info) {
             app.info = nlib.cookie.getJson('client')
