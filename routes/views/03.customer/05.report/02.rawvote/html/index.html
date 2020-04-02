@@ -22,7 +22,7 @@
     <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h3>Customer Report Home.</h3>
+    <h3>Customer Report Raw Vote.</h3>
     <li>Home
         <ul>
             <li><a href="/customer/admin">Admin</a></li>
@@ -32,14 +32,7 @@
     </li>
     <li>Manage
         <ul>
-            <li><a href="/customer/member">Member</a></li>
-            <li><a href="/customer/device">Device</a></li>
-            <li><a href="/customer/branch">Branch</a></li>
-            <li><a href="/customer/org">Org</a></li>
-        </ul>
-    </li>
-    <li>Report
-        <ul>
+            <li><a href="/customer/report">Reports Home</a></li>
             <li><a href="/customer/report/rawvote">Raw Vote Report</a></li>
             <li><a href="/customer/report/votesummary">Vote Summary Report</a></li>
             <li><a href="/customer/report/barchart">Bar graph Summary Report</a></li>
@@ -73,7 +66,7 @@
     <!-- services -->
     <script src="/dist/js/services.js"></script>
     <!-- local scripts -->
-    <script src="report/js/app.js"></script>
+    <script src="rawvote/js/app.js"></script>
     <script>
         let updateResult = (result) => {
             let el = document.querySelector('txtResult')
