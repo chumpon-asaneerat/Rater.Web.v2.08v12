@@ -42,6 +42,15 @@ const gotoHome = (req, res, next, url) => {
 
 //#endregion
 
+
+// Implements note:
+// In edl/customer
+// - Implements method to check member type to access each route not depend to url
+//   for example report route should seen when current user is admin or exclusive
+//   but url need to be the same so all gotoXXX middleware method required to 
+//   re-implements for proper check by member type instead of the url itself.
+
+
 //#region EDL routes
 
 const isEDLAdmin = (url) => { return isStartsWith(url, 'edl/admin'); }

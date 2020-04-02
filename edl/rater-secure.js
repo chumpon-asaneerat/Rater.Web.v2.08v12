@@ -282,9 +282,8 @@ class RaterSecure {
     }
     static checkRedirect(req, res, next) {
         let storage = new RaterStorage(req, res);
-        console.log('secure:', storage.secure)
-        console.log('client:', storage.client)
-
+        //console.log('secure:', storage.secure)
+        //console.log('client:', storage.client)
         let url = urls.getRoutePath(req);
         let accessObj = storage.account;
         let mtype = 0;
