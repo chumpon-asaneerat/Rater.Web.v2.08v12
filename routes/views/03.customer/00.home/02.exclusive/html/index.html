@@ -23,6 +23,18 @@
 </head>
 <body>
     <h3>Customer Exclusive Home.</h3>
+    <li>Home
+        <ul>
+            <li><a href="/customer/admin">Admin</a></li>
+            <li><a href="/customer/exclusive">Exclusive</a></li>
+            <li><a href="/customer/staff">Staff</a></li>
+        </ul>
+    </li>
+    <li>Manage
+        <ul>
+            <li><a href="/customer/branch">Branch</a></li>
+        </ul>
+    </li>
     <p>Result:</p>
     <p id="txtResule"></p>
 
@@ -50,7 +62,7 @@
     <!-- local scripts -->
     <script src="exclusive/js/app.js"></script>
     <script>
-        let updateResult= (result) => {
+        let updateResult = (result) => {
             let el = document.querySelector('txtResult')
             el.innerHTML = result;
         }
