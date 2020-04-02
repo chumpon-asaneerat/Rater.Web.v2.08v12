@@ -287,14 +287,21 @@ class RaterSecure {
         let url = urls.getRoutePath(req);
         let accessObj = storage.account;
         let mtype = 0;
-        let fn;
+        
         if (accessObj) {
-            if (accessObj.memberType !== undefined && accessObj.memberType !== null) {
-                mtype = accessObj.memberType;
+            if (accessObj.mode !== 'device') {
+                let fn;
+                if (accessObj.memberType !== undefined && accessObj.memberType !== null) {
+                    mtype = accessObj.memberType;
+                }
+                fn = urls.goHome(mtype);
+                fn(req, res, next, url);
+            }
+            else {
+                // device mode.
+                console.log('device mode.')
             }
         }
-        fn = urls.goHome(mtype);
-        fn(req, res, next, url);
     }
 
     //#endregion
