@@ -294,13 +294,6 @@ class RaterSecure {
 
         /*
 
-        const isAdmin = (url) => { return isStartsWith(url, 'customer/admin'); }
-        const isExcuisive = (url) => { return isStartsWith(url, 'customer/exclusive'); }
-        const isStaff = (url) => { return isStartsWith(url, 'customer/staff'); }
-        const isEDLAdmin = (url) => { return isStartsWith(url, 'edl/admin'); }
-        const isEDLSupervisor = (url) => { return isStartsWith(url, 'edl/supervisor'); }
-        const isEDLStaff = (url) => { return isStartsWith(url, 'edl/staff'); }
-        const isEDLCustomer = (url) => { return isStartsWith(url, 'edl/customer'); }
 
         // for redirect and permission for routes
         const homeurls = [

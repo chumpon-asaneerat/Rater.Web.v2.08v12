@@ -27,8 +27,17 @@ class UrlUtils {
         let ret = (lsrc.length === 0);
         return ret;
     }
-    static isEDL(url) { return UrlUtils.isStartsWith(url, 'edl') }
-    static isCustomer(url) { return UrlUtils.isStartsWith(url, 'customer') }
+    //static isEDL(url) { return UrlUtils.isStartsWith(url, 'edl') }
+    static isEDLAdmin = (url) => { return isStartsWith(url, 'edl/admin'); }
+    static isEDLSupervisor = (url) => { return isStartsWith(url, 'edl/supervisor'); }
+    static isEDLStaff = (url) => { return isStartsWith(url, 'edl/staff'); }
+    //static isEDLCustomer = (url) => { return isStartsWith(url, 'edl/customer'); }
+
+    //static isCustomer(url) { return UrlUtils.isStartsWith(url, 'customer') }
+    static isAdmin = (url) => { return isStartsWith(url, 'customer/admin'); }
+    static isExcuisive = (url) => { return isStartsWith(url, 'customer/exclusive'); }
+    static isStaff = (url) => { return isStartsWith(url, 'customer/staff'); }
+
     static isDevice(url) { return UrlUtils.isStartsWith(url, 'rater') }
 }
 
