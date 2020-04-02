@@ -53,27 +53,51 @@ const gotoHome = (req, res, next, url) => {
 
 //#region EDL routes
 
-const isEDLAdmin = (url) => { return isStartsWith(url, 'edl/admin'); }
+// EDL Admin
+const edlAdminUrls = [
+    // home
+    'edl/admin'
+]
+const isEDLAdminRoute = (url) => {
+    let idx = edlAdminUrls.indexOf(isStartsWith(url));
+    return (idx !== -1);
+}
 const gotoEDLAdmin = (req, res, next, url) => {
-    if (!isEDLAdmin(url)) {
+    if (!isEDLAdminRoute(url)) {
         res.redirect('/edl/admin')
     }
     else {
         if (next) next()
     }
 }
-const isEDLSupervisor = (url) => { return isStartsWith(url, 'edl/supervisor'); }
+// EDL Supervisor
+const edlSupervisorUrls = [
+    // home
+    'edl/supervisor'
+]
+const isEDLSupervisorRoute = (url) => {
+    let idx = edlSupervisorUrls.indexOf(isStartsWith(url));
+    return (idx !== -1);
+}
 const gotoEDLSupervisor = (req, res, next, url) => {
-    if (!isEDLSupervisor(url)) {
+    if (!isEDLSupervisorRoute(url)) {
         res.redirect('/edl/supervisor')
     }
     else {
         if (next) next()
     }
 }
-const isEDLStaff = (url) => { return isStartsWith(url, 'edl/staff'); }
+// EDL Staff
+const edlStaffUrls = [
+    // home
+    'edl/staff'
+]
+const isEDLStaffRoute = (url) => {
+    let idx = edlStaffUrls.indexOf(isStartsWith(url));
+    return (idx !== -1);
+}
 const gotoEDLStaff = (req, res, next, url) => {
-    if (!isEDLStaff(url)) {
+    if (!isEDLStaffRoute(url)) {
         res.redirect('/edl/staff')
     }
     else {
@@ -85,27 +109,62 @@ const gotoEDLStaff = (req, res, next, url) => {
 
 //#region customer routes
 
-const isAdmin = (url) => { return isStartsWith(url, 'customer/admin'); }
+const adminUrls = [
+    // report home
+    'customer/reports',
+    // org
+    'customer/org',
+    // branch
+    'customer/branch',
+    // device
+    'customer/device',
+    // member
+    'customer/member',
+    // home
+    'customer/admin'
+]
+const isAdminRoute = (url) => {
+    let idx = adminUrls.indexOf(isStartsWith(url));
+    return (idx !== -1);
+}
 const gotoAdmin = (req, res, next, url) => {
-    if (!isAdmin(url)) {
+    if (!isAdminRoute(url)) {
         res.redirect('/customer/admin')
     }
     else {
         if (next) next()
     }
 }
-const isExcuisive = (url) => { return isStartsWith(url, 'customer/exclusive'); }
+const exclusiveUrls = [
+    // report home
+    'customer/reports',
+    // member
+    'customer/member',
+    // home
+    'customer/exclusive'
+]
+const isExcuisiveRoute = (url) => {
+    let idx = exclusiveUrls.indexOf(isStartsWith(url));
+    return (idx !== -1);
+}
 const gotoExcuisive = (req, res, next, url) => {
-    if (!isExcuisive(url)) {
+    if (!isExcuisiveRoute(url)) {
         res.redirect('/customer/exclusive')
     }
     else {
         if (next) next()
     }
 }
-const isStaff = (url) => { return isStartsWith(url, 'customer/staff'); }
+const staffUrls = [
+    // home
+    'customer/staff'
+]
+const isStaffRoute = (url) => {
+    let idx = staffUrls.indexOf(isStartsWith(url));
+    return (idx !== -1);
+}
 const gotoStaff = (req, res, next, url) => {
-    if (!isStaff(url)) {
+    if (!isStaffRoute(url)) {
         res.redirect('/customer/staff')
     }
     else {
