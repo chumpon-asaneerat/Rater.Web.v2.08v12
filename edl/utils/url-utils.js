@@ -59,8 +59,15 @@ const edlAdminUrls = [
     'edl/admin'
 ]
 const isEDLAdminRoute = (url) => {
-    let idx = edlAdminUrls.indexOf(isStartsWith(url));
-    return (idx !== -1);
+    let match = false
+    let urls = edlAdminUrls
+    for (let i = 0; i < urls.length; ++i) {
+        if (isStartsWith(url, urls[i])) {
+            match = true
+            break;
+        }
+    }
+    return match;
 }
 const gotoEDLAdmin = (req, res, next, url) => {
     if (!isEDLAdminRoute(url)) {
@@ -76,8 +83,15 @@ const edlSupervisorUrls = [
     'edl/supervisor'
 ]
 const isEDLSupervisorRoute = (url) => {
-    let idx = edlSupervisorUrls.indexOf(isStartsWith(url));
-    return (idx !== -1);
+    let match = false
+    let urls = edlSupervisorUrls
+    for (let i = 0; i < urls.length; ++i) {
+        if (isStartsWith(url, urls[i])) {
+            match = true
+            break;
+        }
+    }
+    return match;
 }
 const gotoEDLSupervisor = (req, res, next, url) => {
     if (!isEDLSupervisorRoute(url)) {
@@ -93,8 +107,15 @@ const edlStaffUrls = [
     'edl/staff'
 ]
 const isEDLStaffRoute = (url) => {
-    let idx = edlStaffUrls.indexOf(isStartsWith(url));
-    return (idx !== -1);
+    let match = false
+    let urls = edlStaffUrls
+    for (let i = 0; i < urls.length; ++i) {
+        if (isStartsWith(url, urls[i])) {
+            match = true
+            break;
+        }
+    }
+    return match;
 }
 const gotoEDLStaff = (req, res, next, url) => {
     if (!isEDLStaffRoute(url)) {
@@ -124,8 +145,15 @@ const adminUrls = [
     'customer/admin'
 ]
 const isAdminRoute = (url) => {
-    let idx = adminUrls.indexOf(isStartsWith(url));
-    return (idx !== -1);
+    let match = false
+    let urls = adminUrls
+    for (let i = 0; i < urls.length; ++i) {
+        if (isStartsWith(url, urls[i])) {
+            match = true
+            break;
+        }
+    }
+    return match;
 }
 const gotoAdmin = (req, res, next, url) => {
     if (!isAdminRoute(url)) {
@@ -144,8 +172,15 @@ const exclusiveUrls = [
     'customer/exclusive'
 ]
 const isExcuisiveRoute = (url) => {
-    let idx = exclusiveUrls.indexOf(isStartsWith(url));
-    return (idx !== -1);
+    let match = false
+    let urls = exclusiveUrls
+    for (let i = 0; i < urls.length; ++i) {
+        if (isStartsWith(url, urls[i])) {
+            match = true
+            break;
+        }
+    }
+    return match;
 }
 const gotoExcuisive = (req, res, next, url) => {
     if (!isExcuisiveRoute(url)) {
@@ -160,8 +195,15 @@ const staffUrls = [
     'customer/staff'
 ]
 const isStaffRoute = (url) => {
-    let idx = staffUrls.indexOf(isStartsWith(url));
-    return (idx !== -1);
+    let match = false
+    let urls = staffUrls
+    for (let i = 0; i < urls.length; ++i) {
+        if (isStartsWith(url, urls[i])) {
+            match = true
+            break;
+        }
+    }
+    return match;
 }
 const gotoStaff = (req, res, next, url) => {
     if (!isStaffRoute(url)) {
