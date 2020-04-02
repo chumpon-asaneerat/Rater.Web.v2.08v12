@@ -57,17 +57,6 @@ const isEDLAdminRoute = (url) => {
     let urls = edlAdminUrls
     let idx = urls.indexOf(removeEndSlash(url))
     return (idx !== -1)
-    /*
-    let match = false
-    let urls = edlAdminUrls
-    for (let i = 0; i < urls.length; ++i) {
-        if (isStartsWith(url, urls[i])) {
-            match = true
-            break;
-        }
-    }
-    return match;
-    */
 }
 const gotoEDLAdmin = (req, res, next, url) => {
     if (!isEDLAdminRoute(url)) {
@@ -86,17 +75,6 @@ const isEDLSupervisorRoute = (url) => {
     let urls = edlSupervisorUrls
     let idx = urls.indexOf(removeEndSlash(url))
     return (idx !== -1)
-    /*
-    let match = false
-    let urls = edlSupervisorUrls
-    for (let i = 0; i < urls.length; ++i) {
-        if (isStartsWith(url, urls[i])) {
-            match = true
-            break;
-        }
-    }
-    return match;
-    */
 }
 const gotoEDLSupervisor = (req, res, next, url) => {
     if (!isEDLSupervisorRoute(url)) {
@@ -115,17 +93,6 @@ const isEDLStaffRoute = (url) => {
     let urls = edlStaffUrls
     let idx = urls.indexOf(removeEndSlash(url))
     return (idx !== -1)
-    /*
-    let match = false
-    let urls = edlStaffUrls
-    for (let i = 0; i < urls.length; ++i) {
-        if (isStartsWith(url, urls[i])) {
-            match = true
-            break;
-        }
-    }
-    return match;
-    */
 }
 const gotoEDLStaff = (req, res, next, url) => {
     if (!isEDLStaffRoute(url)) {
@@ -178,17 +145,6 @@ const isAdminRoute = (url) => {
     let urls = adminUrls
     let idx = urls.indexOf(removeEndSlash(url))
     return (idx !== -1)
-    /*
-    let match = false
-    let urls = adminUrls
-    for (let i = 0; i < urls.length; ++i) {
-        if (isStartsWith(url, urls[i])) {
-            match = true
-            break;
-        }
-    }
-    return match;
-    */
 }
 const gotoAdmin = (req, res, next, url) => {
     if (!isAdminRoute(url)) {
@@ -224,17 +180,6 @@ const isExcuisiveRoute = (url) => {
     let urls = exclusiveUrls
     let idx = urls.indexOf(removeEndSlash(url))
     return (idx !== -1)
-    /*
-    let match = false
-    let urls = exclusiveUrls
-    for (let i = 0; i < urls.length; ++i) {
-        if (isStartsWith(url, urls[i])) {
-            match = true
-            break;
-        }
-    }
-    return match;
-    */
 }
 const gotoExcuisive = (req, res, next, url) => {
     if (!isExcuisiveRoute(url)) {
@@ -254,17 +199,6 @@ const isStaffRoute = (url) => {
     let urls = staffUrls
     let idx = urls.indexOf(removeEndSlash(url))
     return (idx !== -1)
-    /*
-    let match = false
-    let urls = staffUrls
-    for (let i = 0; i < urls.length; ++i) {
-        if (isStartsWith(url, urls[i])) {
-            match = true
-            break;
-        }
-    }
-    return match;
-    */
 }
 const gotoStaff = (req, res, next, url) => {
     if (!isStaffRoute(url)) {
@@ -279,9 +213,21 @@ const gotoStaff = (req, res, next, url) => {
 
 //#region rater (device) routes
 
-const isDevice = (url) => { return UrlUtils.isStartsWith(url, 'rater') }
+const deviceUrls = [
+    // setup customer's device
+    'rater/setup',
+    // device user signin
+    'rater/signin',
+    // home
+    'rater'
+]
+const isDeviceRoute = (url) => {
+    let urls = staffUrls
+    let idx = urls.indexOf(removeEndSlash(url))
+    return (idx !== -1)
+}
 const gotoDevice = (req, res, next, url) => {
-    if (!isStaff(url)) {
+    if (!isDeviceRoute(url)) {
         res.redirect('/rater')
     }
     else {
