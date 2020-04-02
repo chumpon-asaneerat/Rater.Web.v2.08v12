@@ -141,16 +141,24 @@ const gotoEDLStaff = (req, res, next, url) => {
 //#region customer routes
 
 const adminUrls = [
-    // report home
-    'customer/report',
-    // org
-    'customer/org',
-    // branch
-    'customer/branch',
+    // member edit
+    'customer/member/edit',
+    // member view
+    'customer/member',
+    // device edit
+    'customer/device/edit',
     // device
     'customer/device',
-    // member
-    'customer/member',
+    // branch edit
+    'customer/branch/edit',
+    // branch
+    'customer/branch',
+    // org edit
+    'customer/org/edit',
+    // org
+    'customer/org',
+    // report home
+    'customer/report',
     // home
     'customer/admin'
 ]
@@ -181,6 +189,8 @@ const gotoAdmin = (req, res, next, url) => {
 const exclusiveUrls = [
     // report home
     'customer/report',
+    // member edit
+    'customer/member/edit',
     // member
     'customer/member',
     // home
@@ -211,6 +221,8 @@ const gotoExcuisive = (req, res, next, url) => {
     }
 }
 const staffUrls = [
+    // member edit (self)
+    'customer/member/edit',
     // home
     'customer/staff'
 ]
