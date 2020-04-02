@@ -142,7 +142,7 @@ const gotoEDLStaff = (req, res, next, url) => {
 
 const adminUrls = [
     // report home
-    'customer/reports',
+    'customer/report',
     // org
     'customer/org',
     // branch
@@ -180,7 +180,7 @@ const gotoAdmin = (req, res, next, url) => {
 }
 const exclusiveUrls = [
     // report home
-    'customer/reports',
+    'customer/report',
     // member
     'customer/member',
     // home
