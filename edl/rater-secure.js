@@ -72,6 +72,14 @@ class RaterStorage {
     set client(value) {
         this.res.locals.rater.client = value;
     }
+    get account() {
+        let ret = null;
+        if (this.secure && this.secure.mode && this.secure.mode !== '') {
+            let mode = this.secure.mode
+            ret = this.secure[mode]
+        }
+        return ret;
+    }
 }
 
 //#endregion
@@ -278,70 +286,28 @@ class RaterSecure {
         console.log('secure:', storage.secure)
         console.log('client:', storage.client)
 
-        /*
-        let url = getRoutePath(req)
-        if (urls.isHome(url)) {
-        }
-        else if (urls.isEDL(url)) {
-        }
-        else if (urls.isCustomer(url)) {
-        }
-        else if (urls.isDevice(url)) {
-        }
-        */
-
-        if (next) next();
-
-        /*
-
-
-        // for redirect and permission for routes
-        const homeurls = [
-            { code:   0, redirect: gotoHome },
-            { code: 200, redirect: gotoAdmin },
-            { code: 210, redirect: gotoExcuisive },
-            { code: 280, redirect: gotoStaff },
-            //{ code: 290, redirect: gotoDevice }, // not implements.
-            { code: 100, redirect: gotoEDLAdmin },
-            { code: 110, redirect: gotoEDLSupervisor },
-            { code: 180, redirect: gotoEDLStaff },
-            { code: 900, redirect: gotoEDLCustomer }
-        ]
-
-        const goHome = (memberType) => {
-            let map = homeurls.map(urlObj => urlObj.code )
-            let idx = map.indexOf(memberType);
-            let ret = homeurls[0].redirect; // default to root page.
-            if (idx !== -1) {
-                ret = homeurls[idx].redirect;
-            }
-            return ret;
-        }
-
-        // check redirect.
-        let url = getRoutePath(req);
-        let secure = (res.locals.rater) ? res.locals.rater.secure : null;
+        let url = urls.getRoutePath(req);
+        let accessObj = storage.account;
         let mtype = 0;
-        let edlCustomerId;
-        if (secure) {
-            if (secure.memberType !== undefined && secure.memberType !== null) {
-                mtype = secure.memberType;
+        let fn;
+        if (accessObj) {
+            if (accessObj.memberType !== undefined && accessObj.memberType !== null) {
+                mtype = accessObj.memberType;
             }
+            /*
             if (secure.EDLCustomerId !== undefined && secure.EDLCustomerId !== null) {
                 edlCustomerId = secure.EDLCustomerId;
             }
+            */
         }
-        // auto redirct if not match home url.
-        let fn;
-        if (edlCustomerId) {
-            fn = goHome(900);
-        }
-        else {
-            fn = goHome(mtype);
-        }
+        /*
+        if (edlCustomerId) { fn = goHome(900); }
+        else { fn = goHome(mtype); }
+        fn = goHome(mtype);
         fn(req, res, next, url);
-
         */
+        
+        if (next) next();
     }
 
     //#endregion
