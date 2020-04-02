@@ -280,7 +280,6 @@ class RaterSecure {
             if (next) next();
         })
     }
-
     static checkRedirect(req, res, next) {
         let storage = new RaterStorage(req, res);
         console.log('secure:', storage.secure)
@@ -294,20 +293,9 @@ class RaterSecure {
             if (accessObj.memberType !== undefined && accessObj.memberType !== null) {
                 mtype = accessObj.memberType;
             }
-            /*
-            if (secure.EDLCustomerId !== undefined && secure.EDLCustomerId !== null) {
-                edlCustomerId = secure.EDLCustomerId;
-            }
-            */
         }
-        /*
-        if (edlCustomerId) { fn = goHome(900); }
-        else { fn = goHome(mtype); }
-        fn = goHome(mtype);
+        fn = urls.goHome(mtype);
         fn(req, res, next, url);
-        */
-        
-        if (next) next();
     }
 
     //#endregion
