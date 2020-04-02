@@ -159,6 +159,18 @@ const adminUrls = [
     'customer/org',
     // report home
     'customer/report',
+    // report raw vote
+    'customer/report/rawvote',
+    // report vote summary
+    'customer/report/votesummary',
+    // report bar chart
+    'customer/report/barchart',
+    // report pie chart
+    'customer/report/piechart',
+    // report staff compare
+    'customer/report/staffcompare',
+    // report staff performance
+    'customer/report/staffperf',
     // home
     'customer/admin'
 ]
@@ -187,12 +199,24 @@ const gotoAdmin = (req, res, next, url) => {
     }
 }
 const exclusiveUrls = [
-    // report home
-    'customer/report',
     // member edit
     'customer/member/edit',
     // member
     'customer/member',
+    // report home
+    'customer/report',
+    // report raw vote
+    'customer/report/rawvote',
+    // report vote summary
+    'customer/report/votesummary',
+    // report bar chart
+    'customer/report/barchart',
+    // report pie chart
+    'customer/report/piechart',
+    // report staff compare
+    'customer/report/staffcompare',
+    // report staff performance
+    'customer/report/staffperf',
     // home
     'customer/exclusive'
 ]
