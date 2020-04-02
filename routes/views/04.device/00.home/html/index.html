@@ -23,6 +23,14 @@
 </head>
 <body>
     <h3>Device Home.</h3>
+    <li>Menu
+        <ul>
+            <li><a href="/rater/register">Setup Customer (EDL Staff Only)</a></li>
+            <li><a href="/rater/setup">Register Device (Setup Org)</a></li>
+            <li><a href="/rater/signin">Sign In</a></li>
+            <li><a href="/rater/signout">Sign Out</a></li>
+        </ul>
+    </li>
     <p>Result:</p>
     <p id="txtResule"></p>
 
@@ -50,7 +58,7 @@
     <!-- local scripts -->
     <script src="rater/js/app.js"></script>
     <script>
-        let updateResult= (result) => {
+        let updateResult = (result) => {
             let el = document.querySelector('txtResult')
             el.innerHTML = result;
         }
