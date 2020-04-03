@@ -285,40 +285,46 @@ class RaterSecure {
     }
     static checkRedirect(req, res, next) {
         let storage = new RaterStorage(req, res)
-        //console.log('secure:', storage.secure)
-        //console.log('client:', storage.client)
         let url = urls.getRoutePath(req)
         let accessObj = storage.account
         let mtype = 0
         let fn;
-        if (accessObj) {            
+        if (accessObj) {
             if (api.hasMemberType(accessObj.memberType)) {
                 mtype = accessObj.memberType
             }
+            // get routes for specificed member type
             fn = urls.goHome(mtype)
         }
         if (fn) {
             fn(req, res, next, url)
         }
         else {
-            RaterSecure.redirectToHome(req, res, next, url)
+            // Redirect to root url.
+            RaterSecure.redirectToHome(req, res, next)
         }
     }
     static checkDevice(req, res, next) {
         let storage = new RaterStorage(req, res)
         storage.secure.mode = 'device'
+        storage.commit()
         if (next) next()
     }
-    static redirectToHome(req, res, next, url) {
-        if (url === '/' && next) next()
+    static redirectToHome(req, res, next) {
+        let url = urls.getRoutePath(req)
+        if (url === '/' && next) {
+            // if current url is root (home) so allow to process next chain method
+            next()
+        }
     }
     static deviceRedirect(req, res, next) {
-        //let storage = new RaterStorage(req, res)
         let url = urls.getRoutePath(req)
         if (urls.isDeviceRoute(url) && next) {
+            // valid device route so allow to process next chain method
             next()
         }
         else {
+            // invalid route so redirect to device home.
             res.redirect('/rater')
         }
     }
