@@ -86,7 +86,9 @@ class RaterStorage {
 
 //#region Secure API classes.
 
-class api {}
+class api {
+    static hasMemberType(memberType) { return memberType !== undefined && memberType != null }
+}
 api.CheckAccess = class {
     static prepare(req, res) {
         //let params = WebServer.parseReq(req).data
@@ -95,6 +97,7 @@ api.CheckAccess = class {
             mode: '',
             accessId: ''
         }
+        // default mode (customer)
         let mode = (storage.secure) ? storage.secure.mode : null
         if (mode) {
             params.mode = mode
@@ -263,7 +266,7 @@ class RaterSecure {
     static checkAccess(req, res, next) {
         api.CheckAccess.exec(req, res, (result) => {
             if (dbutils.hasData(result)) {
-                let storage = new RaterStorage(req, res);
+                let storage = new RaterStorage(req, res)
                 let row = result.data[0];
                 //console.log(row)
                 let mode = storage.secure.mode
@@ -281,26 +284,42 @@ class RaterSecure {
         })
     }
     static checkRedirect(req, res, next) {
-        let storage = new RaterStorage(req, res);
+        let storage = new RaterStorage(req, res)
         //console.log('secure:', storage.secure)
         //console.log('client:', storage.client)
-        let url = urls.getRoutePath(req);
-        let accessObj = storage.account;
-        let mtype = 0;
-        
-        if (accessObj) {
-            if (accessObj.mode !== 'device') {
-                let fn;
-                if (accessObj.memberType !== undefined && accessObj.memberType !== null) {
-                    mtype = accessObj.memberType;
-                }
-                fn = urls.goHome(mtype);
-                fn(req, res, next, url);
+        let url = urls.getRoutePath(req)
+        let accessObj = storage.account
+        let mtype = 0
+        let fn;
+        if (accessObj) {            
+            if (api.hasMemberType(accessObj.memberType)) {
+                mtype = accessObj.memberType
             }
-            else {
-                // device mode.
-                console.log('device mode.')
-            }
+            fn = urls.goHome(mtype)
+        }
+        if (fn) {
+            fn(req, res, next, url)
+        }
+        else {
+            RaterSecure.redirectToHome(req, res, next, url)
+        }
+    }
+    static checkDevice(req, res, next) {
+        let storage = new RaterStorage(req, res)
+        storage.secure.mode = 'device'
+        if (next) next()
+    }
+    static redirectToHome(req, res, next, url) {
+        if (url === '/' && next) next()
+    }
+    static deviceRedirect(req, res, next) {
+        //let storage = new RaterStorage(req, res)
+        let url = urls.getRoutePath(req)
+        if (urls.isDeviceRoute(url) && next) {
+            next()
+        }
+        else {
+            res.redirect('/rater')
         }
     }
 

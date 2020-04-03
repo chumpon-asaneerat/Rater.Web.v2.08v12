@@ -222,7 +222,7 @@ const deviceUrls = [
     'rater'
 ]
 const isDeviceRoute = (url) => {
-    let urls = staffUrls
+    let urls = deviceUrls
     let idx = urls.indexOf(removeEndSlash(url))
     return (idx !== -1)
 }
@@ -262,6 +262,7 @@ class UrlUtils {
     static getFullUrl(req) { return getFullUrl(req) }
     static getRoutePath(req) { return getRoutePath(req) }
     static goHome(memberType) { return goHome(memberType) }
+    static isDeviceRoute(url) { return isDeviceRoute(url) }
 }
 
 module.exports.UrlUtils = exports.UrlUtils = UrlUtils;

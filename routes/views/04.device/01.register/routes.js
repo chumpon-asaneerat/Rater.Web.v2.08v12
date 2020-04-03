@@ -32,8 +32,7 @@ const routes = class {
     }
 }
 
-//router.get('/', secure.checkAccess, secure.checkRedirect, routes.home)
-router.get('/', routes.home)
+router.get('/', secure.checkDevice, secure.deviceRedirect, routes.home)
 router.get('/contents', routes.getContents)
 router.get('/js/:file', routes.getjsfile)
 
