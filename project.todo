@@ -319,6 +319,8 @@ Project:
         Javascript:
             service.js:
                 ☐ some logic.
+            nlib-fabric.js:
+                ☐ xxx task.
             xxx.js:
                 ☐ xxx task.
     Riot.js:
