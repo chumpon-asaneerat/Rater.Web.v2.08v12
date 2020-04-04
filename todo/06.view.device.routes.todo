@@ -1,0 +1,37 @@
+Device:
+    Register (device):
+        route:
+            ✔ Prepare route. @done(20-04-04 23:16)
+            ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+        Index.html:
+            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+        app.js:
+            ✔ Prepare access file. @done(20-04-04 23:30)
+    Setup (org):
+        route:
+            ✔ Prepare route. @done(20-04-04 23:16)
+            ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+        Index.html:
+            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+        app.js:
+            ✔ Prepare access file. @done(20-04-04 23:30)
+    Sign In (member):
+        route:
+            ✔ Prepare route. @done(20-04-04 23:16)
+            ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+        Index.html:
+            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+        app.js:
+            ✔ Prepare access file. @done(20-04-04 23:30)
+    Question (current/today):
+        route:
+            ☐ Prepare route.
+            ☐ Implements cookies checking middleware.
+            ☐ Implements route redirect middleware.
+        Index.html:
+            ☐ Prepare access file with relate css/js link.
+        app.js:
+            ☐ Prepare access file.

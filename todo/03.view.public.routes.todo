@@ -1,0 +1,10 @@
+Public:
+    Home:
+        route:
+            ✔ Prepare route. @done(20-04-04 23:21)
+            ✔ Implements cookies checking middleware. @done(20-04-04 23:21)
+            ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+        Index.html:
+            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:29)
+        app.js:
+            ✔ Prepare access file. @done(20-04-04 23:29)
