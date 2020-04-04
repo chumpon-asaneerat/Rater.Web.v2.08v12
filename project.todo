@@ -5,32 +5,109 @@ Project:
             ☐ Working with REST Api for each datae items to reduce login on client screen.
         Routes:
             Views:
+                Public:
+                    Home:
+                        ✔ Prepare route. @done(20-04-04 23:21)
+                        ✔ Implements cookies checking middleware. @done(20-04-04 23:21)
+                        ✔ Implements route redirect middleware. @done(20-04-04 23:22)
                 EDL:
                     Admin:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:12)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:22)
                     Supervisor:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:13)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:22)
                     Staff:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:13)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:22)
                 Customer:
                     Admin:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:13)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+                        Branch:
+                            ✔ Prepare route. @done(20-04-04 23:20)
+                            ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                        Organization:
+                            ✔ Prepare route. @done(20-04-04 23:20)
+                            ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                        Member:
+                            ✔ Prepare route. @done(20-04-04 23:20)
+                            ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                        Device:
+                            ✔ Prepare route. @done(20-04-04 23:20)
+                            ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                        Question (design):
+                            ☐ Prepare route.
+                            ☐ Implements cookies checking middleware.
+                            ☐ Implements route redirect middleware.
+                        Report:
+                            Home:
+                                ✔ Prepare route. @done(20-04-04 23:19)
+                                ✔ Implements cookies checking middleware. @done(20-04-04 23:19)
+                                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Raw Vote:
+                                ✔ Prepare route. @done(20-04-04 23:19)
+                                ✔ Implements cookies checking middleware. @done(20-04-04 23:19)
+                                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Vote Summary:
+                                ✔ Prepare route. @done(20-04-04 23:19)
+                                ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Bar chart:
+                                ✔ Prepare route. @done(20-04-04 23:19)
+                                ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Pie chart:
+                                ✔ Prepare route. @done(20-04-04 23:19)
+                                ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Staff Compare:
+                                ✔ Prepare route. @done(20-04-04 23:19)
+                                ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Staff Performance:
+                                ✔ Prepare route. @done(20-04-04 23:20)
+                                ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
+                                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
                     Exclusive:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:13)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
                     Staff:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:14)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
+                            ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                Device:
+                    Register (device):
+                        ✔ Prepare route. @done(20-04-04 23:16)
+                        ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+                        ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                    Setup (org):
+                        ✔ Prepare route. @done(20-04-04 23:16)
+                        ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+                        ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                    Sign In (member):
+                        ✔ Prepare route. @done(20-04-04 23:16)
+                        ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+                        ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                    Question (current/today):
+                        ☐ Prepare route.
+                        ☐ Implements cookies checking middleware.
+                        ☐ Implements route redirect middleware.
     Riot.js:
         ☐ Rework all controls.
         ☐ Check how to send complex data (like search criteria) between parent-child tag.
