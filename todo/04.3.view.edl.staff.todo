@@ -1,0 +1,10 @@
+Staff:
+    Home:
+        route:
+            ✔ Prepare route. @done(20-04-04 23:13)
+            ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
+            ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+        Index.html:
+            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+        app.js:
+            ✔ Prepare access file. @done(20-04-05 00:40)
