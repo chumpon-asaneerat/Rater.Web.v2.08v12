@@ -10,104 +10,196 @@ Project:
                         ✔ Prepare route. @done(20-04-04 23:21)
                         ✔ Implements cookies checking middleware. @done(20-04-04 23:21)
                         ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+                        Index.html:
+                            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:29)
+                        app.js:
+                            ✔ Prepare access file. @done(20-04-04 23:29)
                 EDL:
                     Admin:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:12)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:29)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:29)
                     Supervisor:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:13)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                     Staff:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:13)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                 Customer:
                     Admin:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:13)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                         Branch:
                             ✔ Prepare route. @done(20-04-04 23:20)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                         Organization:
                             ✔ Prepare route. @done(20-04-04 23:20)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                         Member:
                             ✔ Prepare route. @done(20-04-04 23:20)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                         Device:
                             ✔ Prepare route. @done(20-04-04 23:20)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                         Question (design):
                             ☐ Prepare route.
                             ☐ Implements cookies checking middleware.
                             ☐ Implements route redirect middleware.
+                            Index.html:
+                                ☐ Prepare access file with relate css/js link.
+                            app.js:
+                                ☐ Prepare access file.
                         Report:
                             Home:
                                 ✔ Prepare route. @done(20-04-04 23:19)
                                 ✔ Implements cookies checking middleware. @done(20-04-04 23:19)
                                 ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                                Index.html:
+                                    ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                                app.js:
+                                    ✔ Prepare access file. @done(20-04-04 23:30)
                             Raw Vote:
                                 ✔ Prepare route. @done(20-04-04 23:19)
                                 ✔ Implements cookies checking middleware. @done(20-04-04 23:19)
                                 ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                                Index.html:
+                                    ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                                app.js:
+                                    ✔ Prepare access file. @done(20-04-04 23:30)
                             Vote Summary:
                                 ✔ Prepare route. @done(20-04-04 23:19)
                                 ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                                 ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                                Index.html:
+                                    ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                                app.js:
+                                    ✔ Prepare access file. @done(20-04-04 23:30)
                             Bar chart:
                                 ✔ Prepare route. @done(20-04-04 23:19)
                                 ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                                 ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                                Index.html:
+                                    ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                                app.js:
+                                    ✔ Prepare access file. @done(20-04-04 23:30)
                             Pie chart:
                                 ✔ Prepare route. @done(20-04-04 23:19)
                                 ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                                 ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                                Index.html:
+                                    ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                                app.js:
+                                    ✔ Prepare access file. @done(20-04-04 23:30)
                             Staff Compare:
                                 ✔ Prepare route. @done(20-04-04 23:19)
                                 ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                                 ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                                Index.html:
+                                    ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                                app.js:
+                                    ✔ Prepare access file. @done(20-04-04 23:30)
                             Staff Performance:
                                 ✔ Prepare route. @done(20-04-04 23:20)
                                 ✔ Implements cookies checking middleware. @done(20-04-04 23:20)
                                 ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                                Index.html:
+                                    ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                                app.js:
+                                    ✔ Prepare access file. @done(20-04-04 23:30)
                     Exclusive:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:13)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                     Staff:
                         Home:
                             ✔ Prepare route. @done(20-04-04 23:14)
                             ✔ Implements cookies checking middleware. @done(20-04-04 23:14)
                             ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                            Index.html:
+                                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                            app.js:
+                                ✔ Prepare access file. @done(20-04-04 23:30)
                 Device:
                     Register (device):
                         ✔ Prepare route. @done(20-04-04 23:16)
                         ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
                         ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                        Index.html:
+                            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                        app.js:
+                            ✔ Prepare access file. @done(20-04-04 23:30)
                     Setup (org):
                         ✔ Prepare route. @done(20-04-04 23:16)
                         ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
                         ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                        Index.html:
+                            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                        app.js:
+                            ✔ Prepare access file. @done(20-04-04 23:30)
                     Sign In (member):
                         ✔ Prepare route. @done(20-04-04 23:16)
                         ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
                         ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+                        Index.html:
+                            ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+                        app.js:
+                            ✔ Prepare access file. @done(20-04-04 23:30)
                     Question (current/today):
                         ☐ Prepare route.
                         ☐ Implements cookies checking middleware.
                         ☐ Implements route redirect middleware.
+                        Index.html:
+                            ☐ Prepare access file with relate css/js link.
+                        app.js:
+                            ☐ Prepare access file.
     Riot.js:
         ☐ Rework all controls.
         ☐ Check how to send complex data (like search criteria) between parent-child tag.
