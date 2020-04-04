@@ -4,6 +4,36 @@ Project:
             ☐ Checks how to make url work with and without tailing slash.
             ☐ Working with REST Api for each datae items to reduce login on client screen.
         Routes:
+            API:
+                Languages:
+                    ✔ Prepare route. @done(20-04-04 23:49)
+                    ✔ Implements database access code. @done(20-04-04 23:49)
+                    Implements processing logic:
+                        ☐ 
+                Signin:
+                    ✔ Prepare route. @done(20-04-04 23:49)
+                    ✔ Implements database access code. @done(20-04-04 23:49)
+                    Implements processing logic:
+                        ✔ Check user mode by IsEDLUser flag. @done(20-04-04 23:47)
+                        ✔ Get accessId from database. @done(20-04-04 23:47)
+                        ✔ Update secure cookie by mode (accessId, customerId, memberId, memberType). @done(20-04-04 23:49)
+                        ✔ Update client cookie (accessId). @done(20-04-04 23:49)
+                VerifyUsers:
+                    ✔ Prepare route. @done(20-04-04 23:49)
+                    ✔ Implements database access code. @done(20-04-04 23:49)
+                    Implements processing logic:
+                        ☐ 
+                Signout:
+                    ✔ Prepare route. @done(20-04-04 23:49)
+                    ✔ Implements database access code. @done(20-04-04 23:49)
+                    Implements processing logic:
+                        ✔ Clear related cookie (secure/client). @done(20-04-04 23:49)
+                        ✔ Reset data in database @done(20-04-04 23:49)
+                Register:
+                    ☐ Prepare route.
+                    ☐ Implements database access code.
+                    Implements processing logic:
+                        ☐ 
             Views:
                 Public:
                     Home:
@@ -265,6 +295,32 @@ Project:
                             ☐ Prepare access file with relate css/js link.
                         app.js:
                             ☐ Prepare access file.
+    Client:
+        Rater Tags (riot.js):
+            Common:
+                Rater Web App tag:
+                    ☐ Init tag.
+                Language Dropdown Menu tags:
+                    ☐ Init tag.
+                Link Dropdown Menu tags:
+                    ☐ Init tag.
+                Status Bar tag:
+                    ☐ Init tag.
+                Rater Device App tag:
+                    ☐ Init tag.
+            Sign In Process:
+                Sign In entry tag:
+                    ☐ Init tag.
+                User Selection List tag:
+                    ☐ Init tag.
+            Register Process:
+                Register entry tag:
+                    ☐ Init tag.
+        Javascript:
+            service.js:
+                ☐ 
+            xxx.js:
+                ☐ xxx task.
     Riot.js:
         ☐ Rework all controls.
         ☐ Check how to send complex data (like search criteria) between parent-child tag.
