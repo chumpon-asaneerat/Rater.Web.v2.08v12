@@ -1,0 +1,48 @@
+Views:
+    Public:
+        Home:
+            Route:
+                ✔ Prepare route. @done(20-04-04 23:21)
+                ✔ Implements cookies checking middleware. @done(20-04-04 23:21)
+                ✔ Implements route redirect middleware. @done(20-04-04 23:22)
+            Index.html:
+                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:29)
+            app.js:
+                ✔ Prepare access file. @done(20-04-04 23:29)
+
+        Register (device):
+            Route:
+                ✔ Prepare route. @done(20-04-04 23:16)
+                ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+            Index.html:
+                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+            app.js:
+                ✔ Prepare access file. @done(20-04-04 23:30)
+        Setup (org):
+            Route:
+                ✔ Prepare route. @done(20-04-04 23:16)
+                ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+            Index.html:
+                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+            app.js:
+                ✔ Prepare access file. @done(20-04-04 23:30)
+        Sign In (member):
+            Route:
+                ✔ Prepare route. @done(20-04-04 23:16)
+                ✔ Implements cookies checking middleware. @done(20-04-04 23:16)
+                ✔ Implements route redirect middleware. @done(20-04-04 23:23)
+            Index.html:
+                ✔ Prepare access file with relate css/js link. @done(20-04-04 23:30)
+            app.js:
+                ✔ Prepare access file. @done(20-04-04 23:30)
+        Question (current/today):
+            Route:
+                ☐ Prepare route.
+                ☐ Implements cookies checking middleware.
+                ☐ Implements route redirect middleware.
+            Index.html:
+                ☐ Prepare access file with relate css/js link.
+            app.js:
+                ☐ Prepare access file.

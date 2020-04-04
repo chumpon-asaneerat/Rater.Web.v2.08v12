@@ -1,0 +1,30 @@
+API:
+    Languages:
+        ✔ Prepare route. @done(20-04-04 23:49)
+        ✔ Implements database access code. @done(20-04-04 23:49)
+        Implements processing logic:
+            ☐ some logic.
+    Signin:
+        ✔ Prepare route. @done(20-04-04 23:49)
+        ✔ Implements database access code. @done(20-04-04 23:49)
+        Implements processing logic:
+            ✔ Check user mode by IsEDLUser flag. @done(20-04-04 23:47)
+            ✔ Get accessId from database. @done(20-04-04 23:47)
+            ✔ Update secure cookie by mode (accessId, customerId, memberId, memberType). @done(20-04-04 23:49)
+            ✔ Update client cookie (accessId). @done(20-04-04 23:49)
+    VerifyUsers:
+        ✔ Prepare route. @done(20-04-04 23:49)
+        ✔ Implements database access code. @done(20-04-04 23:49)
+        Implements processing logic:
+            ☐ some logic.
+    Signout:
+        ✔ Prepare route. @done(20-04-04 23:49)
+        ✔ Implements database access code. @done(20-04-04 23:49)
+        Implements processing logic:
+            ✔ Clear related cookie (secure/client). @done(20-04-04 23:49)
+            ✔ Reset data in database @done(20-04-04 23:49)
+    Register:
+        ☐ Prepare route.
+        ☐ Implements database access code.
+        Implements processing logic:
+            ☐ some logic.
