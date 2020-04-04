@@ -9,7 +9,7 @@ Project:
                     ✔ Prepare route. @done(20-04-04 23:49)
                     ✔ Implements database access code. @done(20-04-04 23:49)
                     Implements processing logic:
-                        ☐ 
+                        ☐ some logic.
                 Signin:
                     ✔ Prepare route. @done(20-04-04 23:49)
                     ✔ Implements database access code. @done(20-04-04 23:49)
@@ -22,7 +22,7 @@ Project:
                     ✔ Prepare route. @done(20-04-04 23:49)
                     ✔ Implements database access code. @done(20-04-04 23:49)
                     Implements processing logic:
-                        ☐ 
+                        ☐ some logic.
                 Signout:
                     ✔ Prepare route. @done(20-04-04 23:49)
                     ✔ Implements database access code. @done(20-04-04 23:49)
@@ -33,7 +33,7 @@ Project:
                     ☐ Prepare route.
                     ☐ Implements database access code.
                     Implements processing logic:
-                        ☐ 
+                        ☐ some logic.
             Views:
                 Public:
                     Home:
@@ -318,7 +318,7 @@ Project:
                     ☐ Init tag.
         Javascript:
             service.js:
-                ☐ 
+                ☐ some logic.
             xxx.js:
                 ☐ xxx task.
     Riot.js:
