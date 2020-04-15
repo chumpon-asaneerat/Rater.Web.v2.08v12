@@ -2,6 +2,8 @@ Project:
     Express JS:
         ☐ Checks how to make url work with and without tailing slash.
         ☐ Working with REST Api for each datae items to reduce login on client screen.
+    MSSQL:
+        ☐ Recheck generate schema to fixed nlib path reference.
     Riot.js:
         ☐ Rework all controls.
         ☐ Check how to send complex data (like search criteria) between parent-child tag.
