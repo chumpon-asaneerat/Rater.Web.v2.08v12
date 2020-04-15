@@ -7,6 +7,8 @@ Project:
         ☐ Check how to send complex data (like search criteria) between parent-child tag.
         ☐ Decouple dependency between tag(s) and relate service object(s) if possible.
         ☐ Dialog control required to re-implements.
+        ☐ Rework on chart bar/pie components.
+        ☐ Rework on Dashboard elements.
     fabric.js:
         ☐ Full Screen canvas (auto resize to fit screen with aspect ratio).
         ☐ Toolbox drag drop to canvas.
