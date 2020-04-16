@@ -1,4 +1,6 @@
 Project:
+    CSS:
+        ☐ XXX
     Express JS:
         ☐ Checks how to make url work with and without tailing slash.
         ☐ Working with REST Api for each datae items to reduce login on client screen.
