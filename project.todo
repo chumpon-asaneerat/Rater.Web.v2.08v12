@@ -2,6 +2,7 @@ Project:
     Rater:
         ☐ Convert all routes from v11 to v12
         ☐ Prepare routes to stored question.json by QSetId.
+        ☐ Retest all summaries reports when some Question Item remove.
     CSS:
         ☐ Drop shadow.
         ☐ Grid layout.
