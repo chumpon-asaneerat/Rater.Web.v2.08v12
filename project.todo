@@ -1,6 +1,7 @@
 Project:
     Rater:
         ☐ Convert all routes from v11 to v12
+        ☐ Prepare routes to stored question.json by QSetId.
     CSS:
         ☐ XXX
     Express JS:
@@ -22,5 +23,5 @@ Project:
         ☐ Group/ungroup selection.
         ☐ Background image.
         ☐ Preview Template Canvas.
-        ☐ Template code for create shape for basic slides.
         ☐ Prepare json model for question slides.
+        ☐ Template code for create shape for basic slides.
