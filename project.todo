@@ -6,6 +6,7 @@ Project:
     CSS:
         ☐ Drop shadow.
         ☐ Grid layout.
+        ☐ Dropdown menu center (horizontal/vertical) image and text.
     Express JS:
         ☐ Checks how to make url work with and without tailing slash.
         ☐ Working with REST Api for each datae items to reduce login on client screen.
