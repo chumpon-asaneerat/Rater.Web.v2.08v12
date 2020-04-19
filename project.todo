@@ -3,7 +3,8 @@ Project:
         ☐ Convert all routes from v11 to v12
         ☐ Prepare routes to stored question.json by QSetId.
     CSS:
-        ☐ XXX
+        ☐ Drop shadow.
+        ☐ Grid layout.
     Express JS:
         ☐ Checks how to make url work with and without tailing slash.
         ☐ Working with REST Api for each datae items to reduce login on client screen.
@@ -22,6 +23,7 @@ Project:
         ☐ Add multilanguage Text control (extend properties required).
         ☐ Group/ungroup selection.
         ☐ Background image.
+        ☐ Supports sound.
         ☐ Preview Template Canvas.
         ☐ Prepare json model for question slides.
         ☐ Template code for create shape for basic slides.
