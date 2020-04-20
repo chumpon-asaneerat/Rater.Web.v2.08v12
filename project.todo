@@ -3,6 +3,8 @@ Project:
         ☐ Convert all routes from v11 to v12
         ☐ Prepare routes to stored question.json by QSetId.
         ☐ Retest all summaries reports when some Question Item remove.
+        ☐ Single object edit entry required to keep Id in cookies for used in ajax call from client.
+        ☐ For get/set api single object route should auto read cookie for Id if not assigned by caller.
     CSS:
         ☐ Drop shadow.
         ☐ Grid layout.
