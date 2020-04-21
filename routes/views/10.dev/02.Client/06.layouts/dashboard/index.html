@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard sample.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css" />
+    <!-- JQuery UI -->
+    <link href="/dist/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 4 -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <!-- Flag and Emoji icons -->
+    <link href="/dist/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
+    <!-- highcharts css -->
+    <link href="/dist/css/highcharts.css" rel="stylesheet" type="text/css" />
+    <style>
+        .my-canvas {
+            display: inline-block;
+            vertical-align: baseline;
+            margin: 0 auto;
+            padding: 0;
+            width: 300px;
+            height: 300px;
+            background: whitesmoke;
+            border: 1px solid silver;
+        }
+        .my-span {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: seashell;
+        }
+
+        .app {
+            display: grid;
+            margin: 0 auto;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            grid-template-areas: 
+                'app-area';
+            background: cornsilk;
+            overflow: hidden;
+        }
+        .app-area {
+            grid-area: app-area;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr;
+            grid-template-areas: 
+                'navi-area'
+                'scrn-area';
+            margin: 0 auto;
+            padding: 0;
+            /* text-align: center; */
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .navi-area {
+            grid-area: navi-area;
+            /* display: block; */
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow: hidden;
+            /* border: 1px dotted yellowgreen; */
+        }
+        .scrn-area {
+            grid-area: scrn-area;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: 
+                'sidebar client-area';
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow: hidden;
+            /* border: 1px dotted red; */
+        }
+        .block {
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            text-align: center;
+            background: navajowhite;
+        }
+        .navibar {
+            display: flex;            
+            align-items: baseline;
+            justify-content: space-between;
+            margin: 0;
+            padding: 1px 4px;
+            width: 100%;
+            color: white;
+            background: cornflowerblue;
+        }
+        .navibar.hide {
+            display: none;
+        }
+        .navibar .navitem {
+            display: inline-block;
+            margin: 2px;
+            padding: 2px;
+            font-size: 1.1rem;
+            vertical-align: baseline;
+            cursor: default;
+        }
+        .navibar .navitem.center {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .navibar .navitem.right {
+            justify-self: flex-end;
+        }
+        .sidebar {
+            grid-area: sidebar;
+            margin: 0;
+            padding: 5px;
+            width: 50px;
+            height: 100%;
+            border: 1px dotted orange;
+        }
+        .client-area {
+            grid-area: client-area;
+            display: grid;
+            grid-auto-flow: row;
+            grid-auto-rows: max-content;
+            grid-gap: 10px;
+
+            margin: 0;
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+            border: 1px dotted navy;
+            overflow: auto;
+        }
+
+        .chart-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-gap: 10px;
+            grid-auto-rows: minmax(200px, max-content);
+
+            margin: 0;
+            padding: 5px;
+            width: 100%;
+            height: auto;
+            border: 1px dotted green;
+        }
+
+        .bar-chart {
+            position: relative;
+            display: block;
+            margin: 0;
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+
+            background: whitesmoke;
+
+            border: 1px dotted orchid;
+            border-radius: 5px;
+            box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4);
+        }
+        .bar-chart .chart-box {
+            display: block;
+            position: absolute;
+            margin: 0;
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+            min-width: 100px;
+        }
+        .bar-chart .chart-box .highcharts-background {
+            /* fill: rgba(200, 200, 200, .5); */
+            fill: rgba(250, 250, 250, .1);
+        }
+
+        .pie-chart {
+            position: relative;
+            display: block;
+            margin: 0;
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+
+            /* background: azure; */
+            background: whitesmoke;
+
+            border: 1px dotted skyblue;
+            border-radius: 5px;
+            box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4);
+        }
+        .pie-chart .chart-box {
+            display: block;
+            margin: 0 auto;
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+        }
+        .pie-chart .chart-box .highcharts-background {
+            /* fill: rgba(200, 200, 200, .5); */
+            fill: rgba(250, 250, 250, .1);
+        }
+
+        .info-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 10px;
+            grid-auto-rows: max-content;
+
+            margin: 0;
+            padding: 5px;
+            width: 100%;
+            height: auto;
+            border: 1px dotted green;
+        }
+        .info-box {
+            display: inline-block;
+            margin: 0;
+            padding: 5px;
+            /* width: 20%; */
+            height: fit-content;
+            /*
+            width: fit-content;
+            height: fit-content;
+            */
+
+            font-size: 1rem;
+
+            background: wheat;
+            border: 1px dotted chocolate;
+            border-radius: 5px;
+
+            box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 400px) {
+            .info-box { 
+                /* width: 100%; */
+                background: olive;
+            }
+        }
+
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 600px) {
+            .info-box { 
+                /* width: 50%; */
+                background: hotpink;
+            }
+        }
+
+        /* Large devices (laptops/desktops, 992px and up) */
+        @media only screen and (min-width: 800px) {
+            .info-box { 
+                /* width: 33.3%; */
+                background: fuchsia;
+            }
+        }
+
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @media only screen and (min-width: 1000px) {
+            .info-box { 
+                /* width: 25%; */
+                background: grey; 
+            }
+        }
+
+        .info-box .info-data-value {
+            display: inline-block;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            height: auto;
+
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+        .info-box .info-caption {
+            display: inline-block;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            height: auto;
+
+            text-align: center;
+        }
+        .info-box .info-caption-icon {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            height: auto;
+
+            font-size: 0.7em;
+            font-weight: normal;
+        }
+        .info-box .info-caption-text {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            height: auto;
+
+            font-size: 0.7em;
+            font-weight: normal;
+        }
+
+        .data-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 5px;
+            grid-auto-rows: max-content;
+
+            margin: 0;
+            padding: 5px;
+            width: 100%;
+            height: auto;
+            border: 1px dotted green;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="app-area">
+            <div class="navi-area">
+                <div class="navibar">
+                    <div class="navitem">
+                        <span class="fas fa-home"></span>
+                        <span>Home</span>
+                    </div>
+                    <div class="navitem">menu 1</div>
+                    <div class="navitem">menu 2</div>
+                    <div class="navitem center"><!-- fill up space. -->center</div>
+                    <div class="navitem right">right 1</div>
+                    <div class="navitem right">
+                        <span class="fas fa-bars"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="scrn-area">
+                <div class="sidebar">
+                    
+                </div>
+                <div class="client-area">
+                    <div class="info-panel">
+                        <div class="info-box">
+                            <div class="info-data">
+                                <div class="info-data-value">3.82</div>
+                            </div>
+                            <div class="info-caption">
+                                <div class="info-caption-icon">
+                                    <span class="fas fa-calendar"></span>
+                                </div>
+                                <div class="info-caption-text">
+                                    Average
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <div class="info-data">
+                                <div class="info-data-value">87%</div>
+                            </div>
+                            <div class="info-caption">
+                                <div class="info-caption-icon">
+                                    <span class="fas fa-calendar"></span>
+                                </div>
+                                <div class="info-caption-text">
+                                    Average %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <div class="info-data">
+                                <div class="info-data-value">200 K+</div>
+                            </div>
+                            <div class="info-caption">
+                                <div class="info-caption-icon">
+                                    <span class="fas fa-calendar"></span>
+                                </div>
+                                <div class="info-caption-text">
+                                    Total Votes
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <div class="info-data">
+                                <div class="info-data-value">30</div>
+                            </div>
+                            <div class="info-caption">
+                                <div class="info-caption-icon">
+                                    <span class="fas fa-calendar"></span>
+                                </div>
+                                <div class="info-caption-text">
+                                    Wait list
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-panel">
+                        <div class="bar-chart">
+                            <div class="chart-box" id="bar1"></div>
+                        </div>
+                        <div class="pie-chart">
+                            <div class="chart-box" id="pie1"></div>
+                        </div>
+                    </div>
+                    <div class="data-panel">
+                        <h3>DATA</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="/dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/dist/js/popper.min.js"></script>
+    <script src="/dist/js/tooltip.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js">/* bootstrap required jQuery and popperjs. */</script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- highcharts -->
+    <script src="/dist/js/highcharts.js"></script>
+
+    <!-- nlib -->
+    <script src="/dist/js/nlib.js"></script>
+    <script>
+        //console.log('page loaded.');
+        let bar1 = document.getElementById('bar1');
+        let data1 = [
+            { name: 'EDL', y: 3.5 },
+            { name: 'Sale', y: 3.8 },
+            { name: 'Engineer', y: 3.2 },
+            { name: 'Supports', y: 2.9 },
+            { name: 'Finance', y: 3.7 }
+        ];
+        let xlabels = [
+            'EDL',
+            'Sale',
+            'Engineer',
+            'Supports',
+            'Finance'
+        ];
+
+        Highcharts.chart(bar1, {
+                credits: {
+                    enabled: false
+                },
+                chart: {                      
+                    type: 'column'
+                },
+                title: { 
+                    text: 'Vote Summary Bar graph'
+                },
+                subtitle: {
+                    //text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+                },
+                xAxis: { 
+                    //type: 'Organization',
+                    categories: xlabels
+                },
+                yAxis: { 
+                    title: { text: 'Average' }
+                },
+                legend: { enabled: false },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.2f}'
+                        }
+                    }
+                },
+                tooltip: {
+                    //headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    headerFormat: '',
+                    //pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b><br/>'
+                    pointFormat: '<span>{point.name}</span>: <b>{point.y:.2f}</b><br/>'
+                },
+                series: [{
+                    name: "Organization",
+                    colorByPoint: true,
+                    data: data1
+                }]
+            });
+
+            let pie1 = document.getElementById('pie1');
+            let chartTitle = 'EDL';
+            let data2 = [
+                { name: 'Excellent', y: 30 },
+                { name: 'Good', y: 21 },
+                { name: 'Fair', y: 24 },
+                { name: 'Poor', y: 15 }
+            ];
+            
+            Highcharts.chart(pie1, {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: chartTitle
+                },
+                tooltip: {
+                    pointFormat: '<b>{point.percentage:.2f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: false,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Choice',
+                    colorByPoint: true,
+                    data: data2
+                }]
+            });
+
+    </script>
+</body>
+</html>
