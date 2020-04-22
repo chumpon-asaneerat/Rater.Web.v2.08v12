@@ -9,8 +9,12 @@
             margin: 0;
             padding: 1px 4px;
             width: 100%;            
+            /*
             color: white;
             background: cornflowerblue;
+            */
+            color: var(--navbar-foreground-color);
+            background: var(--navbar-background-color);
             overflow: hidden;
         }
         /*

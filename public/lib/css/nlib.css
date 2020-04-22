@@ -1,1 +1,9 @@
-html, body { width: 100%; height: 100% ;}
+:root {
+    --navbar-foreground-color: navy;
+    --navbar-background-color: transparent;
+}
+
+html, body { 
+    width: 100%;
+    height: 100%;
+}

@@ -8,6 +8,8 @@
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
+            <!--
+            -->
             <navi-item class="right"><language-menu></language-menu></navi-item>
             <navi-item class="right"><links-menu></links-menu></navi-item>
         </navibar>
@@ -94,14 +96,14 @@
         //#region events bind/unbind
 
         let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
-            addEvt(events.name.ContentChanged, onContentChanged)
-            addEvt(events.name.ScreenChanged, onScreenChanged)
+            //addEvt(events.name.LanguageChanged, onLanguageChanged)
+            //addEvt(events.name.ContentChanged, onContentChanged)
+            //addEvt(events.name.ScreenChanged, onScreenChanged)
         }
         let unbindEvents = () => {
-            delEvt(events.name.ScreenChanged, onScreenChanged)
-            delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
+            //delEvt(events.name.ScreenChanged, onScreenChanged)
+            //delEvt(events.name.ContentChanged, onContentChanged)
+            //delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
 
         //#endregion

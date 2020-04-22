@@ -1,11 +1,12 @@
 let app;
 
 (() => {
-    /*
     let tags = riot.mount('rater-web-app')
-    let screenId = 'rater-home'
-    screens.show(screenId)
-    */
+    //let screenId = 'rater-home'
+    //screens.show(screenId)
+})();
+/*
+(() => {
     app = {}
     nlib.edl = {}
     nlib.edl.admin = {}
@@ -74,3 +75,4 @@ let app;
         console.log(app.info)
     }
 })();
+*/
