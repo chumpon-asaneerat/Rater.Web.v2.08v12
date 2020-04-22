@@ -76,7 +76,6 @@
         //#endregion
 
         //#region content variables and methods
-
         let updatecontent = () => {
             let scrId = screens.current.screenId;
             let scrContent = (contents.current && contents.current.screens) ? contents.current.screens[scrId] : null;

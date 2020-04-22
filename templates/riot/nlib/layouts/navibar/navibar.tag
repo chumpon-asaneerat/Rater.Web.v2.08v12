@@ -14,7 +14,7 @@
             background: cornflowerblue;
             */
             color: var(--navbar-foreground-color);
-            background: var(--navbar-background-color);
+            background-color: var(--navbar-background-color);
             overflow: hidden;
         }
         /*
