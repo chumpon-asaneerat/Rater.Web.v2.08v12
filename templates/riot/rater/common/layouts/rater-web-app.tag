@@ -8,8 +8,6 @@
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
-            <!--
-            -->
             <navi-item class="right"><language-menu></language-menu></navi-item>
             <navi-item class="right"><links-menu></links-menu></navi-item>
         </navibar>
