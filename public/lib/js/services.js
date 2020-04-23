@@ -104,6 +104,25 @@ class UserPerference extends LocalStorage {
 
 //#endregion
 
+//#region DbApi class (required for call api)
+
+class DbApi {
+    static parse(r) {        
+        let ret = { records: null, errors: null, out: null };
+        if (r && r.result) {
+            //console.log(r.result)
+            ret.records = r.result.data;
+            ret.out = r.result.out;
+            ret.errors = r.result.errors;
+        }
+        return ret;
+    }
+}
+
+const api = DbApi; // create shortcur variable.
+
+//#endregion
+
 //#region LanguageService class
 
 /** app language changed. */
