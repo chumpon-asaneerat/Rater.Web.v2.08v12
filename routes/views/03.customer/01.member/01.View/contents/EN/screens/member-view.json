@@ -1,0 +1,20 @@
+{
+    "title": "User Account Management",
+    "columns": [
+        {
+            "title": "Prefix",
+            "field": "Prefix",
+            "resizable": false
+        },
+        {
+            "title": "First Name",
+            "field": "FirstName",
+            "resizable": false
+        },
+        {
+            "title": "Last Name",
+            "field": "LastName",
+            "resizable": false
+        }
+    ]
+}

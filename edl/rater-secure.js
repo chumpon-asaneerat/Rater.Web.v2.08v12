@@ -271,6 +271,7 @@ class RaterSecure {
                 //console.log(row)
                 let mode = storage.secure.mode
                 // for secure
+                storage.secure[mode].customerId = row.CustomerId
                 storage.secure[mode].memberId = row.MemberId
                 storage.secure[mode].memberType = row.MemberType
                 // for client

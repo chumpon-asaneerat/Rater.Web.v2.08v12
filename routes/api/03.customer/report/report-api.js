@@ -4,7 +4,7 @@ const path = require('path');
 const rootPath = process.env['ROOT_PATHS'];
 const nlib = require(path.join(rootPath, 'nlib', 'nlib'));
 
-const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r9.db'));
+const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r12.db'));
 
 //#endregion
 

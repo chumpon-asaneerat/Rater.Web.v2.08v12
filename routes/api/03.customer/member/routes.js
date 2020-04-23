@@ -4,8 +4,9 @@ const path = require('path');
 const rootPath = process.env['ROOT_PATHS'];
 const nlib = require(path.join(rootPath, 'nlib', 'nlib'));
 
-const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r9.db'));
+const sqldb = require(path.join(nlib.paths.root, 'RaterWebv2x08r12.db'));
 const secure = require(path.join(rootPath, 'edl', 'rater-secure')).RaterSecure;
+const RaterStorage = require(path.join(rootPath, 'edl', 'rater-secure')).RaterStorage;
 
 const WebServer = require(path.join(rootPath, 'nlib', 'nlib-express'));
 const WebRouter = WebServer.WebRouter;
@@ -59,15 +60,16 @@ const api = class { }
 
 api.Get = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
+        let params = WebServer.parseReq(req).data
+        let storage = new RaterStorage(req, res)
         // force langId to null;
-        params.langId = null;
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
-        params.memberId = null;
-        params.enabled = true;
+        params.langId = null
+        let customerId = storage.account.customerId
+        if (customerId) params.customerId = customerId
+        params.memberId = null
+        params.enabled = true
 
-        return params;
+        return params
     }
     static async call(db, params) { 
         return db.GetMemberInfos(params);

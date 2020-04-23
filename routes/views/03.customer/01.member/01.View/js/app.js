@@ -1,4 +1,12 @@
 let app;
+
+(() => {
+    let tags = riot.mount('rater-web-app')
+    let screenId = 'member-view'
+    screens.show(screenId)
+})();
+/*
+let app;
 (() => {
     nlib.signout = () => { secure.signout() }
 
@@ -9,3 +17,4 @@ let app;
         console.log(app.info)
     }
  })();
+*/

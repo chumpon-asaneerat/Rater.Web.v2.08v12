@@ -249,7 +249,6 @@
         let onContentChanged = (e) => { updatecontent() }
         let onLanguageChanged = (e) => { updatecontent() }
         let onScreenChanged = (e) => { updatecontent() }
-
         let onUserListChanged = (e) => { showUserSelection() }
         let onSignInFailed = (e) => {
             let err = e.detail.error

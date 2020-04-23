@@ -1,0 +1,20 @@
+{
+    "title": "บัญชีผู้ใช้งาน",
+    "columns": [
+        {
+            "title": "คำนำหน้า",
+            "field": "Prefix",
+            "resizable": false
+        },
+        {
+            "title": "ชื่อ",
+            "field": "FirstName",
+            "resizable": false
+        },
+        {
+            "title": "นามสกุล",
+            "field": "LastName",
+            "resizable": false
+        }
+    ]
+}
