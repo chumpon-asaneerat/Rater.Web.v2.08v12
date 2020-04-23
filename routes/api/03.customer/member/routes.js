@@ -281,7 +281,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for member
-router.all('/member/search', api.Get.entry);
+router.all('/member', api.Get.entry);
 router.post('/member/save', api.Save.entry);
 //router.post('/member/delete', api.Delete.entry);
 

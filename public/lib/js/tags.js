@@ -1469,13 +1469,12 @@ riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="tool" 
 
         }
         this.refresh = (e) => {
-            let url = '/customer/api/member/search'
+            let url = '/customer/api/member'
             let paramObj = {
                 langId: lang.langId
             }
             let fn = (r) => {
                 let ret = api.parse(r)
-                console.log(ret)
                 datasource = ret.records
                 syncData()
                 updatecontent()
