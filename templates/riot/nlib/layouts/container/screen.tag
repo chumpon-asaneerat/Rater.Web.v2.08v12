@@ -53,21 +53,14 @@
             height: 100%;
         }
         :scope .content-area sidebar[position="left"][mode="float"] {
+            grid-area: sidebar-left;
             position: absolute;
             width: 50px;
             background-color: aqua;
         }
         :scope .content-area sidebar[position="left"][mode="float"]:hover {
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            top: 0;
-            left: 0;
-            bottom: 0;
             width: 250px;
-            background-color: aqua;
         }
-
         :scope .content-area .content-body {
             grid-area: content-body;
             margin: 0;
