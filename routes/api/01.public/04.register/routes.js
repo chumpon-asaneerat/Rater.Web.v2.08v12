@@ -64,6 +64,7 @@ const routes = class {
     static CheckUsers(req, res) {
         let db = new sqldb();
         let params = WebServer.parseReq(req).data;
+        params.langId = null
         
         let fn = async () => {
             return db.CheckUsers(params);

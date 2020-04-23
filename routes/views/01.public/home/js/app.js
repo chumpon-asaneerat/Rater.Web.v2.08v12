@@ -2,11 +2,8 @@ let app;
 
 (() => {
     let tags = riot.mount('rater-web-app')
-    let screenId = 'screen1'
+    let screenId = 'rater-home'
     screens.show(screenId)
-    //let tags = riot.mount('rater-web-app')
-    //let screenId = 'rater-home'
-    //screens.show(screenId)
 })();
 /*
 (() => {

@@ -1186,19 +1186,185 @@ riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <div class="banner"> <d
         let onLanguageChanged = (e) => { updatecontent() }
         let onScreenChanged = (e) => { updatecontent() }
 });
-riot.tag2('rater-home', '', 'rater-home,[data-is="rater-home"]{ margin: 0 auto; }', '', function(opts) {
+riot.tag2('rater-home', '<div class="content-area"> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div ref="userSignIn" class="user-signin"> <div class="group-header"> <h4><span class="fa fa-user-lock">&nbsp;</span>&nbsp;{content.title}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <ninput ref="userName" title="{content.label.userName}" type="text" name="userName"></ninput> <ninput ref="passWord" title="{content.label.passWord}" type="password" name="pwd"></ninput> <div class="padtop"></div> <button ref="submit"> <span class="fas fa-user">&nbsp;</span> {content.label.submit} </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div> <div ref="userSelection" class="user-selection hide"> <div class="group-header"> <h4>{content.label.selectAccount}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <div class="padtop"></div> <company-selection ref="userList" companyname="{content.label.companyName}" fullname="{content.label.fullName}"> </company-selection> <div class="padtop"></div> <button ref="cancel"> <span class="fa fa-user-times">&nbsp;</span> Cancel </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div> </div>', 'rater-home,[data-is="rater-home"]{ margin: 0 auto; padding: 2px; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } rater-home .content-area,[data-is="rater-home"] .content-area{ grid-area: content-area; margin: 0 auto; padding: 0px; position: relative; display: block; width: 100%; height: 100%; background-color: white; background-image: url(\'public/assets/images/backgrounds/bg-15.jpg\'); background-blend-mode: multiply, luminosity; background-position: center; background-repeat: no-repeat; background-size: cover; } rater-home .content-area .user-signin,[data-is="rater-home"] .content-area .user-signin,rater-home .content-area .user-selection,[data-is="rater-home"] .content-area .user-selection{ display: block; position: relative; margin: 0 auto; padding: 0; } rater-home .content-area .user-signin.hide,[data-is="rater-home"] .content-area .user-signin.hide,rater-home .content-area .user-selection.hide,[data-is="rater-home"] .content-area .user-selection.hide{ display: none; } rater-home .padtop,[data-is="rater-home"] .padtop,rater-home .content-area .padtop,[data-is="rater-home"] .content-area .padtop,rater-home .content-area .user-signin .group-header .padtop,[data-is="rater-home"] .content-area .user-signin .group-header .padtop,rater-home .content-area .user-signin .group-body .padtop,[data-is="rater-home"] .content-area .user-signin .group-body .padtop,rater-home .content-area .user-selection .group-header .padtop,[data-is="rater-home"] .content-area .user-selection .group-header .padtop,rater-home .content-area .user-selection .group-body .padtop,[data-is="rater-home"] .content-area .user-selection .group-body .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; } rater-home .content-area .user-signin .group-header,[data-is="rater-home"] .content-area .user-signin .group-header,rater-home .content-area .user-selection .group-header,[data-is="rater-home"] .content-area .user-selection .group-header{ display: block; margin: 0 auto; padding: 3px; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background-color: cornflowerblue; border: 1px solid dimgray; border-radius: 8px 8px 0 0; } rater-home .content-area .user-signin .group-header h4,[data-is="rater-home"] .content-area .user-signin .group-header h4,rater-home .content-area .user-selection .group-header h4,[data-is="rater-home"] .content-area .user-selection .group-header h4{ display: block; margin: 0 auto; padding: 0; padding-top: 5px; font-size: 1.1rem; text-align: center; color: whitesmoke; user-select: none; } rater-home .content-area .user-signin .group-body,[data-is="rater-home"] .content-area .user-signin .group-body,rater-home .content-area .user-selection .group-body,[data-is="rater-home"] .content-area .user-selection .group-body{ display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 0; height: auto; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background-color: white; border: 1px solid dimgray; border-radius: 0 0 8px 8px; } rater-home .content-area .user-signin .group-body ninput,[data-is="rater-home"] .content-area .user-signin .group-body ninput,rater-home .content-area .user-selection .group-body ninput,[data-is="rater-home"] .content-area .user-selection .group-body ninput{ background-color: white; } rater-home .content-area .user-signin .group-body button,[data-is="rater-home"] .content-area .user-signin .group-body button,rater-home .content-area .user-selection .group-body button,[data-is="rater-home"] .content-area .user-selection .group-body button{ display: inline-block; margin: 5px auto; padding: 10px 15px; color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; text-decoration: none; vertical-align: middle; }', '', function(opts) {
+        let self = this;
+        let defaultContent = {
+            title: 'Sign In',
+            label: {
+                selectAccount: 'Please Select Account',
+                userName: 'User Name (admin)',
+                passWord: 'Password',
+                submit: 'Sign In',
+                companyName: 'Company Name',
+                fullName: 'Account Name'
+            }
+        }
+        this.content = defaultContent
 
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
 
-        this.on('mount', () => { });
-        this.on('unmount', () => { });
+        let userSignIn, userSelection
+        let userName, passWord, submit, cancel
 
+        let initCtrls = () => {
+            userSignIn = self.refs['userSignIn']
+            userSelection = self.refs['userSelection']
+            userName = self.refs['userName']
+            passWord = self.refs['passWord']
+            submit = self.refs['submit']
+            cancel = self.refs['cancel']
+        }
+        let freeCtrls = () => {
+            userName = null
+            passWord = null
+            submit = null
+            cancel = null
+            userSignIn = null
+            userSelection = null
+        }
+        let clearInputs = () => {
+            if (userName && passWord) {
+                userName.clear()
+                passWord.clear()
+            }
+            secure.reset()
+        }
+        let checkUserName = () => {
+            let ret = false
+            let val = userName.value()
+            ret = (val && val.length > 0)
+            if (!ret) userName.focus()
+            return ret
+        }
+        let checkPassword = () => {
+            let ret = false
+            let val = passWord.value()
+            ret = (val && val.length > 0)
+            if (!ret) passWord.focus()
+            return ret
+        }
+
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+            addEvt(events.name.ScreenChanged, onScreenChanged)
+
+            addEvt(events.name.UserListChanged, onUserListChanged)
+            addEvt(events.name.UserSignInFailed, onSignInFailed)
+
+            submit.addEventListener('click', onSubmit)
+            cancel.addEventListener('click', onCancel)
+        }
+        let unbindEvents = () => {
+            cancel.removeEventListener('click', onCancel)
+            submit.removeEventListener('click', onSubmit)
+
+            delEvt(events.name.UserListChanged, onUserListChanged)
+            delEvt(events.name.UserSignInFailed, onSignInFailed)
+
+            delEvt(events.name.ScreenChanged, onScreenChanged)
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+        let onContentChanged = (e) => { updatecontent() }
+        let onLanguageChanged = (e) => { updatecontent() }
+        let onScreenChanged = (e) => { updatecontent() }
+
+        let onUserListChanged = (e) => { showUserSelection() }
+        let onSignInFailed = (e) => {
+            let err = e.detail.error
+
+            console.log(err)
+        }
+        let onSubmit = (e) => {
+            if (checkUserName() && checkPassword()) {
+
+                let data = {
+                    userName: userName.value(),
+                    passWord: passWord.value()
+                }
+                secure.verifyUsers(data.userName, data.passWord)
+            }
+        }
+        let onCancel = (e) => { showUserSignIn() }
+        let showUserSignIn = () => {
+            if (userSignIn && userSelection) {
+                userSignIn.classList.remove('hide')
+                userSelection.classList.add('hide')
+                userName.focus()
+            }
+        }
+        let showUserSelection = () => {
+            if (userSignIn && userSelection) {
+                console.log(secure.users)
+                if (secure.users.length > 1) {
+
+                    userSignIn.classList.add('hide')
+                    userSelection.classList.remove('hide')
+                }
+                else if (secure.users.length === 1) {
+
+                    let customerId = secure.users[0].customerId
+                    secure.signin(customerId)
+                }
+                else {
+
+                    console.log({ msg: 'No user found!!!.'})
+                }
+            }
+        }
+        let updatecontent = () => {
+            let scrId = screens.current.screenId
+            let scrContent = (contents.current && contents.current.screens) ? contents.current.screens[scrId] : null
+            self.content = scrContent ? scrContent : defaultContent
+            self.update()
+        }
 });
-riot.tag2('company-selection', '', 'company-selection,[data-is="company-selection"]{ margin: 0 auto; }', '', function(opts) {
+riot.tag2('company-selection', '<virtual each="{user in users}"> <div class="account"> <div class="info1"> <span class="label">{opts.companyname}</span> <span class="data">{user.CustomerName}</span> </div> <div class="info2"> <span class="label">{opts.fullname}</span> <span class="data">{user.FullName}</span> </div> <button onclick="{onSignIn}">&nbsp;<span class="fas fa-2x fa-sign-in-alt">&nbsp;</span></button> </div> <hr> </virtual>', 'company-selection,[data-is="company-selection"]{ display: block; margin: 0 auto; padding: 0; } company-selection .account,[data-is="company-selection"] .account{ margin: 0 auto; padding: 2px; height: 100%; width: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; grid-template-areas: \'info1 button\' \'info2 button\'; overflow: hidden; overflow-y: auto; } company-selection .account div,[data-is="company-selection"] .account div{ display: block; margin: 0 auto; padding: 0; } company-selection .account div.info1,[data-is="company-selection"] .account div.info1{ grid-area: info1; display: block; margin: 0; padding: 0; padding-left: 20px; } company-selection .account div.info2,[data-is="company-selection"] .account div.info2{ grid-area: info2; display: block; margin: 0; padding: 0; padding-left: 20px; } company-selection .account div.info1 span,[data-is="company-selection"] .account div.info1 span,company-selection .account div.info2 span,[data-is="company-selection"] .account div.info2 span{ display: inline-block; margin: 0; padding: 0; } company-selection .account div.info1 span.label,[data-is="company-selection"] .account div.info1 span.label,company-selection .account div.info2 span.label,[data-is="company-selection"] .account div.info2 span.label{ display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: navy; width: 100%; } company-selection .account div.info1 span.data,[data-is="company-selection"] .account div.info1 span.data,company-selection .account div.info2 span.data,[data-is="company-selection"] .account div.info2 span.data{ display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: forestgreen; width: 100%; } company-selection .account button,[data-is="company-selection"] .account button{ grid-area: button; display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: forestgreen; width: 100%; }', '', function(opts) {
+        let self = this
+        this.users = []
 
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        this.on('mount', () => {
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+        });
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+            addEvt(events.name.UserListChanged, onUserListChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.UserListChanged, onUserListChanged)
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+        let onContentChanged = (e) => { updatecontent() }
+        let onLanguageChanged = (e) => { updatecontent() }
+        let onUserListChanged = (e) => { updatecontent() }
 
-        this.on('mount', () => { });
-        this.on('unmount', () => { });
+        let updatecontent = () => {
+            if (secure) {
 
+                self.users = (secure.content) ? secure.users : []
+                self.update()
+            }
+        }
+
+        this.onSignIn = (e) => {
+            let acc = e.item.user
+            secure.signin(acc.customerId)
+        }
 });
 riot.tag2('register-entry', '', 'register-entry,[data-is="register-entry"]{ margin: 0 auto; }', '', function(opts) {
 
