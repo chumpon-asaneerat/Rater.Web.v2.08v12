@@ -1,5 +1,5 @@
 <screen1>
-    <yield/>
+    <h4>Screen 1</h4>
     <button onclick="{ gotoScreen2 }">Goto Screen 2</button>
     <style>
         :scope {
