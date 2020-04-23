@@ -105,7 +105,6 @@
             height: auto;
             /* border: 1px dotted green; */
         }
-
         :scope>.client-area .bar-chart {
             position: relative;
             display: block;
@@ -133,7 +132,6 @@
             /* fill: rgba(200, 200, 200, .5); */
             fill: rgba(250, 250, 250, .1);
         }
-
         :scope>.client-area .pie-chart {
             position: relative;
             display: block;
@@ -160,7 +158,6 @@
             /* fill: rgba(200, 200, 200, .5); */
             fill: rgba(250, 250, 250, .1);
         }
-
         :scope>.client-area .info-panel {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -190,7 +187,6 @@
             border-radius: 5px;
             box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4);
         }
-
         /* Small devices (portrait tablets and large phones, 600px and up) */
         @media only screen and (min-width: 400px) {
             :scope>.client-area .info-box { 
@@ -198,7 +194,6 @@
                 background: olive;
             }
         }
-
         /* Medium devices (landscape tablets, 768px and up) */
         @media only screen and (min-width: 600px) {
             :scope>.client-area .info-box { 
@@ -206,7 +201,6 @@
                 background: hotpink;
             }
         }
-
         /* Large devices (laptops/desktops, 992px and up) */
         @media only screen and (min-width: 800px) {
             :scope>.client-area .info-box { 
@@ -214,7 +208,6 @@
                 background: fuchsia;
             }
         }
-
         /* Extra large devices (large laptops and desktops, 1200px and up) */
         @media only screen and (min-width: 1000px) {
             :scope>.client-area .info-box { 
@@ -222,7 +215,6 @@
                 background: grey; 
             }
         }
-
         :scope>.client-area .info-box .info-data-value {
             display: inline-block;
             margin: 0 auto;
