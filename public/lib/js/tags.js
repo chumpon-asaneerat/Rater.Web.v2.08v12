@@ -1007,9 +1007,25 @@ riot.tag2('links-menu', '', 'links-menu,[data-is="links-menu"]{ margin: 0 auto; 
         this.on('unmount', () => { });
 
 });
+riot.tag2('sidebar-menu', '<div class="menu"> <a class="link-combo" href="javascript:;" onclick="{toggle}"> <span class="burger fas fa-bars"></span> </a> </div>', 'sidebar-menu,[data-is="sidebar-menu"]{ display: inline-block; margin: 0 auto; padding: 0, 2px; user-select: none; } sidebar-menu .menu,[data-is="sidebar-menu"] .menu{ display: none; } @media only screen and (max-width: 700px) { sidebar-menu .menu,[data-is="sidebar-menu"] .menu{ display: inline-block; } } sidebar-menu .menu>a,[data-is="sidebar-menu"] .menu>a{ margin: 0 auto; color: whitesmoke; } sidebar-menu .menu>a:link,[data-is="sidebar-menu"] .menu>a:link,sidebar-menu .menu>a:visited,[data-is="sidebar-menu"] .menu>a:visited{ text-decoration: none; } sidebar-menu .menu>a:hover,[data-is="sidebar-menu"] .menu>a:hover,sidebar-menu .menu>a:active,[data-is="sidebar-menu"] .menu>a:active{ color: yellow; text-decoration: none; }', '', function(opts) {
+        let self = this;
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+
+        });
+        this.on('unmount', () => {
+
+        });
+
+        this.toggle = (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+});
 riot.tag2('rater-device-app', '<napp> <yield></yield> </napp>', 'rater-device-app,[data-is="rater-device-app"]{ position: relative; display: block; margin: 0; padding: 0; width: auto; height: auto; overflow: hidden; }', '', function(opts) {
 });
-riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <div class="banner"> <div class="caption">My Choice Rater Web{(content && content.title) ? \'&nbsp;-&nbsp;\' : \'&nbsp;\'}</div> <div class="title ">{(content && content.title) ? content.title : \'\'}</div> </div> </navi-item> <navi-item class="center"></navi-item> <navi-item class="right"><language-menu></language-menu></navi-item> <navi-item class="right"><links-menu></links-menu></navi-item> </navibar> <yield></yield> <statusbar></statusbar> </napp>', 'rater-web-app,[data-is="rater-web-app"]{ position: relative; display: block; margin: 0; padding: 0; width: auto; height: auto; overflow: hidden; } rater-web-app .banner .title,[data-is="rater-web-app"] .banner .title{ margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } rater-web-app .banner .caption,[data-is="rater-web-app"] .banner .caption{ margin: 0; padding: 0; width: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } @media only screen and (max-width: 700px) { rater-web-app .banner .caption,[data-is="rater-web-app"] .banner .caption{ width: 0; visibility: hidden; } } rater-web-app language-menu,[data-is="rater-web-app"] language-menu{ display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: stretch; } rater-web-app links-menu,[data-is="rater-web-app"] links-menu{ display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: stretch; }', '', function(opts) {
+riot.tag2('rater-web-app', '<napp> <navibar> <navi-item><sidebar-menu></sidebar-menu></navi-item> <navi-item> <div class="banner"> <div class="caption">My Choice Rater Web{(content && content.title) ? \'&nbsp;-&nbsp;\' : \'&nbsp;\'}</div> <div class="title ">{(content && content.title) ? content.title : \'\'}</div> </div> </navi-item> <navi-item class="center"></navi-item> <navi-item class="right"><language-menu></language-menu></navi-item> <navi-item class="right"><links-menu></links-menu></navi-item> </navibar> <yield></yield> <statusbar></statusbar> </napp>', 'rater-web-app,[data-is="rater-web-app"]{ position: relative; display: block; margin: 0; padding: 0; width: auto; height: auto; overflow: hidden; } rater-web-app .banner .title,[data-is="rater-web-app"] .banner .title{ margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } rater-web-app .banner .caption,[data-is="rater-web-app"] .banner .caption{ margin: 0; padding: 0; width: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } @media only screen and (max-width: 700px) { rater-web-app .banner .caption,[data-is="rater-web-app"] .banner .caption{ width: 0; visibility: hidden; } } rater-web-app language-menu,[data-is="rater-web-app"] language-menu{ display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: stretch; } rater-web-app links-menu,[data-is="rater-web-app"] links-menu{ display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: stretch; }', '', function(opts) {
 
 
         let self = this;
