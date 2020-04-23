@@ -926,11 +926,78 @@ riot.tag2('navibar', '<yield></yield>', 'navibar,[data-is="navibar"]{ position: 
 });
 riot.tag2('statusbar', '<yield></yield>', 'statusbar,[data-is="statusbar"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; user-select: none; white-space: nowrap; overflow: hidden; }', '', function(opts) {
 });
-riot.tag2('language-menu', '', 'language-menu,[data-is="language-menu"]{ margin: 0 auto; }', '', function(opts) {
+riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo" href="javascript:;"> <span class="flag-css flag-icon flag-icon-{lang.current.flagId.toLowerCase()}" ref="css-icon"></span> <div class="flag-text">&nbsp;{lang.langId}&nbsp;</div> <virtual if="{isMultiple()}"> <span class="drop-synbol fas fa-caret-down"></span> </virtual> </a> </div> <div ref="dropItems" class="language-dropbox"> <div each="{item in lang.languages}"> <a class="flag-item {(lang.langId === item.langId) ? \'selected\' : \'\'}" href="javascript:;" onclick="{selectItem}"> &nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}" ref="css-icon"></span> &nbsp; <div class="flag-text">{item.Description}</div> &nbsp;&nbsp;&nbsp; </a> </div> </div>', 'language-menu,[data-is="language-menu"]{ margin: 0 auto; padding: 0, 2px; user-select: none; } language-menu .menu,[data-is="language-menu"] .menu{ margin: 0 auto; padding: 0; } language-menu a,[data-is="language-menu"] a{ margin: 0 auto; color: whitesmoke; } language-menu a:link,[data-is="language-menu"] a:link,language-menu a:visited,[data-is="language-menu"] a:visited{ text-decoration: none; } language-menu a:hover,[data-is="language-menu"] a:hover,language-menu a:active,[data-is="language-menu"] a:active{ color: yellow; text-decoration: none; } language-menu .flag-combo,[data-is="language-menu"] .flag-combo{ margin: 0 auto; } language-menu .flag-combo .flag-css,[data-is="language-menu"] .flag-combo .flag-css{ margin: 0px auto; padding-top: 1px; display: inline-block; } language-menu .flag-combo .flag-text,[data-is="language-menu"] .flag-combo .flag-text{ margin: 0 auto; display: inline-block; } language-menu .flag-combo .drop-symbol,[data-is="language-menu"] .flag-combo .drop-symbol{ margin: 0 auto; display: inline-block; } language-menu .flag-item,[data-is="language-menu"] .flag-item{ margin: 0px auto; padding: 2px; padding-left: 5px; height: 50px; display: flex; align-items: center; justify-content: center; } language-menu .flag-item:hover,[data-is="language-menu"] .flag-item:hover{ color: yellow; background:linear-gradient(to bottom, #0c5a24 5%, #35750a 100%); background-color:#77a809; cursor: pointer; } language-menu .flag-item.selected,[data-is="language-menu"] .flag-item.selected{ background-color: darkorange; } language-menu .flag-item .flag-css,[data-is="language-menu"] .flag-item .flag-css{ margin: 0px auto; padding-top: 1px; width: 25px; display: inline-block; } language-menu .flag-item .flag-text,[data-is="language-menu"] .flag-item .flag-text{ margin: 0 auto; min-width: 80px; max-width: 120px; display: inline-block; } language-menu .language-dropbox,[data-is="language-menu"] .language-dropbox{ display: inline-block; position: fixed; margin: 0 auto; padding: 1px; top: 45px; right: 5px; background-color: #333; color:whitesmoke; max-height: calc(100vh - 50px - 20px); overflow: hidden; overflow-y: auto; display: none; } language-menu .language-dropbox.show,[data-is="language-menu"] .language-dropbox.show{ display: inline-block; z-index: 99999; }', '', function(opts) {
+        let self = this;
+        let addEvt = events.doc.add, delEvt = events.doc.remove
 
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        });
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        });
 
-        this.on('mount', () => { });
-        this.on('unmount', () => { });
+        let flags, dropItems
+        let initCtrls = () => {
+            flags = self.refs['flags']
+            dropItems = self.refs['dropItems']
+        }
+        let freeCtrls = () => {
+            dropItems = null
+            flags = null
+        }
+
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            flags.addEventListener('click', toggle);
+            window.addEventListener('click', checkClickPosition);
+        }
+        let unbindEvents = () => {
+            window.removeEventListener('click', checkClickPosition);
+            flags.removeEventListener('click', toggle);
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+
+        let onLanguageChanged = (e) => {
+            self.update()
+        }
+        let toggle = () => {
+            dropItems.classList.toggle('show')
+            self.update()
+        }
+        let isInClassList = (elem, classList) => {
+            let len = classList.length
+            let found = false
+            for (let i = 0; i < len; i++) {
+                if (elem.matches(classList[i])) {
+                    found = true
+                    break
+                }
+            }
+            return found
+        }
+        let checkClickPosition = (e) => {
+
+            let classList = ['.flag-combo', '.flag-css', '.flag-text', '.drop-synbol']
+            let match = isInClassList(e.target, classList)
+            if (!match) {
+                if (dropItems.classList.contains('show')) {
+                    toggle()
+                }
+            }
+        }
+        this.isMultiple = () => {
+            return lang && lang.languages && lang.languages.length > 1
+        }
+        this.selectItem = (e) => {
+            toggle();
+            let selLang = e.item.item
+            lang.change(selLang.langId)
+            e.preventDefault()
+            e.stopPropagation()
+        }
 
 });
 riot.tag2('links-menu', '', 'links-menu,[data-is="links-menu"]{ margin: 0 auto; }', 'class="{(menus && menus.length > 0) ? \'\' : \'hide\'}"', function(opts) {
@@ -1007,7 +1074,7 @@ riot.tag2('signin-entry', '', 'signin-entry,[data-is="signin-entry"]{ margin: 0 
         this.on('unmount', () => { });
 
 });
-riot.tag2('screen1', '<sidebar class="c1"> <h6>Sidebar 1</h6> </sidebar> <sidebar class="c2"> <h6>Sidebar 2</h6> </sidebar> <sidebar class="c3"> <h6>Sidebar 3</h6> </sidebar> <h4>Screen 1</h4> <button onclick="{gotoScreen2}">Goto Screen 2</button> <sidebar class="c1"> <h6>Sidebar 4</h6> </sidebar> <sidebar class="c2"> <h6>Sidebar 5</h6> </sidebar> <sidebar class="c3"> <h6>Sidebar 6</h6> </sidebar>', 'screen1,[data-is="screen1"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('screen1', '<h4>Screen 1</h4> <button onclick="{gotoScreen2}">Goto Screen 2</button>', 'screen1,[data-is="screen1"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         let self = this
         let scrId = 'screen1'
 
