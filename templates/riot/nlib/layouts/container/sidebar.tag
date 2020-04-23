@@ -2,6 +2,7 @@
     <yield/>
     <style>
         :scope {
+            position: relative;
             display: inline-block;
             margin: 0;
             /*

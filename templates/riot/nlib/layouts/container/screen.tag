@@ -20,6 +20,7 @@
         }
         :scope .content-area {
             grid-area: content-area;
+            position: relative;
             display: grid;
             grid-template-columns: auto 1fr auto;
             grid-template-rows: 1fr;
@@ -31,23 +32,42 @@
             height: 100%;
             overflow: hidden;
         }
-        :scope .content-area sidebar.dock.left {
+        :scope .content-area sidebar[position="left"] {
             grid-area: sidebar-left;
-            position: absolute;
             margin: 0;
             padding: 0;
+            top: 0;
             left: 0;
             bottom: 0;
             width: 300px;
             height: 100%;
         }
-        :scope .content-area sidebar.dock.right {
+        :scope .content-area sidebar[position="right"] {
             grid-area: sidebar-right;
             margin: 0;
             padding: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
             width: 300px;
             height: 100%;
         }
+        :scope .content-area sidebar[position="left"][mode="float"] {
+            position: absolute;
+            width: 50px;
+            background-color: aqua;
+        }
+        :scope .content-area sidebar[position="left"][mode="float"]:hover {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: aqua;
+        }
+
         :scope .content-area .content-body {
             grid-area: content-body;
             margin: 0;
