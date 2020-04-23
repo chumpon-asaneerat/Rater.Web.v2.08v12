@@ -41,7 +41,6 @@ const api = DbApi; // create shortcur variable.
 
 //#endregion
 
-
 //#region OSD
 
 //#region avaliable events name for OSD Service

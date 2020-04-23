@@ -828,38 +828,23 @@ riot.tag2('collapse-panel', '<div class="panel-container"> <div class="panel-hea
 riot.tag2('napp', '<div class="app-area"> <yield></yield> </div>', 'napp,[data-is="napp"]{ display: grid; margin: 0 auto; padding: 0; height: 100vh; width: 100vw; grid-template-areas: \'app-area\'; background: inherit; overflow: hidden; } napp>.app-area,[data-is="napp"]>.app-area{ grid-area: app-area; position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \'navi-area\' \'scrn-area\' \'stat-area\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } napp>.app-area>:not(navibar):not(screen):not(statusbar),[data-is="napp"]>.app-area>:not(navibar):not(screen):not(statusbar){ display: none; } napp>.app-area navibar:first-child,[data-is="napp"]>.app-area navibar:first-child{ grid-area: navi-area; } napp>.app-area navibar:not(:first-child),[data-is="napp"]>.app-area navibar:not(:first-child){ grid-area: navi-area; display: none; } napp>.app-area screen,[data-is="napp"]>.app-area screen{ grid-area: scrn-area; } napp>.app-area statusbar:last-child,[data-is="napp"]>.app-area statusbar:last-child{ grid-area: stat-area; } napp>.app-area statusbar:not(:last-child),[data-is="napp"]>.app-area statusbar:not(:last-child){ grid-area: stat-area; display: none; }', '', function(opts) {
 });
 riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen,[data-is="screen"]{ margin: 0 auto; padding: 0; display: none; width: 100%; height: 100%; } screen.active,[data-is="screen"].active,screen.show,[data-is="screen"].show{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; } screen .content-area,[data-is="screen"] .content-area{ width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
 
-
-        let self = this;
-
-        let hide = () => { self.root.classList.remove('show') }
-        let show = () => { self.root.classList.add('show') }
-
-        let updatecontent = () => {
-            if (screens.current.screenId !== self.opts.screenid) {
-                hide();
-            }
-            else {
-                show();
-            }
-            self.update();
-        }
-
-        let addEvt = (evtName, handle) => { document.addEventListener(evtName, handle) }
-        let delEvt = (evtName, handle) => { document.removeEventListener(evtName, handle) }
-
-        let bindEvents = () => {
+        this.on('mount', () => {
             addEvt(events.name.ScreenChanged, onScreenChanged)
-        }
-        let unbindEvents = () => {
+        })
+        this.on('unmount', () => {
             delEvt(events.name.ScreenChanged, onScreenChanged)
+        })
+
+        let onScreenChanged = (e) => {
+            (screens.is(self.opts.screenid)) ? self.show() : self.hide()
+            self.update()
         }
 
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
-
-        let onScreenChanged = (e) => { updatecontent(); }
-
+        this.hide = () => { self.root.classList.remove('show') }
+        this.show = () => { self.root.classList.add('show') }
 });
 riot.tag2('tool-window', '<div class="window-container"> <div class="window-header"> <div ref="dragger" class="header-block"> <label>{opts.caption}</label> </div> </div> <div ref="content" class="window-body"> <yield></yield> </div> </div>', 'tool-window,[data-is="tool-window"]{ display: block; position: absolute; z-index: 9; margin: 0; width: 25%; min-width: 100px; height: 90%; overflow: none; } tool-window .window-container,[data-is="tool-window"] .window-container{ grid-area: panel-container; width: 100%; height: 100%; padding: 5px; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px auto; grid-template-areas: \'panel-header\' \'panel-body\'; overflow: none; } tool-window .window-container .window-header,[data-is="tool-window"] .window-container .window-header{ grid-area: panel-header; display: grid; margin: 0; padding: 0; padding-left: 3px; padding-right: 3px; width: 100%; height: 100%; grid-template-columns: auto 1fr; grid-template-rows: 1fr; grid-template-areas: \'collapse-button header-block\'; color: white; border-radius: 5px 5px 0 0; background-color: cornflowerblue; overflow: none; } tool-window .window-header .collapse-button,[data-is="tool-window"] .window-header .collapse-button{ grid-area: collapse-button; align-self: center; margin: 0; padding: 0; width: 100%; cursor: pointer; } tool-window .window-header .collapse-button:hover,[data-is="tool-window"] .window-header .collapse-button:hover{ color: yellow; } tool-window .window-header .header-block,[data-is="tool-window"] .window-header .header-block{ grid-area: header-block; align-self: center; align-content: center; margin: 0; padding: 0; padding-left: 3px; width: 100%; cursor: none; } tool-window .window-header .header-block:hover,[data-is="tool-window"] .window-header .header-block:hover{ color: yellow; } tool-window .window-header .header-block label,[data-is="tool-window"] .window-header .header-block label{ margin-top: 3px; padding: 0; width: 100%; height: 100%; user-select: none; } tool-window .window-container .window-body,[data-is="tool-window"] .window-container .window-body{ grid-area: panel-body; margin: 0; padding: 3px; padding-top: 5px; padding-bottom: 5px; width: 100%; height: 100%; background-color: white; border: 1px solid cornflowerblue; overflow: auto; } tool-window .window-container .window-body.collapsed,[data-is="tool-window"] .window-container .window-body.collapsed{ display: none; }', '', function(opts) {
 
@@ -1015,4 +1000,17 @@ riot.tag2('signin-entry', '', 'signin-entry,[data-is="signin-entry"]{ margin: 0 
         this.on('mount', () => { });
         this.on('unmount', () => { });
 
+});
+riot.tag2('screen1', '<h3>Screen 1</h3> <button onclick="{gotoScreen2}">Goto Screen 2</button>', 'screen1,[data-is="screen1"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+        let self = this
+        let scrId = 'screen1'
+
+        this.gotoScreen2 = (e) => { screens.show('screen2') }
+});
+
+riot.tag2('screen2', '<h3>Screen 2</h3> <button onclick="{gotoScreen1}">Goto Screen 1</button>', 'screen2,[data-is="screen2"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+        let self = this
+        let scrId = 'screen2'
+
+        this.gotoScreen1 = (e) => { screens.show('screen1') }
 });
