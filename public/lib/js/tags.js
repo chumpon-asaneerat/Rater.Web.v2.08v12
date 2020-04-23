@@ -1022,12 +1022,114 @@ riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo"
         }
 
 });
-riot.tag2('links-menu', '', 'links-menu,[data-is="links-menu"]{ margin: 0 auto; }', 'class="{(menus && menus.length > 0) ? \'\' : \'hide\'}"', function(opts) {
+riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" href="javascript:;"> <span ref="showlinks" class="burger fas fa-bars"></span> </a> </div> <div ref="dropItems" class="links-dropbox"> <div each="{item in menus}"> <virtual if="{isShown(item)}"> <a class="link-item" href="javascript:;" onclick="{selectItem}"> &nbsp; <span class="link-css {item.icon}" ref="css-icon">&nbsp;</span> <div class="link-text">&nbsp;{item.text}</div> &nbsp;&nbsp;&nbsp; </a> </virtual> </div> </div>', 'links-menu,[data-is="links-menu"]{ margin: 0 auto; padding: 0 3px; user-select: none; width: 40px; } links-menu.hide,[data-is="links-menu"].hide{ display: none; } links-menu .menu,[data-is="links-menu"] .menu{ margin: 0 auto; padding: 0; } links-menu a,[data-is="links-menu"] a{ margin: 0 auto; color: whitesmoke; } links-menu a:link,[data-is="links-menu"] a:link,links-menu a:visited,[data-is="links-menu"] a:visited{ text-decoration: none; } links-menu a:hover,[data-is="links-menu"] a:hover,links-menu a:active,[data-is="links-menu"] a:active{ color: yellow; text-decoration: none; } links-menu .link-combo,[data-is="links-menu"] .link-combo{ margin: 0 auto; } links-menu .link-item,[data-is="links-menu"] .link-item{ margin: 0px auto; padding: 2px; padding-left: 5px; height: 50px; display: flex; align-items: center; justify-content: center; } links-menu .link-item:hover,[data-is="links-menu"] .link-item:hover{ color: yellow; background:linear-gradient(to bottom, #0c5a24 5%, #35750a 100%); background-color:#77a809; cursor: pointer; } links-menu .link-item.selected,[data-is="links-menu"] .link-item.selected{ background-color: darkorange; } links-menu .link-item .link-css,[data-is="links-menu"] .link-item .link-css{ margin: 0px auto; width: 25px; display: inline-block; } links-menu .link-item .link-text,[data-is="links-menu"] .link-item .link-text{ margin: 0 auto; min-width: 80px; max-width: 125px; display: inline-block; } links-menu .links-dropbox,[data-is="links-menu"] .links-dropbox{ display: inline-block; position: fixed; margin: 0 auto; padding: 1px; top: 45px; right: 5px; background-color: #333; color:whitesmoke; max-height: calc(100vh - 50px - 20px); overflow: hidden; overflow-y: auto; display: none; } links-menu .links-dropbox.show,[data-is="links-menu"] .links-dropbox.show{ display: inline-block; z-index: 99999; }', 'class="{(menus && menus.length > 0) ? \'\' : \'hide\'}"', function(opts) {
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
 
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        });
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        });
 
-        this.on('mount', () => { });
-        this.on('unmount', () => { });
+        let links, dropItems
+        let initCtrls = () => {
+            links = self.refs['links']
+            dropItems = self.refs['dropItems']
+        }
+        let freeCtrls = () => {
+            dropItems = null
+            links = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+            addEvt(events.name.ScreenChanged, onScreenChanged)
 
+            links.addEventListener('click', toggle);
+            window.addEventListener('click', checkClickPosition);
+        }
+        let unbindEvents = () => {
+            window.removeEventListener('click', checkClickPosition);
+            links.removeEventListener('click', toggle);
+
+            delEvt(events.name.ScreenChanged, onScreenChanged)
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+
+        let onLanguageChanged = (e) =>  { updatecontent() }
+        let onContentChanged = (e) => { updatecontent()  }
+        let onScreenChanged = (e) =>  { updatecontent() }
+
+        this.menus = []
+        let updatecontent = () => {
+            self.menus = (contents && contents.current) ? contents.current.links : []
+            self.update();
+        }
+
+        let toggle = () => {
+            dropItems.classList.toggle('show');
+            updatecontent();
+        }
+        let isInClassList = (elem, classList) => {
+            let len = classList.length;
+            let found = false;
+            for (let i = 0; i < len; i++) {
+                if (elem.matches(classList[i])) {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
+        let checkClickPosition = (e) => {
+
+            let classList = ['.link-combo', '.burger'];
+            let match = isInClassList(e.target, classList);
+            if (!match) {
+                if (dropItems.classList.contains('show')) {
+                    toggle();
+                }
+            }
+        }
+
+        this.isShown = (item) => {
+            let ret = true;
+            let linkType = (item.type) ? item.type.toLowerCase() : ''
+            if (linkType === 'screen' || linkType === 'url') {
+
+                ret = item.id !== screens.current.screenId
+            }
+            return ret
+        }
+        this.selectItem = (e) => {
+            toggle()
+            let selLink = e.item.item
+            let linkType = (selLink.type) ? selLink.type.toLowerCase() : ''
+            if (linkType === 'screen') {
+                screens.show(selLink.id)
+            }
+            else if (linkType === 'url') {
+                nlib.nav.gotoUrl(selLink.ref)
+            }
+            else if (linkType === 'cmd') {
+                if (selLink.ref.toLowerCase() === 'signout') {
+                    secure.signout()
+                }
+                else if (selLink.ref.toLowerCase() === 'exit') {
+                    secure.changeCustomer()
+                }
+            }
+            else {
+                console.log('Not implements type, data:', selLink);
+            }
+            e.preventDefault();
+            e.stopPropagation();
+        }
 });
 riot.tag2('sidebar-menu', '<div class="menu"> <a class="link-combo" href="javascript:;" onclick="{toggle}"> <span class="burger fas fa-bars"></span> </a> </div>', 'sidebar-menu,[data-is="sidebar-menu"]{ display: inline-block; margin: 0 auto; padding: 0, 2px; user-select: none; } sidebar-menu .menu,[data-is="sidebar-menu"] .menu{ display: none; } @media only screen and (max-width: 700px) { sidebar-menu .menu,[data-is="sidebar-menu"] .menu{ display: inline-block; } } sidebar-menu .menu>a,[data-is="sidebar-menu"] .menu>a{ margin: 0 auto; color: whitesmoke; } sidebar-menu .menu>a:link,[data-is="sidebar-menu"] .menu>a:link,sidebar-menu .menu>a:visited,[data-is="sidebar-menu"] .menu>a:visited{ text-decoration: none; } sidebar-menu .menu>a:hover,[data-is="sidebar-menu"] .menu>a:hover,sidebar-menu .menu>a:active,[data-is="sidebar-menu"] .menu>a:active{ color: yellow; text-decoration: none; }', '', function(opts) {
         let self = this;
@@ -1047,7 +1149,7 @@ riot.tag2('sidebar-menu', '<div class="menu"> <a class="link-combo" href="javasc
 });
 riot.tag2('rater-device-app', '<napp> <yield></yield> </napp>', 'rater-device-app,[data-is="rater-device-app"]{ position: relative; display: block; margin: 0; padding: 0; width: auto; height: auto; overflow: hidden; }', '', function(opts) {
 });
-riot.tag2('rater-web-app', '<napp> <navibar> <navi-item><sidebar-menu></sidebar-menu></navi-item> <navi-item> <div class="banner"> <div class="caption">My Choice Rater Web{(content && content.title) ? \'&nbsp;-&nbsp;\' : \'&nbsp;\'}</div> <div class="title ">{(content && content.title) ? content.title : \'\'}</div> </div> </navi-item> <navi-item class="center"></navi-item> <navi-item class="right"><language-menu></language-menu></navi-item> <navi-item class="right"><links-menu></links-menu></navi-item> </navibar> <yield></yield> <statusbar></statusbar> </napp>', 'rater-web-app,[data-is="rater-web-app"]{ position: relative; display: block; margin: 0; padding: 0; width: auto; height: auto; overflow: hidden; } rater-web-app .banner .title,[data-is="rater-web-app"] .banner .title{ margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } rater-web-app .banner .caption,[data-is="rater-web-app"] .banner .caption{ margin: 0; padding: 0; width: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } @media only screen and (max-width: 700px) { rater-web-app .banner .caption,[data-is="rater-web-app"] .banner .caption{ width: 0; visibility: hidden; } } rater-web-app language-menu,[data-is="rater-web-app"] language-menu{ display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: stretch; } rater-web-app links-menu,[data-is="rater-web-app"] links-menu{ display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: stretch; }', '', function(opts) {
+riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <div class="banner"> <div class="caption">My Choice Rater Web{(content && content.title) ? \'&nbsp;-&nbsp;\' : \'&nbsp;\'}</div> <div class="title ">{(content && content.title) ? content.title : \'\'}</div> </div> </navi-item> <navi-item class="center"></navi-item> <navi-item class="right"><language-menu></language-menu></navi-item> <navi-item class="right"><links-menu></links-menu></navi-item> </navibar> <yield></yield> <statusbar></statusbar> </napp>', 'rater-web-app,[data-is="rater-web-app"]{ position: relative; display: block; margin: 0; padding: 0; width: auto; height: auto; overflow: hidden; } rater-web-app .banner .title,[data-is="rater-web-app"] .banner .title{ margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } rater-web-app .banner .caption,[data-is="rater-web-app"] .banner .caption{ margin: 0; padding: 0; width: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; } @media only screen and (max-width: 700px) { rater-web-app .banner .caption,[data-is="rater-web-app"] .banner .caption{ width: 0; visibility: hidden; } } rater-web-app language-menu,[data-is="rater-web-app"] language-menu{ display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: stretch; } rater-web-app links-menu,[data-is="rater-web-app"] links-menu{ display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: stretch; }', '', function(opts) {
 
 
         let self = this;

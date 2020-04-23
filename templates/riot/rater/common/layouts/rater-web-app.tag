@@ -6,7 +6,9 @@
         </sidebar>
         -->
         <navibar>
+            <!--
             <navi-item><sidebar-menu></sidebar-menu></navi-item>
+            -->
             <navi-item>
                 <div class="banner">
                     <div class="caption">My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>

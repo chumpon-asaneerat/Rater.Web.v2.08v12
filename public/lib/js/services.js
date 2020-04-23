@@ -246,3 +246,153 @@ class SidebarService {
 })();
 
 //#endregion
+
+//#region ContentService class
+
+/** app contents changed. */
+window.events.name.ContentChanged = 'app:contents:changed';
+
+class ContentService {
+    constructor() {
+        this.content = null;
+        this.current = null;
+        let self = this;
+        let contentChanged = (e) => {
+            self.current = self.getCurrent();
+            // Raise event.
+            events.raise(events.name.ContentChanged);
+        }
+        document.addEventListener(events.name.LanguageChanged, contentChanged)
+    }
+    load(url, paramObj) {
+        let self = this;
+        let fn = (r) => {
+            let data = api.parse(r);
+            //console.log(data.records)
+            self.content = data.records;
+            self.current = self.getCurrent();
+            // Raise event.
+            events.raise(events.name.ContentChanged);
+
+        }
+        XHR.get(url, paramObj, fn);
+    }
+    getCurrent() {
+        let match = this.content && this.content[this.langId];
+        let ret = (match) ? this.content[this.langId] : (this.content) ? this.content['EN'] : null;
+        //console.log('Current:', ret);
+        return ret;
+    }
+    get langId() { 
+        return (lang.current) ? lang.current.langId : 'EN';
+    }
+}
+; (function () {
+    //console.log('Init content service...');
+    window.contents = window.contents || new ContentService();
+    let href = window.location.href;
+    if (href.endsWith('#')) href = window.location.href.replace('#', '');
+    if (!href.endsWith('/')) href = href + '/';
+    let url = href.replace('#', '') + 'contents';
+    contents.load(url); // load contents.
+})();
+
+//#endregion
+
+//#region SecureService class
+
+/** Secure: Client User SignIn User List Changed. */
+window.events.name.UserListChanged = 'app:secure:user:list:changed';
+/** Secure: Client User SignIn Failed. */
+window.events.name.UserSignInFailed = 'app:secure:user:signin:failed';
+
+class SecureService {
+    constructor() {
+        this.content = null;
+        this.account = { username: '', password: '', IsEDLUser: false }
+    }
+    reset() {
+        this.content = null;
+        this.account = { username: '', password: '', IsEDLUser: false }
+    }
+    verifyUsers(username, pwd) {
+        let url = '/api/validate-accounts'
+        this.account = { username: username, password: pwd}
+
+        let self = this;
+        let fn = (r) => {
+            let data = api.parse(r);
+            self.content = data.records;
+            // Raise event.
+            events.raise(events.name.UserListChanged);
+        }
+        XHR.postJson(url, this.account, fn);
+    }
+    signin(customerId) {
+        // may need to changed api route.
+        let url = '/api/signin'
+        let paramObj = {
+            customerId: customerId,
+            userName: this.account.username,
+            passWord: this.account.password,
+            IsEDLUser: this.account.IsEDLUser
+        }
+        //console.log('Sign In:', paramObj);
+        let fn = (r) => {
+            let data = api.parse(r);
+            let err = data.errors;
+            if (err && err.hasError) {
+                // Raise event.
+                events.raise(events.name.UserSignInFailed, { error: err });
+            }
+            else {
+                //console.log('Sign In Success.');
+                nlib.nav.gotoUrl('/', true);
+            }            
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
+    signout() {
+        // may need to changed api route.
+        let url = '/api/signout'
+        let fn = (r) => {
+            //console.log(r);
+            //console.log('sign out detected.');
+            nlib.nav.gotoUrl('/', true);
+        }
+        XHR.postJson(url, this.account, fn);
+    }
+    changeCustomer(customerId) {
+        // may need to changed api route.
+        let url = '/api/change-customer'
+        let paramObj = {
+            customerId: customerId
+        }
+        //console.log('Sign In:', paramObj);
+        let fn = (r) => {
+            let data = api.parse(r);
+            let err = data.errors;
+            if (err && err.hasError) {
+                // change customer failed.
+                //console.log('Change customer failed:', err)
+            }
+            else {
+                //console.log('Change customer Success.');
+                nlib.nav.gotoUrl('/', true);
+            }            
+        }
+        XHR.postJson(url, paramObj, fn);
+    }
+    get users() {
+        let ret = []
+        if (this.content) {
+            let usrs = (this.content[lang.langId]) ? this.content[lang.langId] : (this.content['EN']) ? this.content['EN'] : [];
+            ret = usrs;
+        }
+        return ret;
+    }
+}
+
+window.secure = window.secure || new SecureService();
+
+//#endregion
