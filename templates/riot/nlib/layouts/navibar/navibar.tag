@@ -8,11 +8,7 @@
             justify-content: space-between;
             margin: 0;
             padding: 1px 4px;
-            width: 100%;            
-            /*
-            color: white;
-            background: cornflowerblue;
-            */
+            width: 100%;
             color: var(--navbar-foreground-color);
             background-color: var(--navbar-background-color);
             overflow: hidden;
@@ -27,6 +23,4 @@
         :scope:first-child { color: red; }
         */
     </style>
-    <script>
-    </script>
 </navibar>

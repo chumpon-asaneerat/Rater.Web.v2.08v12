@@ -21,6 +21,4 @@
             justify-self: flex-end;
         }
     </style>
-    <script>
-    </script>
 </navi-item>

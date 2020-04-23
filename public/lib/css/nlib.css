@@ -1,6 +1,10 @@
 :root {
+    /*
     --navbar-foreground-color: navy;
     --navbar-background-color: transparent;
+    */
+    --navbar-foreground-color: white;
+    --navbar-background-color: cornflowerblue;
 }
 
 html, body { 

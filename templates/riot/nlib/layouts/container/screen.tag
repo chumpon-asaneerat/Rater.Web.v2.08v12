@@ -4,6 +4,7 @@
     </div>
     <style>
         :scope {
+            position: relative;
             margin: 0 auto;
             padding: 0;
             display: none;
@@ -27,7 +28,7 @@
     <script>
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
-        
+
         this.on('mount', () => {
             addEvt(events.name.ScreenChanged, onScreenChanged)
         })
