@@ -1,5 +1,6 @@
 <admin-home>
     <div class="client-area">
+        <!-- Counter -->
         <div class="info-panel">
             <div class="info-box">
                 <div class="info-data">
@@ -54,6 +55,7 @@
                 </div>
             </div>
         </div>
+        <!-- Chart -->
         <div class="chart-panel">
             <div class="bar-chart">
                 <div class="chart-box" ref="bar1"></div>
@@ -62,11 +64,6 @@
                 <div class="chart-box" ref="pie1"></div>
             </div>
         </div>
-        <!--
-        <div class="data-panel">
-            <h3>DATA</h3>
-        </div>
-        -->
     </div>
     <style>
         :scope {
@@ -266,13 +263,54 @@
         }
     </style>
     <script>
-        //#region Internal Variables
+        let self = this
+        let screenId = 'admin-home'
+        let defaultContent = {
+            title: 'Admin Home Page.'
+        }
+        this.content = defaultContent;
 
-        let self = this;
-        let screenId = 'admin-home';
-
-        //#endregion
-
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+        let bar1, pie1
+        let initCtrls = () => {
+            bar1 = self.refs['bar1']
+            pie1 = self.refs['pie1']
+        }
+        let freeCtrls = () => {
+            pie1 = null
+            bar1 = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+            addEvt(events.name.ScreenChanged, onScreenChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ScreenChanged, onScreenChanged)
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+        let onContentChanged = (e) => { updatecontent() }
+        let onLanguageChanged = (e) => { updatecontent() }
+        let onScreenChanged = (e) => { updatecontent() }
+        let updatecontent = () => {
+            if (screens.is(screenId)) {
+                let scrContent = contents.getScreenContent()
+                self.content = scrContent ? scrContent : defaultContent
+                updateBar()
+                updatePie()
+                self.update()
+            }
+        }
+        
         let data1 = [
             { name: 'EDL', y: 3.5 },
             { name: 'Sale', y: 3.8 },
@@ -295,95 +333,6 @@
             { name: 'Fair', y: 24 },
             { name: 'Poor', y: 15 }
         ];
-
-        //#region content variables and methods
-
-        let defaultContent = {
-            title: 'Admin Home Page.'
-        }
-        this.content = defaultContent;
-
-        let updatecontent = () => {
-            let scrId = screens.current.screenId;            
-            if (screenId === scrId) {
-                let scrContent = (contents.current && contents.current.screens) ? contents.current.screens[scrId] : null;
-                self.content = scrContent ? scrContent : defaultContent;
-
-                updateBar()
-                updatePie()
-
-                self.update();
-            }
-        }
-
-        //#endregion
-
-        //#region controls variables and methods
-
-        let bar1, pie1;
-        let initCtrls = () => {
-            bar1 = self.refs['bar1']
-            pie1 = self.refs['pie1']
-        }
-        let freeCtrls = () => {
-            pie1 = null
-            bar1 = null
-        }
-
-        //#endregion
-
-        //#region document listener add/remove handler
-
-        let addEvt = (evtName, handle) => { document.addEventListener(evtName, handle) }
-        let delEvt = (evtName, handle) => { document.removeEventListener(evtName, handle) }
-
-        //#endregion
-
-        //#region events bind/unbind
-
-        let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
-            addEvt(events.name.ContentChanged, onContentChanged)
-            addEvt(events.name.ScreenChanged, onScreenChanged)
-        }
-        let unbindEvents = () => {
-            delEvt(events.name.ScreenChanged, onScreenChanged)
-            delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
-        }
-
-        //#endregion
-
-        //#region riot handlers
-
-        this.on('mount', () => {
-            initCtrls();
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-            freeCtrls();
-        });
-
-        //#endregion
-
-        //#region dom event handlers
-
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => {
-            let scrId = screens.current.screenId;
-            if (screenId === scrId) {
-                updatecontent(); 
-            }
-        }
-        let onScreenChanged = (e) => { 
-            let scrId = screens.current.screenId;      
-            if (screenId === scrId) {
-                updatecontent();
-            }
-        }
-
-        //#endregion
 
         let updateBar = () => {
             Highcharts.chart(bar1, {

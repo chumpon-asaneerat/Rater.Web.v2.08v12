@@ -1187,10 +1187,53 @@ riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <div class="banner"> <d
         let onScreenChanged = (e) => { updatecontent() }
 });
 riot.tag2('admin-home', '<div class="client-area"> <div class="info-panel"> <div class="info-box"> <div class="info-data"> <div class="info-data-value">3.82</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Average </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">87%</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Average % </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">200 K+</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Total Votes </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">30</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Wait list </div> </div> </div> </div> <div class="chart-panel"> <div class="bar-chart"> <div class="chart-box" ref="bar1"></div> </div> <div class="pie-chart"> <div class="chart-box" ref="pie1"></div> </div> </div> </div>', 'admin-home,[data-is="admin-home"]{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'client-area\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; } admin-home>.client-area,[data-is="admin-home"]>.client-area{ grid-area: client-area; display: grid; grid-auto-flow: row; grid-auto-rows: max-content; grid-gap: 10px; margin: 0; padding: 5px; width: 100%; height: 100%; border: 1px dotted navy; overflow: auto; } admin-home>.client-area .chart-panel,[data-is="admin-home"]>.client-area .chart-panel{ display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); grid-gap: 10px; grid-auto-rows: minmax(200px, max-content); margin: 0; padding: 5px; width: 100%; height: auto; } admin-home>.client-area .bar-chart,[data-is="admin-home"]>.client-area .bar-chart{ position: relative; display: block; margin: 0; padding: 5px; width: 100%; height: 100%; background: whitesmoke; border: 1px dotted orchid; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } admin-home>.client-area .bar-chart .chart-box,[data-is="admin-home"]>.client-area .bar-chart .chart-box{ display: block; position: absolute; margin: 0; padding: 5px; width: 100%; height: 100%; min-width: 100px; } admin-home .bar-chart .chart-box .highcharts-background,[data-is="admin-home"] .bar-chart .chart-box .highcharts-background{ fill: rgba(250, 250, 250, .1); } admin-home>.client-area .pie-chart,[data-is="admin-home"]>.client-area .pie-chart{ position: relative; display: block; margin: 0; padding: 5px; width: 100%; height: 100%; background: whitesmoke; border: 1px dotted skyblue; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } admin-home>.client-area .pie-chart .chart-box,[data-is="admin-home"]>.client-area .pie-chart .chart-box{ display: block; margin: 0 auto; padding: 5px; width: 100%; height: 100%; } admin-home>.client-area .pie-chart .chart-box .highcharts-background,[data-is="admin-home"]>.client-area .pie-chart .chart-box .highcharts-background{ fill: rgba(250, 250, 250, .1); } admin-home>.client-area .info-panel,[data-is="admin-home"]>.client-area .info-panel{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); grid-gap: 10px; grid-auto-rows: max-content; margin: 0; padding: 5px; width: 100%; height: auto; } admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ display: inline-block; margin: 0; padding: 5px; height: fit-content; font-size: 1rem; background: wheat; border: 1px dotted chocolate; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } @media only screen and (min-width: 400px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: olive; } } @media only screen and (min-width: 600px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: hotpink; } } @media only screen and (min-width: 800px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: fuchsia; } } @media only screen and (min-width: 1000px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: grey; } } admin-home>.client-area .info-box .info-data-value,[data-is="admin-home"]>.client-area .info-box .info-data-value{ display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: auto; font-size: 2.5em; font-weight: bold; text-align: center; } admin-home>.client-area .info-box .info-caption,[data-is="admin-home"]>.client-area .info-box .info-caption{ display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: auto; text-align: center; } admin-home>.client-area .info-box .info-caption-icon,[data-is="admin-home"]>.client-area .info-box .info-caption-icon{ display: inline-block; margin: 0; padding: 0; height: auto; font-size: 0.7em; font-weight: normal; } admin-home>.client-area .info-box .info-caption-text,[data-is="admin-home"]>.client-area .info-box .info-caption-text{ display: inline-block; margin: 0; padding: 0; height: auto; font-size: 0.7em; font-weight: normal; }', '', function(opts) {
+        let self = this
+        let screenId = 'admin-home'
+        let defaultContent = {
+            title: 'Admin Home Page.'
+        }
+        this.content = defaultContent;
 
-
-        let self = this;
-        let screenId = 'admin-home';
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+        let bar1, pie1
+        let initCtrls = () => {
+            bar1 = self.refs['bar1']
+            pie1 = self.refs['pie1']
+        }
+        let freeCtrls = () => {
+            pie1 = null
+            bar1 = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+            addEvt(events.name.ScreenChanged, onScreenChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ScreenChanged, onScreenChanged)
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+        let onContentChanged = (e) => { updatecontent() }
+        let onLanguageChanged = (e) => { updatecontent() }
+        let onScreenChanged = (e) => { updatecontent() }
+        let updatecontent = () => {
+            if (screens.is(screenId)) {
+                let scrContent = contents.getScreenContent()
+                self.content = scrContent ? scrContent : defaultContent
+                updateBar()
+                updatePie()
+                self.update()
+            }
+        }
 
         let data1 = [
             { name: 'EDL', y: 3.5 },
@@ -1214,71 +1257,6 @@ riot.tag2('admin-home', '<div class="client-area"> <div class="info-panel"> <div
             { name: 'Fair', y: 24 },
             { name: 'Poor', y: 15 }
         ];
-
-        let defaultContent = {
-            title: 'Admin Home Page.'
-        }
-        this.content = defaultContent;
-
-        let updatecontent = () => {
-            let scrId = screens.current.screenId;
-            if (screenId === scrId) {
-                let scrContent = (contents.current && contents.current.screens) ? contents.current.screens[scrId] : null;
-                self.content = scrContent ? scrContent : defaultContent;
-
-                updateBar()
-                updatePie()
-
-                self.update();
-            }
-        }
-
-        let bar1, pie1;
-        let initCtrls = () => {
-            bar1 = self.refs['bar1']
-            pie1 = self.refs['pie1']
-        }
-        let freeCtrls = () => {
-            pie1 = null
-            bar1 = null
-        }
-
-        let addEvt = (evtName, handle) => { document.addEventListener(evtName, handle) }
-        let delEvt = (evtName, handle) => { document.removeEventListener(evtName, handle) }
-
-        let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
-            addEvt(events.name.ContentChanged, onContentChanged)
-            addEvt(events.name.ScreenChanged, onScreenChanged)
-        }
-        let unbindEvents = () => {
-            delEvt(events.name.ScreenChanged, onScreenChanged)
-            delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
-        }
-
-        this.on('mount', () => {
-            initCtrls();
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-            freeCtrls();
-        });
-
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => {
-            let scrId = screens.current.screenId;
-            if (screenId === scrId) {
-                updatecontent();
-            }
-        }
-        let onScreenChanged = (e) => {
-            let scrId = screens.current.screenId;
-            if (screenId === scrId) {
-                updatecontent();
-            }
-        }
 
         let updateBar = () => {
             Highcharts.chart(bar1, {

@@ -283,6 +283,12 @@ class ContentService {
         //console.log('Current:', ret);
         return ret;
     }
+    getScreenContent() {
+        let curr = this.getCurrent()
+        let scrId = screens.current.screenId
+        let ret = (curr && curr.screens) ? curr.screens[scrId] : null
+        return ret
+    }
     get langId() { 
         return (lang.current) ? lang.current.langId : 'EN';
     }
