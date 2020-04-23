@@ -845,7 +845,7 @@ riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen
         this.hide = () => { self.root.classList.remove('show') }
         this.show = () => { self.root.classList.add('show') }
 });
-riot.tag2('sidebar', '<yield></yield>', 'sidebar,[data-is="sidebar"]{ position: relative; display: inline-block; margin: 0; background-color: burlywood; border: 1px solid black; }', '', function(opts) {
+riot.tag2('sidebar', '<yield></yield>', 'sidebar,[data-is="sidebar"]{ position: relative; display: inline-block; margin: 0; padding: 0; width: 300px; height: calc(100% - 3px); border: 1px solid black; } sidebar.c1,[data-is="sidebar"].c1{ background-color: burlywood; } sidebar.c2,[data-is="sidebar"].c2{ background-color: aliceblue; } sidebar.c3,[data-is="sidebar"].c3{ background-color: cornsilk; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 });
@@ -953,10 +953,16 @@ riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <div class="banner"> <d
 
         let updatecontent = () => {
 
-            self.update();
+            self.update()
         }
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        this.on('mount', () => {
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+        })
 
         let bindEvents = () => {
             addEvt(events.name.LanguageChanged, onLanguageChanged)
@@ -968,12 +974,10 @@ riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <div class="banner"> <d
 
             delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
 
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
-        let onScreenChanged = (e) => { updatecontent(); }
+        let onContentChanged = (e) => { updatecontent() }
+        let onLanguageChanged = (e) => { updatecontent() }
+        let onScreenChanged = (e) => { updatecontent() }
 });
 riot.tag2('rater-home', '', 'rater-home,[data-is="rater-home"]{ margin: 0 auto; }', '', function(opts) {
 
@@ -1003,7 +1007,7 @@ riot.tag2('signin-entry', '', 'signin-entry,[data-is="signin-entry"]{ margin: 0 
         this.on('unmount', () => { });
 
 });
-riot.tag2('screen1', '<h4>Screen 1</h4> <button onclick="{gotoScreen2}">Goto Screen 2</button>', 'screen1,[data-is="screen1"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
+riot.tag2('screen1', '<sidebar class="c1"> <h6>Sidebar 1</h6> </sidebar> <sidebar class="c2"> <h6>Sidebar 2</h6> </sidebar> <sidebar class="c3"> <h6>Sidebar 3</h6> </sidebar> <h4>Screen 1</h4> <button onclick="{gotoScreen2}">Goto Screen 2</button> <sidebar class="c1"> <h6>Sidebar 4</h6> </sidebar> <sidebar class="c2"> <h6>Sidebar 5</h6> </sidebar> <sidebar class="c3"> <h6>Sidebar 6</h6> </sidebar>', 'screen1,[data-is="screen1"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         let self = this
         let scrId = 'screen1'
 

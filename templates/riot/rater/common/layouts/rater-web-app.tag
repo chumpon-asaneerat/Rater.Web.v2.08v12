@@ -79,10 +79,16 @@
             let scrContent = (contents.current && contents.current.screens) ? contents.current.screens[scrId] : null;
             self.content = scrContent ? scrContent : { title: '' };
             */
-            self.update();
+            self.update()
         }
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        this.on('mount', () => {
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+        })
 
         let bindEvents = () => {
             addEvt(events.name.LanguageChanged, onLanguageChanged)
@@ -94,11 +100,9 @@
             //delEvt(events.name.ContentChanged, onContentChanged)
             delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
-        this.on('mount', () => { bindEvents(); });
-        this.on('unmount', () => { unbindEvents(); });
 
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
-        let onScreenChanged = (e) => { updatecontent(); }
+        let onContentChanged = (e) => { updatecontent() }
+        let onLanguageChanged = (e) => { updatecontent() }
+        let onScreenChanged = (e) => { updatecontent() }
     </script>
 </rater-web-app>
