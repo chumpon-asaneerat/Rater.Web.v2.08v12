@@ -1186,6 +1186,180 @@ riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <div class="banner"> <d
         let onLanguageChanged = (e) => { updatecontent() }
         let onScreenChanged = (e) => { updatecontent() }
 });
+riot.tag2('admin-home', '<div class="client-area"> <div class="info-panel"> <div class="info-box"> <div class="info-data"> <div class="info-data-value">3.82</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Average </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">87%</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Average % </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">200 K+</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Total Votes </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">30</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Wait list </div> </div> </div> </div> <div class="chart-panel"> <div class="bar-chart"> <div class="chart-box" ref="bar1"></div> </div> <div class="pie-chart"> <div class="chart-box" ref="pie1"></div> </div> </div> </div>', 'admin-home,[data-is="admin-home"]{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'client-area\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; } admin-home>.client-area,[data-is="admin-home"]>.client-area{ grid-area: client-area; display: grid; grid-auto-flow: row; grid-auto-rows: max-content; grid-gap: 10px; margin: 0; padding: 5px; width: 100%; height: 100%; border: 1px dotted navy; overflow: auto; } admin-home>.client-area .chart-panel,[data-is="admin-home"]>.client-area .chart-panel{ display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); grid-gap: 10px; grid-auto-rows: minmax(200px, max-content); margin: 0; padding: 5px; width: 100%; height: auto; } admin-home>.client-area .bar-chart,[data-is="admin-home"]>.client-area .bar-chart{ position: relative; display: block; margin: 0; padding: 5px; width: 100%; height: 100%; background: whitesmoke; border: 1px dotted orchid; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } admin-home>.client-area .bar-chart .chart-box,[data-is="admin-home"]>.client-area .bar-chart .chart-box{ display: block; position: absolute; margin: 0; padding: 5px; width: 100%; height: 100%; min-width: 100px; } admin-home .bar-chart .chart-box .highcharts-background,[data-is="admin-home"] .bar-chart .chart-box .highcharts-background{ fill: rgba(250, 250, 250, .1); } admin-home>.client-area .pie-chart,[data-is="admin-home"]>.client-area .pie-chart{ position: relative; display: block; margin: 0; padding: 5px; width: 100%; height: 100%; background: whitesmoke; border: 1px dotted skyblue; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } admin-home>.client-area .pie-chart .chart-box,[data-is="admin-home"]>.client-area .pie-chart .chart-box{ display: block; margin: 0 auto; padding: 5px; width: 100%; height: 100%; } admin-home>.client-area .pie-chart .chart-box .highcharts-background,[data-is="admin-home"]>.client-area .pie-chart .chart-box .highcharts-background{ fill: rgba(250, 250, 250, .1); } admin-home>.client-area .info-panel,[data-is="admin-home"]>.client-area .info-panel{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); grid-gap: 10px; grid-auto-rows: max-content; margin: 0; padding: 5px; width: 100%; height: auto; } admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ display: inline-block; margin: 0; padding: 5px; height: fit-content; font-size: 1rem; background: wheat; border: 1px dotted chocolate; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } @media only screen and (min-width: 400px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: olive; } } @media only screen and (min-width: 600px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: hotpink; } } @media only screen and (min-width: 800px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: fuchsia; } } @media only screen and (min-width: 1000px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: grey; } } admin-home>.client-area .info-box .info-data-value,[data-is="admin-home"]>.client-area .info-box .info-data-value{ display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: auto; font-size: 2.5em; font-weight: bold; text-align: center; } admin-home>.client-area .info-box .info-caption,[data-is="admin-home"]>.client-area .info-box .info-caption{ display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: auto; text-align: center; } admin-home>.client-area .info-box .info-caption-icon,[data-is="admin-home"]>.client-area .info-box .info-caption-icon{ display: inline-block; margin: 0; padding: 0; height: auto; font-size: 0.7em; font-weight: normal; } admin-home>.client-area .info-box .info-caption-text,[data-is="admin-home"]>.client-area .info-box .info-caption-text{ display: inline-block; margin: 0; padding: 0; height: auto; font-size: 0.7em; font-weight: normal; }', '', function(opts) {
+
+
+        let self = this;
+        let screenId = 'admin-home';
+
+        let data1 = [
+            { name: 'EDL', y: 3.5 },
+            { name: 'Sale', y: 3.8 },
+            { name: 'Engineer', y: 3.2 },
+            { name: 'Supports', y: 2.9 },
+            { name: 'Finance', y: 3.7 }
+        ];
+        let xlabels = [
+            'EDL',
+            'Sale',
+            'Engineer',
+            'Supports',
+            'Finance'
+        ];
+
+        let chartTitle = 'EDL';
+        let data2 = [
+            { name: 'Excellent', y: 30 },
+            { name: 'Good', y: 21 },
+            { name: 'Fair', y: 24 },
+            { name: 'Poor', y: 15 }
+        ];
+
+        let defaultContent = {
+            title: 'Admin Home Page.'
+        }
+        this.content = defaultContent;
+
+        let updatecontent = () => {
+            let scrId = screens.current.screenId;
+            if (screenId === scrId) {
+                let scrContent = (contents.current && contents.current.screens) ? contents.current.screens[scrId] : null;
+                self.content = scrContent ? scrContent : defaultContent;
+
+                updateBar()
+                updatePie()
+
+                self.update();
+            }
+        }
+
+        let bar1, pie1;
+        let initCtrls = () => {
+            bar1 = self.refs['bar1']
+            pie1 = self.refs['pie1']
+        }
+        let freeCtrls = () => {
+            pie1 = null
+            bar1 = null
+        }
+
+        let addEvt = (evtName, handle) => { document.addEventListener(evtName, handle) }
+        let delEvt = (evtName, handle) => { document.removeEventListener(evtName, handle) }
+
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+            addEvt(events.name.ScreenChanged, onScreenChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ScreenChanged, onScreenChanged)
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        let onContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => {
+            let scrId = screens.current.screenId;
+            if (screenId === scrId) {
+                updatecontent();
+            }
+        }
+        let onScreenChanged = (e) => {
+            let scrId = screens.current.screenId;
+            if (screenId === scrId) {
+                updatecontent();
+            }
+        }
+
+        let updateBar = () => {
+            Highcharts.chart(bar1, {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Vote Summary Bar graph'
+                },
+                subtitle: {
+
+                },
+                xAxis: {
+
+                    categories: xlabels
+                },
+                yAxis: {
+                    title: { text: 'Average' }
+                },
+                legend: { enabled: false },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.2f}'
+                        }
+                    }
+                },
+                tooltip: {
+
+                    headerFormat: '',
+
+                    pointFormat: '<span>{point.name}</span>: <b>{point.y:.2f}</b><br/>'
+                },
+                series: [{
+                    name: "Organization",
+                    colorByPoint: true,
+                    data: data1
+                }]
+            });
+        }
+
+        let updatePie = () => {
+            Highcharts.chart(pie1, {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: chartTitle
+                },
+                tooltip: {
+                    pointFormat: '<b>{point.percentage:.2f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: false,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Choice',
+                    colorByPoint: true,
+                    data: data2
+                }]
+            });
+        }
+});
 riot.tag2('rater-home', '<div class="content-area"> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div class="padtop"></div> <div ref="userSignIn" class="user-signin"> <div class="group-header"> <h4><span class="fa fa-user-lock">&nbsp;</span>&nbsp;{content.title}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <ninput ref="userName" title="{content.label.userName}" type="text" name="userName"></ninput> <ninput ref="passWord" title="{content.label.passWord}" type="password" name="pwd"></ninput> <div class="padtop"></div> <button ref="submit"> <span class="fas fa-user">&nbsp;</span> {content.label.submit} </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div> <div ref="userSelection" class="user-selection hide"> <div class="group-header"> <h4>{content.label.selectAccount}</h4> <div class="padtop"></div> </div> <div class="group-body"> <div class="padtop"></div> <div class="padtop"></div> <company-selection ref="userList" companyname="{content.label.companyName}" fullname="{content.label.fullName}"> </company-selection> <div class="padtop"></div> <button ref="cancel"> <span class="fa fa-user-times">&nbsp;</span> Cancel </button> <div class="padtop"></div> <div class="padtop"></div> </div> </div> </div>', 'rater-home,[data-is="rater-home"]{ margin: 0 auto; padding: 2px; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } rater-home .content-area,[data-is="rater-home"] .content-area{ grid-area: content-area; margin: 0 auto; padding: 0px; position: relative; display: block; width: 100%; height: 100%; background-color: white; background-image: url(\'public/assets/images/backgrounds/bg-15.jpg\'); background-blend-mode: multiply, luminosity; background-position: center; background-repeat: no-repeat; background-size: cover; } rater-home .content-area .user-signin,[data-is="rater-home"] .content-area .user-signin,rater-home .content-area .user-selection,[data-is="rater-home"] .content-area .user-selection{ display: block; position: relative; margin: 0 auto; padding: 0; } rater-home .content-area .user-signin.hide,[data-is="rater-home"] .content-area .user-signin.hide,rater-home .content-area .user-selection.hide,[data-is="rater-home"] .content-area .user-selection.hide{ display: none; } rater-home .padtop,[data-is="rater-home"] .padtop,rater-home .content-area .padtop,[data-is="rater-home"] .content-area .padtop,rater-home .content-area .user-signin .group-header .padtop,[data-is="rater-home"] .content-area .user-signin .group-header .padtop,rater-home .content-area .user-signin .group-body .padtop,[data-is="rater-home"] .content-area .user-signin .group-body .padtop,rater-home .content-area .user-selection .group-header .padtop,[data-is="rater-home"] .content-area .user-selection .group-header .padtop,rater-home .content-area .user-selection .group-body .padtop,[data-is="rater-home"] .content-area .user-selection .group-body .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; } rater-home .content-area .user-signin .group-header,[data-is="rater-home"] .content-area .user-signin .group-header,rater-home .content-area .user-selection .group-header,[data-is="rater-home"] .content-area .user-selection .group-header{ display: block; margin: 0 auto; padding: 3px; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background-color: cornflowerblue; border: 1px solid dimgray; border-radius: 8px 8px 0 0; } rater-home .content-area .user-signin .group-header h4,[data-is="rater-home"] .content-area .user-signin .group-header h4,rater-home .content-area .user-selection .group-header h4,[data-is="rater-home"] .content-area .user-selection .group-header h4{ display: block; margin: 0 auto; padding: 0; padding-top: 5px; font-size: 1.1rem; text-align: center; color: whitesmoke; user-select: none; } rater-home .content-area .user-signin .group-body,[data-is="rater-home"] .content-area .user-signin .group-body,rater-home .content-area .user-selection .group-body,[data-is="rater-home"] .content-area .user-selection .group-body{ display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 0; height: auto; width: 30%; min-width: 300px; max-width: 500px; opacity: 0.8; background-color: white; border: 1px solid dimgray; border-radius: 0 0 8px 8px; } rater-home .content-area .user-signin .group-body ninput,[data-is="rater-home"] .content-area .user-signin .group-body ninput,rater-home .content-area .user-selection .group-body ninput,[data-is="rater-home"] .content-area .user-selection .group-body ninput{ background-color: white; } rater-home .content-area .user-signin .group-body button,[data-is="rater-home"] .content-area .user-signin .group-body button,rater-home .content-area .user-selection .group-body button,[data-is="rater-home"] .content-area .user-selection .group-body button{ display: inline-block; margin: 5px auto; padding: 10px 15px; color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; text-decoration: none; vertical-align: middle; }', '', function(opts) {
         let self = this;
         let defaultContent = {

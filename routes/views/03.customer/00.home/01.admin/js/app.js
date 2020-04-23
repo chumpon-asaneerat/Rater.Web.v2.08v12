@@ -1,5 +1,12 @@
 let app;
 (() => {
+    let tags = riot.mount('rater-web-app')
+    let screenId = 'admin-home'
+    screens.show(screenId)
+})();
+/*
+let app;
+(() => {
     nlib.signout = () => { secure.signout() }
 
     nlib.info = () => {
@@ -9,3 +16,4 @@ let app;
         console.log(app.info)
     }
  })();
+*/
