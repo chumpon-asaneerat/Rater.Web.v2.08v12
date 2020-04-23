@@ -214,3 +214,35 @@ class ScreenService {
 })();
 
 //#endregion
+
+//#region SidebarService class
+
+/** app sidebar changed. */
+window.events.name.SidebarStateChanged = 'app:sidebar:statechange';
+
+class SidebarService {
+    constructor() {
+        this.shown = false
+    }
+    show() {
+        if (!this.shown) {
+            this.shown = true
+            // Raise event.
+            events.raise(events.name.SidebarStateChanged)
+        }
+    }
+    hide() {
+        if (this.shown) {
+            this.shown = false
+            // Raise event.
+            events.raise(events.name.SidebarStateChanged)
+        }
+    }
+}
+
+; (function () {
+    //console.log('Init screen service...');
+    window.sidebar = window.sidebar || new SidebarService();
+})();
+
+//#endregion

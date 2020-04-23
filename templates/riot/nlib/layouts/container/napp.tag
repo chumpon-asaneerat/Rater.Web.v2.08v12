@@ -18,20 +18,29 @@
             grid-area: app-area;
             position: relative;
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: auto 1fr;
             grid-template-rows: auto 1fr auto;
             grid-template-areas: 
-                'navi-area'
-                'scrn-area'
-                'stat-area';
+                'sidebar-area navi-area'
+                'sidebar-area scrn-area'
+                'sidebar-area stat-area';
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
         }
-        /* ignore all child if not navibar or screen or statusbar (footer) */
-        :scope>.app-area>:not(navibar):not(screen):not(statusbar) {
+        /* ignore all child if not sidebar or navibar or screen or statusbar (footer) */
+        :scope>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar) {
+            display: none;
+        }
+        /* sidebar */
+        :scope>.app-area sidebar:first-child {
+            grid-area: sidebar-area;
+            /* padding: 0 5px; */
+        }
+        :scope>.app-area sidebar:not(:first-child) {
+            grid-area: sidebar-area;
             display: none;
         }
         /* navibar (header main menu) */

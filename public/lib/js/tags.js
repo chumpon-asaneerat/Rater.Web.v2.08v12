@@ -825,7 +825,7 @@ riot.tag2('collapse-panel', '<div class="panel-container"> <div class="panel-hea
             }
         };
 });
-riot.tag2('napp', '<div class="app-area"> <yield></yield> </div>', 'napp,[data-is="napp"]{ display: grid; margin: 0 auto; padding: 0; height: 100vh; width: 100vw; grid-template-areas: \'app-area\'; background: inherit; overflow: hidden; } napp>.app-area,[data-is="napp"]>.app-area{ grid-area: app-area; position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \'navi-area\' \'scrn-area\' \'stat-area\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } napp>.app-area>:not(navibar):not(screen):not(statusbar),[data-is="napp"]>.app-area>:not(navibar):not(screen):not(statusbar){ display: none; } napp>.app-area navibar:first-child,[data-is="napp"]>.app-area navibar:first-child{ grid-area: navi-area; } napp>.app-area navibar:not(:first-child),[data-is="napp"]>.app-area navibar:not(:first-child){ grid-area: navi-area; display: none; } napp>.app-area screen,[data-is="napp"]>.app-area screen{ grid-area: scrn-area; } napp>.app-area statusbar:last-child,[data-is="napp"]>.app-area statusbar:last-child{ grid-area: stat-area; } napp>.app-area statusbar:not(:last-child),[data-is="napp"]>.app-area statusbar:not(:last-child){ grid-area: stat-area; display: none; }', '', function(opts) {
+riot.tag2('napp', '<div class="app-area"> <yield></yield> </div>', 'napp,[data-is="napp"]{ display: grid; margin: 0 auto; padding: 0; height: 100vh; width: 100vw; grid-template-areas: \'app-area\'; background: inherit; overflow: hidden; } napp>.app-area,[data-is="napp"]>.app-area{ grid-area: app-area; position: relative; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \'sidebar-area navi-area\' \'sidebar-area scrn-area\' \'sidebar-area stat-area\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } napp>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar),[data-is="napp"]>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar){ display: none; } napp>.app-area sidebar:first-child,[data-is="napp"]>.app-area sidebar:first-child{ grid-area: sidebar-area; } napp>.app-area sidebar:not(:first-child),[data-is="napp"]>.app-area sidebar:not(:first-child){ grid-area: sidebar-area; display: none; } napp>.app-area navibar:first-child,[data-is="napp"]>.app-area navibar:first-child{ grid-area: navi-area; } napp>.app-area navibar:not(:first-child),[data-is="napp"]>.app-area navibar:not(:first-child){ grid-area: navi-area; display: none; } napp>.app-area screen,[data-is="napp"]>.app-area screen{ grid-area: scrn-area; } napp>.app-area statusbar:last-child,[data-is="napp"]>.app-area statusbar:last-child{ grid-area: stat-area; } napp>.app-area statusbar:not(:last-child),[data-is="napp"]>.app-area statusbar:not(:last-child){ grid-area: stat-area; display: none; }', '', function(opts) {
 });
 riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen,[data-is="screen"]{ margin: 0 auto; padding: 0; display: none; width: 100%; height: 100%; } screen.active,[data-is="screen"].active,screen.show,[data-is="screen"].show{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; } screen .content-area,[data-is="screen"] .content-area{ grid-area: content-area; position: relative; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
@@ -845,9 +845,31 @@ riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen
         this.hide = () => { self.root.classList.remove('show') }
         this.show = () => { self.root.classList.add('show') }
 });
-riot.tag2('sidebar', '<yield></yield>', 'sidebar,[data-is="sidebar"]{ position: relative; display: inline-block; margin: 0; padding: 0; width: 300px; height: calc(100% - 3px); border: 1px solid black; } sidebar.c1,[data-is="sidebar"].c1{ background-color: burlywood; } sidebar.c2,[data-is="sidebar"].c2{ background-color: aliceblue; } sidebar.c3,[data-is="sidebar"].c3{ background-color: cornsilk; }', '', function(opts) {
+riot.tag2('sidebar', '<yield></yield>', 'sidebar,[data-is="sidebar"]{ position: fixed; display: none; margin: 0; padding: 0; width: 300px; height: calc(100% - 3px); border: 1px solid black; z-index: 99999; } sidebar.show,[data-is="sidebar"].show,sidebar.active,[data-is="sidebar"].active{ display: inline-block; position: fixed; } @media only screen and (max-width: 700px) { sidebar.show,[data-is="sidebar"].show,sidebar.active,[data-is="sidebar"].active{ display: inline-block; position: fixed; } } sidebar.c1,[data-is="sidebar"].c1{ background-color: burlywood; } sidebar.c2,[data-is="sidebar"].c2{ background-color: aliceblue; } sidebar.c3,[data-is="sidebar"].c3{ background-color: cornsilk; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+
+            addEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
+        });
+        this.on('unmount', () => {
+            delEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
+
+        });
+
+        let onSidebarStateChanged = () => {
+            (sidebar.shown) ? self.show() : self.hide()
+        }
+
+        this.show = () => {
+            console.log('show')
+            self.root.classList.add('show')
+        }
+        this.hide = () => {
+            console.log('hide')
+            self.root.classList.remove('show')
+        }
 });
 riot.tag2('tool-window', '<div class="window-container"> <div class="window-header"> <div ref="dragger" class="header-block"> <label>{opts.caption}</label> </div> </div> <div ref="content" class="window-body"> <yield></yield> </div> </div>', 'tool-window,[data-is="tool-window"]{ display: block; position: absolute; z-index: 9; margin: 0; width: 25%; min-width: 100px; height: 90%; overflow: none; } tool-window .window-container,[data-is="tool-window"] .window-container{ grid-area: panel-container; width: 100%; height: 100%; padding: 5px; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px auto; grid-template-areas: \'panel-header\' \'panel-body\'; overflow: none; } tool-window .window-container .window-header,[data-is="tool-window"] .window-container .window-header{ grid-area: panel-header; display: grid; margin: 0; padding: 0; padding-left: 3px; padding-right: 3px; width: 100%; height: 100%; grid-template-columns: auto 1fr; grid-template-rows: 1fr; grid-template-areas: \'collapse-button header-block\'; color: white; border-radius: 5px 5px 0 0; background-color: cornflowerblue; overflow: none; } tool-window .window-header .collapse-button,[data-is="tool-window"] .window-header .collapse-button{ grid-area: collapse-button; align-self: center; margin: 0; padding: 0; width: 100%; cursor: pointer; } tool-window .window-header .collapse-button:hover,[data-is="tool-window"] .window-header .collapse-button:hover{ color: yellow; } tool-window .window-header .header-block,[data-is="tool-window"] .window-header .header-block{ grid-area: header-block; align-self: center; align-content: center; margin: 0; padding: 0; padding-left: 3px; width: 100%; cursor: none; } tool-window .window-header .header-block:hover,[data-is="tool-window"] .window-header .header-block:hover{ color: yellow; } tool-window .window-header .header-block label,[data-is="tool-window"] .window-header .header-block label{ margin-top: 3px; padding: 0; width: 100%; height: 100%; user-select: none; } tool-window .window-container .window-body,[data-is="tool-window"] .window-container .window-body{ grid-area: panel-body; margin: 0; padding: 3px; padding-top: 5px; padding-bottom: 5px; width: 100%; height: 100%; background-color: white; border: 1px solid cornflowerblue; overflow: auto; } tool-window .window-container .window-body.collapsed,[data-is="tool-window"] .window-container .window-body.collapsed{ display: none; }', '', function(opts) {
 
