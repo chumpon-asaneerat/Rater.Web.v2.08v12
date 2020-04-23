@@ -2,16 +2,12 @@
     <yield/>
     <style>
         :scope {
-            /* position: absolute; */
             display: inline-block;
             margin: 0;
             /*
-            left: 0;
-            top: 0;
-            bottom: 0;
-            */
             width: 300px;
-            height: calc(100% - 0px);
+            height: calc(100% - 3px);
+            */
             background-color: burlywood;
             border: 1px solid black;
         }

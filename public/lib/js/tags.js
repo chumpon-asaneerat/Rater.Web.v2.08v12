@@ -827,10 +827,9 @@ riot.tag2('collapse-panel', '<div class="panel-container"> <div class="panel-hea
 });
 riot.tag2('napp', '<div class="app-area"> <yield></yield> </div>', 'napp,[data-is="napp"]{ display: grid; margin: 0 auto; padding: 0; height: 100vh; width: 100vw; grid-template-areas: \'app-area\'; background: inherit; overflow: hidden; } napp>.app-area,[data-is="napp"]>.app-area{ grid-area: app-area; position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \'navi-area\' \'scrn-area\' \'stat-area\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } napp>.app-area>:not(navibar):not(screen):not(statusbar),[data-is="napp"]>.app-area>:not(navibar):not(screen):not(statusbar){ display: none; } napp>.app-area navibar:first-child,[data-is="napp"]>.app-area navibar:first-child{ grid-area: navi-area; } napp>.app-area navibar:not(:first-child),[data-is="napp"]>.app-area navibar:not(:first-child){ grid-area: navi-area; display: none; } napp>.app-area screen,[data-is="napp"]>.app-area screen{ grid-area: scrn-area; } napp>.app-area statusbar:last-child,[data-is="napp"]>.app-area statusbar:last-child{ grid-area: stat-area; } napp>.app-area statusbar:not(:last-child),[data-is="napp"]>.app-area statusbar:not(:last-child){ grid-area: stat-area; display: none; }', '', function(opts) {
 });
-riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen,[data-is="screen"]{ position: relative; margin: 0 auto; padding: 0; display: none; width: 100%; height: 100%; } screen.active,[data-is="screen"].active,screen.show,[data-is="screen"].show{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; } screen .content-area,[data-is="screen"] .content-area{ width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen,[data-is="screen"]{ margin: 0 auto; padding: 0; display: none; width: 100%; height: 100%; } screen.active,[data-is="screen"].active,screen.show,[data-is="screen"].show{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; } screen .content-area,[data-is="screen"] .content-area{ grid-area: content-area; display: grid; grid-template-columns: auto 1fr auto; grid-template-rows: 1fr; grid-template-areas: \'sidebar-left content-body sidebar-right\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } screen .content-area sidebar.dock.left,[data-is="screen"] .content-area sidebar.dock.left{ grid-area: sidebar-left; position: absolute; margin: 0; padding: 0; left: 0; bottom: 0; width: 300px; height: 100%; } screen .content-area sidebar.dock.right,[data-is="screen"] .content-area sidebar.dock.right{ grid-area: sidebar-right; margin: 0; padding: 0; width: 300px; height: 100%; } screen .content-area .content-body,[data-is="screen"] .content-area .content-body{ grid-area: content-body; margin: 0; padding: 0; height: 100%; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
-
         this.on('mount', () => {
             addEvt(events.name.ScreenChanged, onScreenChanged)
         })
@@ -846,7 +845,7 @@ riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen
         this.hide = () => { self.root.classList.remove('show') }
         this.show = () => { self.root.classList.add('show') }
 });
-riot.tag2('sidebar', '<yield></yield>', 'sidebar,[data-is="sidebar"]{ display: inline-block; margin: 0; width: 300px; height: calc(100% - 0px); background-color: burlywood; border: 1px solid black; }', '', function(opts) {
+riot.tag2('sidebar', '<yield></yield>', 'sidebar,[data-is="sidebar"]{ display: inline-block; margin: 0; background-color: burlywood; border: 1px solid black; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 });
