@@ -13,23 +13,27 @@
             </tabheaders>
             <tabpages>
                 <tabpage name="default">
-                    <member-entry ref="EN" langId=""></member-entry>
+                    <div class="scrollable">
+                        <member-entry ref="EN" langId=""></member-entry>
+                    </div>
                 </tabpage>
                 <tabpage name="miltilang">
-                    <virtual if={ lang.languages }>
-                        <virtual each={ item in lang.languages }>
-                            <virtual if={ item.langId !=='EN' }>
-                                <div class="panel-header" langId="{ item.langId }">
-                                    &nbsp;&nbsp;
-                                    <span class="flag-css flag-icon flag-icon-{ item.flagId.toLowerCase() }"></span>
-                                    &nbsp;{ item.Description }&nbsp;
-                                </div>
-                                <div class="panel-body" langId="{ item.langId }">
-                                    <member-entry ref="{ item.langId }" langId="{ item.langId }"></member-entry>
-                                </div>
+                    <div class="scrollable">
+                        <virtual if={ lang.languages }>
+                            <virtual each={ item in lang.languages }>
+                                <virtual if={ item.langId !=='EN' }>
+                                    <div class="panel-header" langId="{ item.langId }">
+                                        &nbsp;&nbsp;
+                                        <span class="flag-css flag-icon flag-icon-{ item.flagId.toLowerCase() }"></span>
+                                        &nbsp;{ item.Description }&nbsp;
+                                    </div>
+                                    <div class="panel-body" langId="{ item.langId }">
+                                        <member-entry ref="{ item.langId }" langId="{ item.langId }"></member-entry>
+                                    </div>
+                                </virtual>
                             </virtual>
                         </virtual>
-                    </virtual>
+                    </div>
                 </tabpage>
             </tabpages>
         </tabcontrol>
@@ -55,6 +59,7 @@
         }
         :scope>.entry {
             grid-area: entry;
+            position: relative;
             display: grid;
             grid-template-columns: 1fr auto 5px;
             grid-template-rows: 1fr;
@@ -62,9 +67,11 @@
                 'tabs tool .';
             margin: 0 auto;
             padding: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow: auto;
         }
         :scope>.entry .tabs {
             grid-area: tabs;
@@ -73,6 +80,14 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+        }
+        :scope .scrollable {
+            position: absolute;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
         }
         :scope>.entry .tool {
             grid-area: tool;

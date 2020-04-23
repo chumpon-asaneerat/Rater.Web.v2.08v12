@@ -26,6 +26,7 @@
         }
         :scope>.scrarea {
             grid-area: scrarea;
+            position: relative;
             display: grid;
             grid-template-columns: 5px auto 1fr;
             grid-template-rows: 1fr;
@@ -68,6 +69,7 @@
             background: forestgreen;
         }
         :scope>.scrarea>.gridarea {
+            position: absolute;
             grid-area: gridarea;
             margin: 0 auto;
             padding: 0;
