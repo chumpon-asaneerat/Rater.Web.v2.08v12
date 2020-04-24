@@ -18,6 +18,9 @@
     --tabheader-active-border-color: cornflowerblue;
     /* Tab Pages: box shadow. */
     --tabpages-box-shadow: var(--default-box-shadow);
+
+    /*== Card Layout =======================================================*/
+    --card-box-shadow: var(--default-box-shadow);
 }
 
 html, body { 

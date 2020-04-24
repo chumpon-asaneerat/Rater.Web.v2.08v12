@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Riot web app tag.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css" />
+    <!-- JQuery UI -->
+    <link href="/dist/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 4 -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <!-- Flag and Emoji icons -->
+    <link href="/dist/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
+    <!-- nlib css -->
+    <link href="/dist/css/nlib.css" rel="stylesheet" type="text/css" />
+    <style>
+        img {
+            display: block;
+            border: 0;
+            width: 100%;
+            height: auto;
+        }
+        .card {
+            background: white;
+            margin-bottom: 2em;	
+        }
+        .card:hover {
+            box-shadow: 3px 3px 8px hsl(0, 0%, 80%);
+        }
+        .card a {
+            color: black;
+            text-decoration: none;
+        }
+        /*
+        .card a:hover {
+            box-shadow: 3px 3px 8px hsl(0, 0%, 80%);
+        }
+        */
+        .card-content {
+            padding: 1.4em;
+        }
+        .card-content h2 {
+            margin-top: 0;
+            margin-bottom: .5em;
+            font-weight: bold;
+        }
+        .card-content p {
+            font-size: 80%;
+        }
+        @media screen and (min-width: 40em) {
+            .cards {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .card {
+                flex: 0 1 calc(50% - 1em);
+            }
+        }
+        @media screen and (min-width: 60em) {
+            .card {
+                flex: 0 1 calc(25% - 1em);
+            }
+        }
+    </style>
+</head>
+<body>
+    <rater-web-app>
+        <screen class="active">
+                <div class="centered">
+                    <section class="cards">
+                        <article class="card">
+                            <a href="#">
+                                <picture class="thumbnail">
+                                    <img src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2017/02/image-example-01.jpg" alt="A banana that looks like a bird">
+                                </picture>
+                                <div class="card-content">
+                                    <h2>Vacation Image 01</h2>
+                                    <p>TUX re-inventing the wheel, and move the needle. Feature creep dogpile that but diversify kpis but market-facing.</p>
+                                </div><!-- .card-content -->
+                            </a>
+                        </article><!-- .card -->
+                        <article class="card">
+                            <a href="#">
+                                <picture class="thumbnail">
+                                    <img src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2017/02/image-example-02.jpg" alt="Norwegian boller">
+                                </picture>
+                                <div class="card-content">
+                                    <h2>Vacation Image 02</h2>
+                                    <p>Staff engagement synergize productive mindfulness and waste of resources cross sabers, or forcing function shotgun approach drink the Kool-aid.</p>
+                                    <p>Execute are we in agreeance what do you feel you would bring to the table if you were hired for this position, nor closer to the metal goalposts, are there any leftovers in the kitchen?.</p>
+                                </div><!-- .card-content -->
+                            </a>
+                        </article><!-- .card -->
+                        <article class="card">
+                            <a href="#">
+                                <picture class="thumbnail">
+                                    <img src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2017/02/image-example-03.jpg" alt="A dinosaur wearing an aluminium jacket">
+                                </picture>
+                                <div class="card-content">
+                                    <h2>Vacation Image 03</h2>
+                                    <p>Viral engagement anti-pattern back of the net, for meeting assassin horsehead offer. Loop back design thinking drop-dead date. </p>
+                                </div><!-- .card-content -->
+                            </a>
+                        </article><!-- .card -->
+                        <article class="card">
+                            <a href="#">
+                                <picture class="thumbnail">
+                                    <img src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2017/02/image-example-04.jpg" alt="Chocolate filled boller">
+                                </picture>
+                                <div class="card-content">
+                                    <h2>Vacation Image 04</h2>
+                                    <p>We need a paradigm shift get all your ducks in a row. I just wanted to give you a heads-up we need distributors to evangelize the new line to local markets when does this sunset? so waste of resources, yet fire up your browser, or touch base closing these latest prospects is like putting socks on an octopus.</p>
+                                </div><!-- .card-content -->
+                            </a>
+                        </article><!-- .card -->
+                    </section>
+        </screen>
+    </rater-web-app>
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="/dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/dist/js/popper.min.js"></script>
+    <script src="/dist/js/tooltip.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js">/* bootstrap required jQuery and popperjs. */</script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- Riot.js -->
+    <script src="/dist/js/riot.min.js"></script>
+    <!-- riot tags -->
+    <script src="/dist/js/tags.js"></script>
+    <!-- nlib -->
+    <script src="/dist/js/nlib.js"></script>
+    <!-- services -->
+    <script src="/dist/js/services.js"></script>
+    <!-- local scripts -->
+    <script src="card/js/app.js"></script>
+    <script>
+    </script>
+</body>
+</html>
