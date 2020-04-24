@@ -21,42 +21,6 @@ const router = new WebRouter();
 
 //#endregion
 
-//#region exec/validate wrapper method
-
-const exec = async (db, callback) => {
-    let ret;
-    let connected = await db.connect();
-    if (connected) {
-        ret = await callback();
-        await db.disconnect();
-    }
-    else {
-        ret = db.error(db.errorNumbers.CONNECT_ERROR, 'No database connection.');
-    }
-    return ret;
-}
-const validate = (db, data) => {
-    let result = data;
-    if (!result) {
-        result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
-    }
-    else {
-        result = checkForError(data);
-    }
-    return result;
-}
-const checkForError = (data) => {
-    let result = data;
-    if (result.out && result.out.errNum && result.out.errNum !== 0) {
-        result.errors.hasError = true;
-        result.errors.errNum = result.out.errNum;
-        result.errors.errMsg = result.out.errMsg;
-    }
-    return result;
-}
-
-//#endregion
-
 // static class.
 const api = class { }
 
