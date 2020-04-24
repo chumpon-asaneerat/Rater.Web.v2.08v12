@@ -27,10 +27,12 @@ api.filter = class {}
 api.filter.FilterVoteOrgs = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+
         // force langId to null;
         params.langId = null;
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
 
         return params;
     }
@@ -91,10 +93,12 @@ api.filter.FilterVoteOrgs = class {
 api.filter.FilterVoteMembers = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+
         // force langId to null;
         params.langId = null;
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
 
         return params;
     }
@@ -157,10 +161,12 @@ api.filter.FilterVoteMembers = class {
 api.filter.QSetByDate = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        
         // force langId to null;
         params.langId = null;
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
 
         return params;
     }

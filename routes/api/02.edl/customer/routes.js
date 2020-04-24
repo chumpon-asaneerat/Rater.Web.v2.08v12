@@ -108,8 +108,10 @@ api.Save = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
         /*
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+
         params.langId = null; // force null.
         params.branchId = null;
         params.enabled = true;
@@ -177,8 +179,10 @@ api.Delete = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
         /*
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+
         params.langId = null; // force null.
         params.branchId = null;
         params.enabled = true;

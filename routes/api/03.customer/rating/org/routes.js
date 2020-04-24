@@ -30,11 +30,12 @@ const api = class { }
 api.Get = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
 
         // force langId to EN Only;
         params.langId = 'EN';
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
         let deviceId = secure.getDeviceId(req, res);
         params.deviceId = (deviceId) ? deviceId : ''; // required data from cookie.
         return params;
@@ -50,7 +51,7 @@ api.Get = class {
         let db = new sqldb();
         let params = api.Get.prepare(req, res);
         let fn = async () => { return api.Get.call(db, params); }
-        dbutils.data => {
+        dbutils.exec(db, fn).then(data => {
             api.Get.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });
@@ -65,9 +66,10 @@ api.Get = class {
 api.Save = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
 
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
         let deviceId = secure.getDeviceId(req, res);
         if (deviceId) params.deviceId = deviceId;
         // check empty.

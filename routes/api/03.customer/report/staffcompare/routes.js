@@ -30,8 +30,9 @@ api.Get = class {
     static prepare(req, res) {
        let params = WebServer.parseReq(req).data;
        rptAPI.question.checkLanguageId(params)
-       let customerId = secure.getCustomerId(req, res);
-       if (customerId) params.customerId = customerId;
+       let storage = new RaterStorage(req, res)
+       let customerId = (storage.account) ? storage.account.customerId : null
+       if (customerId) params.customerId = customerId
 
         return params;
     }

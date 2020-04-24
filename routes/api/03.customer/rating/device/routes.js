@@ -29,11 +29,14 @@ const api = class { }
 
 api.Get = class {
     static entry(req, res) {
-        /*
+        let storage = new RaterStorage(req, res)
+        /*        
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+
         let accessId = secure.getAccessId(req, res);
         if (accessId) params.accessId = accessId;
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
+
         let deviceId = secure.getDeviceId(req, res);
         if (deviceId) params.deviceId = deviceId;
         */
@@ -42,8 +45,10 @@ api.Get = class {
             errors: null,
             out: {}
         }
-        result.data.customerId = secure.getCustomerId(req, res)
-        result.data.deviceId = secure.getDeviceId(req, res)
+        if (storage.account) {
+            result.data.customerId = storage.account.customerId
+            result.data.deviceId = storage.account.deviceId
+        }
         WebServer.sendJson(req, res, result);
     }
 }
@@ -55,11 +60,12 @@ api.Get = class {
 api.Save = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
 
         let accessId = secure.getAccessId(req, res);
         if (accessId) params.accessId = accessId;
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
         // required value or null but required
         //params.deviceId = null; // reset
 
