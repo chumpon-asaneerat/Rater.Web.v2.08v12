@@ -378,7 +378,7 @@ riot.tag2('tabcontrol', '', 'tabcontrol,[data-is="tabcontrol"]{ position: relati
         }
 });
 
-riot.tag2('tabheader', '<yield></yield>', 'tabheader,[data-is="tabheader"]{ float: left; margin: 0 auto; padding: 4px 16px; margin-top: 2px; vertical-align: baseline; border: 0px solid silver; border-bottom: 0px; border-radius: 6px 6px 0 0; color: navy; background: silver; cursor: pointer; transition: 0.3s; user-select: none; white-space: nowrap; overflow: hidden; } tabheader:hover,[data-is="tabheader"]:hover{ color: whitesmoke; background: forestgreen; border-color: green; } tabheader.active,[data-is="tabheader"].active{ color: whitesmoke; background: cornflowerblue; border-color: royalblue; }', '', function(opts) {
+riot.tag2('tabheader', '<yield></yield>', 'tabheader,[data-is="tabheader"]{ float: left; margin: 0 auto; padding: 4px 16px; margin-top: 2px; vertical-align: baseline; border: 0px solid var(--tabheader-border-color); border-bottom: 0px; border-radius: 6px 6px 0 0; color: var(--tabheader-foreground-color); background: var(--tabheader-background-color); cursor: pointer; transition: 0.3s; user-select: none; white-space: nowrap; overflow: hidden; } tabheader:hover,[data-is="tabheader"]:hover{ color: whitesmoke; background: var(--tabheader-hover-background-color); border-color: var(--tabheader-hover-border-color); } tabheader.active,[data-is="tabheader"].active{ color: whitesmoke; background: var(--tabheader-active-background-color); border-color: var(--tabheader-active-border-color); }', '', function(opts) {
         let self = this;
 
         let bindEvents = () => {
@@ -439,7 +439,7 @@ riot.tag2('tabheaders', '<yield></yield>', 'tabheaders,[data-is="tabheaders"]{ p
             self.parent.setActiveTab(tabName)
         }
 });
-riot.tag2('tabpage', '<div class="tab-content-wrapper"> <div class="tab-content-area"> <yield></yield> </div> </div>', 'tabpage,[data-is="tabpage"]{ position: relative; display: none; margin: 0; padding: 0; width: 100%; height: 100%; border: 0 solid #F0F0F0; overflow: hidden; animation: fadeEffect 2s; } @keyframes fadeEffect { from { opacity: 0; } to { opacity: 1; } } tabpage.active,[data-is="tabpage"].active{ display: block; } tabpage>.tab-content-wrapper,[data-is="tabpage"]>.tab-content-wrapper{ position: absolute; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } tabpage>.tab-content-wrapper>.tab-content-area,[data-is="tabpage"]>.tab-content-wrapper>.tab-content-area{ position: relative; margin: 0; padding: 0; width: 100%; height: 100%; overflow: auto; }', '', function(opts) {
+riot.tag2('tabpage', '<div class="tab-content-wrapper"> <div class="tab-content-area"> <yield></yield> </div> </div>', 'tabpage,[data-is="tabpage"]{ position: relative; display: none; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; animation: fadeEffect 2s; } @keyframes fadeEffect { from { opacity: 0; } to { opacity: 1; } } tabpage.active,[data-is="tabpage"].active{ display: block; } tabpage>.tab-content-wrapper,[data-is="tabpage"]>.tab-content-wrapper{ position: absolute; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } tabpage>.tab-content-wrapper>.tab-content-area,[data-is="tabpage"]>.tab-content-wrapper>.tab-content-area{ position: relative; margin: 0; padding: 0; width: 100%; height: 100%; overflow: auto; }', '', function(opts) {
         let self = this;
 
         this.getTabName = () => {
@@ -944,7 +944,7 @@ riot.tag2('tool-window', '<div class="window-container"> <div class="window-head
 });
 riot.tag2('navi-item', '<yield></yield>', 'navi-item,[data-is="navi-item"]{ position: relative; display: inline-block; margin: 2px; padding: 2px; font-size: 1.1rem; vertical-align: baseline; cursor: default; user-select: none; white-space: nowrap; overflow: hidden; } navi-item.center,[data-is="navi-item"].center{ flex-grow: 1; text-align: center; } navi-item.right,[data-is="navi-item"].right{ justify-self: flex-end; }', '', function(opts) {
 });
-riot.tag2('navibar', '<yield></yield>', 'navibar,[data-is="navibar"]{ position: relative; display: flex; align-items: baseline; justify-content: space-between; margin: 0; padding: 1px 4px; width: 100%; color: var(--navbar-foreground-color); background-color: var(--navbar-background-color); overflow: hidden; }', '', function(opts) {
+riot.tag2('navibar', '<yield></yield>', 'navibar,[data-is="navibar"]{ position: relative; display: flex; align-items: baseline; justify-content: space-between; margin: 0; padding: 1px 4px; width: 100%; color: var(--navibar-foreground-color); background-color: var(--navibar-background-color); overflow: hidden; }', '', function(opts) {
 });
 riot.tag2('statusbar', '<yield></yield>', 'statusbar,[data-is="statusbar"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; user-select: none; white-space: nowrap; overflow: hidden; }', '', function(opts) {
 });

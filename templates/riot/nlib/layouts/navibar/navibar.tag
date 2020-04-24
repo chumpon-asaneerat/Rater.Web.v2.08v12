@@ -9,8 +9,8 @@
             margin: 0;
             padding: 1px 4px;
             width: 100%;
-            color: var(--navbar-foreground-color);
-            background-color: var(--navbar-background-color);
+            color: var(--navibar-foreground-color);
+            background-color: var(--navibar-background-color);
             overflow: hidden;
         }
         /*

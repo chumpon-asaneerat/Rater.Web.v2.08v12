@@ -1,10 +1,20 @@
 :root {
-    /*
-    --navbar-foreground-color: navy;
-    --navbar-background-color: transparent;
-    */
-    --navbar-foreground-color: white;
-    --navbar-background-color: cornflowerblue;
+    /*== Navi Bar   =======================================================*/
+    /* Navi Bar: normal */
+    --navibar-foreground-color: white;
+    --navibar-background-color: cornflowerblue;
+
+    /*== Tab Control =======================================================*/
+    /* Tab Header: normal */
+    --tabheader-foreground-color: navy;
+    --tabheader-background-color: silver;
+    --tabheader-border-color: cornflowerblue;
+    /* Tab Header: hover */
+    --tabheader-hover-background-color: forestgreen;
+    --tabheader-hover-border-color: green;
+    /* Tab Header: active */
+    --tabheader-active-background-color: cornflowerblue;
+    --tabheader-active-border-color: cornflowerblue;
 }
 
 html, body { 

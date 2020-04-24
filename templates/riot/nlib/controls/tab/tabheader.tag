@@ -13,12 +13,12 @@
 
             vertical-align: baseline;
 
-            border: 0px solid silver;
+            border: 0px solid var(--tabheader-border-color);
             border-bottom: 0px;
             border-radius: 6px 6px 0 0;
 
-            color: navy;
-            background: silver;
+            color: var(--tabheader-foreground-color);
+            background: var(--tabheader-background-color);
 
             cursor: pointer;
 
@@ -30,13 +30,13 @@
         }
         :scope:hover {
             color: whitesmoke;
-            background: forestgreen;
-            border-color: green;
+            background: var(--tabheader-hover-background-color);
+            border-color: var(--tabheader-hover-border-color);
         }
         :scope.active {
             color: whitesmoke;
-            background: cornflowerblue;      
-            border-color: royalblue;
+            background: var(--tabheader-active-background-color);
+            border-color: var(--tabheader-active-border-color);
         }
     </style>
     <script>

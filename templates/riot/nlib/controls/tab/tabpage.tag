@@ -12,7 +12,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            border: 0 solid #F0F0F0;
             /* overflow: auto; */
             overflow: hidden;
             /* Fading effect takes 2 second */
