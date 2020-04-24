@@ -81,7 +81,7 @@ api.filter.FilterVoteOrgs = class {
         let db = new sqldb();
         let params = api.filter.FilterVoteOrgs.prepare(req, res);
         let fn = async () => { return api.filter.FilterVoteOrgs.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.filter.FilterVoteOrgs.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });
@@ -147,7 +147,7 @@ api.filter.FilterVoteMembers = class {
         let db = new sqldb();
         let params = api.filter.FilterVoteMembers.prepare(req, res);
         let fn = async () => { return api.filter.FilterVoteMembers.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.filter.FilterVoteMembers.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });
@@ -212,7 +212,7 @@ api.filter.QSetByDate = class {
         let db = new sqldb();
         let params = api.filter.QSetByDate.prepare(req, res);
         let fn = async () => { return api.filter.QSetByDate.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.filter.QSetByDate.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });

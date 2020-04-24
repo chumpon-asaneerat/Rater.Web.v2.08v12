@@ -84,7 +84,7 @@ api.Get = class {
         let db = new sqldb();
         let params = api.Get.prepare(req, res);
         let fn = async () => { return api.Get.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.Get.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });
@@ -153,7 +153,7 @@ api.Save = class {
         let db = new sqldb();
         let params = api.Save.prepare(req, res);
         let fn = async () => { return api.Save.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.Save.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });
@@ -222,7 +222,7 @@ api.Delete = class {
         let db = new sqldb();
         let params = api.Delete.prepare(req, res);
         let fn = async () => { return api.Delete.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.Delete.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });
