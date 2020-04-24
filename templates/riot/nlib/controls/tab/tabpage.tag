@@ -1,14 +1,20 @@
 <tabpage>
-    <yield />
+    <div class="tab-content-wrapper">
+        <div class="tab-content-area">
+            <yield />
+        </div>
+    </div>    
     <style>
         :scope {
+            position: relative;
             display: none;
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            border: 0 solid silver;
-            overflow: auto;
+            border: 0 solid #F0F0F0;
+            /* overflow: auto; */
+            overflow: hidden;
             /* Fading effect takes 2 second */
             animation: fadeEffect 2s;
         }
@@ -19,6 +25,22 @@
         }
         :scope.active { 
             display: block;
+        }
+        :scope>.tab-content-wrapper {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        :scope>.tab-content-wrapper>.tab-content-area {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
         }
     </style>
     <script>

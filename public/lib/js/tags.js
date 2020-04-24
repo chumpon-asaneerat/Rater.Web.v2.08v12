@@ -439,7 +439,7 @@ riot.tag2('tabheaders', '<yield></yield>', 'tabheaders,[data-is="tabheaders"]{ p
             self.parent.setActiveTab(tabName)
         }
 });
-riot.tag2('tabpage', '<yield></yield>', 'tabpage,[data-is="tabpage"]{ display: none; margin: 0; padding: 0; width: 100%; height: 100%; border: 0 solid silver; overflow: auto; animation: fadeEffect 2s; } @keyframes fadeEffect { from { opacity: 0; } to { opacity: 1; } } tabpage.active,[data-is="tabpage"].active{ display: block; }', '', function(opts) {
+riot.tag2('tabpage', '<div class="tab-content-wrapper"> <div class="tab-content-area"> <yield></yield> </div> </div>', 'tabpage,[data-is="tabpage"]{ position: relative; display: none; margin: 0; padding: 0; width: 100%; height: 100%; border: 0 solid #F0F0F0; overflow: hidden; animation: fadeEffect 2s; } @keyframes fadeEffect { from { opacity: 0; } to { opacity: 1; } } tabpage.active,[data-is="tabpage"].active{ display: block; } tabpage>.tab-content-wrapper,[data-is="tabpage"]>.tab-content-wrapper{ position: absolute; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } tabpage>.tab-content-wrapper>.tab-content-area,[data-is="tabpage"]>.tab-content-wrapper>.tab-content-area{ position: relative; margin: 0; padding: 0; width: 100%; height: 100%; overflow: auto; }', '', function(opts) {
         let self = this;
 
         this.getTabName = () => {
