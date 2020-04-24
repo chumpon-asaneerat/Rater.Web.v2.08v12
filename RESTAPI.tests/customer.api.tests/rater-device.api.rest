@@ -1,0 +1,67 @@
+### Checks device is registered. Can only access via browser because data is from cookie.
+
+POST http://localhost:3000/customer/api/rating/device/search
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020030001",
+    "deviceId": "D0001"
+}
+
+### Register device.
+POST http://localhost:3000/customer/api/rating/device/save
+content-type: application/json
+
+{
+    "accessId": "F6QM6U63T3",
+    "customerId": "EDL-C2020030001",
+    "deviceId": "D0002"
+}
+
+### Unregister device
+POST http://localhost:3000/customer/api/rating/device/save
+content-type: application/json
+
+{
+    "accessId": "F6QM6U63T3",
+    "customerId": "EDL-C2020030001",
+    "deviceId": null
+}
+
+### Checks device has org. Can only access via browser because data is from cookie.
+POST http://localhost:3000/customer/api/rating/org/search
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020030001",
+    "deviceId": "D0001"
+}
+
+### Change device org.
+
+POST http://localhost:3000/customer/api/rating/org/save
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020030001",
+    "deviceId": "D0002",
+    "orgId": "O0002"
+}
+
+### Reset device org.
+
+POST http://localhost:3000/customer/api/rating/org/save
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020030001",
+    "deviceId": "D0002",
+    "orgId": null
+}
+
+### Checks device has member
+
+### Change device member (SP exist, requred new route)
+
+### Get QSet By Date (new SP required)
+
