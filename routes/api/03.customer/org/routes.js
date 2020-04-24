@@ -252,7 +252,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for org
-router.all('/org/search', api.Get.entry);
+router.all('/org', api.Get.entry);
 router.post('/org/save', api.Save.entry);
 //router.post('/org/delete', api.Delete.entry);
 

@@ -240,7 +240,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for question slide item
-//router.all('/question/slide/item/search', api.Get.entry);
+//router.all('/question/slide/item', api.Get.entry);
 //router.post('/question/slide/item/save', api.Save.entry);
 //router.post('/question/slide/item/delete', api.Delete.entry);
 

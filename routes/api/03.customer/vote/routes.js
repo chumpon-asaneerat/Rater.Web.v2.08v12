@@ -237,7 +237,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // same as rawvote
-router.all('/vote/search', api.Get.entry);
+router.all('/vote', api.Get.entry);
 router.all('/vote/save', api.Save.entry);
 //router.all('/report/vote/delete', api.Delete.entry);
 

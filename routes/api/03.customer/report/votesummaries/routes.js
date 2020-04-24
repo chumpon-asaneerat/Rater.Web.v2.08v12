@@ -72,7 +72,7 @@ api.Get = class {
 
 router.use(secure.checkAccess);
 // routes for vote summaries
-router.all('/report/votesummaries/search', api.Get.entry);
+router.all('/report/votesummaries', api.Get.entry);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);

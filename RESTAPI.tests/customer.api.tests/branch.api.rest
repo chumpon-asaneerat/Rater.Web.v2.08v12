@@ -1,5 +1,5 @@
 ### Get branch
-POST http://localhost:3000/customer/api/branch/search
+POST http://localhost:3000/customer/api/branch
 content-type: application/json
 
 {

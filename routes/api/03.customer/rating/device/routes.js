@@ -95,7 +95,7 @@ api.Save = class {
 
 router.use(secure.checkAccess);
 // routes for device
-router.all('/rating/device/search', api.Get.entry);
+router.all('/rating/device', api.Get.entry);
 router.post('/rating/device/save', api.Save.entry);
 
 const init_routes = (svr) => {

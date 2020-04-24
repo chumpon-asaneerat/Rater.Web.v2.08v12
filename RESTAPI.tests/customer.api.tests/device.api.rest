@@ -1,5 +1,5 @@
 ### Get device
-POST http://localhost:3000/customer/api/device/search
+POST http://localhost:3000/customer/api/device
 content-type: application/json
 
 {

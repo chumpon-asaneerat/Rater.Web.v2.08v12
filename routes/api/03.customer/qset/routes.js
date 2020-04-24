@@ -243,7 +243,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for question set
-router.all('/question/set/search', api.Get.entry);
+router.all('/question/set', api.Get.entry);
 //router.post('/question/set/save', api.Save.entry);
 //router.post('/question/set/delete', api.Delete.entry);
 

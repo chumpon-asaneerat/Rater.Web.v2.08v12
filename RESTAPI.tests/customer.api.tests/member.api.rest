@@ -1,5 +1,5 @@
 ### Get member
-POST http://localhost:3000/customer/api/member/search
+POST http://localhost:3000/customer/api/member
 content-type: application/json
 
 {

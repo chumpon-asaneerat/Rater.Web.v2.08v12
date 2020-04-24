@@ -280,7 +280,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // branch
-router.all('/branch/search', api.Get.entry);
+router.all('/branch', api.Get.entry);
 router.post('/branch/save', api.Save.entry);
 //router.post('/branch/delete', api.Delete.entry);
 

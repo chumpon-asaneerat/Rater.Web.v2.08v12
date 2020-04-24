@@ -1,5 +1,5 @@
 ### Get question set
-POST http://localhost:3000/customer/api/question/set/search
+POST http://localhost:3000/customer/api/question/set
 content-type: application/json
 
 {
@@ -8,7 +8,7 @@ content-type: application/json
 
 #### GetQSlides
 
-POST http://localhost:3000/customer/api//question/slide/search
+POST http://localhost:3000/customer/api//question/slide
 content-type: application/json
 
 {

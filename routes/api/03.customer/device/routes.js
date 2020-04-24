@@ -252,7 +252,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for device
-router.all('/device/search', api.Get.entry);
+router.all('/device', api.Get.entry);
 router.post('/device/save', api.Save.entry);
 //router.post('/device/delete', api.Delete.entry);
 

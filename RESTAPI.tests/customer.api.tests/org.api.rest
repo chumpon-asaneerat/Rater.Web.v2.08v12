@@ -1,5 +1,5 @@
 ### Get org
-POST http://localhost:3000/customer/api/org/search
+POST http://localhost:3000/customer/api/org
 content-type: application/json
 
 {

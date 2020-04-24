@@ -1,6 +1,6 @@
 ### Checks device is registered. Can only access via browser because data is from cookie.
 
-POST http://localhost:3000/customer/api/rating/device/search
+POST http://localhost:3000/customer/api/rating/device
 content-type: application/json
 
 {
@@ -29,7 +29,7 @@ content-type: application/json
 }
 
 ### Checks device has org. Can only access via browser because data is from cookie.
-POST http://localhost:3000/customer/api/rating/org/search
+POST http://localhost:3000/customer/api/rating/org
 content-type: application/json
 
 {

@@ -69,7 +69,7 @@ api.Get = class {
 
 router.use(secure.checkAccess);
 // routes for staff summaries
-router.all('/report/staffcompare/search', api.Get.entry);
+router.all('/report/staffcompare', api.Get.entry);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);

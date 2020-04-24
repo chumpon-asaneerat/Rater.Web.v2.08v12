@@ -101,7 +101,7 @@ api.Save = class {
 
 router.use(secure.checkAccess);
 // routes for rating/org
-router.all('/rating/org/search', api.Get.entry);
+router.all('/rating/org', api.Get.entry);
 router.post('/rating/org/save', api.Save.entry);
 
 const init_routes = (svr) => {

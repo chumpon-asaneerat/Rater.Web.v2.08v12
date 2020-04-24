@@ -254,7 +254,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for question slide
-router.all('/question/slide/search', api.Get.entry);
+router.all('/question/slide', api.Get.entry);
 //router.post('/question/slide/save', api.Save.entry);
 //router.post('/question/slide/delete', api.Delete.entry);
 
