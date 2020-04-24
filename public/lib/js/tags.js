@@ -845,32 +845,6 @@ riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen
         this.hide = () => { self.root.classList.remove('show') }
         this.show = () => { self.root.classList.add('show') }
 });
-riot.tag2('sidebar', '<yield></yield>', 'sidebar,[data-is="sidebar"]{ position: fixed; display: none; margin: 0; padding: 0; width: 300px; height: calc(100% - 3px); border: 1px solid black; z-index: 99999; } sidebar.show,[data-is="sidebar"].show,sidebar.active,[data-is="sidebar"].active{ display: inline-block; position: fixed; } @media only screen and (max-width: 700px) { sidebar.show,[data-is="sidebar"].show,sidebar.active,[data-is="sidebar"].active{ display: inline-block; position: fixed; } } sidebar.c1,[data-is="sidebar"].c1{ background-color: burlywood; } sidebar.c2,[data-is="sidebar"].c2{ background-color: aliceblue; } sidebar.c3,[data-is="sidebar"].c3{ background-color: cornsilk; }', '', function(opts) {
-        let self = this
-        let addEvt = events.doc.add, delEvt = events.doc.remove
-
-        this.on('mount', () => {
-
-            addEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
-        });
-        this.on('unmount', () => {
-            delEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
-
-        });
-
-        let onSidebarStateChanged = () => {
-            (sidebar.shown) ? self.show() : self.hide()
-        }
-
-        this.show = () => {
-            console.log('show')
-            self.root.classList.add('show')
-        }
-        this.hide = () => {
-            console.log('hide')
-            self.root.classList.remove('show')
-        }
-});
 riot.tag2('tool-window', '<div class="window-container"> <div class="window-header"> <div ref="dragger" class="header-block"> <label>{opts.caption}</label> </div> </div> <div ref="content" class="window-body"> <yield></yield> </div> </div>', 'tool-window,[data-is="tool-window"]{ display: block; position: absolute; z-index: 9; margin: 0; width: 25%; min-width: 100px; height: 90%; overflow: none; } tool-window .window-container,[data-is="tool-window"] .window-container{ grid-area: panel-container; width: 100%; height: 100%; padding: 5px; display: grid; grid-template-columns: 1fr; grid-template-rows: 30px auto; grid-template-areas: \'panel-header\' \'panel-body\'; overflow: none; } tool-window .window-container .window-header,[data-is="tool-window"] .window-container .window-header{ grid-area: panel-header; display: grid; margin: 0; padding: 0; padding-left: 3px; padding-right: 3px; width: 100%; height: 100%; grid-template-columns: auto 1fr; grid-template-rows: 1fr; grid-template-areas: \'collapse-button header-block\'; color: white; border-radius: 5px 5px 0 0; background-color: cornflowerblue; overflow: none; } tool-window .window-header .collapse-button,[data-is="tool-window"] .window-header .collapse-button{ grid-area: collapse-button; align-self: center; margin: 0; padding: 0; width: 100%; cursor: pointer; } tool-window .window-header .collapse-button:hover,[data-is="tool-window"] .window-header .collapse-button:hover{ color: yellow; } tool-window .window-header .header-block,[data-is="tool-window"] .window-header .header-block{ grid-area: header-block; align-self: center; align-content: center; margin: 0; padding: 0; padding-left: 3px; width: 100%; cursor: none; } tool-window .window-header .header-block:hover,[data-is="tool-window"] .window-header .header-block:hover{ color: yellow; } tool-window .window-header .header-block label,[data-is="tool-window"] .window-header .header-block label{ margin-top: 3px; padding: 0; width: 100%; height: 100%; user-select: none; } tool-window .window-container .window-body,[data-is="tool-window"] .window-container .window-body{ grid-area: panel-body; margin: 0; padding: 3px; padding-top: 5px; padding-bottom: 5px; width: 100%; height: 100%; background-color: white; border: 1px solid cornflowerblue; overflow: auto; } tool-window .window-container .window-body.collapsed,[data-is="tool-window"] .window-container .window-body.collapsed{ display: none; }', '', function(opts) {
 
 
@@ -945,6 +919,32 @@ riot.tag2('tool-window', '<div class="window-container"> <div class="window-head
 riot.tag2('navi-item', '<yield></yield>', 'navi-item,[data-is="navi-item"]{ position: relative; display: inline-block; margin: 2px; padding: 2px; font-size: 1.1rem; vertical-align: baseline; cursor: default; user-select: none; white-space: nowrap; overflow: hidden; } navi-item.center,[data-is="navi-item"].center{ flex-grow: 1; text-align: center; } navi-item.right,[data-is="navi-item"].right{ justify-self: flex-end; }', '', function(opts) {
 });
 riot.tag2('navibar', '<yield></yield>', 'navibar,[data-is="navibar"]{ position: relative; display: flex; align-items: baseline; justify-content: space-between; margin: 0; padding: 1px 4px; width: 100%; color: var(--navibar-foreground-color); background-color: var(--navibar-background-color); overflow: hidden; }', '', function(opts) {
+});
+riot.tag2('sidebar', '<yield></yield>', 'sidebar,[data-is="sidebar"]{ position: fixed; display: none; margin: 0; padding: 0; width: 300px; height: calc(100% - 3px); border: 1px solid black; z-index: 99999; } sidebar.show,[data-is="sidebar"].show,sidebar.active,[data-is="sidebar"].active{ display: inline-block; position: fixed; } @media only screen and (max-width: 700px) { sidebar.show,[data-is="sidebar"].show,sidebar.active,[data-is="sidebar"].active{ display: inline-block; position: fixed; } } sidebar.c1,[data-is="sidebar"].c1{ background-color: burlywood; } sidebar.c2,[data-is="sidebar"].c2{ background-color: aliceblue; } sidebar.c3,[data-is="sidebar"].c3{ background-color: cornsilk; }', '', function(opts) {
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+
+            addEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
+        });
+        this.on('unmount', () => {
+            delEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
+
+        });
+
+        let onSidebarStateChanged = () => {
+            (sidebar.shown) ? self.show() : self.hide()
+        }
+
+        this.show = () => {
+            console.log('show')
+            self.root.classList.add('show')
+        }
+        this.hide = () => {
+            console.log('hide')
+            self.root.classList.remove('show')
+        }
 });
 riot.tag2('statusbar', '<yield></yield>', 'statusbar,[data-is="statusbar"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; user-select: none; white-space: nowrap; overflow: hidden; }', '', function(opts) {
 });
