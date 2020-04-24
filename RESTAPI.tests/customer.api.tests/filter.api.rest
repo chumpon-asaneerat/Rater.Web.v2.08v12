@@ -1,0 +1,47 @@
+#### FilterVoteOrgs
+POST http://localhost:3000/customer/api/filter/vote-orgs
+content-type: application/json
+
+{
+    "langId": null,
+    "customerId": "EDL-C2020030001",
+    "qsetId": "QS00001",
+    "beginDate": "2020-04-01",
+    "endDate": "2020-05-01"
+}
+
+#### FilterVoteMembers
+POST http://localhost:3000/customer/api/filter/vote-members
+content-type: application/json
+
+{
+    "langId": null,
+    "customerId": "EDL-C2020030001",
+    "qsetId": "QS00001",
+    "beginDate": "2020-04-15",
+    "endDate": "2020-04-15",
+    "orgId": null
+}
+
+#### GetQSetByDate
+POST http://localhost:3000/customer/api/filter/qsetbydate
+content-type: application/json
+
+{
+    "langId": null,
+    "customerId": "EDL-C2020030001",
+    "beginDate": "2020-04-01",
+    "endDate": "2020-05-01"
+}
+
+#### GetQSetByDate2
+POST http://localhost:3000/customer/api/filter/qsetbydate
+content-type: application/json
+
+{
+    "langId": null,
+    "customerId": "EDL-C2020030001",
+    "beginDate": "2020-04-01",
+    "endDate": "2020-05-01"
+}
+
