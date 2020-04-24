@@ -38,7 +38,7 @@ api.filter.FilterVoteOrgs = class {
         return db.FilterVoteOrgs(params);
     }
     static parse(db, data, callback) {
-        let dbResult = validate(db, data);
+        let dbResult = dbutils.validate(db, data);
 
         let result = {
             data : null,
@@ -102,7 +102,7 @@ api.filter.FilterVoteMembers = class {
         return db.FilterVoteMembers(params);
     }
     static parse(db, data, callback) {
-        let dbResult = validate(db, data);
+        let dbResult = dbutils.validate(db, data);
 
         let result = {
             data : null,
@@ -168,7 +168,7 @@ api.filter.QSetByDate = class {
         return db.GetQSetByDate(params);
     }
     static parse(db, data, callback) {
-        let dbResult = validate(db, data);
+        let dbResult = dbutils.validate(db, data);
 
         let result = {
             data : null,

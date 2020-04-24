@@ -18,6 +18,7 @@ const router = new WebRouter();
 
 //const fs = require('fs')
 //const mkdirp = require('mkdirp')
+//const sfs = require(path.join(rootPath, 'edl', 'server-fs'));
 
 //#endregion
 
@@ -257,7 +258,7 @@ api.votesummary = class {
     static async GetVoteSummaries(db, params) {
         let ret, dbresult;
         ret = await db.GetVoteSummaries(params);
-        dbresult = validate(db, ret);
+        dbresult = dbutils.validate(db, ret);
         return dbresult;
     }
     static CreateVoteSummaries(obj, qset, results) {
@@ -444,7 +445,7 @@ api.staffcompare = class {
         params.userId = null;
         let ret, dbresult;
         ret = await db.FilterVoteDeviceMembers(params);
-        dbresult = validate(db, ret);
+        dbresult = dbutils.validate(db, ret);
         let records = dbresult.data;
         for (let i = 0; i < records.length; i++) {
             params.orgId = records[i].orgId
@@ -461,7 +462,7 @@ api.staffcompare = class {
     static async GetVoteSummaries(db, params) {
         let ret, dbresult;
         ret = await db.GetVoteSummaries(params);
-        dbresult = validate(db, ret);
+        dbresult = dbutils.validate(db, ret);
         return dbresult;
     }
     static CreateStaffSummaries(obj, qset, results) {
@@ -605,7 +606,7 @@ api.rawvote = class {
     static async GetRawVotes(db, params) {
         let ret, dbresult;
         ret = await db.GetRawVotes(params);
-        dbresult = validate(db, ret);
+        dbresult = dbutils.validate(db, ret);
         return dbresult;
     }
     static CreateGetRawVotes(obj, qset, results) {

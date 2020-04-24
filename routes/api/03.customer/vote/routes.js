@@ -18,6 +18,7 @@ const router = new WebRouter();
 
 //const fs = require('fs')
 //const mkdirp = require('mkdirp')
+//const sfs = require(path.join(rootPath, 'edl', 'server-fs'));
 
 //#endregion
 
@@ -27,14 +28,6 @@ const api = class {}
 
 api.Get = class {
     static prepare(req, res) {
-        /*
-        let params = WebServer.parseReq(req).data;
-        let customerId = secure.getCustomerId(req, res);
-        if (customerId) params.customerId = customerId;
-        api.question.prepare(params)
-        params.deviceId = null;
-        params.userId = null;
-        */
        let params = WebServer.parseReq(req).data;
        if (params.langId === undefined || params.langId === null || params.langId === '') {
            params.langId = null;
@@ -70,7 +63,7 @@ api.Get = class {
                         oParams.orgId = orgs[j].orgId;
                         // execute
                         ret = await db.GetVoteSummaries(oParams);
-                        dbresult = validate(db, ret);
+                        dbresult = dbutils.validate(db, ret);
                         api.CreateVoteSummaries(result, qset, dbresult.data)
                     }
                 }
@@ -79,7 +72,7 @@ api.Get = class {
                     oParams.orgId = null;
                     // execute
                     ret = await db.GetVoteSummaries(oParams);
-                    dbresult = validate(db, ret);
+                    dbresult = dbutils.validate(db, ret);
                     api.CreateVoteSummaries(result, qset, dbresult.data)
                 }
             }
@@ -92,7 +85,7 @@ api.Get = class {
                     oParams.orgId = orgs[j].orgId;
                     // execute
                     ret = await db.GetVoteSummaries(oParams);
-                    dbresult = validate(db, ret);
+                    dbresult = dbutils.validate(db, ret);
                     api.CreateVoteSummaries(result, qset, dbresult.data)
                 }
             }
@@ -101,7 +94,7 @@ api.Get = class {
                 oParams.orgId = null;
                 // execute
                 ret = await db.GetVoteSummaries(oParams);
-                dbresult = validate(db, ret);
+                dbresult = dbutils.validate(db, ret);
                 api.CreateVoteSummaries(result, qset, dbresult.data)
             }
         }
@@ -128,7 +121,7 @@ api.Get = class {
         let db = new sqldb();
         let params = api.Get.prepare(req, res);
         let fn = async () => { return api.Get.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.Get.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });
@@ -156,7 +149,7 @@ api.Save = class {
         return null;
     }
     static parse(db, data, callback) {
-        let dbResult = validate(db, data);
+        let dbResult = dbutils.validate(db, data);
         let result = {}        
         result.data = null
         //result.src = dbResult.data
@@ -177,7 +170,7 @@ api.Save = class {
         let db = new sqldb();
         let params = api.Save.prepare(req, res);
         let fn = async () => { return api.Save.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.Save.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });
@@ -205,7 +198,7 @@ api.Delete = class {
         return null;
     }
     static parse(db, data, callback) {
-        let dbResult = validate(db, data);
+        let dbResult = dbutils.validate(db, data);
         let result = {}        
         result.data = null
         //result.src = dbResult.data
@@ -226,7 +219,7 @@ api.Delete = class {
         let db = new sqldb();
         let params = api.Delete.prepare(req, res);
         let fn = async () => { return api.Delete.call(db, params); }
-        exec(db, fn).then(data => {
+        dbutils.exec(db, fn).then(data => {
             api.Delete.parse(db, data, (result) => {
                 WebServer.sendJson(req, res, result);
             });

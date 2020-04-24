@@ -18,6 +18,7 @@ const router = new WebRouter();
 
 //const fs = require('fs')
 //const mkdirp = require('mkdirp')
+//const sfs = require(path.join(rootPath, 'edl', 'server-fs'));
 
 //#endregion
 
@@ -69,7 +70,7 @@ api.Save = class {
         return ret;
     }
     static parse(db, data, callback) {
-        let result = validate(db, data);
+        let result = dbutils.validate(db, data);
         callback(result);
     }
     static entry(req, res) {

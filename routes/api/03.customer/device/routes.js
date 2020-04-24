@@ -42,7 +42,7 @@ api.Get = class {
         return db.GetDevices(params);
     }
     static parse(db, data, callback) {
-        let dbResult = validate(db, data);
+        let dbResult = dbutils.validate(db, data);
 
         let result = {
             data : null,
@@ -148,7 +148,7 @@ api.Save = class {
         let dbResult;
 
         for (let i = 0; i < data.length; i++) {
-            dbResult = validate(db, data[i]);
+            dbResult = dbutils.validate(db, data[i]);
 
             result = {
                 data : dbResult.data,
@@ -196,7 +196,7 @@ api.Delete = class {
         return null;
     }
     static parse(db, data, callback) {
-        let dbResult = validate(db, data);
+        let dbResult = dbutils.validate(db, data);
         let result = {}        
         result.data = null
         //result.src = dbResult.data

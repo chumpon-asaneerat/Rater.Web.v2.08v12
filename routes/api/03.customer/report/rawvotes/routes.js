@@ -18,6 +18,7 @@ const router = new WebRouter();
 
 //const fs = require('fs')
 //const mkdirp = require('mkdirp')
+//const sfs = require(path.join(rootPath, 'edl', 'server-fs'));
 
 //#endregion
 
@@ -83,7 +84,7 @@ api.Delete = class {
         return null;
     }
     static parse(db, data, callback) {
-        let dbResult = validate(db, data);
+        let dbResult = dbutils.validate(db, data);
         let result = {}        
         result.data = null
         //result.src = dbResult.data
