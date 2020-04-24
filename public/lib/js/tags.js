@@ -341,7 +341,7 @@ riot.tag2('osd', '<div ref="osd-ctrl" class="osd error"> <label style="margin: 0
             self.update();
         }
 });
-riot.tag2('tabcontrol', '', 'tabcontrol,[data-is="tabcontrol"]{ position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; grid-template-areas: \'tab-headers\' \'tab-pages\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; } tabcontrol tabheaders:first-child,[data-is="tabcontrol"] tabheaders:first-child{ grid-area: tab-headers; display: block; } tabcontrol :not(tabheaders:first-child),[data-is="tabcontrol"] :not(tabheaders:first-child){ display: none; } tabcontrol tabpages:last-child,[data-is="tabcontrol"] tabpages:last-child{ grid-area: tab-pages; display: block; } tabcontrol :not(tabpages:last-child),[data-is="tabcontrol"] :not(tabpages:last-child){ display: none; }', '', function(opts) {
+riot.tag2('tabcontrol', '<div class="tabcontrol-wrapper"> <yield></yield> </div>', 'tabcontrol,[data-is="tabcontrol"]{ position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'tabcontrol-wrapper\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; } tabcontrol>.tabcontrol-wrapper,[data-is="tabcontrol"]>.tabcontrol-wrapper{ grid-area: tabcontrol-wrapper; position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; grid-template-areas: \'tab-headers\' \'tab-pages\'; margin: 0; padding: 5px; padding-right: 10px; width: 100%; height: 100%; overflow: hidden; background: transparent; } tabcontrol>.tabcontrol-wrapper tabheaders:first-child,[data-is="tabcontrol"]>.tabcontrol-wrapper tabheaders:first-child{ grid-area: tab-headers; position: relative; display: inline-block; margin: 0; padding: 0; width: 100%; height: 100%; } tabcontrol>.tabcontrol-wrapper :not(tabheaders:first-child),[data-is="tabcontrol"]>.tabcontrol-wrapper :not(tabheaders:first-child){ display: none; } tabcontrol>.tabcontrol-wrapper tabpages:last-child,[data-is="tabcontrol"]>.tabcontrol-wrapper tabpages:last-child{ grid-area: tab-pages; position: relative; display: inline-block; margin: 0; padding: 0; width: 100%; height: 100%; box-shadow: var(--tabpages-box-shadow); } tabcontrol>.tabcontrol-wrapper :not(tabpages:last-child),[data-is="tabcontrol"]>.tabcontrol-wrapper :not(tabpages:last-child){ display: none; }', '', function(opts) {
         let self = this;
         let headers = null;
         let panels = null;
@@ -450,7 +450,7 @@ riot.tag2('tabpage', '<div class="tab-content-wrapper"> <div class="tab-content-
         this.hide = () => { self.root.classList.remove('active') }
 });
 
-riot.tag2('tabpages', '<yield></yield>', 'tabpages,[data-is="tabpages"]{ display: none; margin: 0; padding: 0; padding-top: 2px; width: 100%; height: 100%; border: 1px solid silver; overflow: hidden; } tabpages.active,[data-is="tabpages"].active{ display: block; } tabpages>:not(tabpage),[data-is="tabpages"]>:not(tabpage){ display: none; }', '', function(opts) {
+riot.tag2('tabpages', '<yield></yield>', 'tabpages,[data-is="tabpages"]{ display: none; border: 1px dotted silver; overflow: hidden; } tabpages.active,[data-is="tabpages"].active{ display: block; margin: 0; padding: 0; padding-top: 2px; width: 100%; height: 100%; } tabpages>:not(tabpage),[data-is="tabpages"]>:not(tabpage){ display: none; }', '', function(opts) {
         let self = this;
         let panels = null;
 

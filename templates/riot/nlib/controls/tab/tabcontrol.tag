@@ -1,6 +1,24 @@
 <tabcontrol>
+    <div class="tabcontrol-wrapper">
+        <yield/>
+    </div>
     <style>
         :scope {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: 
+                'tabcontrol-wrapper';
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: transparent;
+        }
+        :scope>.tabcontrol-wrapper {
+            grid-area: tabcontrol-wrapper;
             position: relative;
             display: grid;
             grid-template-columns: 1fr;
@@ -9,24 +27,36 @@
                 'tab-headers'
                 'tab-pages';
             margin: 0;
-            padding: 0;
+            padding: 5px;
+            padding-right: 10px;
             width: 100%;
             height: 100%;
             overflow: hidden;
             background: transparent;
         }
-        :scope tabheaders:first-child {
+        :scope>.tabcontrol-wrapper tabheaders:first-child {
             grid-area: tab-headers;
-            display: block;
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
         }
-        :scope :not(tabheaders:first-child) {
+        :scope>.tabcontrol-wrapper :not(tabheaders:first-child) {
             display: none;
         }
-        :scope tabpages:last-child {
+        :scope>.tabcontrol-wrapper tabpages:last-child {
             grid-area: tab-pages;
-            display: block;
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: var(--tabpages-box-shadow);
         }
-        :scope :not(tabpages:last-child) {
+        :scope>.tabcontrol-wrapper :not(tabpages:last-child) {
             display: none;
         }
     </style>

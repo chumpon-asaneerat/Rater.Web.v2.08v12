@@ -3,15 +3,17 @@
     <style>
         :scope {
             display: none;
+            border: 1px dotted silver;
+            overflow: hidden;
+        }
+        :scope.active { 
+            display: block;
             margin: 0;
             padding: 0;
             padding-top: 2px;
             width: 100%;
             height: 100%;
-            border: 1px solid silver;
-            overflow: hidden;
         }
-        :scope.active { display: block; }
         :scope>:not(tabpage) { display: none; }
     </style>
     <script>
