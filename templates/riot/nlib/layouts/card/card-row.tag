@@ -16,7 +16,7 @@
             padding: 5px;
             padding-right: 10px;
             width: 100%;
-            /* height: 100%; */
+            height: auto;
         }
         :scope>.card-row-wrapper {
             grid-area: card-row-area;
@@ -25,7 +25,7 @@
             margin: 0 auto;
             padding: 0;
             width: 100%;
-            /* height: 100%; */
+            height: auto;
             background-color: aqua;
         }
         :scope[shadow]>.card-row-wrapper {
@@ -37,8 +37,7 @@
             margin: 0 auto;
             padding: 0;
             width: 100%;
-            /* height: 100%; */
-            /* overflow: inherit; */
+            height: auto;
         }
     </style>
 </card-row>
