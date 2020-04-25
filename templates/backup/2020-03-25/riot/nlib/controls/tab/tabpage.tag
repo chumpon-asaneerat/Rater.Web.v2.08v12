@@ -12,7 +12,7 @@
             /* Fading effect takes 2 second */
             animation: fadeEffect 2s;
         }
-        /* Go from zero to full opacity */     
+        /* Go from zero to full opacity */
         @keyframes fadeEffect {
             from { opacity: 0; }
             to { opacity: 1; }

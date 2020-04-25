@@ -831,6 +831,20 @@ riot.tag2('collapse-panel', '<div class="panel-container"> <div class="panel-hea
             }
         };
 });
+riot.tag2('dual-layout', '<div ref="flipper" class="dual-layout-container"> <div class="left-block"> <div class="content"> <yield from="left-panel"></yield> </div> </div> <div class="right-block"> <div class="content"> <yield from="right-panel"></yield> </div> </div> </div>', 'dual-layout,[data-is="dual-layout"]{ position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'dual-area\'; margin: 0; padding: 5px; padding-right: 10px; width: 100%; height: 100%; overflow: hidden; } dual-layout>.dual-layout-container,[data-is="dual-layout"]>.dual-layout-container{ grid-area: dual-area; position: relative; display: block; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } dual-layout>.dual-layout-container.toggle,[data-is="dual-layout"]>.dual-layout-container.toggle{ transform: none; } @media only screen and (min-width: 700px) { dual-layout>.dual-layout-container,[data-is="dual-layout"]>.dual-layout-container{ grid-area: dual-area; position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; grid-template-areas: \'left-area right-area\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } } dual-layout[shadow].dual-layout-container,[data-is="dual-layout"][shadow].dual-layout-container{ box-shadow: var(--card-box-shadow); } dual-layout>.dual-layout-container .left-block,[data-is="dual-layout"]>.dual-layout-container .left-block,dual-layout>.dual-layout-container .right-block,[data-is="dual-layout"]>.dual-layout-container .right-block{ position: absolute; display: inline-block; opacity: 1; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } dual-layout>.dual-layout-container .left-block,[data-is="dual-layout"]>.dual-layout-container .left-block{ transition: opacity 1s ease-in-out; opacity: 1; } dual-layout>.dual-layout-container.toggle .left-block,[data-is="dual-layout"]>.dual-layout-container.toggle .left-block{ transition: opacity .5s ease-in-out; opacity: 0; } dual-layout>.dual-layout-container .right-block,[data-is="dual-layout"]>.dual-layout-container .right-block{ opacity: 0; transition: opacity .5s ease-in-out; } dual-layout>.dual-layout-container.toggle .right-block,[data-is="dual-layout"]>.dual-layout-container.toggle .right-block{ transition: opacity 1s ease-in-out; opacity: 1; } dual-layout>.dual-layout-container .left-block .content,[data-is="dual-layout"]>.dual-layout-container .left-block .content,dual-layout>.dual-layout-container .right-block .content,[data-is="dual-layout"]>.dual-layout-container .right-block .content{ position: relative; display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } @media only screen and (min-width: 720px) { dual-layout>.dual-layout-container .left-block,[data-is="dual-layout"]>.dual-layout-container .left-block,dual-layout>.dual-layout-container .right-block,[data-is="dual-layout"]>.dual-layout-container .right-block,dual-layout>.dual-layout-container.toggle .left-block,[data-is="dual-layout"]>.dual-layout-container.toggle .left-block,dual-layout>.dual-layout-container.toggle .right-block,[data-is="dual-layout"]>.dual-layout-container.toggle .right-block{ opacity: 1; backface-visibility: initial; transform-style: initial; transform: none; } dual-layout>.dual-layout-container .left-block,[data-is="dual-layout"]>.dual-layout-container .left-block{ grid-area: left-area; } dual-layout>.dual-layout-container .right-block,[data-is="dual-layout"]>.dual-layout-container .right-block{ grid-area: right-area; } }', '', function(opts) {
+        let self = this;
+
+        this.on('mount', () => {
+            flipper = self.refs['flipper']
+        })
+        this.on('unmount', () => {
+            flipper = null
+        })
+
+        this.toggle = () => {
+            flipper.classList.toggle('toggle');
+        }
+});
 riot.tag2('napp', '<div class="app-area"> <yield></yield> </div>', 'napp,[data-is="napp"]{ display: grid; margin: 0 auto; padding: 0; height: 100vh; width: 100vw; grid-template-areas: \'app-area\'; background: inherit; overflow: hidden; } napp>.app-area,[data-is="napp"]>.app-area{ grid-area: app-area; position: relative; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \'sidebar-area navi-area\' \'sidebar-area scrn-area\' \'sidebar-area stat-area\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } napp>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar),[data-is="napp"]>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar){ display: none; } napp>.app-area sidebar:first-child,[data-is="napp"]>.app-area sidebar:first-child{ grid-area: sidebar-area; } napp>.app-area sidebar:not(:first-child),[data-is="napp"]>.app-area sidebar:not(:first-child){ grid-area: sidebar-area; display: none; } napp>.app-area navibar:first-child,[data-is="napp"]>.app-area navibar:first-child{ grid-area: navi-area; } napp>.app-area navibar:not(:first-child),[data-is="napp"]>.app-area navibar:not(:first-child){ grid-area: navi-area; display: none; } napp>.app-area screen,[data-is="napp"]>.app-area screen{ grid-area: scrn-area; } napp>.app-area statusbar:last-child,[data-is="napp"]>.app-area statusbar:last-child{ grid-area: stat-area; } napp>.app-area statusbar:not(:last-child),[data-is="napp"]>.app-area statusbar:not(:last-child){ grid-area: stat-area; display: none; }', '', function(opts) {
 });
 riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen,[data-is="screen"]{ margin: 0 auto; padding: 0; display: none; width: 100%; height: 100%; } screen.active,[data-is="screen"].active,screen.show,[data-is="screen"].show{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; } screen .content-area,[data-is="screen"] .content-area{ grid-area: content-area; position: relative; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
@@ -1790,6 +1804,36 @@ riot.tag2('signin-entry', '', 'signin-entry,[data-is="signin-entry"]{ margin: 0 
         this.on('mount', () => { });
         this.on('unmount', () => { });
 
+});
+riot.tag2('dualscreen1', '<dual-layout ref="layout"> <yield to="left-panel"> <left-screen ref="leftpanel" class="view"></left-screen> </yield> <yield to="right-panel"> <right-screen ref="rightpanel" class="entry"></right-screen> </yield> </dual-layout>', 'dualscreen1,[data-is="dualscreen1"]{ margin: 0; padding: 0; }', '', function(opts) {
+        let self = this;
+
+        let layout;
+        this.on('mount', () => {
+            layout = self.refs['layout']
+        })
+        this.on('unmount', () => {
+            layout = null
+        })
+
+        this.toggle = () => {
+
+            layout.toggle()
+        }
+});
+riot.tag2('left-screen', '<h2>Left Screen</h2> <div class="fake-content"></div> <p>Middle of Content.</p> <button onclick="{toggle}">Toggle</button> <div class="fake-content"></div> <p>End of Content.</p>', 'left-screen,[data-is="left-screen"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; height: 100%; border: 1px solid silver; background-color: beige; overflow: auto; } left-screen .fake-content,[data-is="left-screen"] .fake-content{ height: 300px; }', '', function(opts) {
+        let self = this;
+
+        this.toggle = () => {
+            self.parent.toggle()
+        }
+});
+riot.tag2('right-screen', '<h2>Right Screen</h2> <div class="fake-content"></div> <p>Middle of Content.</p> <button onclick="{toggle}">Toggle</button> <div class="fake-content"></div> <p>End of Content.</p>', 'right-screen,[data-is="right-screen"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; height: 100%; border: 1px solid silver; background-color: seashell; overflow: auto; } right-screen .fake-content,[data-is="right-screen"] .fake-content{ height: 300px; }', '', function(opts) {
+        let self = this;
+
+        this.toggle = () => {
+            self.parent.toggle()
+        }
 });
 riot.tag2('screen1', '<h4>Screen 1</h4> <button onclick="{gotoScreen2}">Goto Screen 2</button>', 'screen1,[data-is="screen1"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         let self = this
