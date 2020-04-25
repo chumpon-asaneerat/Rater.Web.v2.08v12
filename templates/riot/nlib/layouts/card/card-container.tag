@@ -28,7 +28,7 @@
             overflow-y: auto;
         }
         :scope[shadow]>.card-container-wrapper {
-            border: 1px solid #EEEEEE;
+            /* border: 1px solid #EEEEEE; */
             box-shadow: var(--card-box-shadow);
         }
     </style>

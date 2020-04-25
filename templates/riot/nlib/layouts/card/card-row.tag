@@ -28,7 +28,7 @@
             height: auto;
         }
         :scope[shadow]>.card-row-wrapper {
-            border: 1px solid #EEEEEE;
+            /* border: 1px solid #EEEEEE; */
             box-shadow: var(--card-box-shadow);
         }
         :scope>.card-row-wrapper>.card-row-area {

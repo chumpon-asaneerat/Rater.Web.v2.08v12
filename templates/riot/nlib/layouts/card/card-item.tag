@@ -7,19 +7,19 @@
             position: relative;
             display: inline-block;
             margin: 0;
-            padding: 2px;
-            padding-bottom: 15px;
+            padding: 5px;
+            padding-bottom: 10px;
         }
         :scope>.card-item-wrapper {
             position: relative;
-            display: block;
+            display: inline-block;
             margin: 0 auto;
-            padding: 5px;
+            padding: 0;
             width: 100%;
             height: 100%;
         }
         :scope[shadow]>.card-item-wrapper {
-            border: 1px solid #EEEEEE;
+            /* border: 1px solid #EEEEEE; */
             box-shadow: var(--card-box-shadow);
         }
     </style>
