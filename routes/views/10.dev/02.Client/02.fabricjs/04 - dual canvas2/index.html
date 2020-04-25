@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>fabric.js sample 4 - dual canvas 2.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css" />
+    <!-- JQuery UI -->
+    <link href="/dist/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 4 -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <!-- Flag and Emoji icons -->
+    <link href="/dist/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
+    <!-- style.css -->
+    <link href="dualcanvas2/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        body { margin: 0; padding: 0; }
+        .parent { position: relative; display: block; }
+        .preview-window {
+            position: absolute;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            top: 10px;
+            right: 10px;
+            width: 280px;
+            height: 500px;
+            overflow: hidden;
+            z-index: 20;            
+        }
+        @media all and (display-mode: fullscreen) {
+            .preview-window {
+                /* hide when full screen. */
+                display: none;
+            }
+        }
+        .preview-container {
+            position: relative;
+            display: grid;
+            margin: 0;
+            padding: 2px;
+            grid-template-rows: auto 3px 1fr 3px;
+            grid-template-columns: 1fr;
+            grid-template-areas: 
+                'preview-caption'
+                '.'
+                'preview-area'
+                '.';
+            width: 100%;
+            height: 100%;
+
+            background-color: seashell;
+            border: 1px solid silver;
+            overflow: hidden;
+        }
+        .preview-caption {
+            grid-area: preview-caption;
+            display: block;
+            margin: 0 auto;
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: cornflowerblue;
+            border: 0 solid cornflowerblue;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .preview-caption label { 
+            display: inline-block;
+            margin: 0 auto;
+            padding: 0;
+            color: whitesmoke;
+            width: auto;
+            overflow: hidden;
+        }
+        .preview-area {
+            grid-area: preview-area;
+            position: relative;
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .preview-canvas-containers {
+            position: relative;            
+            display: grid;
+            margin: 0;
+            padding: 0;
+            grid-area: preview-area;
+            /*
+            grid-template-columns: repeat(auto-fill, minmax(calc(1280px / 5), 1fr));
+            */
+            grid-template-columns: repeat(auto-fill, calc(1280px / 5));
+            grid-gap: 4px;
+            /* center all contents */
+            justify-content: center;
+            grid-auto-rows: calc(720px / 5);
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+        .preview-canvas-container {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: none;
+            background-color: cornsilk;
+            border: 1px solid silver;
+        }
+        .dsgnwindow {
+            position: relative;
+            display: block;
+            margin: 0 auto;
+            padding: 0;
+            width: fit-content;
+            height: fit-content;
+            background-color: beige;
+        }
+        .dsgn-container {
+            position: relative;
+            display: grid;
+            grid-template-rows: 5px auto 5px;
+            grid-template-columns: 5px auto 5px;
+            grid-template-areas: 
+                '. . .'
+                '. dsgn-canvas-container .'
+                '. . .';
+            margin: 0;
+            padding: 0;
+            width: fit-content;
+            height: fit-content;
+            border: 1px solid black;
+        }
+        .dsgn-canvas-container {
+            grid-area: dsgn-canvas-container;
+            position: relative;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            /* required to match size of target canvas (max resulation) */
+            width: 1280px;
+            height: 720px;
+            border: 1px solid black;
+        }
+        @media all and (display-mode: fullscreen) {
+            .dsgn-container {
+                grid-template-rows: auto;
+                grid-template-columns: auto;
+                grid-template-areas: 
+                    'dsgn-canvas-container';
+                border: none;
+            }
+            .dsgn-canvas-container {
+                width: 100vw;
+                height: 100vh;
+                border: none;
+            }
+        }        
+        .dsgn-canvas {
+            margin: 0;
+            padding: 0;
+            align-self: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="parent">
+        <!-- Preview -->
+        <div class="preview-window">
+            <div class="preview-container">
+                <div class="preview-caption">
+                    <label>Preview</label>
+                </div>
+                <div class="preview-area">
+                    <div class="preview-canvas-containers">
+                        <div class="preview-canvas-container">
+                            <canvas id="canvas2" class="dsgn-canvas"></canvas>
+                        </div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                        <div class="preview-canvas-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Designer -->
+        <div class="dsgnwindow">
+            <div class="dsgn-container">
+                <div class="dsgn-canvas-container">
+                    <canvas id="canvas1" class="dsgn-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="/dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/dist/js/popper.min.js"></script>
+    <script src="/dist/js/tooltip.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js">/* bootstrap required jQuery and popperjs. */</script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- gifuctjs -->
+    <script src="/dist/js/gifuct-js.min.js"></script>
+    <!-- fabricjs -->
+    <script src="/dist/js/fabric.min.js"></script>
+
+    <!-- nlib -->
+    <script src="/dist/js/nlib.js"></script>
+    <!-- script.js -->
+    <script src="dualcanvas2/script.js"></script>
+    <script>
+        // target design size
+        let WD = 1280;
+        let HT = 720;
+
+        let cv1 = document.getElementById('canvas1')
+        let fb1 = new fabric.Canvas(cv1)
+        fb1.setWidth(WD)
+        fb1.setHeight(HT)
+        //fb1.setDimensions({ width: WD, height: HT }, { cssOnly: true });
+        fb1.setDimensions({ width: '100%', height: '100%' }, { cssOnly: true });
+
+        let cv2 = document.getElementById('canvas2')
+        let fb2 = new fabric.Canvas(cv2)        
+        fb2.setWidth(WD)
+        fb2.setHeight(HT)
+        //fb2.setDimensions({ width: WD / 5, height: HT / 5 }, { cssOnly: true });
+        fb2.setDimensions({ width: '100%', height: '100%' }, { cssOnly: true });
+
+        let addText = (fb, text, lf = 5, tp = 5, wd = 50, ht = 18, fg = '#000', bg = 'transparent') => {
+            let obj = new fabric.IText(text, {
+                left: lf,
+                top: tp,
+                width: wd, 
+                height: ht,
+                fill: fg,
+                backgroundColor: bg,
+                fontFamily: 'Comic Sans'
+            });
+            fb.add(obj); // add object
+            return obj;
+        }
+        let addRect = (fb, lf = 5, tp = 5, wd = 50, ht = 18, bg = '#f55') => {
+            let obj = new fabric.Rect({
+                left: lf,
+                top: tp,
+                width: wd, 
+                height: ht, 
+                fill: bg, 
+                opacity: 1
+            });
+            fb.add(obj); // add object
+            return obj;
+        }
+
+        /*
+
+        Neumorphism video:
+        https://www.youtube.com/watch?v=KlSLdEB3lzg
+
+        Neumorphism reference:
+        https://uxdesign.cc/neumorphism-in-user-interfaces-b47cef3bf3a6
+
+        Custom shape using group in fabric.js
+        https://stackoverflow.com/questions/43000320/can-i-create-more-complex-shapes-like-this-one-in-fabric-js
+
+        var canvas = new fabric.Canvas('c');
+        var defaultProperties = {
+        fill: 'black',
+        stroke: 'lime',
+        strokeWidth: 12
+        };
+        var ellipse = new fabric.Ellipse({
+            left: 30,
+            top: 30,
+            rx: 170,
+            ry: 110,
+            strokeWidth: 12
+        });
+        var horizontalLine = new fabric.Line([30, 140, 370, 140]);
+        var verticalLine = new fabric.Line([200, 30, 200, 140]);
+        var group = new fabric.Group([ellipse, horizontalLine, verticalLine]);
+        group.set(defaultProperties);
+        canvas.add(group);
+        var toggle = true;
+        document.getElementsByTagName('button')[0].addEventListener('click', function() {
+            if (toggle) {
+                group.set({
+                    fill: 'red',
+                    stroke: 'pink',
+                    strokeWidth: 5
+                });
+            } 
+            else {
+                group.set(defaultProperties);
+            }
+            toggle = !toggle;
+            canvas.renderAll();
+        });
+        */
+
+        let sync = () => {
+            let json = fb1.toJSON()
+
+            fb2.loadFromJSON(json, () => {
+                fb2.renderAll()
+            }, (o, object) => {
+                //console.log(o, object)
+                if (o.type === 'GIF') {
+                    //object.on('image:loaded', canvas.renderAll.bind(canvas))
+                    //object.play();
+                }
+            })
+            // rescale after loaded.
+            fb2.setWidth(WD)
+            fb2.setHeight(HT)
+            //fb2.setDimensions({ width: WD / 5, height: HT / 5 }, { cssOnly: true });
+            fb2.setDimensions({ width: '100%', height: '100%' }, { cssOnly: true });
+        }
+
+        let render1 = () => {
+            if (fb1) { fb1.renderAll(); }
+            fabric.util.requestAnimFrame(render1);
+        }
+        let render2 = () => {
+            if (fb2) { fb2.renderAll(); }
+            fabric.util.requestAnimFrame(render2);
+        }
+        render1()
+        render2()
+
+        fb1.on({
+            'object:added': () => { sync() },
+            'object:removed': () => { sync() }, 
+            'object:modified': () => { sync() }
+        });
+        
+        //addRect(fb1)
+
+        let tlf = 5, ttp = 5, twd = 50, tht = 18
+        let r1 = new fabric.Rect({
+            left: tlf,
+            top: ttp,
+            width: twd, 
+            height: tht, 
+            fill: 'rgba(192, 192, 192, 0.5)', 
+            strokeWidth: 1,
+            rx: 1.9,
+            ry: 1.9,
+            opacity: 0.7
+        });
+        let shadow1 = { 
+            color: 'rgba(255, 255, 255, 0.9)', 
+            offsetX: -0.5, 
+            offsetY : -0.5,
+            blur: 0.9
+        }
+        r1.setShadow(shadow1);
+        let r2 = new fabric.Rect({
+            left: tlf,
+            top: ttp,
+            width: twd, 
+            height: tht, 
+            fill: 'beige', 
+            strokeWidth: 1,
+            rx: 1.9,
+            ry: 1.9,
+            opacity: 1
+        });
+        let shadow2 = { 
+            color: 'rgba(100, 100, 100, 0.3)', 
+            offsetX: 0.5, 
+            offsetY : 0.5,
+            blur: 0.9
+        }
+        r2.setShadow(shadow2);
+        let group = new fabric.Group([r1, r2]);
+        fb1.add(group); // add object
+
+        /*
+        let rX = addRect(fb1, 10, 25, 200, 100)
+        rX.fill = 'beige'
+        rX.strokeWidth = 1
+        rX.rx = 0.9
+        rX.ry = 0.9
+        let shadow = { 
+            color: 'rgba(0, 0, 0, 0.3)', 
+            offsetX: 0.9, 
+            offsetY : 0.9,
+            blur: 0.9
+        }
+        rX.setShadow(shadow);
+        */
+
+        //addText(fb1, 'Sample text 1')
+        //addText(fb1, 'Sample text 2', 10, 25, undefined, undefined, undefined, '#ccc')
+    </script>
+</body>
+</html>

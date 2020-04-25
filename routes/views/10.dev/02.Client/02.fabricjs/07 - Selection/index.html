@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>fabric.js sample 7 - selection.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css" />
+    <!-- JQuery UI -->
+    <link href="/dist/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap 4 -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <!-- Flag and Emoji icons -->
+    <link href="/dist/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/emojisymbol.min.css" rel="stylesheet" type="text/css" />
+    <!-- materialize icons -->
+    <link href="/dist/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- style.css -->
+    <link href="selection/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        html {
+            margin: 0 auto;
+            width: 100vw;
+            height: 100vh;
+        }
+        body {
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+        }
+        .designer {
+            position: relative;
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /*
+            border: 1px solid silver;
+            border-radius: 2px;
+            */
+            overflow: auto;
+        }
+        .context-tool-menu {
+            /*display: inline-block;*/
+            display: none;
+            position: absolute;
+            margin: 0 auto;
+            padding: 2px;
+            left: 0px;
+            top: 0px;
+            border: 1px solid black;
+        }
+        .context-tool-menu.show {
+            display: inline-block;
+        }
+        .context-tool-menu .item {
+            display: inline-block;
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+            padding-top: 1px;
+            width: 24px;
+            min-width: 24px;
+            height: 24px;
+            min-height: 24px;            
+        }
+        .context-tool-menu .item:hover {
+            background-color: royalblue;
+        }
+        .context-tool-menu .item>.icon {
+            display: inline-block;
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="designer">
+        <canvas id="c"></canvas>
+    </div>
+    <div class="context-tool-menu" id="context1">
+        <div class="item">
+            <span class="icon far fa-object-group"></span>
+        </div>
+        <div class="item">
+            <span class="icon far fa-object-ungroup"></span>
+        </div>
+        <!-- Fontawesome PRO Only need replacement -->
+        <!--
+        <span class="fas fa-bring-to-font"></span>
+        <span class="fas fa-send-back"></span>
+        -->
+        <div class="item">
+            <span class="icon mdi mdi-arrange-bring-to-front"></span>
+        </div>
+        <div class="item">
+            <span class="icon mdi mdi-arrange-send-to-back"></span>
+        </div>
+    </div>
+
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="/dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/dist/js/popper.min.js"></script>
+    <script src="/dist/js/tooltip.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js">/* bootstrap required jQuery and popperjs. */</script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- gifuctjs -->
+    <script src="/dist/js/gifuct-js.min.js"></script>
+    <!-- fabricjs -->
+    <script src="/dist/js/fabric.min.js"></script>
+    <!-- Riot.js -->
+    <script src="/dist/js/riot.min.js"></script>
+    <!-- custom components -->
+    <script src="/dist/js/tags.js"></script>
+    <!-- nlib -->
+    <script src="/dist/js/nlib.js"></script>
+    <!-- script.js -->
+    <script src="selection/script.js"></script>
+    <script src="selection/nlib-fabric.js"></script>
+    <script>
+        // // Note:
+        // // need to recheck to stored some properties in object
+        // // with serialization and in some properties should used
+        // // at runtime to make animation effect with input state
+        // // changed.
+
+        // // Note 2:
+        // // Try to create custom json model to store question/choices
+        // // Control:
+        // // 1. Question Box:
+        // //    - Text
+        // //      - Position (left/top/width/height) -> when shape move/resize update model.
+        // //      - Font (Family/size/outline/stoke/thickness) -> set via editor.
+        // //      - Color -> set via editor.
+        // // 2. Choice button:
+        // //    - Text
+        // //      - Position (left/top/width/height) -> when shape move/resize update model.
+        // //      - Font (Family/size/outline/stoke/thickness) -> set via editor.
+        // //      - Color -> set via editor.
+        // //    - Image
+        // //      - Position (left/top/width/height) -> when shape move/resize update model.
+        // //      - Url -> set via editor.
+        // //    - Style
+        // //      - ImageAbove/ImageBelow/ImageLeft/ImageRight -> set via editor.
+        // //      - Background color (solid/gradient) -> set via editor.
+        // // 3. Static shape
+        // //    - Image/Video
+        // //      - Position (left/top/width/height) -> when shape move/resize update model.
+        // //      - Url -> set via editor.
+        // //
+
+        // // handle mouse event.
+
+        // canvas.on('mouse:up', (e) => {
+        //     //check if user clicked an object
+        //     if (e.target) {
+        //         //alert('clicked on object' + e.target);
+        //         let obj = e.target
+        //         selectObject = obj
+        //         //let type = e.target.get('type')                
+        //         let type = obj.type
+        //         if (type === 'group') {
+        //             console.log('clicked on object', type)
+        //         }
+        //         else {
+        //             console.log('clicked on object', obj)
+        //         }
+        //     }
+        //     else {
+        //         console.log('clicked on canvas')
+        //         selectObject = null
+        //     }            
+        // });
+
+        // // Add objects and group
+        // let tlf = 50, ttp = 50, twd = 100, tht = 30
+        // let r1 = new fabric.Rect({
+        //     left: tlf,
+        //     top: ttp,
+        //     width: twd, 
+        //     height: tht, 
+        //     fill: 'rgba(192, 192, 192, 0.5)', 
+        //     strokeWidth: 1,
+        //     rx: 1.9,
+        //     ry: 1.9,
+        //     opacity: 0.7
+        // });
+        // let shadow1 = { 
+        //     color: 'rgba(255, 255, 255, 0.9)', 
+        //     offsetX: -0.5, 
+        //     offsetY : -0.5,
+        //     blur: 0.9
+        // }
+        // r1.setShadow(shadow1);
+        // let r2 = new fabric.Rect({
+        //     left: tlf,
+        //     top: ttp,
+        //     width: twd, 
+        //     height: tht, 
+        //     fill: 'beige', 
+        //     strokeWidth: 1,
+        //     rx: 1.9,
+        //     ry: 1.9,
+        //     opacity: 1
+        // });
+        // let shadow2 = { 
+        //     color: 'rgba(100, 100, 100, 0.3)', 
+        //     offsetX: 0.5, 
+        //     offsetY : 0.5,
+        //     blur: 0.9
+        // }
+        // r2.setShadow(shadow2);
+        // let group = new fabric.Group([r1, r2]);
+        // canvas.add(group); // add object
+
+        // // add some rect
+        // let rect = new fabric.Rect({
+        //     left: 100,
+        //     top: 50,
+        //     width: 150, 
+        //     height: 40, 
+        //     fill: 'beige', 
+        //     strokeWidth: 1,
+        //     rx: 1.9,
+        //     ry: 1.9,
+        //     opacity: 1
+        // });
+        // canvas.add(rect); // add object
+
+        let canvas = new NCanvas('c')
+        let rect = canvas.create('rect', { 
+            left: 10, 
+            top: 10, 
+            width: 150,
+            height: 70,
+            fill: 'rgba(192, 192, 192, 0.5)' 
+        })
+        console.log(rect)
+        canvas.add(rect); // add object
+    </script>
+</body>
+</html>
