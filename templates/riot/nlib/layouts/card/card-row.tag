@@ -14,7 +14,8 @@
             padding: 5px;
             padding-right: 10px;
             width: 100%;
-            height: 100%;
+            /* height: 100%; */
+            min-height: 200px;
             overflow: hidden;
         }
         :scope>.card-row-wrapper {
@@ -23,10 +24,10 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            /*
             margin: 0 auto;
             padding: 0;
             width: 100%;
+            /*
             height: 100%;
             overflow: auto;
             */
