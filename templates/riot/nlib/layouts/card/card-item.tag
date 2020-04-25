@@ -7,8 +7,8 @@
             position: relative;
             display: inline-block;
             margin: 0;
-            padding: 5px;
-            padding-bottom: 10px;
+            padding: 4px;
+            padding-bottom: 8px;
         }
         :scope>.card-item-wrapper {
             position: relative;
