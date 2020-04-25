@@ -26,7 +26,6 @@
             padding: 0;
             width: 100%;
             height: auto;
-            background-color: aqua;
         }
         :scope[shadow]>.card-row-wrapper {
             border: 1px solid #EEEEEE;
