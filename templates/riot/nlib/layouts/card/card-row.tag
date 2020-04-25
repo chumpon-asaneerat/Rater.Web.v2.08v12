@@ -1,6 +1,8 @@
 <card-row>
     <div class="card-row-wrapper">
-        <yield/>
+        <div class="card-row-area">
+            <yield/>
+        </div>
     </div>
     <style>
         :scope {
@@ -14,28 +16,30 @@
             padding: 5px;
             padding-right: 10px;
             width: 100%;
-            height: auto;
-            /* height: 100%; */
-            /* min-height: 200px; */
+            height: 100%;
             overflow: hidden;
         }
         :scope>.card-row-wrapper {
             grid-area: card-row-area;
             position: absolute;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            display: block;
             margin: 0 auto;
             padding: 0;
             width: 100%;
-            /*
             height: 100%;
-            overflow: auto;
-            */
+            background-color: aqua;
         }
         :scope[shadow]>.card-row-wrapper {
             border: 1px solid #EEEEEE;
             box-shadow: var(--card-box-shadow);
+        }
+        :scope>.card-row-wrapper>.card-row-area {
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /* overflow: inherit; */
         }
     </style>
 </card-row>
