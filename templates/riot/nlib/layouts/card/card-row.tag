@@ -14,8 +14,9 @@
             padding: 5px;
             padding-right: 10px;
             width: 100%;
+            height: auto;
             /* height: 100%; */
-            min-height: 200px;
+            /* min-height: 200px; */
             overflow: hidden;
         }
         :scope>.card-row-wrapper {
