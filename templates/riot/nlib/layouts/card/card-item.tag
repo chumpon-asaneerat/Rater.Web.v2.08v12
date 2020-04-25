@@ -1,5 +1,7 @@
 <card-item>
-    <yield />
+    <div>
+        <yield />
+    </div>
     <style>
         :scope {
             position: relative;
