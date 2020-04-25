@@ -6,7 +6,7 @@
         :scope {
             position: relative;
             display: inline-block;
-            margin: 0;
+            margin: 5px;
             padding: 0;
         }
         :scope>.card-item-wrapper {
