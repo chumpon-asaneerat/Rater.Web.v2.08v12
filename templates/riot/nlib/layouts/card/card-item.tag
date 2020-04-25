@@ -6,8 +6,10 @@
         :scope {
             position: relative;
             display: inline-block;
-            margin: 5px;
-            padding: 0;
+            margin: 3px;
+            padding: 3px;
+            border: 1px solid #EEEEEE;
+            box-shadow: var(--card-box-shadow);
         }
         :scope>.card-item-wrapper {
             position: relative;
