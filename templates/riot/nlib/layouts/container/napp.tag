@@ -20,10 +20,22 @@
             display: grid;
             grid-template-columns: auto 1fr;
             grid-template-rows: auto 1fr auto;
+            /*
+            grid-template-areas: 
+                'sidebar-area navi-area'
+                'sidebar-area scrn-area'
+                'sidebar-area stat-area';
+            */
             grid-template-areas: 
                 'navi-area navi-area'
                 'sidebar-area scrn-area'
                 'sidebar-area stat-area';
+            /*
+            grid-template-areas: 
+                'navi-area navi-area'
+                'sidebar-area scrn-area'
+                'stat-area stat-area';
+            */
             margin: 0;
             padding: 0;
             width: 100%;

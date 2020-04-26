@@ -6,17 +6,17 @@
         :scope {
             position: relative;
             display: none;
-            margin: 0;
-            padding: 0;
+            margin: 0 auto;
+            padding: 5px;
             width: 300px;
-            height: calc(100% - 2px);
-            border: 1px solid black;
+            height: 100%;
+            border: 1px solid silver;
             z-index: 99999;
             overflow: hidden;
         }        
         :scope.show, :scope.active {
             display: inline-block;
-            position: fixed;
+            position: absolute;
         }
         @media only screen and (max-width: 700px) {
             :scope.show, :scope.active {
@@ -49,8 +49,16 @@
         this.on('mount', () => {
             //initCtrls()
             addEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
-            // test show..
+
+//================================= 
+//======= test show begin..
+//=================================
+            
             self.show();
+
+//=================================
+//======= test show end..
+//=================================
         });
         this.on('unmount', () => {
             delEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
