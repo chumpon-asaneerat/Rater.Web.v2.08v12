@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             width: 300px;
-            height: calc(100% - 3px);
+            height: calc(100% - 2px);
             border: 1px solid black;
             z-index: 99999;
             overflow: hidden;
