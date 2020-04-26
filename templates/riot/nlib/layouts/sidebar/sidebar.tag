@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             width: 300px;
-            height: calc(100% - 300px);
+            height: calc(100% - 3px);
             border: 1px solid black;
             z-index: 99999;
             overflow: hidden;
@@ -21,7 +21,7 @@
         @media only screen and (max-width: 700px) {
             :scope.show, :scope.active {
                 display: inline-block;
-                position: fixed;
+                position: absolute;
             }
         }
         :scope .sidebar-container {

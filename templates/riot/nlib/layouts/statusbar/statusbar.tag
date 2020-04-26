@@ -4,11 +4,10 @@
     </div>
     <style>
         :scope {
-            position: absolute;
+            position: relative;
             display: block;
             margin: 0;
             padding: 0;
-            bottom: 0;
             width: 100%;
             user-select: none;
             white-space: nowrap;
@@ -16,9 +15,11 @@
         }
         :scope>.statusbar-container {
             position: relative;
+            display: block;
             margin: 0;
             padding: 0;
             width: 100%;
+            height: fit-content;
         }
     </style>
     <script>

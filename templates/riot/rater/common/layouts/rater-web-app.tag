@@ -68,6 +68,8 @@
             justify-content: stretch;
         }
         .copyright {
+            margin: 0;
+            padding: 0;
             font-size: .5em;
             color: black;            
         }

@@ -21,7 +21,7 @@
             grid-template-columns: auto 1fr;
             grid-template-rows: auto 1fr auto;
             grid-template-areas: 
-                'sidebar-area navi-area'
+                'navi-area navi-area'
                 'sidebar-area scrn-area'
                 'sidebar-area stat-area';
             margin: 0;
@@ -37,6 +37,7 @@
         /* sidebar */
         :scope>.app-area sidebar:nth-of-type(1) {
             grid-area: sidebar-area;
+            position: relative;
             /* padding: 0 5px; */
         }
         :scope>.app-area sidebar:not(:nth-of-type(1)) {
@@ -46,6 +47,7 @@
         /* navibar (header main menu) */
         :scope>.app-area navibar:nth-of-type(1) {
             grid-area: navi-area;
+            position: relative;
             /* padding: 0 5px; */
         }
         :scope>.app-area navibar:not(:nth-of-type(1)) {
@@ -55,11 +57,13 @@
         /* screen(s) */
         :scope>.app-area screen {
             grid-area: scrn-area;
+            position: relative;
             /* padding: 5px; */
         }
         /* statusbar (footer) */
         :scope>.app-area statusbar:last-of-type(1) {
             grid-area: stat-area;
+            position: relative;
             /* padding: 0 5px; */
         }
         :scope>.app-area statusbar:not(:last-of-type(1)) {
