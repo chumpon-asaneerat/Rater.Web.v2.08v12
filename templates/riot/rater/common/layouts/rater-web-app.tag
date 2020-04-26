@@ -1,8 +1,10 @@
 <rater-web-app>
     <napp>
+        <!--
         <sidebar>
             <h6>Sidebar Left</h6>
         </sidebar>
+        -->
         <navibar>
             <navi-item><sidebar-menu></sidebar-menu></navi-item>
             <navi-item>
