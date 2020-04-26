@@ -35,20 +35,20 @@
             display: none;
         }
         /* sidebar */
-        :scope>.app-area sidebar:first-child {
+        :scope>.app-area sidebar:nth-of-type(1) {
             grid-area: sidebar-area;
             /* padding: 0 5px; */
         }
-        :scope>.app-area sidebar:not(:first-child) {
+        :scope>.app-area sidebar:not(:nth-of-type(1)) {
             grid-area: sidebar-area;
             display: none;
         }
         /* navibar (header main menu) */
-        :scope>.app-area navibar:first-child {
+        :scope>.app-area navibar:nth-of-type(1) {
             grid-area: navi-area;
             /* padding: 0 5px; */
         }
-        :scope>.app-area navibar:not(:first-child) {
+        :scope>.app-area navibar:not(:nth-of-type(1)) {
             grid-area: navi-area;
             display: none;
         }
@@ -58,11 +58,11 @@
             /* padding: 5px; */
         }
         /* statusbar (footer) */
-        :scope>.app-area statusbar:last-child {
+        :scope>.app-area statusbar:last-of-type(1) {
             grid-area: stat-area;
             /* padding: 0 5px; */
         }
-        :scope>.app-area statusbar:not(:last-child) {
+        :scope>.app-area statusbar:not(:last-of-type(1)) {
             grid-area: stat-area;
             display: none;
         }

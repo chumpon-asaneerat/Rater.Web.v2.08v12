@@ -1,10 +1,8 @@
 <rater-web-app>
     <napp>
-        <!--
         <sidebar>
             <h6>Sidebar Left</h6>
         </sidebar>
-        -->
         <navibar>
             <navi-item><sidebar-menu></sidebar-menu></navi-item>
             <navi-item>
@@ -18,7 +16,9 @@
             <navi-item class="right"><links-menu></links-menu></navi-item>
         </navibar>
         <yield/>
-        <statusbar></statusbar>
+        <statusbar>
+            <span class="copyright">EDL Co., Ltd.</span>
+        </statusbar>
     </napp>
     <style>
         :scope {
@@ -66,6 +66,10 @@
             padding: 0;
             align-items: center;
             justify-content: stretch;
+        }
+        .copyright {
+            font-size: .5em;
+            color: black;            
         }
     </style>
     <script>

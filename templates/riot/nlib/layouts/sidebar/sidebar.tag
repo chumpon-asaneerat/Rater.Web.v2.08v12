@@ -1,19 +1,18 @@
 <sidebar>
-    <yield/>
+    <div class="sidebar-container">
+        <yield/>
+    </div>    
     <style>
         :scope {
-            position: fixed;
+            position: relative;
             display: none;
             margin: 0;
             padding: 0;
             width: 300px;
-            height: calc(100% - 3px);
-            /*
-            width: 300px;
-            height: calc(100% - 3px);
-            */
+            height: calc(100% - 300px);
             border: 1px solid black;
             z-index: 99999;
+            overflow: hidden;
         }        
         :scope.show, :scope.active {
             display: inline-block;
@@ -24,6 +23,14 @@
                 display: inline-block;
                 position: fixed;
             }
+        }
+        :scope .sidebar-container {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
         }
         :scope.c1 {
             background-color: burlywood;
@@ -42,6 +49,8 @@
         this.on('mount', () => {
             //initCtrls()
             addEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
+            // test show..
+            self.show();
         });
         this.on('unmount', () => {
             delEvt(events.name.SidebarStateChanged, onSidebarStateChanged)
