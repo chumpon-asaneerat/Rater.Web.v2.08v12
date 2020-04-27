@@ -8,7 +8,7 @@
             display: none;
             margin: 0;
             padding: 0;
-            width: var(--sidebar-width);
+            width: auto;
             height: 100%;
             border: 1px solid silver;
             z-index: 99999;
@@ -27,11 +27,13 @@
         :scope .sidebar-container {
             position: absolute;
             margin: 0 auto;
-            /* padding: 5px; */
             padding: 0;
-            width: 100%;
+            width: var(--sidebar-width);
             height: 100%;
             overflow: auto;
+        }
+        :scope .sidebar-container:empty {
+            display: none;
         }
         :scope.c1 {
             background-color: burlywood;

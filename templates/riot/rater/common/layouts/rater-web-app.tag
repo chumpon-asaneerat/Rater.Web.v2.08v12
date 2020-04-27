@@ -1,10 +1,14 @@
 <rater-web-app>
     <napp>
         <sidebar>
-            <h6>Sidebar Left</h6>
+            <div>
+                <h6>Sidebar Left</h6>
+            </div>
         </sidebar>
         <navibar>
-            <navi-item><sidebar-menu></sidebar-menu></navi-item>
+            <navi-item>
+                <sidebar-menu></sidebar-menu>
+            </navi-item>
             <navi-item>
                 <div class="banner">
                     <div class="caption">My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
@@ -12,8 +16,12 @@
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
-            <navi-item class="right"><language-menu></language-menu></navi-item>
-            <navi-item class="right"><links-menu></links-menu></navi-item>
+            <navi-item class="right">
+                <language-menu></language-menu>
+            </navi-item>
+            <navi-item class="right">
+                <links-menu></links-menu>
+            </navi-item>
         </navibar>
         <yield/>
         <statusbar>

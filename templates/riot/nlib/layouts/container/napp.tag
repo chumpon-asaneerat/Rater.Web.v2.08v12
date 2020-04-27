@@ -46,38 +46,54 @@
         :scope>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar) {
             display: none;
         }
+
         /* sidebar */
         :scope>.app-area sidebar:nth-of-type(1) {
             grid-area: sidebar-area;
             position: relative;
-            /* padding: 0 5px; */
         }
+        /* sidebar - hide when empty */
+        :scope>.app-area sidebar:nth-of-type(1):empty {
+            grid-area: sidebar-area;
+            display: none;
+        }
+        /* sidebar - more than one hide it */
         :scope>.app-area sidebar:not(:nth-of-type(1)) {
             grid-area: sidebar-area;
             display: none;
         }
+
         /* navibar (header main menu) */
         :scope>.app-area navibar:nth-of-type(1) {
             grid-area: navi-area;
             position: relative;
-            /* padding: 0 5px; */
         }
+        /* navibar - hide when empty */
+        :scope>.app-area navibar:nth-of-type(1):empty {
+            grid-area: navi-area;
+            display: none;
+        }
+        /* navibar - more than one hide it */
         :scope>.app-area navibar:not(:nth-of-type(1)) {
             grid-area: navi-area;
             display: none;
         }
+
         /* screen(s) */
         :scope>.app-area screen {
             grid-area: scrn-area;
-            position: relative;
-            /* padding: 5px; */
         }
+
         /* statusbar (footer) */
         :scope>.app-area statusbar:last-of-type(1) {
             grid-area: stat-area;
-            position: relative;
-            /* padding: 0 5px; */
         }
+        /* statusbar (footer) - hide when empty */
+        :scope>.app-area statusbar:nth-of-type(1):empty {
+            grid-area: stat-area;
+            display: none;
+        }
+        /* statusbar (footer) - more than one hide it */
         :scope>.app-area statusbar:not(:last-of-type(1)) {
             grid-area: stat-area;
             display: none;

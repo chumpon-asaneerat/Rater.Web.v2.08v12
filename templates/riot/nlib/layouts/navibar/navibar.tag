@@ -13,11 +13,13 @@
             background-color: var(--navibar-background-color);
             overflow: hidden;
         }
+        /* check navi item valid types */
         /*
         :scope>.app-area>:not(navi-item):not(navi-drop-item):not(navi-input-item) {
             display: none;
         }
         */
+        /* test navi item child css detection */
         /*
         :scope:not(:first-child) { color: blue; }
         :scope:first-child { color: red; }
