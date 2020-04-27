@@ -16,10 +16,14 @@
             </navi-item>
             <navi-item>
                 <div class="banner">
-                    <div class="status" mobile>1</div>&nbsp;&nbsp;
-                    <div class="caption" tablet>My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
-                    <div class="title " notebook>{ (content && content.title) ? '- ' + content.title : '- Title' }</div>
-                    <div class="title " widescreen>[notebook]</div>
+                    <div class="status responsive" mobile>1</div>&nbsp;&nbsp;
+                    <!--
+                    <div class="caption responsive" tablet>My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
+                    <div class="title responsive" desktop>{ (content && content.title) ? '- ' + content.title : '- Title' }</div>
+                    -->
+                    <div class="title responsive" mobile tablet>&nbsp;&nbsp;Tablet&nbsp;&nbsp;</div>
+                    <div class="title responsive" mobile tablet desktop>&nbsp;&nbsp;Desktop ]&nbsp;&nbsp;</div>
+                    <div class="title responsive" mobile tablet desktop widescreen>&nbsp;&nbsp;Widescreen&nbsp;&nbsp;</div>
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
@@ -95,34 +99,46 @@
             font-size: 1.2rem;
             line-height: 1rem; /* override defauat line height */
         }
-        @media only screen and (max-width: 400px) { 
-            .banner>*[mobile] { display: none !important; }
-            .banner>*[tablet] { display: none; }
+        @media only screen and (max-width: 600px) { 
+            /* Extra small devices (phones, 600px and down use max-width) */
+            /* [class~="responsive"][phone] { display: none; } */
+            [class~="responsive"][mobile] { display: none; }
+            [class~="responsive"][tablet] { display: none; }
+            [class~="responsive"][desktop] { display: none; }
+            [class~="responsive"][widescreen] { display: none; }
         }
-        @media only screen and (max-width: 550px) {
-            .banner>*[mobile] { display: none !important; }
-            .banner>*[notebook] { display: none; }
+        @media only screen and (min-width: 600px) {
+            /* Small devices (portrait tablets and large phones, 600px and up use min-width) */
+            /* [class~="responsive"][phone] { display: none; } */
+            /* [class~="responsive"][mobile] { display: none; } */
+            [class~="responsive"][tablet] { display: none; }
+            [class~="responsive"][desktop] { display: none; }
+            [class~="responsive"][widescreen] { display: none; }
         }
-        @media only screen and (max-width: 800px) {
-            .banner>*[mobile] { display: none !important; }
-            .banner>*[widescreen] { display: none; }
+        @media only screen and (min-width: 768px) {
+            /* Medium devices (landscape tablets, 768px and up) */
+            /* [class~="responsive"][phone] { display: none; } */
+            /* [class~="responsive"][mobile] { display: none; } */
+            /* [class~="responsive"][tablet] { display: none; } */
+            [class~="responsive"][desktop] { display: none; }
+            [class~="responsive"][widescreen] { display: none; }
         }
-        @media only screen and (max-width: 1000px) { }
-        /*
-        @media only screen and (max-width: 400px) {
-            .banner>.status { display: none; }
-            .banner>.caption { display: none; }
-            .banner>.title { display: none; }
+        @media only screen and (min-width: 992px) {
+            /* Large devices (laptops/desktops, 992px and up) */
+            /* [class~="responsive"][phone] { display: none; } */
+            /* [class~="responsive"][mobile] { display: none; } */
+            /* [class~="responsive"][tablet] { display: none; } */
+            /* [class~="responsive"][desktop] { display: none; } */
+            [class~="responsive"][widescreen] { display: none; }
         }
-        @media only screen and (max-width: 700px) {
-            .banner>.caption { display: none; }
-            .banner>.title { display: none; }
+        @media only screen and (min-width: 1200px) {
+            /* Extra large devices (large laptops and desktops, 1200px and up) */
+            /* [class~="responsive"][phone] { display: none; } */
+            /* [class~="responsive"][mobile] { display: none; } */
+            /* [class~="responsive"][tablet] { display: none; } */
+            /* [class~="responsive"][desktop] { display: none; } */
+            /* [class~="responsive"][widescreen] { display: none; } */
         }
-        @media only screen and (max-width: 800px) {
-            .banner>.title { display: none; }
-        }
-        @media only screen and (max-width: 1000px) { }
-        */
         language-menu {
             position: relative;
             display: flex;
