@@ -6,8 +6,8 @@
         :scope {
             position: relative;
             display: none;
-            margin: 0 auto;
-            padding: 5px;
+            margin: 0;
+            padding: 0;
             width: 300px;
             height: 100%;
             border: 1px solid silver;
@@ -26,7 +26,8 @@
         }
         :scope .sidebar-container {
             position: absolute;
-            margin: 0;
+            margin: 0 auto;
+            /* padding: 5px; */
             padding: 0;
             width: 100%;
             height: 100%;
