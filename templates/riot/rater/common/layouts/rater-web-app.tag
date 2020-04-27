@@ -5,12 +5,18 @@
                 <h6>Sidebar Left</h6>
             </div>
         </sidebar>
+        <sidebar>
+            <div>
+                <h6>Sidebar Left 2</h6>
+            </div>
+        </sidebar>
         <navibar>
             <navi-item>
                 <sidebar-menu></sidebar-menu>
             </navi-item>
             <navi-item>
                 <div class="banner">
+                    <div class="status">1</div>
                     <div class="caption">My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
                     <div class="title ">{ (content && content.title) ? content.title : '' }</div>
                 </div>
@@ -23,9 +29,17 @@
                 <links-menu></links-menu>
             </navi-item>
         </navibar>
+        <navibar>
+            <div class="banner">
+                <div class="caption">Second Nav bar</div>
+            </div>
+        </navibar>
         <yield/>
         <statusbar>
             <span class="copyright">EDL Co., Ltd.</span>
+        </statusbar>
+        <statusbar>
+            <span class="copyright">Second EDL Co., Ltd.</span>
         </statusbar>
     </napp>
     <style>
@@ -34,19 +48,43 @@
             display: block;
             margin: 0;
             padding: 0;
-            width: auto;            
+            width: auto;
             height: auto;
             overflow: hidden;
         }
-        .banner .title {
+        .banner>.status {
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+            padding: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            font-size: 0.8rem;
+            /* vertical alien setting */
+            height: 0.8rem;
+            line-height: 0.8rem;
+            
+            width: 1rem;
+            color: white;
+            background-color: forestgreen;
+            border-radius: 50%;
+        }
+        .banner>.title {
+            position: relative;
+            display: inline-block;
             margin: 0;
             padding: 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             font-size: 1.2rem;
+            line-height: 1rem; /* override defauat line height */
         }
-        .banner .caption {
+        .banner>.caption {
+            position: relative;
+            display: inline-block;
             margin: 0;
             padding: 0;
             width: auto;
@@ -54,14 +92,19 @@
             overflow: hidden;
             text-overflow: ellipsis;
             font-size: 1.2rem;
+            line-height: 1rem; /* override defauat line height */
         }
-        @media only screen and (max-width: 700px) {
-            .banner .caption {
-                width: 0;
-                visibility: hidden;
-            }
+        /* small screen size */
+        @media only screen and (max-width: 400px) { }
+        /* medium screen size */
+        @media only screen and (max-width: 600px) {
+            .banner>.caption { display: none; }
         }
+        /* normal screen size */
+        @media only screen and (max-width: 800px) { }
+
         language-menu {
+            position: relative;
             display: flex;
             margin: 0 auto;
             padding: 0;
@@ -69,6 +112,7 @@
             justify-content: stretch;
         }
         links-menu {
+            position: relative;
             display: flex;
             margin: 0 auto;
             padding: 0;
@@ -76,6 +120,7 @@
             justify-content: stretch;
         }
         .copyright {
+            position: relative;
             margin: 0;
             padding: 0;
             font-size: .5em;

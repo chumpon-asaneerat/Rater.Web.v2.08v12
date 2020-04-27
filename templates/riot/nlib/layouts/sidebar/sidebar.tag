@@ -1,5 +1,5 @@
 <sidebar>
-    <div class="sidebar-container">
+    <div class="sidebar-area">
         <yield/>
     </div>    
     <style>
@@ -8,31 +8,45 @@
             display: none;
             margin: 0;
             padding: 0;
-            width: auto;
+            /* width: fit-content; */
             height: 100%;
             border: 1px solid silver;
             z-index: 99999;
-            overflow: hidden;
+            /* overflow: hidden; */
         }        
         :scope.show, :scope.active {
             display: inline-block;
             position: absolute;
         }
-        @media only screen and (max-width: 700px) {
+        :scope.pin.show, :scope.pin.active {
+            position: relative;
+        }
+        @media only screen and (max-width: 400px) {
             :scope.show, :scope.active {
-                display: inline-block;
                 position: absolute;
             }
+            :scope.pin.show, :scope.pin.active {
+                position: relative;
+            }
         }
-        :scope .sidebar-container {
-            position: absolute;
+        @media only screen and (max-width: 700px) {
+            :scope.show, :scope.active {
+                position: absolute;
+            }
+            /* should support collapse */
+            :scope.pin.show, :scope.pin.active {
+                position: relative;
+            }
+        }
+        :scope>.sidebar-area {
+            position: relative;
             margin: 0 auto;
             padding: 0;
             width: var(--sidebar-width);
             height: 100%;
             overflow: auto;
         }
-        :scope .sidebar-container:empty {
+        :scope>.sidebar-area:empty {
             display: none;
         }
         :scope.c1 {
@@ -57,7 +71,8 @@
 //======= test show begin..
 //=================================
             
-            self.show();
+            self.pin()
+            self.show()
 
 //=================================
 //======= test show end..
@@ -72,6 +87,12 @@
             (sidebar.shown) ? self.show() : self.hide()
         }
 
+        this.pin = () => {
+            self.root.classList.add('pin')
+        }
+        this.unpin = () => {
+            self.root.classList.add('pin')
+        }
         this.show = () => {
             console.log('show')
             self.root.classList.add('show')

@@ -42,60 +42,44 @@
             height: 100%;
             overflow: hidden;
         }
-        /* ignore all child if not sidebar or navibar or screen or statusbar (footer) */
+        /* ignore all child if not sidebar, navibar, screen, statusbar */
         :scope>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar) {
             display: none;
         }
-
         /* sidebar */
-        :scope>.app-area sidebar:nth-of-type(1) {
+        :scope>.app-area sidebar {
             grid-area: sidebar-area;
             position: relative;
         }
-        /* sidebar - hide when empty */
-        :scope>.app-area sidebar:nth-of-type(1):empty {
-            grid-area: sidebar-area;
-            display: none;
-        }
-        /* sidebar - more than one hide it */
+        /* sidebar - hide when empty or more than one */
+        :scope>.app-area sidebar:nth-of-type(1):empty, 
         :scope>.app-area sidebar:not(:nth-of-type(1)) {
-            grid-area: sidebar-area;
             display: none;
         }
-
         /* navibar (header main menu) */
-        :scope>.app-area navibar:nth-of-type(1) {
+        :scope>.app-area navibar {
             grid-area: navi-area;
             position: relative;
         }
-        /* navibar - hide when empty */
-        :scope>.app-area navibar:nth-of-type(1):empty {
-            grid-area: navi-area;
-            display: none;
-        }
-        /* navibar - more than one hide it */
+        /* navibar - hide when empty hide when empty or more than one */
+        :scope>.app-area navibar:nth-of-type(1):empty,
         :scope>.app-area navibar:not(:nth-of-type(1)) {
-            grid-area: navi-area;
             display: none;
         }
-
         /* screen(s) */
         :scope>.app-area screen {
             grid-area: scrn-area;
+            position: relative;
         }
-
-        /* statusbar (footer) */
-        :scope>.app-area statusbar:last-of-type(1) {
+        /* statusbar */
+        :scope>.app-area statusbar {
             grid-area: stat-area;
+            position: relative;
+            line-height: 1rem; /* change browser default line height */
         }
-        /* statusbar (footer) - hide when empty */
-        :scope>.app-area statusbar:nth-of-type(1):empty {
-            grid-area: stat-area;
-            display: none;
-        }
-        /* statusbar (footer) - more than one hide it */
-        :scope>.app-area statusbar:not(:last-of-type(1)) {
-            grid-area: stat-area;
+        /* statusbar - hide when empty hide when empty or more than one */
+        :scope>.app-area statusbar:nth-of-type(1):empty,
+        :scope>.app-area statusbar:not(:nth-of-type(1)) {
             display: none;
         }
     </style>
