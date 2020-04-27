@@ -220,6 +220,8 @@ const deviceUrls = [
     'rater/setup',
     // device user signin
     'rater/signin',
+    // device question
+    'rater/question',
     // home
     'rater'
 ]

@@ -1611,6 +1611,8 @@ riot.tag2('rater-device-home', '<h3>Rater Device Main Menu</h3>', 'rater-device-
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
+riot.tag2('rater-device-question', '<h3>Today Question running..</h3>', '', '', function(opts) {
+});
 riot.tag2('rater-device-register', '<h3>register device.</h3>', '', '', function(opts) {
 });
 
