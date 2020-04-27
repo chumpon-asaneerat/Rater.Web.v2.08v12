@@ -8,7 +8,9 @@
                 <span class="fas fa-sync">&nbsp;</span>
             </button>
         </div>
-        <div ref="grid" class="gridarea"></div>
+        <div class="gridarea">
+            <div ref="grid" class="gridwrapper"></div>
+        </div>
     </div>
     <style>
         :scope {
@@ -28,10 +30,10 @@
             grid-area: scrarea;
             position: relative;
             display: grid;
-            grid-template-columns: 5px auto 1fr;
+            grid-template-columns: 5px auto 1fr 5px;
             grid-template-rows: 1fr;
             grid-template-areas:
-                '. toolarea gridarea';
+                '. toolarea gridarea .';
             margin: 0 auto;
             padding: 0;
             margin-top: 3px;
@@ -40,6 +42,7 @@
             height: 100%;
         }
         :scope>.scrarea>.toolarea {
+            position: relative;
             grid-area: toolarea;
             margin: 0 auto;
             margin-right: 5px;
@@ -69,10 +72,19 @@
             background: forestgreen;
         }
         :scope>.scrarea>.gridarea {
-            position: absolute;
+            position: relative;
             grid-area: gridarea;
+            display: block;
             margin: 0 auto;
             padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        :scope>.scrarea>.gridarea>.gridwrapper {
+            position: absolute;
+            display: block;
+            margin:  auto;
             height: 100%;
             width: 100%;
         }

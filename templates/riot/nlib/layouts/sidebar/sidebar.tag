@@ -8,7 +8,7 @@
             display: none;
             margin: 0;
             padding: 0;
-            width: 300px;
+            width: var(--sidebar-width);
             height: 100%;
             border: 1px solid silver;
             z-index: 99999;
