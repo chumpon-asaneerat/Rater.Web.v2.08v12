@@ -215,6 +215,8 @@ const gotoStaff = (req, res, next, url) => {
 
 const deviceUrls = [
     // setup customer's device
+    'rater/register',
+    // setup customer's org for device
     'rater/setup',
     // device user signin
     'rater/signin',
