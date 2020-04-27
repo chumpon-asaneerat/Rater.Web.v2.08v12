@@ -12,15 +12,19 @@
                 'sidebar-area';
             margin: 0;
             padding: 0;
-            width: var(--sidebar-width);
+            width: 100%;
             height: 100%;
             /* border: 1px solid silver; */
-            z-index: 99999;
             overflow: hidden;
-        } 
+        }
+        :scope.pin {
+            overflow: hidden;
+        }
+        /* Check has child declare in tag */
         :scope:empty {
             display: none;
         }
+        /* Normal mode */
         :scope>.sidebar-container {
             grid-area: sidebar-area;
             position: relative;
@@ -29,6 +33,9 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            overflow: hidden;
+        }
+        :scope.pin>.sidebar-container {
             overflow: auto;
         }
         @media only screen and (max-width: 600px) {
@@ -49,5 +56,12 @@
 
         this.on('mount', () => {});
         this.on('unmount', () => {});
+
+        this.pin = () => {
+            self.root.classList.add('pin')
+        }
+        this.unpin = () => {
+            self.root.classList.remove('pin')
+        }
     </script>
 </sidebar>

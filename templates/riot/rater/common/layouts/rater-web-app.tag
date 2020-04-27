@@ -1,6 +1,6 @@
 <rater-web-app>
     <napp>
-        <sidebar>
+        <sidebar ref="sidebar">
             <div>
                 <h6>Sidebar Begin</h6>
                 <div class="sample-block"></div>
@@ -153,6 +153,7 @@
 
         //#endregion
 
+        let sidebar;
         let updatecontent = () => {
             /*
             let scrId = screens.current.screenId;
@@ -163,8 +164,11 @@
         }
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
+
         this.on('mount', () => {
             bindEvents()
+            sidebar = self.tags['napp'].refs['sidebar']
+            if (sidebar) sidebar.pin()
         })
         this.on('unmount', () => {
             unbindEvents()

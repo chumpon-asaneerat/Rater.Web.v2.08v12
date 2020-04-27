@@ -4,6 +4,7 @@
     /*== Sidebar Layout =======================================================*/
     --sidebar-width: 200px;
     --sidebar-collapse-width: 30px;
+    --sidebar-zindex: 9999;
 
     /*== Navi Bar   =======================================================*/
     /* Navi Bar: normal */

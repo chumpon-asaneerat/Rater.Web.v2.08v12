@@ -50,22 +50,43 @@
         :scope>.app-area sidebar {
             grid-area: sidebar-area;
             position: absolute;
+            display: none;
+            z-index: var(--sidebar-zindex);
+            background-color: honeydew;
+            width: var(--sidebar-width);
         }
         /* sidebar - hide when empty or more than one */
         :scope>.app-area sidebar:nth-of-type(1):empty, 
         :scope>.app-area sidebar:not(:nth-of-type(1)) {
-            display: none;
+            display: none;            
         }
         @media only screen and (max-width: 600px) {
             /* Extra small devices (phones, 600px and down use max-width) */
             :scope>.app-area sidebar {
+                /* small screen so hide it. */
                 position: absolute;
+                display: none;
+                background-color: burlywood;
+            }
+        }
+        @media only screen and (min-width: 600px) {
+            /* Small devices (portrait tablets and large phones, 600px and up use min-width) */
+            :scope>.app-area sidebar {
+                /* small screen so hide it. */
+                position: absolute;
+                display: none;
+                background-color: burlywood;
             }
         }
         @media only screen and (min-width: 768px) {
             /* Medium devices (landscape tablets, 768px and up) */
             :scope>.app-area sidebar {
+                /* wide enough width so set to collapse mode so hide it. */
                 position: relative;
+                display: block;
+                width: var(--sidebar-collapse-width);
+                background-color: azure;
+                overflow: hidden;
             }
         }
         /* navibar (header main menu) */
@@ -95,4 +116,6 @@
             display: none;
         }
     </style>
+    <script>
+    </script>
 </napp>
