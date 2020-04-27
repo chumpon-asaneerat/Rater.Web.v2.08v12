@@ -14,7 +14,8 @@
         :scope .menu {
             display: none;
         }
-        @media only screen and (max-width: 700px) {
+        @media only screen and (max-width: 600px) {
+            /* Extra small devices (phones, 600px and down use max-width) */
             :scope .menu {
                 display: inline-block;
             }

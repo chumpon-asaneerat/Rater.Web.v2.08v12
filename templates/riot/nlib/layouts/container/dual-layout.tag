@@ -39,8 +39,8 @@
         :scope>.dual-layout-container.toggle {
             transform: none;
         }
-        /* for device width 700px and up */
-        @media only screen and (min-width: 700px) {
+        @media only screen and (min-width: 768px) {
+            /* Medium devices (landscape tablets, 768px and up) */
             :scope>.dual-layout-container {
                 grid-area: dual-area;
                 position: relative;
@@ -109,7 +109,8 @@
             height: 100%;
             overflow: hidden;
         }
-        @media only screen and (min-width: 720px) {
+        @media only screen and (min-width: 768px) {
+            /* Medium devices (landscape tablets, 768px and up) */
             :scope>.dual-layout-container .left-block,
             :scope>.dual-layout-container .right-block,
             :scope>.dual-layout-container.toggle .left-block,

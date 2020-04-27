@@ -21,7 +21,8 @@
         :scope.pin.show, :scope.pin.active {
             position: relative;
         }
-        @media only screen and (max-width: 400px) {
+        @media only screen and (max-width: 600px) {
+            /* Extra small devices (phones, 600px and down use max-width) */
             :scope.show, :scope.active {
                 position: absolute;
             }
@@ -29,7 +30,11 @@
                 position: relative;
             }
         }
-        @media only screen and (max-width: 700px) {
+        @media only screen and (min-width: 600px) {
+            /* Small devices (portrait tablets and large phones, 600px and up use min-width) */
+        }
+        @media only screen and (min-width: 768px) {
+            /* Medium devices (landscape tablets, 768px and up) */
             :scope.show, :scope.active {
                 position: absolute;
             }
@@ -37,6 +42,12 @@
             :scope.pin.show, :scope.pin.active {
                 position: relative;
             }
+        }
+        @media only screen and (min-width: 992px) {
+            /* Large devices (laptops/desktops, 992px and up) */
+        }
+        @media only screen and (min-width: 1200px) {
+            /* Extra large devices (large laptops and desktops, 1200px and up) */
         }
         :scope>.sidebar-area {
             position: relative;
