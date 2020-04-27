@@ -21,9 +21,9 @@
                     <div class="caption responsive" tablet>My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
                     <div class="title responsive" desktop>{ (content && content.title) ? '- ' + content.title : '- Title' }</div>
                     -->
-                    <div class="title responsive" mobile tablet>&nbsp;&nbsp;Tablet&nbsp;&nbsp;</div>
-                    <div class="title responsive" mobile tablet desktop>&nbsp;&nbsp;Desktop ]&nbsp;&nbsp;</div>
-                    <div class="title responsive" mobile tablet desktop widescreen>&nbsp;&nbsp;Widescreen&nbsp;&nbsp;</div>
+                    <div class="title responsive" tablet>&nbsp;&nbsp;Tablet&nbsp;&nbsp;</div>
+                    <div class="title responsive" desktop>&nbsp;&nbsp;Desktop ]&nbsp;&nbsp;</div>
+                    <div class="title responsive" widescreen>&nbsp;&nbsp;Widescreen&nbsp;&nbsp;</div>
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
@@ -59,7 +59,7 @@
         }
         .banner>.status {
             position: relative;
-            display: inline-block;
+            display: none;
             margin: 0 auto;
             padding: 0;
             white-space: nowrap;
@@ -78,7 +78,7 @@
         }
         .banner>.title {
             position: relative;
-            display: inline-block;
+            display: none;
             margin: 0;
             padding: 0;
             white-space: nowrap;
@@ -89,7 +89,7 @@
         }
         .banner>.caption {
             position: relative;
-            display: inline-block;
+            display: none;
             margin: 0;
             padding: 0;
             width: auto;
@@ -99,45 +99,25 @@
             font-size: 1.2rem;
             line-height: 1rem; /* override defauat line height */
         }
-        @media only screen and (max-width: 600px) { 
+        @media only screen and (max-width: 600px) {
             /* Extra small devices (phones, 600px and down use max-width) */
-            /* [class~="responsive"][phone] { display: none; } */
-            [class~="responsive"][mobile] { display: none; }
-            [class~="responsive"][tablet] { display: none; }
-            [class~="responsive"][desktop] { display: none; }
-            [class~="responsive"][widescreen] { display: none; }
+            [class~="responsive"][phone] { display: inline-block; }
         }
         @media only screen and (min-width: 600px) {
             /* Small devices (portrait tablets and large phones, 600px and up use min-width) */
-            /* [class~="responsive"][phone] { display: none; } */
-            /* [class~="responsive"][mobile] { display: none; } */
-            [class~="responsive"][tablet] { display: none; }
-            [class~="responsive"][desktop] { display: none; }
-            [class~="responsive"][widescreen] { display: none; }
+            [class~="responsive"][mobile] { display: inline-block; }
         }
         @media only screen and (min-width: 768px) {
             /* Medium devices (landscape tablets, 768px and up) */
-            /* [class~="responsive"][phone] { display: none; } */
-            /* [class~="responsive"][mobile] { display: none; } */
-            /* [class~="responsive"][tablet] { display: none; } */
-            [class~="responsive"][desktop] { display: none; }
-            [class~="responsive"][widescreen] { display: none; }
+            [class~="responsive"][tablet] { display: inline-block; }
         }
         @media only screen and (min-width: 992px) {
             /* Large devices (laptops/desktops, 992px and up) */
-            /* [class~="responsive"][phone] { display: none; } */
-            /* [class~="responsive"][mobile] { display: none; } */
-            /* [class~="responsive"][tablet] { display: none; } */
-            /* [class~="responsive"][desktop] { display: none; } */
-            [class~="responsive"][widescreen] { display: none; }
+            [class~="responsive"][desktop] { display: inline-block; }
         }
         @media only screen and (min-width: 1200px) {
             /* Extra large devices (large laptops and desktops, 1200px and up) */
-            /* [class~="responsive"][phone] { display: none; } */
-            /* [class~="responsive"][mobile] { display: none; } */
-            /* [class~="responsive"][tablet] { display: none; } */
-            /* [class~="responsive"][desktop] { display: none; } */
-            /* [class~="responsive"][widescreen] { display: none; } */
+            [class~="responsive"][widescreen] { display: inline-block; }
         }
         language-menu {
             position: relative;
