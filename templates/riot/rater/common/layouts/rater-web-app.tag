@@ -2,7 +2,17 @@
     <napp>
         <sidebar>
             <div>
-                <h6>Sidebar Left</h6>
+                <h6>Sidebar Begin</h6>
+                <div class="sample-block"></div>
+                <h6>Block 1</h6>
+                <div class="sample-block"></div>
+                <h6>Block 2</h6>
+                <div class="sample-block"></div>
+                <h6>Block 3</h6>
+                <div class="sample-block"></div>
+                <h6>Block 4</h6>
+                <div class="sample-block"></div>
+                <h6>End of Sidebar</h6>
             </div>
         </sidebar>
         <navibar>
@@ -15,7 +25,7 @@
                     <div class="status responsive" mobile>1</div>&nbsp;&nbsp;
                     -->
                     <div class="caption responsive" mobile>My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
-                    <div class="title responsive" tablet>{ (content && content.title) ? content.title : 'MANAGEMENT ORGANIZATION INFORMATION XXX YYY' }</div>
+                    <div class="title responsive" tablet>{ (content && content.title) ? content.title : 'MANAGEMENT ORGANIZATION INFORMATION' }</div>
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
@@ -125,6 +135,11 @@
             padding: 0;
             font-size: .5em;
             color: black;            
+        }
+        .sample-block {
+            position: relative;
+            display: block;
+            height: 250px;
         }
     </style>
     <script>
