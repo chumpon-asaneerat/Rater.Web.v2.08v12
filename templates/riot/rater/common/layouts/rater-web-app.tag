@@ -16,9 +16,9 @@
             </navi-item>
             <navi-item>
                 <div class="banner">
-                    <div class="status">1</div>
+                    <div class="status">1</div>&nbsp;&nbsp;
                     <div class="caption">My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
-                    <div class="title ">{ (content && content.title) ? content.title : '' }</div>
+                    <div class="title ">{ (content && content.title) ? '- ' + content.title : '- Title' }</div>
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
@@ -94,14 +94,19 @@
             font-size: 1.2rem;
             line-height: 1rem; /* override defauat line height */
         }
-        /* small screen size */
-        @media only screen and (max-width: 400px) { }
-        /* medium screen size */
-        @media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 400px) {
+            .banner>.status { display: none; }
             .banner>.caption { display: none; }
+            .banner>.title { display: none; }
         }
-        /* normal screen size */
-        @media only screen and (max-width: 800px) { }
+        @media only screen and (max-width: 700px) {
+            .banner>.caption { display: none; }
+            .banner>.title { display: none; }
+        }
+        @media only screen and (max-width: 800px) {
+            .banner>.title { display: none; }
+        }
+        @media only screen and (max-width: 1000px) { }
 
         language-menu {
             position: relative;

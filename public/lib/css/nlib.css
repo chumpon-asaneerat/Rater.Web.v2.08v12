@@ -26,10 +26,10 @@
 
     /*== Card Layout =======================================================*/
     --card-box-shadow: var(--default-box-shadow);
-
 }
 
 html, body { 
     width: 100%;
     height: 100%;
 }
+
