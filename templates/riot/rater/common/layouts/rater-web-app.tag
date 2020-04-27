@@ -168,7 +168,7 @@
         this.on('mount', () => {
             bindEvents()
             sidebar = self.tags['napp'].refs['sidebar']
-            if (sidebar) sidebar.pin()
+            //if (sidebar) sidebar.pin()
         })
         this.on('unmount', () => {
             unbindEvents()

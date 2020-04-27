@@ -15,6 +15,7 @@
             width: 100%;
             height: 100%;
             /* border: 1px solid silver; */
+            z-index: var(--sidebar-zindex);
             overflow: hidden;
         }
         :scope.pin {
@@ -40,9 +41,46 @@
         }
         @media only screen and (max-width: 600px) {
             /* Extra small devices (phones, 600px and down use max-width) */
+            :scope {
+                /* small screen so hide it. */
+                position: absolute;
+                display: none;
+                background-color: burlywood;
+            }
         }
         @media only screen and (min-width: 600px) {
             /* Small devices (portrait tablets and large phones, 600px and up use min-width) */
+            :scope {
+                /* small screen so hide it. */
+                position: absolute;
+                display: none;
+                background-color: burlywood;
+            }
+        }
+        @media only screen and (min-width: 768px) {
+            /* Medium devices (landscape tablets, 768px and up) */
+            :scope {
+                /* wide enough width so set to collapse mode so collapse it. */
+                position: relative;
+                display: block;
+                width: var(--sidebar-collapse-width);
+                background-color: azure;
+                overflow: hidden;
+            }
+            :scope:hover,
+            :scope.pin {
+                /* hover or pin show full width */
+                position: relative;
+                display: block;
+                width: var(--sidebar-width);
+                background-color: azure;
+                overflow: hidden;
+            }
+            :scope:hover>.sidebar-container,
+            :scope.pin>.sidebar-container {
+                /* also set container scrollbar */
+                overflow: auto;
+            }
         }
         @media only screen and (min-width: 992px) {
             /* Large devices (laptops/desktops, 992px and up) */
