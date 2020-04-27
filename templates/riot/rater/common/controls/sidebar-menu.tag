@@ -46,6 +46,8 @@
         this.toggle = (e) => {
             e.preventDefault()
             e.stopPropagation()
+            let navibar = self.parent
+            let app = navibar.parent
         }
     </script>
 </sidebar-menu>

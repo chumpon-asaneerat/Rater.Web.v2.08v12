@@ -15,42 +15,15 @@
             /* overflow: hidden; */
         }        
         :scope.show, :scope.active {
-            display: inline-block;
-            position: absolute;
+            display: block;
+            position: relative;
         }
         :scope.pin.show, :scope.pin.active {
             position: relative;
         }
-        @media only screen and (max-width: 600px) {
-            /* Extra small devices (phones, 600px and down use max-width) */
-            :scope.show, :scope.active {
-                position: absolute;
-            }
-            :scope.pin.show, :scope.pin.active {
-                position: relative;
-            }
-        }
-        @media only screen and (min-width: 600px) {
-            /* Small devices (portrait tablets and large phones, 600px and up use min-width) */
-        }
-        @media only screen and (min-width: 768px) {
-            /* Medium devices (landscape tablets, 768px and up) */
-            :scope.show, :scope.active {
-                position: absolute;
-            }
-            /* should support collapse */
-            :scope.pin.show, :scope.pin.active {
-                position: relative;
-            }
-        }
-        @media only screen and (min-width: 992px) {
-            /* Large devices (laptops/desktops, 992px and up) */
-        }
-        @media only screen and (min-width: 1200px) {
-            /* Extra large devices (large laptops and desktops, 1200px and up) */
-        }
         :scope>.sidebar-area {
             position: relative;
+            display: block;
             margin: 0 auto;
             padding: 0;
             width: var(--sidebar-width);
@@ -59,6 +32,42 @@
         }
         :scope>.sidebar-area:empty {
             display: none;
+        }
+        @media only screen and (max-width: 600px) {
+            /* Extra small devices (phones, 600px and down use max-width) */
+            :scope.show, :scope.active {
+                position: absolute;
+                display: block;
+                background-color: skyblue;
+            }
+        }
+        @media only screen and (min-width: 600px) {
+            /* Small devices (portrait tablets and large phones, 600px and up use min-width) */
+            :scope.show, :scope.active {
+                position: absolute;
+                display: block;
+                background-color: aquamarine;
+            }
+            :scope>.sidebar-area {
+                width: var(--sidebar-collapse-width);
+            }
+            :scope>.sidebar-area:hover {
+                width: var(--sidebar-width);
+            }
+        }
+        @media only screen and (min-width: 992px) {
+            /* Large devices (laptops/desktops, 992px and up) */
+            :scope.show, :scope.active {
+                position: absolute;
+                display: block;
+                background-color: antiquewhite;
+            }
+            :scope>.sidebar-area {
+                width: var(--sidebar-width);
+            }
+        }
+        @media only screen and (min-width: 1200px) {
+            /* Extra large devices (large laptops and desktops, 1200px and up) */
         }
         :scope.c1 {
             background-color: burlywood;
@@ -82,7 +91,7 @@
 //======= test show begin..
 //=================================
             
-            self.pin()
+            //self.pin()
             self.show()
 
 //=================================

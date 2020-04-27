@@ -5,25 +5,17 @@
                 <h6>Sidebar Left</h6>
             </div>
         </sidebar>
-        <sidebar>
-            <div>
-                <h6>Sidebar Left 2</h6>
-            </div>
-        </sidebar>
         <navibar>
             <navi-item>
                 <sidebar-menu></sidebar-menu>
             </navi-item>
             <navi-item>
                 <div class="banner">
-                    <div class="status responsive" mobile>1</div>&nbsp;&nbsp;
                     <!--
-                    <div class="caption responsive" tablet>My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
-                    <div class="title responsive" desktop>{ (content && content.title) ? '- ' + content.title : '- Title' }</div>
+                    <div class="status responsive" mobile>1</div>&nbsp;&nbsp;
                     -->
-                    <div class="title responsive" tablet>&nbsp;&nbsp;Tablet&nbsp;&nbsp;</div>
-                    <div class="title responsive" desktop>&nbsp;&nbsp;Desktop ]&nbsp;&nbsp;</div>
-                    <div class="title responsive" widescreen>&nbsp;&nbsp;Widescreen&nbsp;&nbsp;</div>
+                    <div class="caption responsive" mobile>My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
+                    <div class="title responsive" tablet>{ (content && content.title) ? content.title : 'MANAGEMENT ORGANIZATION INFORMATION XXX YYY' }</div>
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
@@ -34,17 +26,9 @@
                 <links-menu></links-menu>
             </navi-item>
         </navibar>
-        <navibar>
-            <div class="banner">
-                <div class="caption">Second Nav bar</div>
-            </div>
-        </navibar>
         <yield/>
         <statusbar>
             <span class="copyright">EDL Co., Ltd.</span>
-        </statusbar>
-        <statusbar>
-            <span class="copyright">Second EDL Co., Ltd.</span>
         </statusbar>
     </napp>
     <style>

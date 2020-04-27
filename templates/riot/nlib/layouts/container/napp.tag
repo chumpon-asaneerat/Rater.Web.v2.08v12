@@ -49,12 +49,24 @@
         /* sidebar */
         :scope>.app-area sidebar {
             grid-area: sidebar-area;
-            position: relative;
+            position: absolute;
         }
         /* sidebar - hide when empty or more than one */
         :scope>.app-area sidebar:nth-of-type(1):empty, 
         :scope>.app-area sidebar:not(:nth-of-type(1)) {
             display: none;
+        }
+        @media only screen and (max-width: 600px) {
+            /* Extra small devices (phones, 600px and down use max-width) */
+            :scope>.app-area sidebar {
+                position: absolute;
+            }
+        }
+        @media only screen and (min-width: 768px) {
+            /* Medium devices (landscape tablets, 768px and up) */
+            :scope>.app-area sidebar {
+                position: relative;
+            }
         }
         /* navibar (header main menu) */
         :scope>.app-area navibar {
