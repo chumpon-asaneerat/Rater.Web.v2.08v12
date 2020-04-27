@@ -16,9 +16,10 @@
             </navi-item>
             <navi-item>
                 <div class="banner">
-                    <div class="status">1</div>&nbsp;&nbsp;
-                    <div class="caption">My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
-                    <div class="title ">{ (content && content.title) ? '- ' + content.title : '- Title' }</div>
+                    <div class="status" mobile>1</div>&nbsp;&nbsp;
+                    <div class="caption" tablet>My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
+                    <div class="title " notebook>{ (content && content.title) ? '- ' + content.title : '- Title' }</div>
+                    <div class="title " widescreen>[notebook]</div>
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
@@ -94,6 +95,20 @@
             font-size: 1.2rem;
             line-height: 1rem; /* override defauat line height */
         }
+        @media only screen and (max-width: 400px) { 
+            .banner>*[mobile] { display: none !important; }
+            .banner>*[tablet] { display: none; }
+        }
+        @media only screen and (max-width: 550px) {
+            .banner>*[mobile] { display: none !important; }
+            .banner>*[notebook] { display: none; }
+        }
+        @media only screen and (max-width: 800px) {
+            .banner>*[mobile] { display: none !important; }
+            .banner>*[widescreen] { display: none; }
+        }
+        @media only screen and (max-width: 1000px) { }
+        /*
         @media only screen and (max-width: 400px) {
             .banner>.status { display: none; }
             .banner>.caption { display: none; }
@@ -107,7 +122,7 @@
             .banner>.title { display: none; }
         }
         @media only screen and (max-width: 1000px) { }
-
+        */
         language-menu {
             position: relative;
             display: flex;
