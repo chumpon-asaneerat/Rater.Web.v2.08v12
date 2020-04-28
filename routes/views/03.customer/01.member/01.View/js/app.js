@@ -1,12 +1,5 @@
 let app;
 
-const loadLibrary = (completed) => {
-    let urls = [
-        '/dist/css/tabulator.min.css',
-        '/dist/js/tabulator.min.js'
-    ]
-    nlib.document.load(completed, ...urls);
-}
 const run = () => {
     let tags = riot.mount('rater-web-app')
     let screenId = 'member-view'
@@ -15,7 +8,11 @@ const run = () => {
 
 (() => {
     // load css/js files.
-    loadLibrary(run)
+    let urls = [
+        '/dist/css/tabulator.min.css',
+        '/dist/js/tabulator.min.js'
+    ]
+    nlib.document.load(run, ...urls);
 })();
 /*
 let app;
