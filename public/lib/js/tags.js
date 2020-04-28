@@ -1215,6 +1215,14 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ position: 
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
+riot.tag2('branch-manage', '', 'branch-manage,[data-is="branch-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
 riot.tag2('branch-view', '', 'branch-view,[data-is="branch-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
@@ -1232,6 +1240,14 @@ riot.tag2('device-editor', '', 'device-editor,[data-is="device-editor"]{ positio
         this.on('unmount', () => {})
 });
 riot.tag2('device-entry', '', 'device-entry,[data-is="device-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
+riot.tag2('device-manage', '', 'device-manage,[data-is="device-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
@@ -1528,6 +1544,14 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
             }
         }
 });
+riot.tag2('member-manage', '', 'member-manage,[data-is="member-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
 riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="tool" class="toolarea"> <button class="float-button" onclick="{addnew}"> <span class="fas fa-plus">&nbsp;</span> </button> <button class="float-button" onclick="{refresh}"> <span class="fas fa-sync">&nbsp;</span> </button> </div> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'member-view,[data-is="member-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\' } member-view>.scrarea,[data-is="member-view"]>.scrarea{ grid-area: scrarea; position: relative; display: grid; grid-template-columns: 5px auto 1fr 5px; grid-template-rows: 1fr; grid-template-areas: \'. toolarea gridarea .\'; margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; max-width: 800px; height: 100%; } member-view>.scrarea>.toolarea,[data-is="member-view"]>.scrarea>.toolarea{ position: relative; grid-area: toolarea; margin: 0 auto; margin-right: 5px; padding: 0; height: 100%; overflow: hidden; background-color: transparent; color: whitesmoke; } member-view>.scrarea>.toolarea .float-button,[data-is="member-view"]>.scrarea>.toolarea .float-button{ display: block; margin: 0 auto; margin-bottom: 5px; padding: 3px; padding-right: 1px; height: 40px; width: 40px; color: whitesmoke; background: silver; border: none; outline: none; border-radius: 50%; cursor: pointer; } member-view>.scrarea>.toolarea .float-button:hover,[data-is="member-view"]>.scrarea>.toolarea .float-button:hover{ color: whitesmoke; background: forestgreen; } member-view>.scrarea>.gridarea,[data-is="member-view"]>.scrarea>.gridarea{ position: relative; grid-area: gridarea; display: block; margin: 0 auto; padding: 0; height: 100%; width: 100%; overflow: hidden; } member-view>.scrarea>.gridarea>.gridwrapper,[data-is="member-view"]>.scrarea>.gridarea>.gridwrapper{ position: absolute; display: block; margin: auto; height: 100%; width: 100%; } member-view .tabulator-row button,[data-is="member-view"] .tabulator-row button{ margin: 0 auto; padding: 0px; width: 100%; font-size: small; color: inherit; background: transparent; border: none; outline: none; cursor: pointer; } member-view .tabulator-row button:hover,[data-is="member-view"] .tabulator-row button:hover{ color: forestgreen; } member-view .tabulator-row button>span,[data-is="member-view"] .tabulator-row button>span{ margin: 0 auto; padding: 0; }', '', function(opts) {
         let self = this;
         let screenId = 'member-view'
@@ -1669,7 +1693,23 @@ riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ position: relative;
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
+riot.tag2('org-manage', '', 'org-manage,[data-is="org-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
 riot.tag2('org-view', '', 'org-view,[data-is="org-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
+riot.tag2('bar-votesummary-manage', '', 'bar-votesummary-manage,[data-is="bar-votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
@@ -1701,6 +1741,14 @@ riot.tag2('report-home', '', 'report-home,[data-is="report-home"]{ position: rel
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
+riot.tag2('pie-votesummary-manage', '', 'pie-votesummary-manage,[data-is="pie-votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
 riot.tag2('pie-votesummary-result', '', 'pie-votesummary-result,[data-is="pie-votesummary-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
@@ -1710,6 +1758,14 @@ riot.tag2('pie-votesummary-result', '', 'pie-votesummary-result,[data-is="pie-vo
         this.on('unmount', () => {})
 });
 riot.tag2('pie-votesummary', '', 'pie-votesummary,[data-is="pie-votesummary"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
+riot.tag2('rawvote-manage', '', 'rawvote-manage,[data-is="rawvote-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
@@ -1733,6 +1789,14 @@ riot.tag2('rawvote-search', '', 'rawvote-search,[data-is="rawvote-search"]{ posi
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
+riot.tag2('staffcompare-manage', '', 'staffcompare-manage,[data-is="staffcompare-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
 riot.tag2('staffcompare-result', '', 'staffcompare-result,[data-is="staffcompare-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
@@ -1749,6 +1813,14 @@ riot.tag2('staffcompare-search', '', 'staffcompare-search,[data-is="staffcompare
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
+riot.tag2('staffperf-manage', '', 'staffperf-manage,[data-is="staffperf-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
 riot.tag2('staffperf-result', '', 'staffperf-result,[data-is="staffperf-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
@@ -1758,6 +1830,14 @@ riot.tag2('staffperf-result', '', 'staffperf-result,[data-is="staffperf-result"]
         this.on('unmount', () => {})
 });
 riot.tag2('staffperf-search', '', 'staffperf-search,[data-is="staffperf-search"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
+riot.tag2('votesummary-manage', '', 'votesummary-manage,[data-is="votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
