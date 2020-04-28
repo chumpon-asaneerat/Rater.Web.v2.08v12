@@ -1,4 +1,4 @@
-<org-entry>
+<report-home>
     <style>
         :scope {
             position: relative;
@@ -16,4 +16,4 @@
         this.on('mount', () => {})
         this.on('unmount', () => {})
     </script>
-</org-entry>
+</report-home>

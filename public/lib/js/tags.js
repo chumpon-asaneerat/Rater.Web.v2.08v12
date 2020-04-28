@@ -1199,17 +1199,53 @@ riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <sidebar-menu></sidebar
         let onLanguageChanged = (e) => { updatecontent() }
         let onScreenChanged = (e) => { updatecontent() }
 });
-riot.tag2('branch-editor', '', '', '', function(opts) {
+riot.tag2('branch-editor', '', 'branch-editor,[data-is="branch-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('branch-entry', '', '', '', function(opts) {
+riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('branch-view', '', '', '', function(opts) {
+riot.tag2('branch-view', '', 'branch-view,[data-is="branch-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('device-editor', '', '', '', function(opts) {
+riot.tag2('device-editor', '', 'device-editor,[data-is="device-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('device-entry', '', '', '', function(opts) {
+riot.tag2('device-entry', '', 'device-entry,[data-is="device-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('device-view', '', '', '', function(opts) {
+riot.tag2('device-view', '', 'device-view,[data-is="device-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
 riot.tag2('admin-home', '<div class="client-area"> <div class="info-panel"> <div class="info-box"> <div class="info-data"> <div class="info-data-value">3.82</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Average </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">87%</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Average % </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">200 K+</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Total Votes </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">30</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Wait list </div> </div> </div> </div> <div class="chart-panel"> <div class="bar-chart"> <div class="chart-box" ref="bar1"></div> </div> <div class="pie-chart"> <div class="chart-box" ref="pie1"></div> </div> </div> </div>', 'admin-home,[data-is="admin-home"]{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'client-area\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; } admin-home>.client-area,[data-is="admin-home"]>.client-area{ grid-area: client-area; display: grid; grid-auto-flow: row; grid-auto-rows: max-content; grid-gap: 10px; margin: 0; padding: 5px; width: 100%; height: 100%; border: 1px dotted navy; overflow: auto; } admin-home>.client-area .chart-panel,[data-is="admin-home"]>.client-area .chart-panel{ display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); grid-gap: 10px; grid-auto-rows: minmax(200px, max-content); margin: 0; padding: 5px; width: 100%; height: auto; } admin-home>.client-area .bar-chart,[data-is="admin-home"]>.client-area .bar-chart{ position: relative; display: block; margin: 0; padding: 5px; width: 100%; height: 100%; background: whitesmoke; border: 1px dotted orchid; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } admin-home>.client-area .bar-chart .chart-box,[data-is="admin-home"]>.client-area .bar-chart .chart-box{ display: block; position: absolute; margin: 0; padding: 5px; width: 100%; height: 100%; min-width: 100px; } admin-home .bar-chart .chart-box .highcharts-background,[data-is="admin-home"] .bar-chart .chart-box .highcharts-background{ fill: rgba(250, 250, 250, .1); } admin-home>.client-area .pie-chart,[data-is="admin-home"]>.client-area .pie-chart{ position: relative; display: block; margin: 0; padding: 5px; width: 100%; height: 100%; background: whitesmoke; border: 1px dotted skyblue; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } admin-home>.client-area .pie-chart .chart-box,[data-is="admin-home"]>.client-area .pie-chart .chart-box{ display: block; margin: 0 auto; padding: 5px; width: 100%; height: 100%; } admin-home>.client-area .pie-chart .chart-box .highcharts-background,[data-is="admin-home"]>.client-area .pie-chart .chart-box .highcharts-background{ fill: rgba(250, 250, 250, .1); } admin-home>.client-area .info-panel,[data-is="admin-home"]>.client-area .info-panel{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); grid-gap: 10px; grid-auto-rows: max-content; margin: 0; padding: 5px; width: 100%; height: auto; } admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ display: inline-block; margin: 0; padding: 5px; height: fit-content; font-size: 1rem; background: wheat; border: 1px dotted chocolate; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } @media only screen and (min-width: 400px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: olive; } } @media only screen and (min-width: 600px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: hotpink; } } @media only screen and (min-width: 800px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: fuchsia; } } @media only screen and (min-width: 1000px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: grey; } } admin-home>.client-area .info-box .info-data-value,[data-is="admin-home"]>.client-area .info-box .info-data-value{ display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: auto; font-size: 2.5em; font-weight: bold; text-align: center; } admin-home>.client-area .info-box .info-caption,[data-is="admin-home"]>.client-area .info-box .info-caption{ display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: auto; text-align: center; } admin-home>.client-area .info-box .info-caption-icon,[data-is="admin-home"]>.client-area .info-box .info-caption-icon{ display: inline-block; margin: 0; padding: 0; height: auto; font-size: 0.7em; font-weight: normal; } admin-home>.client-area .info-box .info-caption-text,[data-is="admin-home"]>.client-area .info-box .info-caption-text{ display: inline-block; margin: 0; padding: 0; height: auto; font-size: 0.7em; font-weight: normal; }', '', function(opts) {
         let self = this
@@ -1617,35 +1653,133 @@ riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="tool" 
             XHR.get(url, paramObj, fn)
         }
 });
-riot.tag2('org-editor', '', '', '', function(opts) {
+riot.tag2('org-editor', '', 'org-editor,[data-is="org-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('org-entry', '', '', '', function(opts) {
+riot.tag2('org-entry', '', 'org-entry,[data-is="org-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('org-view', '', '', '', function(opts) {
+riot.tag2('org-view', '', 'org-view,[data-is="org-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('bar-votesummary-result', '', '', '', function(opts) {
+riot.tag2('bar-votesummary-result', '', 'bar-votesummary-result,[data-is="bar-votesummary-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('bar-votesummary-search', '', '', '', function(opts) {
+riot.tag2('bar-votesummary-search', '', 'bar-votesummary-search,[data-is="bar-votesummary-search"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('pie-votesummary-result', '', '', '', function(opts) {
+riot.tag2('report-home', '', 'report-home,[data-is="report-home"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('pie-votesummary', '', '', '', function(opts) {
+riot.tag2('pie-votesummary-result', '', 'pie-votesummary-result,[data-is="pie-votesummary-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('rawvote-result', '', '', '', function(opts) {
+riot.tag2('pie-votesummary', '', 'pie-votesummary,[data-is="pie-votesummary"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('rawvote-search', '', '', '', function(opts) {
+riot.tag2('rawvote-result', '', 'rawvote-result,[data-is="rawvote-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('staffcompare-result', '', '', '', function(opts) {
+riot.tag2('rawvote-search', '', 'rawvote-search,[data-is="rawvote-search"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('staffcompare-search', '', '', '', function(opts) {
+riot.tag2('staffcompare-result', '', 'staffcompare-result,[data-is="staffcompare-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('staffperf-result', '', '', '', function(opts) {
+riot.tag2('staffcompare-search', '', 'staffcompare-search,[data-is="staffcompare-search"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('staffperf-search', '', '', '', function(opts) {
+riot.tag2('staffperf-result', '', 'staffperf-result,[data-is="staffperf-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('votesummary-result', '', '', '', function(opts) {
+riot.tag2('staffperf-search', '', 'staffperf-search,[data-is="staffperf-search"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
-riot.tag2('votesummary', '', '', '', function(opts) {
+riot.tag2('votesummary-result', '', 'votesummary-result,[data-is="votesummary-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
+});
+riot.tag2('votesummary-search', '', 'votesummary-search,[data-is="votesummary-search"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {})
+        this.on('unmount', () => {})
 });
 riot.tag2('rater-device-home', '<h3>Rater Device Main Menu</h3>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
