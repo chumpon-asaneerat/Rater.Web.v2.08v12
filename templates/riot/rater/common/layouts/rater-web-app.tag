@@ -1,5 +1,6 @@
 <rater-web-app>
     <napp>
+        <!--
         <sidebar ref="sidebar">
             <div>
                 <h6>Sidebar Begin</h6>
@@ -15,6 +16,7 @@
                 <h6>End of Sidebar</h6>
             </div>
         </sidebar>
+        -->
         <navibar>
             <navi-item>
                 <sidebar-menu></sidebar-menu>
