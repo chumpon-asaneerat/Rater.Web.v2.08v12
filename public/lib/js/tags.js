@@ -1623,15 +1623,27 @@ riot.tag2('org-entry', '', '', '', function(opts) {
 });
 riot.tag2('org-view', '', '', '', function(opts) {
 });
+riot.tag2('bar-votesummary-result', '', '', '', function(opts) {
+});
 riot.tag2('bar-votesummary-search', '', '', '', function(opts) {
+});
+riot.tag2('pie-votesummary-result', '', '', '', function(opts) {
 });
 riot.tag2('pie-votesummary', '', '', '', function(opts) {
 });
+riot.tag2('rawvote-result', '', '', '', function(opts) {
+});
 riot.tag2('rawvote-search', '', '', '', function(opts) {
+});
+riot.tag2('staffcompare-result', '', '', '', function(opts) {
 });
 riot.tag2('staffcompare-search', '', '', '', function(opts) {
 });
+riot.tag2('staffperf-result', '', '', '', function(opts) {
+});
 riot.tag2('staffperf-search', '', '', '', function(opts) {
+});
+riot.tag2('votesummary-result', '', '', '', function(opts) {
 });
 riot.tag2('votesummary', '', '', '', function(opts) {
 });

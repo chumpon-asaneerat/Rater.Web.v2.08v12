@@ -1,0 +1,2 @@
+<rawvote-result>
+</rawvote-result>

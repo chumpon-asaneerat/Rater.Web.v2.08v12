@@ -1,0 +1,2 @@
+<staffcompare-result>
+</staffcompare-result>
