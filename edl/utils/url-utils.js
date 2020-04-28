@@ -50,6 +50,20 @@ const gotoHome = (req, res, next, url) => {
 
 // EDL Admin
 const edlAdminUrls = [
+    // customer view
+    'edl/customer/view',
+    // customer edit
+    'edl/customer/edit',
+    // customer
+    'edl/customer',
+    // staff view
+    'edl/staff/view',
+    // staff edit
+    'edl/staff/edit',
+    // staff
+    'edl/staff',
+    // license
+    'edl/license',
     // home
     'edl/admin'
 ]
@@ -68,6 +82,20 @@ const gotoEDLAdmin = (req, res, next, url) => {
 }
 // EDL Supervisor
 const edlSupervisorUrls = [
+    // customer view
+    'edl/customer/view',
+    // customer edit
+    'edl/customer/edit',
+    // customer
+    'edl/customer',
+    // staff view
+    'edl/staff/view',
+    // staff edit
+    'edl/staff/edit',
+    // staff
+    'edl/staff',
+    // license
+    //'edl/license',
     // home
     'edl/supervisor'
 ]
@@ -86,6 +114,16 @@ const gotoEDLSupervisor = (req, res, next, url) => {
 }
 // EDL Staff
 const edlStaffUrls = [
+    // customer view
+    'edl/customer/view',
+    // customer edit
+    'edl/customer/edit',
+    // customer
+    'edl/customer',
+    // staff edit (self)
+    'edl/staff/edit',
+    // license
+    //'edl/license',
     // home
     'edl/staff'
 ]
@@ -108,18 +146,26 @@ const gotoEDLStaff = (req, res, next, url) => {
 //#region customer routes
 
 const adminUrls = [
+    // member view
+    'customer/member/view',
     // member edit
     'customer/member/edit',
-    // member view
+    // member
     'customer/member',
+    // device view
+    'customer/device/view',
     // device edit
     'customer/device/edit',
     // device
     'customer/device',
+    // branch view
+    'customer/branch/view',
     // branch edit
     'customer/branch/edit',
     // branch
     'customer/branch',
+    // org view
+    'customer/org/view',
     // org edit
     'customer/org/edit',
     // org
@@ -155,6 +201,8 @@ const gotoAdmin = (req, res, next, url) => {
     }
 }
 const exclusiveUrls = [
+    // member view
+    'customer/member/view',
     // member edit
     'customer/member/edit',
     // member

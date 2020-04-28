@@ -1,5 +1,14 @@
 let app;
 (() => {
+    let tags = riot.mount('rater-web-app')
+    let screenId = 'member-manage'
+    screens.show(screenId)
+})();
+
+/* dynamic load css,js files */
+/*
+let app;
+(() => {
     // load css/js files.
     let urls = [
         '/dist/css/tabulator.min.css',
@@ -11,6 +20,7 @@ let app;
         screens.show(screenId)
     });
 })();
+*/
 /*
 let app;
 (() => {
