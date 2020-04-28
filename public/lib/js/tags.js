@@ -1623,6 +1623,18 @@ riot.tag2('org-entry', '', '', '', function(opts) {
 });
 riot.tag2('org-view', '', '', '', function(opts) {
 });
+riot.tag2('bar-votesummary-search', '', '', '', function(opts) {
+});
+riot.tag2('pie-votesummary', '', '', '', function(opts) {
+});
+riot.tag2('rawvote-search', '', '', '', function(opts) {
+});
+riot.tag2('staffcompare-search', '', '', '', function(opts) {
+});
+riot.tag2('staffperf-search', '', '', '', function(opts) {
+});
+riot.tag2('votesummary', '', '', '', function(opts) {
+});
 riot.tag2('rater-device-home', '<h3>Rater Device Main Menu</h3>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
 

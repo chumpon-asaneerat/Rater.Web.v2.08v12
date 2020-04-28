@@ -1,0 +1,2 @@
+<staffcompare-search>
+</staffcompare-search>
