@@ -21,6 +21,7 @@ const run = () => {
 
 (() => {
     // load css/js files.
+    /*
     let loaded = (window.Tabulator !== undefined && window.Tabulator !== null)
     console.log('Tabulator:', (loaded) ? 'loaded' : 'not loaded')
     if (!loaded) { 
@@ -29,6 +30,8 @@ const run = () => {
     else { 
         run()
     }
+    */
+    loadLibrary(run)
 })();
 /*
 let app;
