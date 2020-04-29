@@ -1255,7 +1255,7 @@ riot.tag2('device-manage', '', 'device-manage,[data-is="device-manage"]{ positio
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
-riot.tag2('device-view', '', 'device-view,[data-is="device-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('device-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'device-view,[data-is="device-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
