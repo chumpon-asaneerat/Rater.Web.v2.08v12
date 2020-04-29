@@ -1,4 +1,9 @@
 <staff-view>
+    <div ref="container" class="scrarea">
+        <div class="gridarea">
+            <div ref="grid" class="gridwrapper"></div>
+        </div>
+    </div>
     <style>
         :scope {
             position: relative;
@@ -13,7 +18,18 @@
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
     </script>
 </staff-view>
