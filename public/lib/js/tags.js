@@ -1928,6 +1928,44 @@ riot.tag2('bar-box', '', 'bar-box,[data-is="bar-box"]{ position: relative; displ
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
+riot.tag2('date-box', '', 'date-box,[data-is="date-box"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+});
+riot.tag2('member-box', '', 'member-box,[data-is="member-box"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+});
 riot.tag2('org-box', '', 'org-box,[data-is="org-box"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
