@@ -2161,24 +2161,57 @@ riot.tag2('votesummary-manage', '', 'votesummary-manage,[data-is="votesummary-ma
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('votesummary-result', '', 'votesummary-result,[data-is="votesummary-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('votesummary-search', '', 'votesummary-search,[data-is="votesummary-search"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('rater-device-home', '<h3>Rater Device Main Menu</h3>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
