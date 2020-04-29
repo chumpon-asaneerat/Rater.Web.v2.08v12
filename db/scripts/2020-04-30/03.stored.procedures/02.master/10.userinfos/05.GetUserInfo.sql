@@ -13,12 +13,11 @@ GO
 --
 -- [== Example ==]
 --
---exec GetUserInfo NULL, NULL, 1, N'EDL-U20200402001'
+--exec GetUserInfo NULL, 1, N'EDL-U20200402001'
 -- =============================================
 CREATE PROCEDURE [dbo].[GetUserInfo] 
 (
   @langId nvarchar(3) = NULL
-, @memberType int = NULL
 , @enabled bit = NULL
 , @userId nvarchar(30) = NULL
 )
@@ -38,7 +37,6 @@ BEGIN
 		 , Enabled 
 	  FROM UserInfoMLView
 	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
-	   AND [MemberType] = COALESCE(@memberType, [MemberType])
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId,LangId))))
        AND UserId = @userId
 	 ORDER BY SortOrder, UserId
