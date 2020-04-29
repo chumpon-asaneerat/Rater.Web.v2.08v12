@@ -2598,9 +2598,10 @@ NRuntime.File = class {
     /** Get extension from url. */
     getExtension(url) { return url.split('.').pop() }
     async load(...urls) {
-        let state = { count: 0, max: 0 }
+        
         let mine = this.extractByFileTypes(urls)
         return new Promise((resolve, reject) => {
+            let state = { count: 0, max: 0 }
             if (urls) {
                 state.count = 0
                 state.max = urls.length;
@@ -2610,12 +2611,8 @@ NRuntime.File = class {
                         resolve(state)
                     }
                 }
-                if (mine.css && mine.css.length > 0) {
-                    nlib.runtime.css.load(...mine.css).then(completed)
-                }
-                if (mine.js && mine.js.length > 0) {
-                    nlib.runtime.js.load(...mine.js).then(completed)
-                }
+                this.loadcssFiles(mine, completed)
+                this.loadjsFiles(mine, completed)
             }
             else {
                 resolve(state)
@@ -2634,6 +2631,16 @@ NRuntime.File = class {
         }
         return ret;
     }
+    loadcssFiles(mine, completed) {
+        if (mine && mine.css && mine.css.length > 0) {
+            nlib.runtime.css.load(...mine.css).then(completed)
+        }
+    }
+    loadjsFiles(mine, completed) {
+        if (mine && mine.js && mine.js.length > 0) {
+            nlib.runtime.js.load(...mine.js).then(completed)
+        }
+    }
     /** init class prototype to nlib */
     static init() {
         if (!nlib.runtime) NRuntime.init()
@@ -2645,8 +2652,8 @@ NRuntime.File = class {
 }
 NRuntime.File.css = class {
     async load(...urls) {
-        let state = { type:'css', count: 0, max: 0 }
         return new Promise((resolve, reject) => {
+            let state = { type:'css', count: 0, max: 0 }
             if (urls) {
                 state.count = 0
                 state.max = urls.length
