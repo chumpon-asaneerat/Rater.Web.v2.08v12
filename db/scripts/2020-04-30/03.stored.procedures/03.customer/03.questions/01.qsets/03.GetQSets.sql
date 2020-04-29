@@ -23,8 +23,8 @@ GO
 --
 -- [== Example ==]
 --
---EXEC GetQSets NULL, N'EDL-C2018050001', 1;   -- get all QSets for enable languages
---EXEC GetQSets N'EN', N'EDL-C2018050001';     -- get all QSets for EN language
+--EXEC GetQSets NULL, N'EDL-C2020030001', 1;   -- get all QSets for enable languages
+--EXEC GetQSets N'EN', N'EDL-C2020030001';     -- get all QSets for EN language
 --EXEC GetQSets N'EN', NULL;                   -- no data returns
 -- =============================================
 ALTER PROCEDURE [dbo].[GetQSets]

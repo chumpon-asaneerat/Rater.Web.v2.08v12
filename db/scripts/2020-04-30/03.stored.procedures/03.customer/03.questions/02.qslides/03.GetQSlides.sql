@@ -20,10 +20,10 @@ GO
 --
 -- [== Example ==]
 --
---EXEC GetQSlides NULL, N'EDL-C2018050001', NULL, 1;       -- get all QSlide in all QSet (enable languages)
---EXEC GetQSlides N'EN', N'EDL-C2018050001', NULL;         -- get all QSlide in all QSet (EN language)
---EXEC GetQSlides NULL, N'EDL-C2018050001', N'QS00002', 1; -- get all QSlide in Specificed QSet (enable languages)
---EXEC GetQSlides N'EN', N'EDL-C2018050001', N'QS00002';   -- get all QSlide in Specificed QSet (EN language)
+--EXEC GetQSlides NULL, N'EDL-C2020030001', NULL, 1;       -- get all QSlide in all QSet (enable languages)
+--EXEC GetQSlides N'EN', N'EDL-C2020030001', NULL;         -- get all QSlide in all QSet (EN language)
+--EXEC GetQSlides NULL, N'EDL-C2020030001', N'QS00002', 1; -- get all QSlide in Specificed QSet (enable languages)
+--EXEC GetQSlides N'EN', N'EDL-C2020030001', N'QS00002';   -- get all QSlide in Specificed QSet (EN language)
 -- =============================================
 ALTER PROCEDURE [dbo].[GetQSlides]
 (

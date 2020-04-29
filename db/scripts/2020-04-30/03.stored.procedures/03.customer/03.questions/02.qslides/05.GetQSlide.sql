@@ -6,18 +6,18 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Name: GetQSlides.
--- Description:	Get Question Slides.
+-- Name: GetQSlide.
+-- Description:	Get Question Slide.
 -- [== History ==]
 -- <2020-04-30> :
 --	- Stored Procedure Created.
 --
 -- [== Example ==]
 --
---EXEC GetQSlides NULL, N'EDL-C2018050001', N'QS00002', 1, 1; -- enable languages only
---EXEC GetQSlides N'EN', N'EDL-C2018050001', N'QS00002', 1;   -- EN language
+--EXEC GetQSlide NULL, N'EDL-C2020030001', N'QS00001', 1, 1; -- enable languages only
+--EXEC GetQSlide N'EN', N'EDL-C2020030001', N'QS00001', 1;   -- EN language
 -- =============================================
-CREATE PROCEDURE [dbo].[GetQSlides]
+CREATE PROCEDURE [dbo].[GetQSlide]
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL

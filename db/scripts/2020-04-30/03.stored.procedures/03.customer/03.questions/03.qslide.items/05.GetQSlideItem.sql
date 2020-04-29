@@ -6,8 +6,8 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Name: GetQSlideItems.
--- Description:	Get Question Slide Items.
+-- Name: GetQSlideItem.
+-- Description:	Get Question Slide Item.
 -- [== History ==]
 -- <2020-04-30> :
 --	- Stored Procedure Created.
@@ -15,10 +15,10 @@ GO
 -- [== Example ==]
 --
 -- /* Gets item for QSet:'QS00001', Slide: 1, Item: 1 */
---EXEC GetQSlideItems NULL, N'EDL-C2018050001', N'QS00001', 1, 1, 1; -- enable languages
---EXEC GetQSlideItems N'JA', N'EDL-C2018050001', N'QS00001', 1, 1;   -- JA language
+--EXEC GetQSlideItem NULL, N'EDL-C2020030001', N'QS00001', 1, 1, 1; -- enable languages
+--EXEC GetQSlideItem N'JA', N'EDL-C2020030001', N'QS00001', 1, 1;   -- JA language
 -- =============================================
-CREATE PROCEDURE [dbo].[GetQSlideItems]
+CREATE PROCEDURE [dbo].[GetQSlideItem]
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL

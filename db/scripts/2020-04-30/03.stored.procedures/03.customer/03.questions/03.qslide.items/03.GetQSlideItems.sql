@@ -22,10 +22,13 @@ GO
 --
 -- [== Example ==]
 --
---EXEC GetQSlideItems NULL, N'EDL-C2018050001', N'QS00001', 1, 1;  -- all items in all enable languages
---EXEC GetQSlideItems N'JA', N'EDL-C2018050001', N'QS00001', 1;    -- all items in all JA language
+--EXEC GetQSlideItems NULL, N'EDL-C2020030001', N'QS00001', 1, 1;  -- all items in all enable languages
+--EXEC GetQSlideItems N'JA', N'EDL-C2020030001', N'QS00001', 1;    -- all items in all JA language
+--EXEC GetQSlideItems N'JA', NULL, N'QS00001', 1;                  -- no data returns
+--EXEC GetQSlideItems N'JA', N'EDL-C2020030001', NULL, 1;          -- no data returns
+--EXEC GetQSlideItems N'JA', N'EDL-C2020030001', N'QS00001', NULL; -- no data returns
 -- =============================================
-CREATE PROCEDURE [dbo].[GetQSlideItems]
+ALTER PROCEDURE [dbo].[GetQSlideItems]
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL
