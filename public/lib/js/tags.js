@@ -1701,7 +1701,7 @@ riot.tag2('org-manage', '', 'org-manage,[data-is="org-manage"]{ position: relati
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
-riot.tag2('org-view', '', 'org-view,[data-is="org-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'org-view,[data-is="org-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
@@ -1900,7 +1900,7 @@ riot.tag2('customer-manage', '', 'customer-manage,[data-is="customer-manage"]{ p
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
-riot.tag2('customer-view', '', 'customer-view,[data-is="customer-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'customer-view,[data-is="customer-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove

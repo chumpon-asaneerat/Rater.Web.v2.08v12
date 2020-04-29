@@ -1,4 +1,10 @@
 <org-view>
+    <!-- Need to change to org chart. -->
+    <div ref="container" class="scrarea">
+        <div class="gridarea">
+            <div ref="grid" class="gridwrapper"></div>
+        </div>
+    </div>
     <style>
         :scope {
             position: relative;
