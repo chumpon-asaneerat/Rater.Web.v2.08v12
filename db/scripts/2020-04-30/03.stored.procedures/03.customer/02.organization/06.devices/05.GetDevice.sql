@@ -8,10 +8,8 @@ GO
 -- Name: GetDevice.
 -- Description:	Get Device.
 -- [== History ==]
--- <2018-05-22> :
---	- Stored Procedure Created.
 -- <2020-04-30> :
---  - reorder parameter @enabled
+--	- Stored Procedure Created.
 --
 -- [== Example ==]
 --
@@ -20,9 +18,9 @@ GO
 CREATE PROCEDURE [dbo].[GetDevice] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
 , @deviceId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN

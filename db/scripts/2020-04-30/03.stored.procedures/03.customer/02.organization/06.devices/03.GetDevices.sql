@@ -16,14 +16,14 @@ GO
 --
 -- [== Example ==]
 --
---exec GetDevices NULL, 1, N'EDL-C2020030001';
---exec GetDevices N'TH', NULL, N'EDL-C2020030001';
+--exec GetDevices NULL, N'EDL-C2020030001', 1; -- get devices in all enable languages.
+--exec GetDevices N'TH', N'EDL-C2020030001';   -- get devices in TH language.
 -- =============================================
-CREATE PROCEDURE [dbo].[GetDevices] 
+ALTER PROCEDURE [dbo].[GetDevices] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN

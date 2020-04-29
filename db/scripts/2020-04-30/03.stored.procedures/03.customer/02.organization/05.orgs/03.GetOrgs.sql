@@ -19,24 +19,23 @@ GO
 --	- change column ParentId to parentId
 --	- change column BranchId to branchId
 -- <2020-04-30> :
---	- reorder parameter @enabled
 --  - remove parameter @orgId
 --
 -- [== Example ==]
 --
 --/* With Specificed CustomerId */
---exec GetOrgs N'EN', 1, N'EDL-C2020030001'; -- Gets Orgs EN language.
---exec GetOrgs N'TH', 1, N'EDL-C2020030001'; -- Gets Orgs TH language.
+--exec GetOrgs N'EN', 1, N'EDL-C2020030001'; -- Gets orgs in EN language all branchs.
+--exec GetOrgs N'TH', 1, N'EDL-C2020030001'; -- Gets orgs in TH language all branchs.
 --/* With Specificed CustomerId, BranchId */
---exec GetOrgs N'EN', 1, N'EDL-C2020030001', N'B0001'; -- Gets EN language in Branch 1.
---exec GetOrgs N'TH', 1, N'EDL-C2020030001', N'B0001'; -- Gets TH language in Branch 1.
+--exec GetOrgs N'EN', 1, N'EDL-C2020030001', N'B0001'; -- Gets orgs in EN language in Branch 1.
+--exec GetOrgs N'TH', 1, N'EDL-C2020030001', N'B0001'; -- Gets orgs in TH language in Branch 1.
 -- =============================================
-CREATE PROCEDURE [dbo].[GetOrgs] 
+ALTER PROCEDURE [dbo].[GetOrgs] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
 , @branchId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN

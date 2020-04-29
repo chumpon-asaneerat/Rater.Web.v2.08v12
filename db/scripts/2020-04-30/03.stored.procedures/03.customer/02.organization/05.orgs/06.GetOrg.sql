@@ -13,17 +13,17 @@ GO
 --
 -- [== Example ==]
 --
---/* With Specificed CustomerId, BranchId, OrgId */
---exec GetOrg N'EN', 1, N'EDL-C2020030001', N'B0001', N'O0003'
---exec GetOrg N'TH', 1, N'EDL-C2020030001', N'B0001', N'O0003'
+--/* With Specificed CustomerId, OrgId */
+--exec GetOrg NULL, 1, N'EDL-C2020030001', N'O0003'
+--exec GetOrg N'EN', 1, N'EDL-C2020030001', N'O0003'
+--exec GetOrg N'TH', 1, N'EDL-C2020030001', N'O0003'
 -- =============================================
 CREATE PROCEDURE [dbo].[GetOrg] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
-, @branchId nvarchar(30) = NULL
 , @orgId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN
@@ -42,7 +42,6 @@ BEGIN
 	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
 	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
-	   AND UPPER(LTRIM(RTRIM(BranchId))) = UPPER(LTRIM(RTRIM(COALESCE(@branchId, BranchId))))
 	   AND UPPER(LTRIM(RTRIM(OrgId))) = UPPER(LTRIM(RTRIM(@orgId)))
 	 ORDER BY SortOrder, LangId, CustomerId, BranchId, OrgId
 END
