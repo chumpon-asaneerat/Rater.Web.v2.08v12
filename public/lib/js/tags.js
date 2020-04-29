@@ -2216,12 +2216,53 @@ riot.tag2('votesummary-search', '', 'votesummary-search,[data-is="votesummary-se
 riot.tag2('rater-device-home', '<h3>Rater Device Main Menu</h3>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
-riot.tag2('rater-device-question', '<h3>Today Question running..</h3>', '', '', function(opts) {
+riot.tag2('rater-device-question', '<h3>Today Question running..</h3>', 'rater-device-question,[data-is="rater-device-question"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
-riot.tag2('rater-device-register', '<h3>register device.</h3>', '', '', function(opts) {
+riot.tag2('rater-device-register', '<h3>register device.</h3>', 'rater-device-register,[data-is="rater-device-register"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 
 riot.tag2('rater-device-org-setup', '<h3>Setup Organization</h3>', '', '', function(opts) {
