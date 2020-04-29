@@ -13,13 +13,16 @@ GO
 --
 -- [== Example ==]
 --
---exec GetUserInfo NULL, 1, N'EDL-U20200402001'
+--exec GetUserInfo NULL, N'EDL-U20200402001', 1;   -- all languages
+--exec GetUserInfo NULL, N'EDL-U20200402001', 1;   -- only enable languages
+--exec GetUserInfo N'TH', N'EDL-U20200402001';     -- only TH language
+--exec GetUserInfo N'EN', N'EDL-U20200402001';     -- only EN language
 -- =============================================
 CREATE PROCEDURE [dbo].[GetUserInfo] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @userId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN

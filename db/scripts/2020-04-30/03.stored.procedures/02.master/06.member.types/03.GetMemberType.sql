@@ -13,7 +13,9 @@ GO
 --
 -- [== Example ==]
 --
---exec GetMemberType NULL, 1, 1;
+--exec GetMemberType NULL, 100;    -- all
+--exec GetMemberType NULL, 100, 0; -- disable only
+--exec GetMemberType NULL, 100, 1; -- enable only
 -- =============================================
 CREATE PROCEDURE [dbo].[GetMemberType] 
 (
