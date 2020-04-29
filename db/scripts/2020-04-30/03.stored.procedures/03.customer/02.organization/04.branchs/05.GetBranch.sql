@@ -13,14 +13,16 @@ GO
 --
 -- [== Example ==]
 --
---exec GetBranch N'TH', 1, N'EDL-C2017060011', N'B0001';
+--exec GetBranch NULL, 1, N'EDL-C2017060011', N'B0001';      -- all languages
+--exec GetBranch NULL, 1, N'EDL-C2017060011', N'B0001', 1;   -- all enable languages
+--exec GetBranch N'TH', 1, N'EDL-C2017060011', N'B0001';     -- only TH language
 -- =============================================
 CREATE PROCEDURE [dbo].[GetBranch] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
 , @branchId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN

@@ -12,14 +12,17 @@ GO
 --
 -- [== Example ==]
 --
---exec GetMemberInfo N'TH', NULL, N'EDL-C2017060011', N'M00001'; -- for get MemberInfo by CustomerID and MemberId.
+-- /* Get MemberInfo by CustomerID and MemberId. */
+--exec GetMemberInfo NULL, N'EDL-C2017060011', N'M00001';      -- all languages
+--exec GetMemberInfo NULL, N'EDL-C2017060011', N'M00001', 1;   -- all enable languages
+--exec GetMemberInfo N'TH', N'EDL-C2017060011', N'M00001';     -- TH language
 -- =============================================
 CREATE PROCEDURE [dbo].[GetMemberInfo] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
 , @memberId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN

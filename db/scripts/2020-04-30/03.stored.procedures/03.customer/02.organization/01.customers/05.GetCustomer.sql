@@ -5,27 +5,21 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Description:	GetCustomers
+-- Description:	GetCustomer
 -- [== History ==]
--- <2017-05-31> :
+-- <2020-04-30> :
 --	- Stored Procedure Created.
--- <2018-04-30> :
---	- change language id from nvarchar(10) to nvarchar(3).
--- <2018-05-15> :
---	- change column LangId to langId
--- <2010-04-30> :
---	- remove parameter @customerId
 --
 -- [== Example ==]
 --
---exec GetCustomers NULL, 1; -- for only enabled languages.
---exec GetCustomers;         -- for get all.
---exec GetCustomers N'EN';   -- for get customers for EN language.
---exec GetCustomers N'TH';   -- for get customers for TH language.
+--exec GetCustomer N'EN', N'EDL-C2017060011';   -- only EN language
+--exec GetCustomer N'TH', N'EDL-C2017060011';   -- only TH language
+--exec GetCustomer NULL, N'EDL-C2017060011', 1; -- all enable languages
 -- =============================================
-CREATE PROCEDURE [dbo].[GetCustomers] 
+CREATE PROCEDURE [dbo].[GetCustomer] 
 (
   @langId nvarchar(3) = NULL
+, @customerId nvarchar(30) = NULL
 , @enabled bit = NULL
 )
 AS
@@ -49,6 +43,7 @@ BEGIN
 	  FROM CustomerMLView
 	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
+	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
 	 ORDER BY SortOrder, CustomerId
 END
 

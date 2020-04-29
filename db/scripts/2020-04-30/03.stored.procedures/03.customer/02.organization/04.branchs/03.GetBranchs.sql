@@ -17,7 +17,7 @@ GO
 --	- change column CustomerId to customerId
 --	- change column BranchId to branchId
 -- <2020-04-30> :
---	- reorder parameter @enabled
+--	- remove parameter @branchId
 --
 -- [== Example ==]
 --
@@ -27,11 +27,11 @@ GO
 --exec GetBranchs N'TH', 1;                            -- for get Branchs for TH language.
 --exec GetBranchs N'TH', 1, N'EDL-C2017060011';        -- for get Branchs by CustomerID.
 -- =============================================
-CREATE PROCEDURE [dbo].[GetBranchs] 
+ALTER PROCEDURE [dbo].[GetBranchs] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN

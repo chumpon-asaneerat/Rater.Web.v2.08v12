@@ -16,22 +16,21 @@ GO
 --	- change column CustomerId to customerId
 --	- change column MemberId to memberId
 -- <2020-04-30> :
---  - reorder @enabled parameter.
 --  - remove @memberId parameter.
 --
 -- [== Example ==]
 --
---exec GetMemberInfos NULL, 1, NULL, NULL;              -- for only enabled languages.
---exec GetMemberInfos;                                  -- for get all.
---exec GetMemberInfos N'EN';                            -- for get MemberInfos for EN language.
---exec GetMemberInfos N'TH';                            -- for get MemberInfos for TH language.
---exec GetMemberInfos N'TH', NULL, N'EDL-C2017060011';  -- for get MemberInfos by CustomerID.
+--exec GetMemberInfos NULL, NULL, NULL, 1;        -- for only enabled languages.
+--exec GetMemberInfos;                            -- for get all.
+--exec GetMemberInfos N'EN';                      -- for get MemberInfos for EN language.
+--exec GetMemberInfos N'TH';                      -- for get MemberInfos for TH language.
+--exec GetMemberInfos N'TH', N'EDL-C2017060011';  -- for get MemberInfos by CustomerID.
 -- =============================================
-CREATE PROCEDURE [dbo].[GetMemberInfos] 
+ALTER PROCEDURE [dbo].[GetMemberInfos] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN
