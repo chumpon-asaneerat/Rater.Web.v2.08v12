@@ -1909,6 +1909,82 @@ riot.tag2('bar-votesummary-search', '', 'bar-votesummary-search,[data-is="bar-vo
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
+riot.tag2('bar-box', '', 'bar-box,[data-is="bar-box"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+});
+riot.tag2('org-box', '', 'org-box,[data-is="org-box"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+});
+riot.tag2('pie-box', '', 'pie-box,[data-is="pie-box"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+});
+riot.tag2('question-box', '', 'question-box,[data-is="question-box"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+});
 riot.tag2('report-home', '', 'report-home,[data-is="report-home"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
