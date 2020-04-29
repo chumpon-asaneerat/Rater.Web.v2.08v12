@@ -1223,7 +1223,7 @@ riot.tag2('branch-manage', '', 'branch-manage,[data-is="branch-manage"]{ positio
         this.on('mount', () => {})
         this.on('unmount', () => {})
 });
-riot.tag2('branch-view', '', 'branch-view,[data-is="branch-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'branch-view,[data-is="branch-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
