@@ -18,26 +18,25 @@ GO
 --	- change column OrgId to orgId
 --	- change column ParentId to parentId
 --	- change column BranchId to branchId
+-- <2020-04-30> :
+--	- reorder parameter @enabled
+--  - remove parameter @orgId
 --
 -- [== Example ==]
 --
---/* Get All */
---exec GetOrgs NULL, NULL, NULL, NULL, 1; -- enabled languages only.
---exec GetOrgs; -- all languages.
 --/* With Specificed CustomerId */
---exec GetOrgs N'EN', N'EDL-C2017060008'; -- Gets Orgs EN language.
---exec GetOrgs N'TH', N'EDL-C2017060008'; -- Gets Orgs TH language.
+--exec GetOrgs N'EN', 1, N'EDL-C2020030001'; -- Gets Orgs EN language.
+--exec GetOrgs N'TH', 1, N'EDL-C2020030001'; -- Gets Orgs TH language.
 --/* With Specificed CustomerId, BranchId */
---exec GetOrgs N'EN', N'EDL-C2017060008', N'B0001'; -- Gets EN language in Branch 1.
---exec GetOrgs N'TH', N'EDL-C2017060008', N'B0002'; -- Gets TH language in Branch 2.
+--exec GetOrgs N'EN', 1, N'EDL-C2020030001', N'B0001'; -- Gets EN language in Branch 1.
+--exec GetOrgs N'TH', 1, N'EDL-C2020030001', N'B0001'; -- Gets TH language in Branch 1.
 -- =============================================
 CREATE PROCEDURE [dbo].[GetOrgs] 
 (
   @langId nvarchar(3) = NULL
+, @enabled bit = NULL
 , @customerId nvarchar(30) = NULL
 , @branchId nvarchar(30) = NULL
-, @orgId nvarchar(30) = NULL
-, @enabled bit = NULL
 )
 AS
 BEGIN
@@ -57,7 +56,6 @@ BEGIN
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
 	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
 	   AND UPPER(LTRIM(RTRIM(BranchId))) = UPPER(LTRIM(RTRIM(COALESCE(@branchId, BranchId))))
-	   AND UPPER(LTRIM(RTRIM(OrgId))) = UPPER(LTRIM(RTRIM(COALESCE(@orgId, OrgId))))
 	 ORDER BY SortOrder, LangId, CustomerId, BranchId, OrgId
 END
 

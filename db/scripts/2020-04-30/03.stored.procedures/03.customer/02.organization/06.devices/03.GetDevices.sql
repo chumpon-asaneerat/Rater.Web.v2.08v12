@@ -10,20 +10,20 @@ GO
 -- [== History ==]
 -- <2018-05-22> :
 --	- Stored Procedure Created.
+-- <2020-04-30> :
+--  - reorder parameter @enabled
+--  - remove parameter @deviceId
 --
 -- [== Example ==]
 --
---exec GetDevices N'EN';                               -- for get devices for EN language.
---exec GetDevices N'TH';                               -- for get devices for TH language.
---exec GetDevices N'TH', N'EDL-C2017060011';           -- for get devices by CustomerID.
---exec GetDevices N'TH', N'EDL-C2017060011', N'D0001'; -- for get devices by CustomerID and DeviceId.
+--exec GetDevices NULL, 1, N'EDL-C2020030001';
+--exec GetDevices N'TH', NULL, N'EDL-C2020030001';
 -- =============================================
 CREATE PROCEDURE [dbo].[GetDevices] 
 (
   @langId nvarchar(3) = NULL
-, @customerId nvarchar(30) = NULL
-, @deviceId nvarchar(30) = NULL
 , @enabled bit = NULL
+, @customerId nvarchar(30) = NULL
 )
 AS
 BEGIN
@@ -46,7 +46,6 @@ BEGIN
 	   AND UPPER(LTRIM(RTRIM(DMLV.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, DMLV.LangId))))
        AND UPPER(LTRIM(RTRIM(DTMV.LangId))) = UPPER(LTRIM(RTRIM(DMLV.LangId)))
 	   AND UPPER(LTRIM(RTRIM(DMLV.CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, DMLV.CustomerId))))
-	   AND UPPER(LTRIM(RTRIM(DMLV.DeviceId))) = UPPER(LTRIM(RTRIM(COALESCE(@deviceId, DMLV.DeviceId))))
 	   AND DMLV.DeviceTypeId = DTMV.DeviceTypeId
 	   --AND OMLV.CustomerId = DMLV.CustomerId
 	   --AND OMLV.OrgID = DMLV.OrgId
