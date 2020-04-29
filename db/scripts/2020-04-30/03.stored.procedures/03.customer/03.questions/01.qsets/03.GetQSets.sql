@@ -19,11 +19,13 @@ GO
 --    - Add MinVoteDate, MaxVoteDate
 -- <2020-04-30> :
 --    - remove parameter @qSetId
+--    - temporary remove column minvotedate, maxvotedate
 --
 -- [== Example ==]
 --
 --EXEC GetQSets NULL, N'EDL-C2018050001', 1;   -- get all QSets for enable languages
---EXEC GetQSets N'EN', N'EDL-C2018050001', 1;  -- get all QSets for EN language
+--EXEC GetQSets N'EN', N'EDL-C2018050001';     -- get all QSets for EN language
+--EXEC GetQSets N'EN', NULL;                   -- no data returns
 -- =============================================
 ALTER PROCEDURE [dbo].[GetQSets]
 (
@@ -38,6 +40,7 @@ BEGIN
 		 , A.qSetId
 		 , A.BeginDate
 		 , A.EndDate
+         /*
 		 , (
 			SELECT MIN(VoteDate) 
 			  FROM Vote 
@@ -50,6 +53,7 @@ BEGIN
 			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
 			   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
 		   ) AS MaxVoteDate
+         */
 		 , A.QSetDescription
 		 , A.DisplayMode
 		 , A.HasRemark

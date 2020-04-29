@@ -14,8 +14,10 @@ GO
 --
 -- [== Example ==]
 --
---EXEC GetQSet NULL, N'EDL-C2018050001', N'QS00001', 1; -- get QSet in all enable languages.
---EXEC GetQSet N'EN', N'EDL-C2018050001', N'QS00001';   -- get QSet in EN language.
+--EXEC GetQSet NULL, N'EDL-C2020030001', N'QS00001', 1; -- get QSet in all enable languages.
+--EXEC GetQSet N'EN', N'EDL-C2020030001', N'QS00001';   -- get QSet in EN language.
+--EXEC GetQSet N'EN', NULL, N'QS00001';			        -- no data returns
+--EXEC GetQSet N'EN', N'EDL-C2020030001', NULL;			-- no data returns
 -- =============================================
 CREATE PROCEDURE [dbo].[GetQSet]
 (
