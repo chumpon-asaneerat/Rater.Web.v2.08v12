@@ -5,24 +5,26 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Name: GetDeviceType.
--- Description:	Get Device Type.
+-- Name: GetDeviceTypes.
+-- Description:	Get Devices.
 -- [== History ==]
--- <2020-04-30> :
+-- <2018-05-22> :
 --	- Stored Procedure Created.
+-- <2020-04-30> :
+--	- Remove parameter @deviceTypeId.
+--  - Add parameter @enabled.
 --
 -- [== Example ==]
 --
---exec GetDeviceType NULL, 1;
---exec GetDeviceType NULL, 0;
---exec GetDeviceType N'EN', 1, 101;
---exec GetDeviceType N'TH', 1, 101;
+--exec GetDeviceTypes NULL, 1;
+--exec GetDeviceTypes NULL, 0;
+--exec GetDeviceTypes N'EN';
+--exec GetDeviceTypes N'TH';
 -- =============================================
-CREATE PROCEDURE [dbo].[GetDeviceType]
+CREATE PROCEDURE [dbo].[GetDeviceTypes]
 (
   @langId nvarchar(3) = NULL
 , @enabled bit = NULL
-, @deviceTypeId int = NULL
 )
 AS
 BEGIN
@@ -34,8 +36,7 @@ BEGIN
     FROM DeviceTypeMLView
     WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
       AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
-      AND DeviceTypeId = @deviceTypeId
-    ORDER BY SortOrder, LangId, DeviceTypeId;
+    ORDER BY SortOrder, LangId, deviceTypeId;
 END
 
 GO
