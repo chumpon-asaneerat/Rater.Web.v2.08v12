@@ -2265,9 +2265,39 @@ riot.tag2('rater-device-register', '<h3>register device.</h3>', 'rater-device-re
         let unbindEvents = () => { }
 });
 
-riot.tag2('rater-device-org-setup', '<h3>Setup Organization</h3>', '', '', function(opts) {
+riot.tag2('rater-device-org-setup', '<h3>Setup Organization</h3>', 'rater-device-org-setup,[data-is="rater-device-org-setup"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
-riot.tag2('rater-device-signin', '<h3>User Sign In</h3>', '', '', function(opts) {
+riot.tag2('rater-device-signin', '<h3>User Sign In</h3>', 'rater-device-signin,[data-is="rater-device-signin"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('customer-editor', '', 'customer-editor,[data-is="customer-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
