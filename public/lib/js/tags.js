@@ -1933,24 +1933,57 @@ riot.tag2('pie-votesummary-manage', '', 'pie-votesummary-manage,[data-is="pie-vo
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('pie-votesummary-result', '', 'pie-votesummary-result,[data-is="pie-votesummary-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('pie-votesummary', '', 'pie-votesummary,[data-is="pie-votesummary"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('rawvote-manage', '', 'rawvote-manage,[data-is="rawvote-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
