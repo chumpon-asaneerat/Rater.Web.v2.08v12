@@ -14,9 +14,11 @@ GO
 -- [== Example ==]
 --
 --/* With Specificed CustomerId, OrgId */
---exec GetOrg NULL, 1, N'EDL-C2020030001', N'O0003'
---exec GetOrg N'EN', 1, N'EDL-C2020030001', N'O0003'
---exec GetOrg N'TH', 1, N'EDL-C2020030001', N'O0003'
+--exec GetOrg NULL, N'EDL-C2020030001', N'O0003', 1   -- all enable languages
+--exec GetOrg N'EN', N'EDL-C2020030001', N'O0003'     -- only EN language
+--exec GetOrg N'TH', N'EDL-C2020030001', N'O0003'     -- only TH language
+--exec GetOrg N'TH', NULL, N'O0003'                   -- no data returns
+--exec GetOrg N'TH', N'EDL-C2020030001', NULL         -- no data returns
 -- =============================================
 CREATE PROCEDURE [dbo].[GetOrg] 
 (

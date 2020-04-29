@@ -18,6 +18,7 @@ GO
 --
 --exec GetDevices NULL, N'EDL-C2020030001', 1; -- get devices in all enable languages.
 --exec GetDevices N'TH', N'EDL-C2020030001';   -- get devices in TH language.
+--exec GetDevices N'TH', NULL;                 -- no data returns.
 -- =============================================
 ALTER PROCEDURE [dbo].[GetDevices] 
 (

@@ -24,11 +24,15 @@ GO
 -- [== Example ==]
 --
 --/* With Specificed CustomerId */
---exec GetOrgs N'EN', 1, N'EDL-C2020030001'; -- Gets orgs in EN language all branchs.
---exec GetOrgs N'TH', 1, N'EDL-C2020030001'; -- Gets orgs in TH language all branchs.
+--exec GetOrgs NULL, N'EDL-C2020030001';              -- Gets orgs in enable languages all branchs.
+--exec GetOrgs N'EN', N'EDL-C2020030001';             -- Gets orgs in EN language all branchs.
+--exec GetOrgs N'TH', N'EDL-C2020030001';             -- Gets orgs in TH language all branchs.
 --/* With Specificed CustomerId, BranchId */
---exec GetOrgs N'EN', 1, N'EDL-C2020030001', N'B0001'; -- Gets orgs in EN language in Branch 1.
---exec GetOrgs N'TH', 1, N'EDL-C2020030001', N'B0001'; -- Gets orgs in TH language in Branch 1.
+--exec GetOrgs NULL, N'EDL-C2020030001', N'B0001';    -- Gets orgs in enable languages in Branch 1.
+--exec GetOrgs N'EN', N'EDL-C2020030001', N'B0001';   -- Gets orgs in EN language in Branch 1.
+--exec GetOrgs N'TH', N'EDL-C2020030001', N'B0001';   -- Gets orgs in TH language in Branch 1.
+--/* Without Specificed CustomerId */
+--exec GetOrgs NULL, NULL, N'B0001';                  -- no data returns.
 -- =============================================
 ALTER PROCEDURE [dbo].[GetOrgs] 
 (

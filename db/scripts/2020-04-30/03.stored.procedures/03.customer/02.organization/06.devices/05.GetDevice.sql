@@ -13,7 +13,10 @@ GO
 --
 -- [== Example ==]
 --
---exec GetDevice N'TH', N'EDL-C2020030001', N'D0001'; -- for get devices by CustomerID and DeviceId.
+--exec GetDevice NULL, N'EDL-C2020030001', N'D0001', 1;  -- get devices by CustomerID and DeviceId in all enable languages
+--exec GetDevice N'TH', N'EDL-C2020030001', N'D0001';    -- get devices by CustomerID and DeviceId in TH language.
+--exec GetDevice N'TH', NULL, N'D0001';			       -- no data returns
+--exec GetDevice N'TH', N'EDL-C2020030001', NULL;        -- no data returns
 -- =============================================
 CREATE PROCEDURE [dbo].[GetDevice] 
 (
