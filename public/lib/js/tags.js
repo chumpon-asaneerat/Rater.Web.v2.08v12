@@ -1280,24 +1280,57 @@ riot.tag2('device-editor', '', 'device-editor,[data-is="device-editor"]{ positio
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('device-entry', '', 'device-entry,[data-is="device-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('device-manage', '', 'device-manage,[data-is="device-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
-        this.on('mount', () => {})
-        this.on('unmount', () => {})
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
 });
 riot.tag2('device-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'device-view,[data-is="device-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
