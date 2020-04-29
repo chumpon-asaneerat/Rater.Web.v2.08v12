@@ -2598,7 +2598,6 @@ NRuntime.File = class {
     /** Get extension from url. */
     getExtension(url) { return url.split('.').pop() }
     async load(...urls) {
-        
         let mine = this.extractByFileTypes(urls)
         return new Promise((resolve, reject) => {
             let state = { count: 0, max: 0 }
@@ -2635,11 +2634,20 @@ NRuntime.File = class {
         if (mine && mine.css && mine.css.length > 0) {
             nlib.runtime.css.load(...mine.css).then(completed)
         }
+        else {
+            NRuntime.File.raise(completed, { type:'css', count: 0, max: 0 })
+        }
     }
     loadjsFiles(mine, completed) {
         if (mine && mine.js && mine.js.length > 0) {
             nlib.runtime.js.load(...mine.js).then(completed)
         }
+        else {
+            NRuntime.File.raise(completed, { type:'js', count: 0, max: 0 })
+        }
+    }
+    static raise(callback, ...args) {
+        if (callback) callback(...args)
     }
     /** init class prototype to nlib */
     static init() {
@@ -2670,8 +2678,8 @@ NRuntime.File.css = class {
             }
         })
     }
-    static raise(callback) {
-        if (callback) callback()
+    static raise(callback, ...args) {
+        if (callback) callback(...args)
     }
     static exists(url) {
         let found = false
@@ -2699,14 +2707,19 @@ NRuntime.File.css = class {
     static loadFiles(urls, completed) {
         let exists = NRuntime.File.css.exists
         let load = NRuntime.File.css.loadFile
-        urls.forEach(url => {
-            if (!exists(url)) {
-                load(url, completed)
-            }
-            else {
-                NRuntime.File.css.raise(completed)
-            }
-        })
+        if (urls && urls.length > 0) {
+            urls.forEach(url => {
+                if (!exists(url)) {
+                    load(url, completed)
+                }
+                else {
+                    NRuntime.File.css.raise(completed)
+                }
+            })
+        }
+        else {
+            NRuntime.File.css.raise(completed)
+        }
     }
     /** init class prototype to nlib */
     static init() {
@@ -2721,7 +2734,7 @@ NRuntime.File.js = class {
     async load(...urls) {
         return new Promise((resolve, reject) => {
             let state = { type:'js', count: 0, max: 0 }
-            if (urls) {
+            if (urls && urls.length > 0) {
                 state.count = 0
                 state.max = urls.length
                 let completed = () => { 
@@ -2737,8 +2750,8 @@ NRuntime.File.js = class {
             }
         })
     }
-    static raise(callback) {
-        if (callback) callback()
+    static raise(callback, ...args) {
+        if (callback) callback(...args)
     }
     static exists(url) {
         let found = false
@@ -2781,14 +2794,19 @@ NRuntime.File.js = class {
     static loadFiles(urls, completed) {
         let exists = NRuntime.File.js.exists
         let load = NRuntime.File.js.loadFile
-        urls.forEach(url => {
-            if (!exists(url)) {
-                load(url, completed)
-            }
-            else {
-                NRuntime.File.js.raise(completed)
-            }
-        })
+        if (urls && urls.length > 0) {
+            urls.forEach(url => {
+                if (!exists(url)) {
+                    load(url, completed)
+                }
+                else {
+                    NRuntime.File.js.raise(completed)
+                }
+            })
+        }
+        else {
+            NRuntime.File.js.raise(completed)
+        }
     }
     /** init class prototype to nlib */
     static init() {
