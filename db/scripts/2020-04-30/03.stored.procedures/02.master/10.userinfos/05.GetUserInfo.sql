@@ -13,10 +13,12 @@ GO
 --
 -- [== Example ==]
 --
---exec GetUserInfo NULL, N'EDL-U20200402001', 1;   -- all languages
+--exec GetUserInfo NULL, N'EDL-U20200402001';      -- all languages
 --exec GetUserInfo NULL, N'EDL-U20200402001', 1;   -- only enable languages
 --exec GetUserInfo N'TH', N'EDL-U20200402001';     -- only TH language
 --exec GetUserInfo N'EN', N'EDL-U20200402001';     -- only EN language
+--exec GetUserInfo NULL, NULL;					 -- no customerId (no data returns)
+--exec GetUserInfo N'TH', NULL;					 -- no customerId (no data returns)
 -- =============================================
 CREATE PROCEDURE [dbo].[GetUserInfo] 
 (

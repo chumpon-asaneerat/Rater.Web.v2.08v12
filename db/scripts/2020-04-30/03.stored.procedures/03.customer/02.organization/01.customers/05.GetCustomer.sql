@@ -12,9 +12,12 @@ GO
 --
 -- [== Example ==]
 --
---exec GetCustomer N'EN', N'EDL-C2017060011';   -- only EN language
---exec GetCustomer N'TH', N'EDL-C2017060011';   -- only TH language
---exec GetCustomer NULL, N'EDL-C2017060011', 1; -- all enable languages
+--exec GetCustomer N'EN', N'EDL-C2020030001';   -- only EN language
+--exec GetCustomer N'TH', N'EDL-C2020030001';   -- only TH language
+--exec GetCustomer NULL, N'EDL-C2020030001', 1; -- all enable languages
+--exec GetCustomer NULL, N'EDL-C2020030001';    -- all languages
+--exec GetCustomer NULL, NULL;                  -- no customerId (no data returns)
+--exec GetCustomer N'TH', NULL;                 -- no customerId (no data returns)
 -- =============================================
 CREATE PROCEDURE [dbo].[GetCustomer] 
 (

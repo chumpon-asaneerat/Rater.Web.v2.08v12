@@ -13,9 +13,11 @@ GO
 --
 -- [== Example ==]
 --
---exec GetBranch NULL, 1, N'EDL-C2017060011', N'B0001';      -- all languages
---exec GetBranch NULL, 1, N'EDL-C2017060011', N'B0001', 1;   -- all enable languages
---exec GetBranch N'TH', 1, N'EDL-C2017060011', N'B0001';     -- only TH language
+--exec GetBranch NULL, N'EDL-C2020030001', N'B0001';      -- all languages
+--exec GetBranch NULL, N'EDL-C2020030001', N'B0001', 1;   -- all enable languages
+--exec GetBranch N'TH', N'EDL-C2020030001', N'B0001';     -- only TH language
+--exec GetBranch N'TH', NULL, N'B0001';                   -- no customerId (no data returns)
+--exec GetBranch N'TH', N'EDL-C2020030001', NULL;         -- no branchId (no data returns)
 -- =============================================
 CREATE PROCEDURE [dbo].[GetBranch] 
 (

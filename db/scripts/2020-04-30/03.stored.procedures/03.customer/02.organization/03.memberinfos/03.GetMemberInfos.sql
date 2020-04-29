@@ -20,7 +20,11 @@ GO
 --
 -- [== Example ==]
 --
---exec GetMemberInfos N'TH', N'EDL-C2017060011';  -- for get MemberInfos by CustomerID.
+-- /* for get MemberInfos by CustomerID */
+--exec GetMemberInfos NULL, N'EDL-C2020030001', 1;   -- all enable languages
+--exec GetMemberInfos N'TH', N'EDL-C2017060011';     -- only TH language
+-- /* for get MemberInfos without CustomerID */
+--exec GetMemberInfos N'TH', NULL;                   -- no data returns
 -- =============================================
 ALTER PROCEDURE [dbo].[GetMemberInfos] 
 (

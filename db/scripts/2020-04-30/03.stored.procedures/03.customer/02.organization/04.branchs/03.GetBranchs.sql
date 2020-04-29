@@ -22,6 +22,7 @@ GO
 -- [== Example ==]
 --
 --exec GetBranchs N'TH', N'EDL-C2017060011', 1;        -- for get Branchs by CustomerID.
+--exec GetBranchs N'TH', NULL, 1;                      -- no customerID (no data returns)
 -- =============================================
 ALTER PROCEDURE [dbo].[GetBranchs] 
 (

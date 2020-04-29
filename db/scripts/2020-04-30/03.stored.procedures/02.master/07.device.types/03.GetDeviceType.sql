@@ -13,8 +13,8 @@ GO
 --
 -- [== Example ==]
 --
---exec GetDeviceType NULL, 101, 1;
---exec GetDeviceType NULL, 101, 1;
+--exec GetDeviceType NULL, 101, 1;  -- all enable languages
+--exec GetDeviceType N'TH', 101;    -- only TH language
 -- =============================================
 CREATE PROCEDURE [dbo].[GetDeviceType]
 (
