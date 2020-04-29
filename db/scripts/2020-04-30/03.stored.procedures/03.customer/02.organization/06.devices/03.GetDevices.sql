@@ -45,7 +45,7 @@ BEGIN
 	 WHERE DMLV.[ENABLED] = COALESCE(@enabled, DMLV.[ENABLED])
 	   AND UPPER(LTRIM(RTRIM(DMLV.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, DMLV.LangId))))
        AND UPPER(LTRIM(RTRIM(DTMV.LangId))) = UPPER(LTRIM(RTRIM(DMLV.LangId)))
-	   AND UPPER(LTRIM(RTRIM(DMLV.CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, DMLV.CustomerId))))
+	   AND UPPER(LTRIM(RTRIM(DMLV.CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
 	   AND DMLV.DeviceTypeId = DTMV.DeviceTypeId
 	   --AND OMLV.CustomerId = DMLV.CustomerId
 	   --AND OMLV.OrgID = DMLV.OrgId

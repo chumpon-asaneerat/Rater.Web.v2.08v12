@@ -9,14 +9,21 @@ GO
 -- Name: GetQSlideItems.
 -- Description:	Get Question Slide Items.
 -- [== History ==]
--- <2020-04-30> :
+-- <2018-05-15> :
 --	- Stored Procedure Created.
+-- <2019-08-19> :
+--	- Stored Procedure Changes.
+--    - Remove QItemTextNative column.
+--    - Rename QItemTextEN column to QItemText.
+-- <2020-03-26> :
+--	- Add choice parameter.
+-- <2020-04-30> :
+--    - remove parameter @qSSeq
 --
 -- [== Example ==]
 --
--- /* Gets item for QSet:'QS00001', Slide: 1, Item: 1 */
---EXEC GetQSlideItems NULL, N'EDL-C2018050001', N'QS00001', 1, 1, 1; -- enable languages
---EXEC GetQSlideItems N'JA', N'EDL-C2018050001', N'QS00001', 1, 1;   -- JA language
+--EXEC GetQSlideItems NULL, N'EDL-C2018050001', N'QS00001', 1, 1;  -- all items in all enable languages
+--EXEC GetQSlideItems N'JA', N'EDL-C2018050001', N'QS00001', 1;    -- all items in all JA language
 -- =============================================
 CREATE PROCEDURE [dbo].[GetQSlideItems]
 (
@@ -24,7 +31,6 @@ CREATE PROCEDURE [dbo].[GetQSlideItems]
 , @customerId nvarchar(30) = NULL
 , @qSetId nvarchar(30) = NULL
 , @qSeq int = NULL
-, @qSSeq int = NULL
 , @enabled bit = NULL
 )
 AS
@@ -46,7 +52,6 @@ BEGIN
 	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
 	   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(@qSetId)))
 	   AND QSeq = @qSeq
-	   AND QSSeq = @qSSeq
 	 ORDER BY SortOrder, CustomerId, QSetId, QSeq
 END
 

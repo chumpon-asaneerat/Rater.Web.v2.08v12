@@ -21,11 +21,7 @@ GO
 --
 -- [== Example ==]
 --
---exec GetBranchs NULL, 1, NULL, NULL;                 -- for only enabled languages.
---exec GetBranchs;                                     -- for get all.
---exec GetBranchs N'EN', 1;                            -- for get Branchs for EN language.
---exec GetBranchs N'TH', 1;                            -- for get Branchs for TH language.
---exec GetBranchs N'TH', 1, N'EDL-C2017060011';        -- for get Branchs by CustomerID.
+--exec GetBranchs N'TH', N'EDL-C2017060011', 1;        -- for get Branchs by CustomerID.
 -- =============================================
 ALTER PROCEDURE [dbo].[GetBranchs] 
 (
@@ -45,7 +41,7 @@ BEGIN
 	  FROM BranchMLView
 	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
-	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
 	 ORDER BY SortOrder, LangId, CustomerId, BranchId;
 END
 

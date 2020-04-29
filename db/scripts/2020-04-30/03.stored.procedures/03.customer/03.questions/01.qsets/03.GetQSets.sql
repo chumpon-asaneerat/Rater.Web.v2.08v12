@@ -6,22 +6,29 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Name: GetQSet.
--- Description:	Get Question Set.
+-- Name: GetQSets.
+-- Description:	Get Question Sets.
 -- [== History ==]
--- <2020-04-30> :
+-- <2018-05-15> :
 --	- Stored Procedure Created.
+-- <2019-08-19> :
+--	- Stored Procedure Changes.
+--    - Remove QSetDescriptionNative column.
+--    - Rename QSetDescriptionEN column to QSetDescription.
+-- <2020-01-07> :
+--    - Add MinVoteDate, MaxVoteDate
+-- <2020-04-30> :
+--    - remove parameter @qSetId
 --
 -- [== Example ==]
 --
---EXEC GetQSet NULL, N'EDL-C2018050001', N'QS00001', 1; -- get QSet in all enable languages.
---EXEC GetQSet N'EN', N'EDL-C2018050001', N'QS00001';   -- get QSet in EN language.
+--EXEC GetQSets NULL, N'EDL-C2018050001', 1;   -- get all QSets for enable languages
+--EXEC GetQSets N'EN', N'EDL-C2018050001', 1;  -- get all QSets for EN language
 -- =============================================
-CREATE PROCEDURE [dbo].[GetQSet]
+ALTER PROCEDURE [dbo].[GetQSets]
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL
-, @qSetId nvarchar(30) = NULL
 , @enabled bit = NULL
 )
 AS
@@ -35,13 +42,13 @@ BEGIN
 			SELECT MIN(VoteDate) 
 			  FROM Vote 
 			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-			   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(@qSetId)))
+			   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
 		   ) AS MinVoteDate
 		 , (
 			SELECT MAX(VoteDate) 
 			  FROM Vote 
 			 WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-			   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(@qSetId)))
+			   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(COALESCE(@qSetId, QSetId))))
 		   ) AS MaxVoteDate
 		 , A.QSetDescription
 		 , A.DisplayMode
@@ -54,7 +61,6 @@ BEGIN
 	 WHERE A.[ENABLED] = COALESCE(@enabled, A.[ENABLED])
 	   AND UPPER(LTRIM(RTRIM(A.LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, A.LangId))))
 	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
-	   AND UPPER(LTRIM(RTRIM(A.QSetId))) = UPPER(LTRIM(RTRIM(@qSetId)))
 	 ORDER BY A.SortOrder, A.CustomerId, A.QSetId
 END
 

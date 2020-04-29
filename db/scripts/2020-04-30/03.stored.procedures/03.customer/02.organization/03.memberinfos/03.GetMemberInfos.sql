@@ -20,10 +20,6 @@ GO
 --
 -- [== Example ==]
 --
---exec GetMemberInfos NULL, NULL, NULL, 1;        -- for only enabled languages.
---exec GetMemberInfos;                            -- for get all.
---exec GetMemberInfos N'EN';                      -- for get MemberInfos for EN language.
---exec GetMemberInfos N'TH';                      -- for get MemberInfos for TH language.
 --exec GetMemberInfos N'TH', N'EDL-C2017060011';  -- for get MemberInfos by CustomerID.
 -- =============================================
 ALTER PROCEDURE [dbo].[GetMemberInfos] 
@@ -53,7 +49,7 @@ BEGIN
 	  FROM MemberInfoMLView
 	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
-	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(COALESCE(@customerId, CustomerId))))
+	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
 	 ORDER BY SortOrder, LangId, CustomerId, MemberId;
 END
 
