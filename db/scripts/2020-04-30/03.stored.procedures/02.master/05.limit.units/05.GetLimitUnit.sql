@@ -5,34 +5,35 @@ GO
 
 -- =============================================
 -- Author: Chumpon Asaneerat
--- Name: GetMemberType.
--- Description:	Get Member Type.
+-- Name: GetLimitUnit.
+-- Description:	Get Limit Unit.
 -- [== History ==]
 -- <2020-04-30> :
 --	- Stored Procedure Created.
 --
 -- [== Example ==]
 --
---exec GetMemberType NULL, 1, 1;
+--exec GetLimitUnit NULL, 1, 1;
 -- =============================================
-CREATE PROCEDURE [dbo].[GetMemberType] 
+CREATE PROCEDURE [dbo].[GetLimitUnit] 
 (
   @langId nvarchar(3) = NULL
+, @limitUnitId int = NULL
 , @enabled bit = NULL
-, @memberTypeId int = NULL
 )
 AS
 BEGIN
 	SELECT langId
-		 , memberTypeId
-		 , MemberTypeDescription
+		 , limitUnitId
+		 , LimitUnitDescription
+		 , LimitUnitText
 		 , SortOrder
-		 , Enabled 
-	  FROM MemberTypeMLView
+		 , Enabled
+	  FROM LimitUnitMLView
 	 WHERE [ENABLED] = COALESCE(@enabled, [ENABLED])
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId,LangId))))
-       AND MemberTypeId =  @memberTypeId
-	 ORDER BY SortOrder, MemberTypeId
+       AND LimitUnitId =  @limitUnitId
+	 ORDER BY SortOrder, LimitUnitId
 END
 
 GO

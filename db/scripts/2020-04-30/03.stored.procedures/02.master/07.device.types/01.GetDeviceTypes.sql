@@ -16,12 +16,12 @@ GO
 --
 -- [== Example ==]
 --
---exec GetDeviceTypes NULL, 1;
---exec GetDeviceTypes NULL, 0;
 --exec GetDeviceTypes N'EN';
 --exec GetDeviceTypes N'TH';
+--exec GetDeviceTypes NULL, 1;
+--exec GetDeviceTypes NULL, 0;
 -- =============================================
-CREATE PROCEDURE [dbo].[GetDeviceTypes]
+ALTER PROCEDURE [dbo].[GetDeviceTypes]
 (
   @langId nvarchar(3) = NULL
 , @enabled bit = NULL

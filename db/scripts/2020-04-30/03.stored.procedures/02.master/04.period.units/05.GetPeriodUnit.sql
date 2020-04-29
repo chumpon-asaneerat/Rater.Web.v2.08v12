@@ -18,8 +18,8 @@ GO
 CREATE PROCEDURE [dbo].[GetPeriodUnit] 
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @periodUnitId int = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN

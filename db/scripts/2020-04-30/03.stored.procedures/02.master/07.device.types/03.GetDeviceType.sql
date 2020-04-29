@@ -13,16 +13,14 @@ GO
 --
 -- [== Example ==]
 --
---exec GetDeviceType NULL, 1;
---exec GetDeviceType NULL, 0;
---exec GetDeviceType N'EN', 1, 101;
---exec GetDeviceType N'TH', 1, 101;
+--exec GetDeviceType NULL, 101, 1;
+--exec GetDeviceType NULL, 101, 1;
 -- =============================================
 CREATE PROCEDURE [dbo].[GetDeviceType]
 (
   @langId nvarchar(3) = NULL
-, @enabled bit = NULL
 , @deviceTypeId int = NULL
+, @enabled bit = NULL
 )
 AS
 BEGIN
