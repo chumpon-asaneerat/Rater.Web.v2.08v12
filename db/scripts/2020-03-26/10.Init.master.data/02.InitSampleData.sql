@@ -283,8 +283,37 @@ DECLARE @voteSeq int;
 
 	--SET QUESTIONS 4
 	SET @qSetId = NULL;
-	SET @beginDate = N'2020-06-01'
-	SET @endDate = N'2020-08-31'
+	SET @beginDate = N'2020-08-01'
+	SET @endDate = N'2020-10-31'
+
+    EXEC SaveQSet @customerId, N'Music Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับดนตรี'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate sound quality', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate composer score', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 1'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 2'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 3'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 4'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 5'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate overall music', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Poor'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fair'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Exellent'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Top ten'
+
+	--SET QUESTIONS 5
+	SET @qSetId = NULL;
+	SET @beginDate = N'2020-08-01'
+	SET @endDate = N'2020-10-31'
 END
 
 GO
