@@ -30,7 +30,8 @@ const api = class { }
 api.Get = class {
     static entry(req, res) {
         let storage = new RaterStorage(req, res)
-        /*        
+
+        /*
         let customerId = (storage.account) ? storage.account.customerId : null
         if (customerId) params.customerId = customerId
 
@@ -40,6 +41,12 @@ api.Get = class {
         let deviceId = secure.getDeviceId(req, res);
         if (deviceId) params.deviceId = deviceId;
         */
+
+        /* 
+        TODO: Language Id is required to assigned every time the UI Language change.
+        TODO: Stored procedure checking required.
+        */
+
         let result = {
             data : {},
             errors: null,

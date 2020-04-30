@@ -34,6 +34,11 @@ api.Get = class {
        let customerId = (storage.account) ? storage.account.customerId : null
        if (customerId) params.customerId = customerId
 
+        /* 
+        TODO: Language Id is required to assigned every time the UI Language change.
+        TODO: Stored procedure checking required.
+        */
+
         return params;
     }
     static async call(db, params) { 
