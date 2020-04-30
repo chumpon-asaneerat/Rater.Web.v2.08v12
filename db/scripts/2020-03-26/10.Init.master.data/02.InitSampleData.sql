@@ -253,6 +253,38 @@ DECLARE @voteSeq int;
 	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
 	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
 
+	--SET QUESTIONS 3
+	SET @qSetId = NULL;
+	SET @beginDate = N'2020-06-01'
+	SET @endDate = N'2020-08-31'
+
+    EXEC SaveQSet @customerId, N'Movie Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับโรงภาพยนตร์'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate movie story', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'boring'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Not bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'So-good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very trill'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate movie 3D quality', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Plain'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Over standard'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very advance'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate movie overall', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'So-so'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'First rate'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Industial leader'
+
+	--SET QUESTIONS 4
+	SET @qSetId = NULL;
+	SET @beginDate = N'2020-06-01'
+	SET @endDate = N'2020-08-31'
 END
 
 GO
