@@ -34,6 +34,11 @@ api.Get = class {
         let storage = new RaterStorage(req, res)
         let customerId = (storage.account) ? storage.account.customerId : null
         if (customerId) params.customerId = customerId
+        /* 
+        TODO: Language Id is required to assigned every time the UI Language change.
+        TODO: Parameter checks required.
+        TODO: The get one stored proecdure need to implements new route.
+        */
         // force langId to null;
         params.langId = null
         params.memberId = null
