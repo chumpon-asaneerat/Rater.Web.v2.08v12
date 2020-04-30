@@ -342,9 +342,22 @@ DECLARE @voteSeq int;
 
 	--SET QUESTIONS 6
 	SET @qSetId = NULL;
-	SET @beginDate = N'2020-08-01'
-	SET @endDate = N'2020-10-31'
+	SET @beginDate = N'2020-12-01'
+	SET @endDate = N'2020-03-31'
 
+    EXEC SaveQSet @customerId, N'Spa service Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับสปา'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our spa service', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Normal'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our spa quality', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Normal'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
 END
 
 GO
