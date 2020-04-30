@@ -225,7 +225,34 @@ DECLARE @voteSeq int;
 	EXEC SaveQSlideItem @customerId, @qSetId, @qSeq, N'Excellent', 0, 4, 4, @qSSeq out
 	EXEC SaveQSlideItemML @customerId, @qSetId, @qSeq, @qSSeq, N'TH', N'ดีมาก'
 
+	--SET QUESTIONS 2
 	SET @qSetId = NULL;
+	SET @beginDate = N'2020-04-01'
+	SET @endDate = N'2020-07-31'
+
+	EXEC SaveQSet @customerId, N'Food Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับอาหาร'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate food teste', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Poor'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fair'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate food quality', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Poor'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fair'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate service', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Poor'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fair'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
+
 END
 
 GO
