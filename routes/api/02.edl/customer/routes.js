@@ -72,7 +72,6 @@ api.Get = class {
             }
             nobj.CustomerName = rec.CustomerName;
             nobj.TaxCode = rec.TaxCode;
-            nobj.CustomerName = rec.CustomerName;
             nobj.Address1 = rec.Address1;
             nobj.Address2 = rec.Address2;
             nobj.City = rec.City;
