@@ -1,7 +1,10 @@
-### Get member
+### Get members
 POST http://localhost:3000/customer/api/member
 content-type: application/json
 
 {
     "customerId": "EDL-C2020030001"
 }
+
+
+### Get member

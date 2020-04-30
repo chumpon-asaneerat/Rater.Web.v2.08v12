@@ -26,17 +26,3 @@ GET http://localhost:3000/api/membertypes
 
 ### Get UserInfo
 
-### Get QSets
-
-### Get QSet
-
-### Get QSlides
-
-### Get QSlide
-
-### Get QSlideItems
-
-### Get QSlideItem
-
-
-

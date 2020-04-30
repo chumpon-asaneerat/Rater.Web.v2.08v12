@@ -8,7 +8,9 @@ content-type: application/json
 
 ### Get Question set
 
-#### GetQSlides
+
+
+#### Get Question Slides
 
 POST http://localhost:3000/customer/api//question/slide
 content-type: application/json
@@ -19,4 +21,13 @@ content-type: application/json
     "qSetId": "QS00001"
 }
 
-#### GetQSlide
+#### Get Question Slide
+
+
+
+### Get Question Slide Items
+
+
+
+### Get Question Slide Item
+
