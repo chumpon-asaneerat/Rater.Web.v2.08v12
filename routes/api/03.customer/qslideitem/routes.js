@@ -30,6 +30,13 @@ const api = class { }
 api.Get = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
+
+        /* 
+        TODO: Language Id is required to assigned every time the UI Language change.
+        TODO: Parameter checks required.
+        TODO: The get one stored proecdure need to implements new route.
+        */
+
         /*
         let storage = new RaterStorage(req, res)
         let customerId = (storage.account) ? storage.account.customerId : null
