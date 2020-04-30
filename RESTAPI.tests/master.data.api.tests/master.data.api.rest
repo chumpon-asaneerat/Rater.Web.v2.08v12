@@ -1,2 +1,54 @@
 ### Get membertypes
 GET http://localhost:3000/api/membertypes
+
+
+### Get Period Units
+
+### Get Period Unit
+
+### Get Limit Units
+
+### Get Limit Unit
+
+### Get Member Types
+
+### Get Member Type
+
+### Get Device Types
+
+### Get Device Type
+
+### Get Customers
+
+### Get Customer
+
+### Get UserInfos
+
+### Get UserInfo
+
+### Get Branchs
+
+### Get Branch
+
+### Get Devices
+
+### Get Device
+
+### Get Orgs
+
+### Get Org
+
+### Get QSets
+
+### Get QSet
+
+### Get QSlides
+
+### Get QSlide
+
+### Get QSlideItems
+
+### Get QSlideItem
+
+
+
