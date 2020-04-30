@@ -26,18 +26,6 @@ GET http://localhost:3000/api/membertypes
 
 ### Get UserInfo
 
-### Get Branchs
-
-### Get Branch
-
-### Get Devices
-
-### Get Device
-
-### Get Orgs
-
-### Get Org
-
 ### Get QSets
 
 ### Get QSet

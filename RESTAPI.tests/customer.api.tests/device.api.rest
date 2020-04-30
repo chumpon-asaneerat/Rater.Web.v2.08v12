@@ -1,7 +1,10 @@
-### Get device
+### Get devices
 POST http://localhost:3000/customer/api/device
 content-type: application/json
 
 {
     "customerId": "EDL-C2020030001"
 }
+
+
+### Get device

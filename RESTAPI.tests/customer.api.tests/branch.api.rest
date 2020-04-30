@@ -1,7 +1,10 @@
-### Get branch
+### Get Branchs
 POST http://localhost:3000/customer/api/branch
 content-type: application/json
 
 {
     "customerId": "EDL-C2020030001"
 }
+
+### Get Branch
+

@@ -1,7 +1,9 @@
-### Get org
+### Get orgs
 POST http://localhost:3000/customer/api/org
 content-type: application/json
 
 {
     "customerId": "EDL-C2020030001"
 }
+
+### Get org
