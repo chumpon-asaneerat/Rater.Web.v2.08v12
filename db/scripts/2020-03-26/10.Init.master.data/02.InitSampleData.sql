@@ -163,7 +163,7 @@ DECLARE @voteSeq int;
 	EXEC SaveDeviceML @customerId, @deviceId, N'TH', N'ห้องน้ำชั้น 2', N'ด้านในห้องน้ำชั้น 2'
 	SET @deviceId = NULL;
 
-	--SET QUESTIONS
+	--SET QUESTIONS 1
 	SET @qSetId = NULL;
 	SET @beginDate = N'2020-01-01'
 	SET @endDate = N'2022-12-31'
@@ -314,6 +314,37 @@ DECLARE @voteSeq int;
 	SET @qSetId = NULL;
 	SET @beginDate = N'2020-08-01'
 	SET @endDate = N'2020-10-31'
+
+    --EXEC SaveQSet @customerId, N'Cloud service Questions', 0, 0, 1, @beginDate, @endDate, @qSetId out
+    EXEC SaveQSet @customerId, N'Cloud service Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับคลาวด์เซอร์วิส'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our cloud speed', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very slow'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Slow'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Normal'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fast'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Ultra fast'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our cloud GUI', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'No good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'A bit confusing'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Genreal'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Easy to use'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very impressive'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our cloud supports', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Slow response'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Noraml'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+
+	--SET QUESTIONS 6
+	SET @qSetId = NULL;
+	SET @beginDate = N'2020-08-01'
+	SET @endDate = N'2020-10-31'
+
 END
 
 GO
