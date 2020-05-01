@@ -400,8 +400,34 @@ RaterWebv2x08r12:
                     DeletQSet:
                         ✔ create/ported. @done(20-05-01 23:35)
                 QSlide:
+                    SaveQSlide:
+                        ✔ create/ported. @done(20-05-01 23:38)
+                    SaveQSlideML:
+                        ✔ create/ported. @done(20-05-01 23:38)
+                    GetQSlides:
+                        ✔ create/ported. @done(20-05-01 23:38)
+                        ✔ remove pk parameter. @done(20-05-01 23:38)
+                    GetQSlide:
+                        ✔ create/ported. @done(20-05-01 23:38)
+                    DeleteQSlide:
+                        ✔ create/ported. @done(20-05-01 23:38)
                 QSlideItem:
+                    SaveQSlideItem:
+                        ✔ create/ported. @done(20-05-01 23:38)
+                    SaveQSlideItemML:
+                        ✔ create/ported. @done(20-05-01 23:38)
+                    GetQSlideItems:
+                        ✔ create/ported. @done(20-05-01 23:38)
+                        ✔ remove pk parameter. @done(20-05-01 23:38)
+                    GetQSlideItem:
+                        ✔ create/ported. @done(20-05-01 23:39)
+                    DeleteQSlideItem:
+                        ✔ create/ported. @done(20-05-01 23:39)
                 Vote:
+                    SaveVote:
+                        ✔ create/ported. @done(20-05-01 23:39)
+                    DeleteVote:
+                        ✔ create/ported. @done(20-05-01 23:39)
             Reports:
                 __GenerateSubOrgInClause:
                     ☐ create/ported.

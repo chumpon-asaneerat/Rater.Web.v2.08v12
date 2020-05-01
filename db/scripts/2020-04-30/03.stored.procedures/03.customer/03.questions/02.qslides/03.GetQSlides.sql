@@ -25,7 +25,7 @@ GO
 --EXEC GetQSlides NULL, N'EDL-C2020030001', N'QS00002', 1; -- get all QSlide in Specificed QSet (enable languages)
 --EXEC GetQSlides N'EN', N'EDL-C2020030001', N'QS00002';   -- get all QSlide in Specificed QSet (EN language)
 -- =============================================
-ALTER PROCEDURE [dbo].[GetQSlides]
+CREATE PROCEDURE [dbo].[GetQSlides]
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL

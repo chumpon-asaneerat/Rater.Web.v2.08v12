@@ -28,7 +28,7 @@ GO
 --EXEC GetQSlideItems N'JA', N'EDL-C2020030001', NULL, 1;          -- no data returns
 --EXEC GetQSlideItems N'JA', N'EDL-C2020030001', N'QS00001', NULL; -- no data returns
 -- =============================================
-ALTER PROCEDURE [dbo].[GetQSlideItems]
+CREATE PROCEDURE [dbo].[GetQSlideItems]
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL
