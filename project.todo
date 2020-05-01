@@ -14,19 +14,19 @@ Project:
             ✔ Template to check media query. @done(20-05-01 21:43)
     NLib.js (client):
         Update to current project:
-            ☐ Move some utils method(s) to string extension method(s).
+            ✔ Move some utils method(s) to string extension method(s). @done(20-05-02 00:04)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
         Update to NLib server project:
-            ☐ Move some utils method(s) to string extension method(s).
+            ✔ Move some utils method(s) to string extension method(s). @done(20-05-02 00:04)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
         Update to NLib client project:
-            ☐ Move some utils method(s) to string extension method(s).
+            ✔ Move some utils method(s) to string extension method(s). @done(20-05-02 00:04)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
         Update to NLib web app project:
-            ☐ Move some utils method(s) to string extension method(s).
+            ✔ Move some utils method(s) to string extension method(s). @done(20-05-02 00:04)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
     NLib.js (server):
