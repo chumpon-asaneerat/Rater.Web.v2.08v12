@@ -46,6 +46,7 @@ Project:
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
     Rater:
+        ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
         ☐ Recheck all database stored procedure(s).
         ✔ The db script required to determine should be overide or append style. @done(20-05-01 22:51)
         ✔ Check InitSampleData for register information, user information. @done(20-05-01 21:19)
