@@ -169,41 +169,41 @@ RaterWebv2x08r12:
                     ✔ create/ported. @done(20-05-01 23:08)
         Register:
             LogInView:
-                ☐ create/ported.
-            EDL Access:
-                ☐ create/ported.
-            Customer Access:
-                ☐ create/ported.
-            Device Access:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:09)
+            EDLAccess:
+                ✔ create/ported. @done(20-05-01 23:09)
+            CustomerAccess:
+                ✔ create/ported. @done(20-05-01 23:10)
+            DeviceAccess:
+                ✔ create/ported. @done(20-05-01 23:10)
     Functions:
         Utilities:
             IsNullOrEmpty:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             IsSameDate:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             IsSameMonth:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             IsSameYear:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             NewSID:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             MinDateTime:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             MaxDateTime:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             ToMinTime:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             ToMaxTime:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
             IsLangExist:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:10)
     Stored Procedures:
         Utilities:
             DropAll:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:11)
             GetRandomCode:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:11)
         Master:
             Error Message:
                 GetErrorMsg:
