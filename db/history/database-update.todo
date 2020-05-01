@@ -430,32 +430,48 @@ RaterWebv2x08r12:
                         ✔ create/ported. @done(20-05-01 23:39)
             Reports:
                 __GenerateSubOrgInClause:
-                    ☐ create/ported.
+                    ✔ create/ported. @done(20-05-01 23:40)
                 GenerateSubOrgInClause:
-                    ☐ create/ported.
+                    ✔ create/ported. @done(20-05-01 23:40)
+                GenerateSubOrgInClause:
+                    ✔ create/ported. @done(20-05-01 23:40)
+                __BuildTotalVoteCountQuery:
+                    ✔ create/ported. @done(20-05-01 23:40)
+                GetVoteSummaries:
+                    ✔ create/ported. @done(20-05-01 23:41)
+                GetRawVotes:
+                    ✔ create/ported. @done(20-05-01 23:41)
+                FilterVoteOrgs:
+                    ✔ create/ported. @done(20-05-01 23:41)
+                FilterVoteMembers:
+                    ✔ create/ported. @done(20-05-01 23:41)
+                FilterVoteDevices:
+                    ✔ create/ported. @done(20-05-01 23:42)
+                FilterVoteDeviceMembers:
+                    ✔ create/ported. @done(20-05-01 23:42)
         Register:
             Register:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             CheckUsers:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             SignIn:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             CheckAccess:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             GetAccessUser:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             SignOut:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             SetDeviceOrg:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             SetDeviceUser:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             SetAccessDevice:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
             ChangeCustomer:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:42)
         Init Master Data:
             InitErrorMessages:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:43)
             InitSampleDate:
-                ☐ create/ported.
+                ✔ create/ported. @done(20-05-01 23:43)
