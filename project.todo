@@ -55,7 +55,10 @@ Project:
             Registered:
                 ☐ disable register button/link.
                 ☐ enable setup org button/link.
-                ☐ enable user signin button/link.
+                Org is not assigned:
+                    ☐ disable user signin button/link.
+                Org is assigned:
+                    ☐ enable user signin button/link.
         EDL SignIn Screen:
             ☐ Implement EDL SignIn SP.
             ☐ If signin success enter register screen.
