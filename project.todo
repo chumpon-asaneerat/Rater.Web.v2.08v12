@@ -57,7 +57,7 @@ Project:
                 ☐ enable setup org button/link.
                 ☐ enable user signin button/link.
         EDL SignIn Screen:
-            ☐ Implement EDLSignIn SP.
+            ☐ Implement EDL SignIn SP.
             ☐ If signin success enter register screen.
         Register screen:
             ☐ Implement customer seletion UI.
@@ -65,7 +65,12 @@ Project:
             ☐ If success go to Home screen.
         Device org setup screen:
             ☐ Implement org seletion UI.
-            ☐ 
+            ☐ If success go to Home screen.
+        Device user signin screen:
+            ☐ Implement Member SignIn SP. (recheck SP).
+            ☐ If success go to Home screen.
+        Question (today) screen:
+            ☐ Implement logic to access today Question set of setup org.
     Rater:
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
         ☐ Recheck all database stored procedure(s).
