@@ -1,0 +1,252 @@
+RaterWebv2x08r12:
+    Tables and Views:
+        Utilities:
+            dboView:
+                ✔ create/ported. @done(20-05-01 22:22)
+        Master:
+            Language:
+                ☐ create/ported.
+            Error Message:
+                ☐ create/ported.
+            Master.PK:
+                ☐ create/ported.
+            Period Unit:
+                ☐ create/ported.
+            Limit Unit:
+                ☐ create/ported.
+            Member Type:
+                ☐ create/ported.
+            Device Type:
+                ☐ create/ported.
+            License Type:
+                ☐ create/ported.
+            License Feature:
+                ☐ create/ported.
+            User Info:
+                ☐ create/ported.
+        Customer:
+            Customer.PK:
+                ☐ create/ported.
+            Organization:
+                Customer:
+                    ☐ create/ported.
+                License History:
+                    ☐ create/ported.
+                Member Info:
+                    ☐ create/ported.
+                Branch:
+                    ☐ create/ported.
+                Org:
+                    ☐ create/ported.
+                Device:
+                    ☐ create/ported.
+            Question:
+                Question Set:
+                    ☐ create/ported.
+                Question Slide:
+                    ☐ create/ported.
+                Question Slide Item:
+                    ☐ create/ported.
+                Vote:
+                    ☐ create/ported.
+        Register:
+            LogInView:
+                ☐ create/ported.
+            EDL Access:
+                ☐ create/ported.
+            Customer Access:
+                ☐ create/ported.
+            Device Access:
+                ☐ create/ported.
+    Functions:
+        Utilities:
+            IsNullOrEmpty:
+                ☐ create/ported.
+            IsSameDate:
+                ☐ create/ported.
+            IsSameMonth:
+                ☐ create/ported.
+            IsSameYear:
+                ☐ create/ported.
+            NewSID:
+                ☐ create/ported.
+            MinDateTime:
+                ☐ create/ported.
+            MaxDateTime:
+                ☐ create/ported.
+            ToMinTime:
+                ☐ create/ported.
+            ToMaxTime:
+                ☐ create/ported.
+            IsLangExist:
+                ☐ create/ported.
+    Stored Procedures:
+        Utilities:
+            DropAll:
+                ☐ create/ported.
+            GetRandomCode:
+                ☐ create/ported.
+        Master:
+            Error Message:
+                GetErrorMsg:
+                    ☐ create/ported.
+                SaveErrorMsg:
+                    ☐ create/ported.
+                SaveErrorMsgML:
+                    ☐ create/ported.
+                GetErrorMsgs:
+                    ☐ create/ported.
+            Language:
+                SaveLanguage:
+                    ☐ create/ported.
+                DisableLanguage:
+                    ☐ create/ported.
+                EnableLanguage:
+                    ☐ create/ported.
+                GetLanguages:
+                    ☐ create/ported.
+                InitLanguages:
+                    ☐ create/ported.
+            Master.PK:
+                SetMasterPK:
+                    ☐ create/ported.
+                NextMasterPK:
+                    ☐ create/ported.
+                GetMasterPK:
+                    ☐ create/ported.
+                InitMasterPK:
+                    ☐ create/ported.
+            Period Unit:
+                SavePeriodUnit:
+                    ☐ create/ported.
+                SavePeriodUnitML:
+                    ☐ create/ported.
+                GetPeriodUnits:
+                    ☐ create/ported.
+                InitPeriodUnits:
+                    ☐ create/ported.
+            Limit Unit:
+                SaveLimitUnit:
+                    ☐ create/ported.
+                SaveLimitUnitML:
+                    ☐ create/ported.
+                GetLimitUnits:
+                    ☐ create/ported.
+                InitLimitUnits:
+                    ☐ create/ported.
+            Member Type:
+                GetMemberTypes:
+                    ☐ create/ported.
+                InitMemberTypes:
+                    ☐ create/ported.
+            Device Type:
+                GetDeviceTypes:
+                    ☐ create/ported.
+                InitDeviceTypes:
+                    ☐ create/ported.
+            License Type:
+                SaveLicenseType:
+                    ☐ create/ported.
+                SaveLicenseTypeML:
+                    ☐ create/ported.
+                GetLicenseTypes:
+                    ☐ create/ported.
+                InitLicenseTypes:
+                    ☐ create/ported.
+            License Feature:
+                SaveLicenseFeatures:
+                    ☐ create/ported.
+                GetLicenseFeatures:
+                    ☐ create/ported.
+                GetLicenses:
+                    ☐ create/ported.
+                InitLicenseFeatures:
+                    ☐ create/ported.
+            User Info:
+                SaveUserInfo:
+                    ☐ create/ported.
+                SaveUserInfoML:
+                    ☐ create/ported.
+                GetUserInfos:
+                    ☐ create/ported.
+                InitDefaultUser:
+                    ☐ create/ported.
+        Customer:
+            Customer.PK:
+                SetCustomerPK:
+                    ☐ create/ported.
+                NextCustomerPK:
+                    ☐ create/ported.
+                GetCustomerPK:
+                    ☐ create/ported.
+            Organization:
+                Customer:
+                    SaveCustomer:
+                        ☐ create/ported.
+                    SaveCustomerML:
+                        ☐ create/ported.
+                    GetCustomers:
+                        ☐ create/ported.
+                    DeleteCustomer:
+                        ☐ create/ported.
+                    DeleteCustomers:
+                        ☐ create/ported.
+                License History:
+                    SaveLicenseHistory:
+                        ☐ create/ported.
+                    GetCustomerHistories:
+                        ☐ create/ported.
+                    RevokeLicense:
+                        ☐ create/ported.
+                    ExtendLicense:
+                        ☐ create/ported.
+                    CheckLicense:
+                        ☐ create/ported.
+                Member Info:
+                    SaveMemberInfo:
+                        ☐ create/ported.
+                    SaveMemberInfos:
+                        ☐ create/ported.
+                    GetMemberInfoss:
+                        ☐ create/ported.
+                    DeleteMemberInfo:
+                        ☐ create/ported.
+                Branch:
+                Org:
+                Device:
+            Questions:
+                QSets:
+                QSlide:
+                QSlideItem:
+                Vote:
+            Reports:
+                __GenerateSubOrgInClause:
+                    ☐ create/ported.
+                GenerateSubOrgInClause:
+                    ☐ create/ported.
+        Register:
+            Register:
+                ☐ create/ported.
+            CheckUsers:
+                ☐ create/ported.
+            SignIn:
+                ☐ create/ported.
+            CheckAccess:
+                ☐ create/ported.
+            GetAccessUser:
+                ☐ create/ported.
+            SignOut:
+                ☐ create/ported.
+            SetDeviceOrg:
+                ☐ create/ported.
+            SetDeviceUser:
+                ☐ create/ported.
+            SetAccessDevice:
+                ☐ create/ported.
+            ChangeCustomer:
+                ☐ create/ported.
+        Init Master Data:
+            InitErrorMessages:
+                ☐ create/ported.
+            InitSampleDate:
+                ☐ create/ported.
