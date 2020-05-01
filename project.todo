@@ -8,6 +8,8 @@ Project:
     Rater:
         ☐ @today : The db script required to determine should be overide or append style.
         ✔ @today : Check InitSampleData for register information, user information. @done(20-05-01 21:19)
+        ☐ @today : Check SP DeleteCustomer, DeleteCustomers may required to delete license related table(s).
+        ☐ @today : Check SP DeleteXXX for delete related table(s).
         ☐ @today : Recheck all database stored procedure(s).
         ☐ @today : Implement EDL routes first.
         ☐ @today : Implement Device rotues second.
