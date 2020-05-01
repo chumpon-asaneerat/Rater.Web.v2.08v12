@@ -10,11 +10,14 @@ Project:
         ☐ @today : Implement EDL routes first.
         ☐ @today : Implement Device rotues second.
         ☐ @today : License redesign.
+        ☐ @today : Implements Create License view/edit process.
+        ☐ @today : Implements Extend License view/edit process.
+        ☐ @today : Implements License history view/edit.
         ☐ @today : Check SP Register - for license part.
         ☐ @today : Check SP SignIn - for license part.
         ☐ @today : Check SP CheckUsers - for license part.
-        ☐ @today : Check SP
-        ☐ @today : Check SP
+        ☐ @today : Check SP related to License Creation process.
+        ☐ @today : Check SP related to License Exten period process.
         ☐ @high : For get/set api single object route should auto read cookie for Id if not assigned by caller.
         ☐ @high : Single object edit entry required to keep Id in cookies for used in ajax call from client.
         ☐ @low : Convert all routes from v11 to v12
