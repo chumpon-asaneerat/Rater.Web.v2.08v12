@@ -16560,7 +16560,7 @@ DECLARE @voteSeq int;
 	EXEC SaveDeviceML @customerId, @deviceId, N'TH', N'ห้องน้ำชั้น 2', N'ด้านในห้องน้ำชั้น 2'
 	SET @deviceId = NULL;
 
-	--SET QUESTIONS
+	--SET QUESTIONS 1
 	SET @qSetId = NULL;
 	SET @beginDate = N'2020-01-01'
 	SET @endDate = N'2022-12-31'
@@ -16622,7 +16622,139 @@ DECLARE @voteSeq int;
 	EXEC SaveQSlideItem @customerId, @qSetId, @qSeq, N'Excellent', 0, 4, 4, @qSSeq out
 	EXEC SaveQSlideItemML @customerId, @qSetId, @qSeq, @qSSeq, N'TH', N'ดีมาก'
 
+	--SET QUESTIONS 2
 	SET @qSetId = NULL;
+	SET @beginDate = N'2020-04-01'
+	SET @endDate = N'2020-07-31'
+
+	EXEC SaveQSet @customerId, N'Food Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับอาหาร'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate food teste', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Poor'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fair'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate food quality', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Poor'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fair'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate service', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Poor'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fair'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
+
+	--SET QUESTIONS 3
+	SET @qSetId = NULL;
+	SET @beginDate = N'2020-06-01'
+	SET @endDate = N'2020-08-31'
+
+    EXEC SaveQSet @customerId, N'Movie Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับโรงภาพยนตร์'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate movie story', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'boring'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Not bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'So-good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very trill'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate movie 3D quality', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Plain'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Over standard'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very advance'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate movie overall', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'So-so'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'First rate'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Industial leader'
+
+	--SET QUESTIONS 4
+	SET @qSetId = NULL;
+	SET @beginDate = N'2020-08-01'
+	SET @endDate = N'2020-10-31'
+
+    EXEC SaveQSet @customerId, N'Music Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับดนตรี'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate sound quality', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Excellent'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate composer score', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 1'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 2'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 3'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 4'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Score 5'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate overall music', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Poor'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fair'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Exellent'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Top ten'
+
+	--SET QUESTIONS 5
+	SET @qSetId = NULL;
+	SET @beginDate = N'2020-08-01'
+	SET @endDate = N'2020-10-31'
+
+    --EXEC SaveQSet @customerId, N'Cloud service Questions', 0, 0, 1, @beginDate, @endDate, @qSetId out
+    EXEC SaveQSet @customerId, N'Cloud service Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับคลาวด์เซอร์วิส'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our cloud speed', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very slow'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Slow'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Normal'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Fast'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Ultra fast'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our cloud GUI', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'No good'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'A bit confusing'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Genreal'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Easy to use'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Very impressive'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our cloud supports', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Slow response'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Noraml'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+
+	--SET QUESTIONS 6
+	SET @qSetId = NULL;
+	SET @beginDate = N'2020-12-01'
+	SET @endDate = N'2020-03-31'
+
+    EXEC SaveQSet @customerId, N'Spa service Questions', 0, 0, 0, @beginDate, @endDate, @qSetId out
+	EXEC SaveQSetML @customerId, @qsetId, N'TH', N'ชุดคำถามเกี่ยวกับสปา'
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our spa service', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Normal'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
+
+	SET @qseq = NULL
+	EXEC SaveQSlide @customerId, @qsetid, 'Please rate our spa quality', 0, 0, @qseq out
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Bad'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Normal'
+	EXEC SaveQSlideItem @customerId, @qsetid, @qseq, 'Good'
 END
 
 GO
