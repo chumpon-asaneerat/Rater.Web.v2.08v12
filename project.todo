@@ -4,14 +4,14 @@ Project:
             ✔ CSS variable supports (used later in riot tag). @done(20-05-01 17:58)
             ✔ Template to check media query. @done(20-05-01 17:58)
         Update to NLib server project:
-            ☐ CSS variable supports (used later in riot tag).
-            ☐ Template to check media query.
+            ✔ CSS variable supports (used later in riot tag). @done(20-05-01 21:43)
+            ✔ Template to check media query. @done(20-05-01 21:43)
         Update to NLib client project:
-            ☐ CSS variable supports (used later in riot tag).
-            ☐ Template to check media query.
+            ✔ CSS variable supports (used later in riot tag). @done(20-05-01 21:43)
+            ✔ Template to check media query. @done(20-05-01 21:43)
         Update to NLib web app project:
-            ☐ CSS variable supports (used later in riot tag).
-            ☐ Template to check media query.
+            ✔ CSS variable supports (used later in riot tag). @done(20-05-01 21:43)
+            ✔ Template to check media query. @done(20-05-01 21:43)
     NLib.js:
         Update to current project:
             ☐ Image/video/sound download with progress bar.
