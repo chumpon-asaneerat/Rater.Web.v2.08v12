@@ -51,6 +51,14 @@ Project:
     Express JS:
         ☐ Checks how to make url work with and without tailing slash.
         ☐ Working with REST Api for each datae items to reduce login on client screen.
+        Update to current project:
+            ☐ Download/Upload process route(s).
+        Update to NLib server project:
+            ☐ Download/Upload process route(s).
+        Update to NLib client project:
+            ☐ Download/Upload process route(s).
+        Update to NLib web app project:
+            ☐ Download/Upload process route(s).
     MSSQL:
         Update to current project:
             ☐ Recheck generate schema to fixed nlib path reference.
@@ -78,3 +86,5 @@ Project:
         ☐ Preview Template Canvas.
         ☐ Prepare json model for question slides.
         ☐ Template code for create shape for basic slides.
+    Tabulator:
+        ☐ Implements common classes for work with Tabulator.js
