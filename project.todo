@@ -123,6 +123,11 @@ Project:
         ☐ Check SP related to License Exten period process.
         ☐ Add payment process (for new license, extend licensee).
         ☐ License should supports status (request, paid, expired, etc..)
+        ☐ Drop SP - GetAccessUser.
+        ☐ Drop SP - SetDeviceUser.
+        ☐ Drop SP - SetDeviceOrg.
+        ☐ Drop SP - SetAccessDevice.
+        ☐ Drop SP - ChangeCustomer.
     CSS:
         ☐ Drop shadow.
         ☐ Grid layout.
