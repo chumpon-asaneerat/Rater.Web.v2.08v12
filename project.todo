@@ -33,13 +33,13 @@ Project:
         ☐ Check SP CheckUsers - for license part.
         ☐ Check SP related to License Creation process.
         ☐ Check SP related to License Exten period process.
-        ☐ @today : Check device sign in (edl user) for register device proces.
-        ☐ @today : Check device sign in (edl user) for setup device org proces.
-        ☐ @today : Check device sign in (customer member) for set current staff process.
-        ☐ @today : Check setting Org map Question Set for device process.
+        ☐ Check device sign in (edl user) for register device proces.
+        ☐ Check device sign in (edl user) for setup device org proces.
+        ☐ Check device sign in (customer member) for set current staff process.
+        ☐ Check setting Org map Question Set for device process.
         ☐ @high : For get/set api single object route should auto read cookie for Id if not assigned by caller.
         ☐ @high : Single object edit entry required to keep Id in cookies for used in ajax call from client.
-        ☐ @low : Convert all routes from v11 to v12
+        ☐ Convert all routes from v11 to v12
         ☐ @critical : All reports routes required to pay more attention.
         ☐ @critical : Retest all summaries reports when some Question Item remove.
         ☐ Prepare routes to stored question.json by QSetId.
@@ -52,12 +52,16 @@ Project:
         ☐ Checks how to make url work with and without tailing slash.
         ☐ Working with REST Api for each datae items to reduce login on client screen.
         Update to current project:
+            ☐ Add supports XHR upload option to assigned target path.
             ☐ Download/Upload process route(s).
         Update to NLib server project:
+            ☐ Add supports XHR upload option to assigned target path.
             ☐ Download/Upload process route(s).
         Update to NLib client project:
+            ☐ Add supports XHR upload option to assigned target path.
             ☐ Download/Upload process route(s).
         Update to NLib web app project:
+            ☐ Add supports XHR upload option to assigned target path.
             ☐ Download/Upload process route(s).
     MSSQL:
         Update to current project:
