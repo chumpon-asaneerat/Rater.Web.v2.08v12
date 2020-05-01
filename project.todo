@@ -5,14 +5,12 @@ Project:
         ☐ @today : Recheck all database stored procedure(s).
         ☐ @today : Implement EDL routes first.
         ☐ @today : Implement Device rotues second.
-        ☐ @high :
-        ☐ @low :
-        ☐ @critical :
-        ☐ Convert all routes from v11 to v12
+        ☐ @high : For get/set api single object route should auto read cookie for Id if not assigned by caller.
+        ☐ @high : Single object edit entry required to keep Id in cookies for used in ajax call from client.
+        ☐ @low : Convert all routes from v11 to v12
+        ☐ @critical : All reports routes required to pay more attention.
+        ☐ @critical : Retest all summaries reports when some Question Item remove.
         ☐ Prepare routes to stored question.json by QSetId.
-        ☐ Retest all summaries reports when some Question Item remove.
-        ☐ Single object edit entry required to keep Id in cookies for used in ajax call from client.
-        ☐ For get/set api single object route should auto read cookie for Id if not assigned by caller.
     CSS:
         ☐ Drop shadow.
         ☐ Grid layout.
