@@ -25,14 +25,14 @@ Project:
         ☐ @today : Implement EDL routes first.
         ☐ @today : Implement Device rotues second.
         ☐ @today : License redesign.
-        ☐ @today : Implements Create License view/edit process.
-        ☐ @today : Implements Extend License view/edit process.
-        ☐ @today : Implements License history view/edit.
-        ☐ @today : Check SP Register - for license part.
-        ☐ @today : Check SP SignIn - for license part.
-        ☐ @today : Check SP CheckUsers - for license part.
-        ☐ @today : Check SP related to License Creation process.
-        ☐ @today : Check SP related to License Exten period process.
+        ☐ Implements Create License view/edit process.
+        ☐ Implements Extend License view/edit process.
+        ☐ Implements License history view/edit.
+        ☐ Check SP Register - for license part.
+        ☐ Check SP SignIn - for license part.
+        ☐ Check SP CheckUsers - for license part.
+        ☐ Check SP related to License Creation process.
+        ☐ Check SP related to License Exten period process.
         ☐ @today : Check device sign in (edl user) for register device proces.
         ☐ @today : Check device sign in (edl user) for setup device org proces.
         ☐ @today : Check device sign in (customer member) for set current staff process.
