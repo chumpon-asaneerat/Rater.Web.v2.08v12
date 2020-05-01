@@ -35,9 +35,9 @@ Project:
         ☐ Update InitSampleData SP for delete exists data before init new one.
         ☐ Check SP DeleteXXX for delete related table(s).
         ☐ Recheck all database stored procedure(s).
-        ☐ @today : Implement EDL routes first.
-        ☐ @today : Implement Device rotues second.
-        ☐ @today : License redesign.
+        ☐ @today : Implement EDL views.
+        ☐ @today : Implement Device views.
+        ☐ License redesign.
         ☐ Implements Create License view/edit process.
         ☐ Implements Extend License view/edit process.
         ☐ Implements License history view/edit.
