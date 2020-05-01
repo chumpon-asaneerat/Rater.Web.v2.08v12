@@ -6,12 +6,12 @@ Project:
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
     Rater:
-        ☐ @today : The db script required to determine should be overide or append style.
-        ✔ @today : Check InitSampleData for register information, user information. @done(20-05-01 21:19)
-        ☐ @today : Check SP DeleteCustomer, DeleteCustomers may required to delete license related table(s).
-        ☐ @today : Update InitSampleData SP for delete exists data before init new one.
-        ☐ @today : Check SP DeleteXXX for delete related table(s).
-        ☐ @today : Recheck all database stored procedure(s).
+        ☐ The db script required to determine should be overide or append style.
+        ✔ Check InitSampleData for register information, user information. @done(20-05-01 21:19)
+        ☐ Check SP DeleteCustomer, DeleteCustomers may required to delete license related table(s).
+        ☐ Update InitSampleData SP for delete exists data before init new one.
+        ☐ Check SP DeleteXXX for delete related table(s).
+        ☐ Recheck all database stored procedure(s).
         ☐ @today : Implement EDL routes first.
         ☐ @today : Implement Device rotues second.
         ☐ @today : License redesign.
