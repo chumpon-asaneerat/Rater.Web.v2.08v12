@@ -45,7 +45,23 @@ Project:
     Reter Service (Client):
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
-    Rater Reload:
+    Rater routes:
+        Uncategories:
+            ☐ Check device sign in (edl user) for register device proces.
+            ☐ Check device sign in (edl user) for setup device org proces.
+            ☐ Check device sign in (customer member) for set current staff process.
+            ☐ Check setting Org map Question Set for device process.
+            ☐ @today : Implement EDL views.
+            ☐ @today : Implement Device views.
+            ☐ Implements Create License view/edit process.
+            ☐ Implements Extend License view/edit process.
+            ☐ Implements License history view/edit.
+            ☐ @high : For get/set api single object route should auto read cookie for Id if not assigned by caller.
+            ☐ @high : Single object edit entry required to keep Id in cookies for used in ajax call from client.
+            ☐ Convert all routes from v11 to v12
+            ☐ @critical : All reports routes required to pay more attention.
+            ☐ @critical : Retest all summaries reports when some Question Item remove.
+            ☐ Prepare routes to stored question.json by QSetId.
         Device:
             Home:
                 ☐ Implements main device menu.
@@ -76,7 +92,9 @@ Project:
             Question (today) screen:
                 ☐ Implement logic to access today Question set of setup org.
         EDL:
-            Home (dashboard):
+            Home (dashboard) (admin/supervisor):
+                ☐ 
+            Home (dashboard) (staff):
                 ☐ 
             Customer (dashboard):
                 ☐ 
@@ -84,7 +102,12 @@ Project:
                 ☐ Show license histories.
                 ☐ Show No of limit devices.
                 ☐ Show No of limit users.
-    Rater:
+        Customer:
+            Home (dashboard) (admin/exclusive):
+                ☐ 
+            Home (dashboard) (staff):
+                ☐ 
+    Rater (database):
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
         ☐ Recheck all database stored procedure(s).
         ✔ The db script required to determine should be overide or append style. @done(20-05-01 22:51)
@@ -92,27 +115,12 @@ Project:
         ☐ Check SP DeleteCustomer, DeleteCustomers may required to delete license related table(s).
         ☐ Update InitSampleData SP for delete exists data before init new one.
         ☐ Check SP DeleteXXX for delete related table(s).
-        ☐ @today : Implement EDL views.
-        ☐ @today : Implement Device views.
         ☐ License redesign.
-        ☐ Implements Create License view/edit process.
-        ☐ Implements Extend License view/edit process.
-        ☐ Implements License history view/edit.
         ☐ Check SP Register - for license part.
         ☐ Check SP SignIn - for license part.
         ☐ Check SP CheckUsers - for license part.
         ☐ Check SP related to License Creation process.
         ☐ Check SP related to License Exten period process.
-        ☐ Check device sign in (edl user) for register device proces.
-        ☐ Check device sign in (edl user) for setup device org proces.
-        ☐ Check device sign in (customer member) for set current staff process.
-        ☐ Check setting Org map Question Set for device process.
-        ☐ @high : For get/set api single object route should auto read cookie for Id if not assigned by caller.
-        ☐ @high : Single object edit entry required to keep Id in cookies for used in ajax call from client.
-        ☐ Convert all routes from v11 to v12
-        ☐ @critical : All reports routes required to pay more attention.
-        ☐ @critical : Retest all summaries reports when some Question Item remove.
-        ☐ Prepare routes to stored question.json by QSetId.
     CSS:
         ☐ Drop shadow.
         ☐ Grid layout.
