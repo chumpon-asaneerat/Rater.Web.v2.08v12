@@ -6,6 +6,8 @@ Project:
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
     Rater:
+        ☐ @today : The db script required to determine should be overide or append style.
+        ☐ @today : Check InitSampleData for register information, user information.
         ☐ @today : Recheck all database stored procedure(s).
         ☐ @today : Implement EDL routes first.
         ☐ @today : Implement Device rotues second.
