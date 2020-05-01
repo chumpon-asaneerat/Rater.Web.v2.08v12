@@ -46,34 +46,44 @@ Project:
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
     Rater Reload:
-        Home:
-            ☐ Implements main device menu.
-            Not registered:
-                ☐ enable register button/link.
-                ☐ disable setup org button/link.
-                ☐ disable user signin button/link.
-            Registered:
-                ☐ disable register button/link.
-                ☐ enable setup org button/link.
-                Org is not assigned:
+        Device:
+            Home:
+                ☐ Implements main device menu.
+                Not registered:
+                    ☐ enable register button/link.
+                    ☐ disable setup org button/link.
                     ☐ disable user signin button/link.
-                Org is assigned:
-                    ☐ enable user signin button/link.
-        EDL SignIn Screen:
-            ☐ Implement EDL SignIn SP.
-            ☐ If signin success enter register screen.
-        Register screen:
-            ☐ Implement customer seletion UI.
-            ☐ Implement RegisterDevice SP. (recheck SP).
-            ☐ If success go to Home screen.
-        Device org setup screen:
-            ☐ Implement org seletion UI.
-            ☐ If success go to Home screen.
-        Device user signin screen:
-            ☐ Implement Member SignIn SP. (recheck SP).
-            ☐ If success go to Home screen.
-        Question (today) screen:
-            ☐ Implement logic to access today Question set of setup org.
+                Registered:
+                    ☐ disable register button/link.
+                    ☐ enable setup org button/link.
+                    Org is not assigned:
+                        ☐ disable user signin button/link.
+                    Org is assigned:
+                        ☐ enable user signin button/link.
+            EDL SignIn Screen:
+                ☐ Implement EDL SignIn SP.
+                ☐ If signin success enter register screen.
+            Register screen:
+                ☐ Implement customer seletion UI.
+                ☐ Implement RegisterDevice SP. (recheck SP).
+                ☐ If success go to Home screen.
+            Device org setup screen:
+                ☐ Implement org seletion UI.
+                ☐ If success go to Home screen.
+            Device user signin screen:
+                ☐ Implement Member SignIn SP. (recheck SP).
+                ☐ If success go to Home screen.
+            Question (today) screen:
+                ☐ Implement logic to access today Question set of setup org.
+        EDL:
+            Home (dashboard):
+                ☐ 
+            Customer (dashboard):
+                ☐ 
+            Customer - license:
+                ☐ Show license histories.
+                ☐ Show No of limit devices.
+                ☐ Show No of limit users.
     Rater:
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
         ☐ Recheck all database stored procedure(s).
