@@ -12,19 +12,36 @@ Project:
         Update to NLib web app project:
             ✔ CSS variable supports (used later in riot tag). @done(20-05-01 21:43)
             ✔ Template to check media query. @done(20-05-01 21:43)
-    NLib.js:
+    NLib.js (client):
         Update to current project:
+            ☐ Move some utils method(s) to string extension method(s).
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
         Update to NLib server project:
+            ☐ Move some utils method(s) to string extension method(s).
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
         Update to NLib client project:
+            ☐ Move some utils method(s) to string extension method(s).
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
         Update to NLib web app project:
+            ☐ Move some utils method(s) to string extension method(s).
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
+    NLib.js (server):
+        Update to current project:
+            ☐ Image/video/sound download with progress.
+            ☐ Image/video/sound upload with progress.
+        Update to NLib server project:
+            ☐ Image/video/sound download with progress.
+            ☐ Image/video/sound upload with progress.
+        Update to NLib client project:
+            ☐ Image/video/sound download with progress.
+            ☐ Image/video/sound upload with progress.
+        Update to NLib web app project:
+            ☐ Image/video/sound download with progress.
+            ☐ Image/video/sound upload with progress.
     Reter Service (Client):
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
