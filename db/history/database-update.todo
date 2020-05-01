@@ -316,7 +316,7 @@ RaterWebv2x08r12:
                         ✔ create/ported. @done(20-05-01 23:23)
                     GetCustomers:
                         ✔ create/ported. @done(20-05-01 23:24)
-                        ☐ remove pk parameter.
+                        ✔ remove pk parameter. @done(20-05-01 23:27)
                     GetCustomer:
                         ✔ create/ported. @done(20-05-01 23:24)
                     DeleteCustomer:
@@ -336,19 +336,69 @@ RaterWebv2x08r12:
                         ✔ create/ported. @done(20-05-01 23:21)
                 Member Info:
                     SaveMemberInfo:
-                        ☐ create/ported.
-                    SaveMemberInfo:
-                        ☐ create/ported.
+                        ✔ create/ported. @done(20-05-01 23:27)
+                    SaveMemberInfoML:
+                        ✔ create/ported. @done(20-05-01 23:27)
                     GetMemberInfos:
-                        ☐ create/ported.
-                        ☐ remove pk parameter.
+                        ✔ create/ported. @done(20-05-01 23:27)
+                        ✔ remove pk parameter. @done(20-05-01 23:27)
+                    GetMemberInfo:
+                        ✔ create/ported. @done(20-05-01 23:27)
                     DeleteMemberInfo:
-                        ☐ create/ported.
+                        ✔ create/ported. @done(20-05-01 23:27)
                 Branch:
+                    SaveBranch:
+                        ✔ create/ported. @done(20-05-01 23:29)
+                    SaveBranchML:
+                        ✔ create/ported. @done(20-05-01 23:29)
+                    GetBranchs:
+                        ✔ create/ported. @done(20-05-01 23:29)
+                        ✔ remove pk parameter. @done(20-05-01 23:29)
+                    GetBranch:
+                        ✔ create/ported. @done(20-05-01 23:29)
+                    DeleteBranch:
+                        ✔ create/ported. @done(20-05-01 23:29)
                 Org:
+                    SaveOrg:
+                        ✔ create/ported. @done(20-05-01 23:30)
+                    SaveOrgML:
+                        ✔ create/ported. @done(20-05-01 23:30)
+                    GetOrgs:
+                        ✔ create/ported. @done(20-05-01 23:30)
+                        ✔ remove pk parameter. @done(20-05-01 23:30)
+                    GetOrg:
+                        ✔ create/ported. @done(20-05-01 23:30)
+                    GetTopLevelOrgs:
+                        ✔ create/ported. @done(20-05-01 23:31)
+                    DeleteOrg:
+                        ✔ create/ported. @done(20-05-01 23:31)
                 Device:
+                    SaveDeivce:
+                        ✔ create/ported. @done(20-05-01 23:33)
+                    SaveDeivceML:
+                        ✔ create/ported. @done(20-05-01 23:33)
+                    GetDeivces:
+                        ✔ create/ported. @done(20-05-01 23:33)
+                        ✔ remove pk parameter. @done(20-05-01 23:33)
+                    GetDeivce:
+                        ✔ create/ported. @done(20-05-01 23:33)
+                    DeleteDeivce:
+                        ✔ create/ported. @done(20-05-01 23:33)
             Questions:
                 QSets:
+                    SaveQSet:
+                        ✔ create/ported. @done(20-05-01 23:34)
+                    SaveQSetML:
+                        ✔ create/ported. @done(20-05-01 23:34)
+                    GetQSets:
+                        ✔ create/ported. @done(20-05-01 23:34)
+                        ✔ remove pk parameter. @done(20-05-01 23:34)
+                    GetQSet:
+                        ✔ create/ported. @done(20-05-01 23:35)
+                    GeQSetByDate:
+                        ✔ create/ported. @done(20-05-01 23:35)
+                    DeletQSet:
+                        ✔ create/ported. @done(20-05-01 23:35)
                 QSlide:
                 QSlideItem:
                 Vote:

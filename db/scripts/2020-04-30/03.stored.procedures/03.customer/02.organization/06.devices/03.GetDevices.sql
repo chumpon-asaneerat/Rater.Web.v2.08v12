@@ -20,7 +20,7 @@ GO
 --exec GetDevices N'TH', N'EDL-C2020030001';   -- get devices in TH language.
 --exec GetDevices N'TH', NULL;                 -- no data returns.
 -- =============================================
-ALTER PROCEDURE [dbo].[GetDevices] 
+CREATE PROCEDURE [dbo].[GetDevices] 
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL

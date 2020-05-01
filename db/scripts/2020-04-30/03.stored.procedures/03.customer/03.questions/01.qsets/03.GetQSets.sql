@@ -27,7 +27,7 @@ GO
 --EXEC GetQSets N'EN', N'EDL-C2020030001';     -- get all QSets for EN language
 --EXEC GetQSets N'EN', NULL;                   -- no data returns
 -- =============================================
-ALTER PROCEDURE [dbo].[GetQSets]
+CREATE PROCEDURE [dbo].[GetQSets]
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL

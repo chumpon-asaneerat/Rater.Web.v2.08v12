@@ -24,7 +24,7 @@ GO
 --exec GetBranchs N'TH', N'EDL-C2017060011', 1;        -- for get Branchs by CustomerID.
 --exec GetBranchs N'TH', NULL, 1;                      -- no customerID (no data returns)
 -- =============================================
-ALTER PROCEDURE [dbo].[GetBranchs] 
+CREATE PROCEDURE [dbo].[GetBranchs] 
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL

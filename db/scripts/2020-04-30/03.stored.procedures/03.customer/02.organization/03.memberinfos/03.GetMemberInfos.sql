@@ -26,7 +26,7 @@ GO
 -- /* for get MemberInfos without CustomerID */
 --exec GetMemberInfos N'TH', NULL;                   -- no data returns
 -- =============================================
-ALTER PROCEDURE [dbo].[GetMemberInfos] 
+CREATE PROCEDURE [dbo].[GetMemberInfos] 
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL

@@ -34,7 +34,7 @@ GO
 --/* Without Specificed CustomerId */
 --exec GetOrgs NULL, NULL, N'B0001';                  -- no data returns.
 -- =============================================
-ALTER PROCEDURE [dbo].[GetOrgs] 
+CREATE PROCEDURE [dbo].[GetOrgs] 
 (
   @langId nvarchar(3) = NULL
 , @customerId nvarchar(30) = NULL
