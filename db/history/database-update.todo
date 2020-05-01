@@ -295,6 +295,7 @@ RaterWebv2x08r12:
                     ✔ create/ported. @done(20-05-01 23:19)
                 GetUserInfos:
                     ✔ create/ported. @done(20-05-01 23:19)
+                    ✔ remove pk parameter. @done(20-05-01 23:24)
                 GetUserInfo:
                     ✔ create/ported. @done(20-05-01 23:20)
                 InitDefaultUser:
@@ -310,15 +311,18 @@ RaterWebv2x08r12:
             Organization:
                 Customer:
                     SaveCustomer:
-                        ☐ create/ported.
+                        ✔ create/ported. @done(20-05-01 23:23)
                     SaveCustomerML:
-                        ☐ create/ported.
+                        ✔ create/ported. @done(20-05-01 23:23)
                     GetCustomers:
-                        ☐ create/ported.
+                        ✔ create/ported. @done(20-05-01 23:24)
+                        ☐ remove pk parameter.
+                    GetCustomer:
+                        ✔ create/ported. @done(20-05-01 23:24)
                     DeleteCustomer:
-                        ☐ create/ported.
+                        ✔ create/ported. @done(20-05-01 23:24)
                     DeleteCustomers:
-                        ☐ create/ported.
+                        ✔ create/ported. @done(20-05-01 23:24)
                 License History:
                     SaveLicenseHistory:
                         ✔ create/ported. @done(20-05-01 23:21)
@@ -333,10 +337,11 @@ RaterWebv2x08r12:
                 Member Info:
                     SaveMemberInfo:
                         ☐ create/ported.
-                    SaveMemberInfos:
+                    SaveMemberInfo:
                         ☐ create/ported.
-                    GetMemberInfoss:
+                    GetMemberInfos:
                         ☐ create/ported.
+                        ☐ remove pk parameter.
                     DeleteMemberInfo:
                         ☐ create/ported.
                 Branch:

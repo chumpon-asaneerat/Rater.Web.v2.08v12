@@ -23,7 +23,7 @@ GO
 --exec GetCustomers N'EN';   -- for get customers for EN language.
 --exec GetCustomers N'TH';   -- for get customers for TH language.
 -- =============================================
-ALTER PROCEDURE [dbo].[GetCustomers] 
+CREATE PROCEDURE [dbo].[GetCustomers] 
 (
   @langId nvarchar(3) = NULL
 , @enabled bit = NULL
