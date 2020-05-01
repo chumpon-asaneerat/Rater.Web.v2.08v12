@@ -1,4 +1,7 @@
 Project:
+    NLib.CSS:
+        ✔ CSS variable supports (used later in riot tag). @done(20-05-01 17:58)
+        ✔ Template to check media query. @done(20-05-01 17:58)
     Reter Service (Client):
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
@@ -13,10 +16,8 @@ Project:
         ☐ @critical : Retest all summaries reports when some Question Item remove.
         ☐ Prepare routes to stored question.json by QSetId.
     CSS:
-        ✔ CSS variable supports (used later in riot tag). @done(20-05-01 17:58)
         ☐ Drop shadow.
         ☐ Grid layout.
-        ✔ Template to check media query. @done(20-05-01 17:58)
         ☐ Sidebar margin animation. (port from web.tech.note)
         ☐ Dropdown menu center (horizontal/vertical) image and text.
     Express JS:
