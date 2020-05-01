@@ -2,6 +2,12 @@ Project:
     Reter Service (Client):
         ☐ Remove Screen change events.
     Rater:
+        ☐ @today : Recheck all database stored procedure(s).
+        ☐ @today : Implement EDL routes first.
+        ☐ @today : Implement Device rotues second.
+        ☐ @high :
+        ☐ @low :
+        ☐ @critical :
         ☐ Convert all routes from v11 to v12
         ☐ Prepare routes to stored question.json by QSetId.
         ☐ Retest all summaries reports when some Question Item remove.
