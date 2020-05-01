@@ -59,7 +59,7 @@ Project:
     CSS:
         ☐ Drop shadow.
         ☐ Grid layout.
-        ☐ Sidebar margin animation. (port from web.tech.note)
+        ✔ Sidebar margin animation. (port from web.tech.note) @done(20-05-01 21:55)
         ☐ Dropdown menu center (horizontal/vertical) image and text.
     Express JS:
         ☐ Checks how to make url work with and without tailing slash.
