@@ -1,7 +1,17 @@
 Project:
     NLib.CSS:
-        ✔ CSS variable supports (used later in riot tag). @done(20-05-01 17:58)
-        ✔ Template to check media query. @done(20-05-01 17:58)
+        Update to current project:
+            ✔ CSS variable supports (used later in riot tag). @done(20-05-01 17:58)
+            ✔ Template to check media query. @done(20-05-01 17:58)
+        Update to NLib server project:
+            ☐ CSS variable supports (used later in riot tag).
+            ☐ Template to check media query.
+        Update to NLib client project:
+            ☐ CSS variable supports (used later in riot tag).
+            ☐ Template to check media query.
+        Update to NLib web app project:
+            ☐ CSS variable supports (used later in riot tag).
+            ☐ Template to check media query.
     Reter Service (Client):
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
@@ -42,7 +52,14 @@ Project:
         ☐ Checks how to make url work with and without tailing slash.
         ☐ Working with REST Api for each datae items to reduce login on client screen.
     MSSQL:
-        ☐ Recheck generate schema to fixed nlib path reference.
+        Update to current project:
+            ☐ Recheck generate schema to fixed nlib path reference.
+        Update to NLib server project:
+            ☐ generate schema to fixed nlib path reference.
+        Update to NLib client project:
+            ☐ generate schema to fixed nlib path reference.
+        Update to NLib web app project:
+            ☐ generate schema to fixed nlib path reference.
     Riot.js:
         ☐ Rework all controls.
         ☐ Check how to send complex data (like search criteria) between parent-child tag.
