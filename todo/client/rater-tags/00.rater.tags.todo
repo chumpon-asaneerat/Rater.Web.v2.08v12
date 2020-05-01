@@ -1,13 +1,11 @@
 Common:
     Status Bar tag:
         ☐ Init tag.
-    Rater Device App tag:
-        ☐ Init tag.
-Sign In Process:
-    Sign In entry tag:
-        ☐ Init tag.
-    User Selection List tag:
-        ☐ Init tag.
-Register Process:
-    Register entry tag:
-        ☐ Init tag.
+    Sign In Process:
+        Sign In entry tag:
+            ☐ Init tag.
+            User Selection List tag:
+            ☐ Init tag.
+    Register Process:
+        Register entry tag:
+            ☐ Init tag.
