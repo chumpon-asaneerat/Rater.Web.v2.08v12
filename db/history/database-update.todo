@@ -5,25 +5,83 @@ RaterWebv2x08r12:
                 ✔ create/ported. @done(20-05-01 22:22)
         Master:
             Language:
-                ☐ create/ported.
+                Language:
+                    ✔ create/ported. @done(20-05-01 22:53)
+                LanguageView:
+                    ✔ create/ported. @done(20-05-01 22:54)
             Error Message:
-                ☐ create/ported.
+                ErrorMessage:
+                    ✔ create/ported. @done(20-05-01 22:53)
+                ErrorMessageML:
+                    ✔ create/ported. @done(20-05-01 22:54)
+                ErrorMessageView:
+                    ✔ create/ported. @done(20-05-01 22:54)
+                ErrorMessageMLView:
+                    ✔ create/ported. @done(20-05-01 22:54)
             Master.PK:
-                ☐ create/ported.
+                MasterPK:
+                    ✔ create/ported. @done(20-05-01 22:53)
             Period Unit:
-                ☐ create/ported.
+                PeriodUnit:
+                    ✔ create/ported. @done(20-05-01 22:55)
+                PeriodUnitML:
+                    ✔ create/ported. @done(20-05-01 22:55)
+                PeriodUnitView:
+                    ✔ create/ported. @done(20-05-01 22:55)
+                PeriodUnitMLView:
+                    ✔ create/ported. @done(20-05-01 22:55)
             Limit Unit:
-                ☐ create/ported.
+                LimitUnit:
+                    ✔ create/ported. @done(20-05-01 22:55)
+                LimitUnitML:
+                    ✔ create/ported. @done(20-05-01 22:55)
+                LimitUnitView:
+                    ✔ create/ported. @done(20-05-01 22:55)
+                LimitUnitMLView:
+                    ✔ create/ported. @done(20-05-01 22:55)
             Member Type:
-                ☐ create/ported.
+                MemberType:
+                    ✔ create/ported. @done(20-05-01 22:56)
+                MemberTypeML:
+                    ✔ create/ported. @done(20-05-01 22:56)
+                MemberTypeView:
+                    ✔ create/ported. @done(20-05-01 22:56)
+                MemberTypeMLView:
+                    ✔ create/ported. @done(20-05-01 22:56)
             Device Type:
-                ☐ create/ported.
+                DeviceType:
+                    ✔ create/ported. @done(20-05-01 22:57)
+                DeviceTypeML:
+                    ✔ create/ported. @done(20-05-01 22:57)
+                DeviceTypeView:
+                    ✔ create/ported. @done(20-05-01 22:57)
+                DeviceTypeMLView:
+                    ✔ create/ported. @done(20-05-01 22:57)
             License Type:
-                ☐ create/ported.
+                LicenseType:
+                    ✔ create/ported. @done(20-05-01 22:57)
+                LicenseTypeML:
+                    ✔ create/ported. @done(20-05-01 22:57)
+                LicenseTypeView:
+                    ✔ create/ported. @done(20-05-01 22:57)
+                LicenseTypeMLView:
+                    ✔ create/ported. @done(20-05-01 22:57)
             License Feature:
-                ☐ create/ported.
+                LicenseFeature:
+                    ✔ create/ported. @done(20-05-01 22:58)
+                LicenseFeatureMLView:
+                    ✔ create/ported. @done(20-05-01 22:58)
+                LicenseFeatureView:
+                    ✔ create/ported. @done(20-05-01 22:58)
             User Info:
-                ☐ create/ported.
+                UserInfo:
+                    ✔ create/ported. @done(20-05-01 22:59)
+                UserInfoML:
+                    ✔ create/ported. @done(20-05-01 22:59)
+                UserInfoView:
+                    ✔ create/ported. @done(20-05-01 22:59)
+                UserInfoMLView:
+                    ✔ create/ported. @done(20-05-01 22:59)
         Customer:
             Customer.PK:
                 ☐ create/ported.
