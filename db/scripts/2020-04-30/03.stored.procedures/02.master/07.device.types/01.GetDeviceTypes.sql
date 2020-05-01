@@ -21,7 +21,7 @@ GO
 --exec GetDeviceTypes NULL, 1;
 --exec GetDeviceTypes NULL, 0;
 -- =============================================
-ALTER PROCEDURE [dbo].[GetDeviceTypes]
+CREATE PROCEDURE [dbo].[GetDeviceTypes]
 (
   @langId nvarchar(3) = NULL
 , @enabled bit = NULL
