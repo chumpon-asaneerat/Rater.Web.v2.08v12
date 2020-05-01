@@ -79,12 +79,16 @@ Project:
     MSSQL:
         Update to current project:
             ☐ Recheck generate schema to fixed nlib path reference.
+            ☐ Generate db wrapper route(s).
         Update to NLib server project:
             ☐ generate schema to fixed nlib path reference.
+            ☐ Generate db wrapper route(s).
         Update to NLib client project:
             ☐ generate schema to fixed nlib path reference.
+            ☐ Generate db wrapper route(s).
         Update to NLib web app project:
             ☐ generate schema to fixed nlib path reference.
+            ☐ Generate db wrapper route(s).
     Riot.js:
         ☐ Rework all controls.
         ☐ Check how to send complex data (like search criteria) between parent-child tag.
