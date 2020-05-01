@@ -84,29 +84,89 @@ RaterWebv2x08r12:
                     ✔ create/ported. @done(20-05-01 22:59)
         Customer:
             Customer.PK:
-                ☐ create/ported.
+                CustomerPK:
+                    ✔ create/ported. @done(20-05-01 23:02)
             Organization:
                 Customer:
-                    ☐ create/ported.
+                    Customer:
+                        ✔ create/ported. @done(20-05-01 23:03)
+                    CustomerML:
+                        ✔ create/ported. @done(20-05-01 23:03)
+                    CustomerView:
+                        ✔ create/ported. @done(20-05-01 23:03)
+                    CustomerMLView:
+                        ✔ create/ported. @done(20-05-01 23:03)
                 License History:
-                    ☐ create/ported.
+                    LicenseHistory:
+                        ✔ create/ported. @done(20-05-01 23:04)
+                    LicenseHistoryMLView:
+                        ✔ create/ported. @done(20-05-01 23:04)
                 Member Info:
-                    ☐ create/ported.
+                    MemberInfo:
+                        ✔ create/ported. @done(20-05-01 23:04)
+                    MemberInfoML:
+                        ✔ create/ported. @done(20-05-01 23:04)
+                    MemberInfoView:
+                        ✔ create/ported. @done(20-05-01 23:04)
+                    MemberInfoMLView:
+                        ✔ create/ported. @done(20-05-01 23:04)
                 Branch:
-                    ☐ create/ported.
+                    Branch:
+                        ✔ create/ported. @done(20-05-01 23:04)
+                    BranchML:
+                        ✔ create/ported. @done(20-05-01 23:04)
+                    BranchView:
+                        ✔ create/ported. @done(20-05-01 23:04)
+                    BranchMLView:
+                        ✔ create/ported. @done(20-05-01 23:05)
                 Org:
-                    ☐ create/ported.
+                    Org:
+                        ✔ create/ported. @done(20-05-01 23:05)
+                    OrgML:
+                        ✔ create/ported. @done(20-05-01 23:05)
+                    OrgView:
+                        ✔ create/ported. @done(20-05-01 23:05)
+                    OrgMLView:
+                        ✔ create/ported. @done(20-05-01 23:05)
                 Device:
-                    ☐ create/ported.
+                    Device:
+                        ✔ create/ported. @done(20-05-01 23:05)
+                    DeviceML:
+                        ✔ create/ported. @done(20-05-01 23:05)
+                    DeviceView:
+                        ✔ create/ported. @done(20-05-01 23:05)
+                    DeviceMLView:
+                        ✔ create/ported. @done(20-05-01 23:05)
             Question:
                 Question Set:
-                    ☐ create/ported.
+                    QSet:
+                        ✔ create/ported. @done(20-05-01 23:07)
+                    QSetML:
+                        ✔ create/ported. @done(20-05-01 23:07)
+                    QSetView:
+                        ✔ create/ported. @done(20-05-01 23:07)
+                    QSetMLView:
+                        ✔ create/ported. @done(20-05-01 23:07)
                 Question Slide:
-                    ☐ create/ported.
+                    QSlide:
+                        ✔ create/ported. @done(20-05-01 23:07)
+                    QSlideML:
+                        ✔ create/ported. @done(20-05-01 23:07)
+                    QSlideView:
+                        ✔ create/ported. @done(20-05-01 23:08)
+                    QSlideMLView:
+                        ✔ create/ported. @done(20-05-01 23:08)
                 Question Slide Item:
-                    ☐ create/ported.
+                    QSlideItem:
+                        ✔ create/ported. @done(20-05-01 23:08)
+                    QSlideItemML:
+                        ✔ create/ported. @done(20-05-01 23:08)
+                    QSlideItemView:
+                        ✔ create/ported. @done(20-05-01 23:08)
+                    QSlideItemMLView:
+                        ✔ create/ported. @done(20-05-01 23:08)
                 Vote:
-                    ☐ create/ported.
+                    ✔ create/ported. @done(20-05-01 23:08)
         Register:
             LogInView:
                 ☐ create/ported.
