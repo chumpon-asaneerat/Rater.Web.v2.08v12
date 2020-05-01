@@ -105,4 +105,11 @@ SELECT @customerId;
 
 EXEC InitSampleData @customerId;
 */
-
+/*
+-- Check generate sample data.
+SELECT * FROM MemberInfo
+SELECT * FROM Device
+SELECT * FROM Org
+SELECT * FROM QSet
+SELECT * FROM LicenseHistory
+*/
