@@ -25,16 +25,45 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - Get
+//#region Implement - GetPeriodUnits
 
+api.GetPeriodUnits = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = null // not exists so assign null.
+        params.enabled = true
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetPeriodUnits(params)
+    }
+    static parse(db, data, callback) {
+        let result = dbutils.validate(db, data)
+        callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetPeriodUnits
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
+//#region Implement - Get
+/*
 api.Get = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data;
-        /* 
-        TODO: Language Id is required to assigned every time the UI Language change.
-        TODO: Parameter checks required.
-        TODO: The get one stored proecdure need to implements new route.
-        */
+        //TODO: Language Id is required to assigned every time the UI Language change.
+        //TODO: Parameter checks required.
+        //TODO: The get one stored proecdure need to implements new route.
         // force langId to null;
         params.langId = null;
         params.enabled = true;
@@ -92,10 +121,10 @@ api.Get = class {
         })
     }
 }
-
+*/
 //#endregion
 
-router.all('/periodunits', api.Get.entry)
+router.all('/periodunits', api.GetPeriodUnits.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);

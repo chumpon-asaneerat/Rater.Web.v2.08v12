@@ -1,15 +1,36 @@
-### Get languages
-GET http://localhost:3000/api/languages
+### Getlanguages
+POST http://localhost:3000/api/languages
+content-type: application/json
 
-### Get membertypes
+{
+
+}
+
+### GetMemberTypes
 GET http://localhost:3000/api/membertypes
+content-type: application/json
 
+{
 
-### Get Period Units
+}
 
-### Get Period Unit
+### GetPeriodUnits (GET)
+GET http://localhost:3000/api/periodunits
 
-### Get Limit Units
+### GetPeriodUnits TH Only (GET)
+GET http://localhost:3000/api/periodunits?langId=TH
+
+### GetPeriodUnits (POST)
+POST http://localhost:3000/api/periodunits
+content-type: application/json
+
+{
+    "langId": "TH"
+}
+
+### GetPeriodUnit
+
+### GetLimitUnits
 
 ### Get Limit Unit
 

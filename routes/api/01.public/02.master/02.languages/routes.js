@@ -22,7 +22,8 @@ const router = new WebRouter();
 
 //#endregion
 
-class api { }
+// static class.
+const api = class { }
 
 //#region Implement - GetLanguages
 
