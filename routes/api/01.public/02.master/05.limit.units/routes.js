@@ -25,70 +25,41 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - Get
+//#region Implement - GetPeriodUnits
 
-api.Get = class {
+api.GetLimitUnits = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
-        /* 
-        TODO: Language Id is required to assigned every time the UI Language change.
-        TODO: Parameter checks required.
-        TODO: The get one stored proecdure need to implements new route.
-        */
-        // force langId to null;
-        params.langId = null;
-        params.enabled = true;
-
-        return params;
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        params.enabled = true
+        return params
     }
     static async call(db, params) { 
-        return db.GetLimitUnits(params);
+        return db.GetLimitUnits(params)
     }
     static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
+        let dbResult = dbutils.validate(db, data)
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.limitUnitId);
-            let idx = map.indexOf(rec.limitUnitId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { limitUnitId: rec.limitUnitId }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            nobj.Description = rec.LimitUnitDescription;
-            nobj.Text = rec.LimitUnitText;
-        })
         // set to result.
-        result.data = ret;
-
-        callback(result);
+        result.data = dbutils.buildTree(dbResult, 'limitUnitId', (nobj, record) => {
+            nobj.Description = record.LimitUnitDescription
+            nobj.Text = record.LimitUnitText
+        })
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
+        let ref = api.GetLimitUnits
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
         dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
             });
         })
     }
@@ -96,7 +67,7 @@ api.Get = class {
 
 //#endregion
 
-router.all('/limitunits', api.Get.entry)
+router.all('/limitunits', api.GetLimitUnits.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);

@@ -22,7 +22,19 @@ content-type: application/json
 
 ### GetPeriodUnit
 
-### GetLimitUnits
+### GetLimitUnits (GET)
+GET http://localhost:3000/api/limitunits
+
+### GetLimitUnits EN Only (GET)
+GET http://localhost:3000/api/limitunits?langId=EN
+
+### GetLimitUnits (POST)
+POST http://localhost:3000/api/limitunits
+content-type: application/json
+
+{
+    "langId": "TH"
+}
 
 ### Get Limit Unit
 
