@@ -38,7 +38,8 @@ api.GetLanguages = class {
     }
     static parse(db, data, callback) {
         let result = dbutils.validate(db, data)
-        callback(result)
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
         let ref = api.GetLanguages

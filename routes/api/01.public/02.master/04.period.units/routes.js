@@ -30,7 +30,7 @@ const api = class { }
 api.GetPeriodUnits = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
-        if (!params.langId) params.langId = null // not exists so assign null.
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
         params.enabled = true
         return params
     }
@@ -39,47 +39,17 @@ api.GetPeriodUnits = class {
     }
     static parse(db, data, callback) {
         let dbResult = dbutils.validate(db, data)
-
         let result = {
             data : null,
             errors: dbResult.errors,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            // Ignore check id.
-            let nobj = { 
-                periodUnitId: rec.periodUnitId, 
-                Description: rec.PeriodUnitDescription
-            }
-            ret[rec.langId].push(nobj)
-
-            // Original code.
-            /*
-            let map = ret[rec.langId].map(c => c.periodUnitId);
-            let idx = map.indexOf(rec.periodUnitId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { periodUnitId: rec.periodUnitId }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            nobj.Description = rec.PeriodUnitDescription;
-            */
-        })
         // set to result.
-        result.data = ret;
-
-        callback(result)
+        result.data = dbutils.buildTree(dbResult, 'periodUnitId', (nobj, record) => {
+            nobj.Description = record.PeriodUnitDescription
+        })
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
         let ref = api.GetPeriodUnits
