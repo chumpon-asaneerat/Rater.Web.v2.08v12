@@ -6,19 +6,25 @@ content-type: application/json
 
 }
 
-### GetMemberTypes
-GET http://localhost:3000/api/membertypes
+### GetMemberTypes (GET)
+GET http://localhost:3000/api/membertypes?langId=TH
+
+### GetMemberTypes EN Only (GET)
+GET http://localhost:3000/api/membertypes?langId=TH
+
+### GetMemberTypes (POST)
+POST http://localhost:3000/api/membertypes
 content-type: application/json
 
 {
-
+    "langId": "TH"
 }
 
 ### GetPeriodUnits (GET)
 GET http://localhost:3000/api/periodunits
 
-### GetPeriodUnits TH Only (GET)
-GET http://localhost:3000/api/periodunits?langId=TH
+### GetPeriodUnits EN Only (GET)
+GET http://localhost:3000/api/periodunits?langId=EN
 
 ### GetPeriodUnits (POST)
 POST http://localhost:3000/api/periodunits
