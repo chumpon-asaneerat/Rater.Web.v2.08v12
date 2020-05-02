@@ -1,3 +1,6 @@
+### Get languages
+GET http://localhost:3000/api/languages
+
 ### Get membertypes
 GET http://localhost:3000/api/membertypes
 
