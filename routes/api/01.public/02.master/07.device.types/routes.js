@@ -111,7 +111,8 @@ api.GetDeviceType = class {
 //#endregion
 
 router.all('/devicetypes', api.GetDeviceTypes.entry)
-router.all('/devicetypes/:id', api.GetDeviceType.entry)
+router.get('/devicetypes/search/:id', api.GetDeviceType.entry)
+router.post('/devicetypes/search', api.GetDeviceType.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);

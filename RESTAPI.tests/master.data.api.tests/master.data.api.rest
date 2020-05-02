@@ -73,7 +73,6 @@ content-type: application/json
     "langId": "TH"
 }
 
-
 ### GetMemberType (GET)
 GET http://localhost:3000/api/membertypes/search/100
 ### GetMemberType (POST)
@@ -81,9 +80,9 @@ POST http://localhost:3000/api/membertypes/search
 content-type: application/json
 
 {
-    "langId": "TH"
+    "langId": "TH",
+    "memberTypeId": 200
 }
-
 
 ### GetDeviceTypes (GET)
 GET http://localhost:3000/api/devicetypes
@@ -99,7 +98,16 @@ content-type: application/json
     "langId": "TH"
 }
 
-### GetDeviceType
+### GetDeviceType (GET)
+GET http://localhost:3000/api/devicetypes/search/103
+### GetDeviceType (POST)
+POST http://localhost:3000/api/devicetypes/search
+content-type: application/json
+
+{
+    "langId": "TH",
+    "deviceTypeId": 101
+}
 
 ### GetLicenseTypes (GET)
 GET http://localhost:3000/api/licensetypes

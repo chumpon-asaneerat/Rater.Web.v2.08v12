@@ -74,7 +74,7 @@ api.GetPeriodUnit = class {
         params.langId = null // force assign null.
         // read id from request object.
         let id = 'periodUnitId'
-        params[id] = (req.params.id) ? req.params.id : (params[id]) ? params[id] : null
+        params[id] = (req.params.id) ? req.params.id : params[id]
         params.enabled = true // force assign enable language only.
         return params
     }
