@@ -30,7 +30,6 @@ POST http://localhost:3000/api/periodunits/search
 content-type: application/json
 
 {
-    "langId": "TH",
     "periodUnitId": 2
 }
 
@@ -55,7 +54,6 @@ POST http://localhost:3000/api/limitunits/search
 content-type: application/json
 
 {
-    "langId": "TH",
     "limitUnitId": 2
 }
 
@@ -80,7 +78,6 @@ POST http://localhost:3000/api/membertypes/search
 content-type: application/json
 
 {
-    "langId": "TH",
     "memberTypeId": 200
 }
 
@@ -105,7 +102,6 @@ POST http://localhost:3000/api/devicetypes/search
 content-type: application/json
 
 {
-    "langId": "TH",
     "deviceTypeId": 101
 }
 
@@ -134,7 +130,7 @@ POST http://localhost:3000/api/licensefeatures
 content-type: application/json
 
 {
-    "langId": "TH",
+    "langId": "TH"
 }
 
 ### GetCustomers (GET)
@@ -158,11 +154,10 @@ POST http://localhost:3000/edl/api/customers/search
 content-type: application/json
 
 {
-    "langId": "TH",
     "customerId": "EDL-C2020050001"
 }
 
-### GetUserInfos
+### GetUserInfos (GET)
 GET http://localhost:3000/edl/api/users
 
 ### GetUserInfos EN Only (GET)
@@ -176,5 +171,14 @@ content-type: application/json
     "langId": "TH"
 }
 
-### GetUserInfo
+### GetUserInfo (GET)
+GET http://localhost:3000/edl/api/users/search/EDL-U20200502001
+
+### GetUserInfo (POST)
+POST http://localhost:3000/edl/api/users/search
+content-type: application/json
+
+{
+    "userId": "EDL-U20200502001"
+}
 

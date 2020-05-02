@@ -73,68 +73,49 @@ api.GetUserInfos = class {
 
 //#endregion
 
-//#region Implement - Get
+//#region Implement - GetUserInfo
 
-api.Get = class {
+api.GetUserInfo = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
-        // force langId to null;
-        params.langId = null;
-        params.enabled = true;
-
-        return params;
+        let params = WebServer.parseReq(req).data
+        params.langId = null // force assign null.
+        // read id from request object.
+        let id = 'userId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
+        params.enabled = true // force assign enable language only.
+        return params
     }
     static async call(db, params) { 
-        return db.GetUserInfos(params);
+        return db.GetUserInfo(params)
     }
     static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
+        let dbResult = dbutils.validate(db, data)
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.userId);
-            let idx = map.indexOf(rec.userId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { userId: rec.userId }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            /* 
-            TODO: Recheck columns reqruired.
-            */
-            nobj.UserName = rec.UserName;
-            nobj.Password = rec.Password;
-        })
         // set to result.
-        result.data = ret;
-
-        callback(result);
+        result.data = dbutils.buildTree(dbResult, 'userId', (nobj, record) => {
+            nobj.MemberType = record.MemberType
+            nobj.Prefix = record.Prefix
+            nobj.FirstName = record.FirstName
+            nobj.LastName = record.LastName
+            //nobj.FullName = record.FullName
+            nobj.UserName = record.UserName
+            nobj.Password = record.Password
+        })
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
+        let ref = api.GetUserInfo
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
         dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
             });
         })
     }
@@ -287,6 +268,8 @@ api.Delete = class {
 router.use(secure.checkAccess);
 // routes for userinfo
 router.all('/users', api.GetUserInfos.entry);
+router.get('/users/search/:id', api.GetUserInfo.entry);
+router.post('/users/search', api.GetUserInfo.entry);
 //router.post('/users/save', api.Save.entry);
 //router.post('/users/delete', api.Delete.entry);
 
