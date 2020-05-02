@@ -46,15 +46,15 @@ api.GetLicenseTypes = class {
         }
         // set to result.
         result.data = dbutils.buildTree(dbResult, 'licenseTypeId', (nobj, record) => {
-            nobj.type = record.Type;
-            nobj.Description = record.LicenseTypeDescription;
-            nobj.AdText = record.AdText;
-            nobj.periodUnitId = record.periodUnitId;
-            nobj.NoOfUnit = record.NoOfUnit;
-            nobj.UseDefaultPrice = record.UseDefaultPrice;
-            nobj.Price = record.Price;
-            nobj.CurrencySymbol = record.CurrencySymbol;
-            nobj.CurrencyText = record.CurrencyText;
+            nobj.type = record.Type
+            nobj.Description = record.LicenseTypeDescription
+            nobj.AdText = record.AdText
+            nobj.periodUnitId = record.periodUnitId
+            nobj.NoOfUnit = record.NoOfUnit
+            nobj.UseDefaultPrice = record.UseDefaultPrice
+            nobj.Price = record.Price
+            nobj.CurrencySymbol = record.CurrencySymbol
+            nobj.CurrencyText = record.CurrencyText
         })
         // execute callback
         if (callback) callback(result)

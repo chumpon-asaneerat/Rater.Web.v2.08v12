@@ -69,7 +69,7 @@ content-type: application/json
     "langId": "TH"
 }
 
-### Get Device Type
+### GetDeviceType
 
 ### GetLicenseTypes (GET)
 GET http://localhost:3000/api/licensetypes
@@ -85,6 +85,21 @@ content-type: application/json
     "langId": "TH"
 }
 
+### GetLicenseType
+
+### GetLicenseFeatures (GET)
+GET http://localhost:3000/api/licensefeatures
+
+### GetLicenseFeatures EN Only (GET)
+GET http://localhost:3000/api/licensefeatures?langId=EN&licenseTypeId=1
+
+### GetLicenseFeatures (POST)
+POST http://localhost:3000/api/licensefeatures
+content-type: application/json
+
+{
+    "langId": "TH",
+}
 
 ### Get Customers
 

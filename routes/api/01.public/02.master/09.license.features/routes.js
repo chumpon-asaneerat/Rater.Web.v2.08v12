@@ -25,80 +25,43 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - Get
+//#region Implement - GetLicenseFeatures
 
-api.Get = class {
+api.GetLicenseFeatures = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
-        params.langId = null; // force langId to null;
-        params.licenseTypeId = null;
-
-        return params;
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        if (!params.licenseTypeId) params.licenseTypeId = null // not exists so assigned null.
+        return params
     }
     static async call(db, params) { 
-        return db.GetLicenseFeatures(params);
+        return db.GetLicenseFeatures(params)
     }
     static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
+        let dbResult = dbutils.validate(db, data)
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.licenseTypeId);
-            let idx = map.indexOf(rec.licenseTypeId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { licenseTypeId: rec.licenseTypeId }
-                nobj.items = [];
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-
-            let seqs = nobj.items.map(item => item.seq);
-            let idx2 = seqs.indexOf(rec.seq);
-            let nobj2;
-            if (idx2 === -1) {
-                nobj2 = {
-                    seq: rec.seq
-                }
-                nobj.items.push(nobj2);
-            }
-            else {
-                nobj2 = seqs[idx2];
-            }                
-            nobj2.limitUnitId = rec.limitUnitId;
-            nobj2.NoOfLimit = rec.NoOfLimit;
-            nobj2.UnitDescription = rec.LimitUnitDescription;
-            nobj2.UnitText = rec.LimitUnitText;
+        result.data = dbutils.buildTree2(dbResult, 'licenseTypeId', 'seq', (nobj, record) => {
+            nobj.seq = record.seq
+            nobj.limitUnitId = record.limitUnitId
+            nobj.NoOfLimit = record.NoOfLimit
+            nobj.UnitDescription = record.LimitUnitDescription
+            nobj.UnitText = record.LimitUnitText
         })
-        // set to result.
-        result.data = ret;
-
-        callback(result);
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
+        let ref = api.GetLicenseFeatures
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
         dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
             });
         })
     }
@@ -106,7 +69,7 @@ api.Get = class {
 
 //#endregion
 
-router.all('/licensefeatures', api.Get.entry)
+router.all('/licensefeatures', api.GetLicenseFeatures.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);
