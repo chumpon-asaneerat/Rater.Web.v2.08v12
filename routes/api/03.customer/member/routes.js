@@ -25,82 +25,108 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - Get
+//#region Implement - GetMemberInfos
 
-api.Get = class {
+api.GetMemberInfos = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
-
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        // replace customer id from cookie if exists
         let storage = new RaterStorage(req, res)
         let customerId = (storage.account) ? storage.account.customerId : null
         if (customerId) params.customerId = customerId
-        /* 
-        TODO: Language Id is required to assigned every time the UI Language change.
-        TODO: Parameter checks required.
-        TODO: The get one stored proecdure need to implements new route.
-        */
-        // force langId to null;
-        params.langId = null
-        params.memberId = null
         params.enabled = true
-
         return params
     }
     static async call(db, params) { 
-        return db.GetMemberInfos(params);
+        return db.GetMemberInfos(params)
     }
     static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
+        let dbResult = dbutils.validate(db, data)
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.memberId);
-            let idx = map.indexOf(rec.memberId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { memberId: rec.memberId }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            nobj.MemberType = rec.MemberType;
-            nobj.Prefix = rec.Prefix;
-            nobj.FirstName = rec.FirstName;
-            nobj.LastName = rec.LastName;
-            nobj.UserName = rec.UserName;
-            nobj.Password = rec.Password;
-            nobj.TagId = rec.TagId;
-            nobj.IDCard = rec.IDCard;
-            nobj.EmployeeCode = rec.EmployeeCode;
-        })
         // set to result.
-        result.data = ret;
-
-        callback(result);
+        result.data = dbutils.buildTree(dbResult, 'memberId', (nobj, record) => {
+            nobj.MemberType = record.MemberType
+            nobj.Prefix = record.Prefix
+            nobj.FirstName = record.FirstName
+            nobj.LastName = record.LastName
+            nobj.UserName = record.UserName
+            nobj.Password = record.Password
+            nobj.TagId = record.TagId
+            nobj.IDCard = record.IDCard
+            nobj.EmployeeCode = record.EmployeeCode
+        })
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
+        let ref = api.GetMemberInfos
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
         dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
+//#region Implement - GetMemberInfo
+
+api.GetMemberInfo = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.langId = null // force assign null.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        // read id from request object.
+        let id = 'memberId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
+        params.enabled = true // force assign enable language only.
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetMemberInfo(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'memberId', (nobj, record) => {
+            nobj.MemberType = record.MemberType
+            nobj.Prefix = record.Prefix
+            nobj.FirstName = record.FirstName
+            nobj.LastName = record.LastName
+            nobj.UserName = record.UserName
+            nobj.Password = record.Password
+            nobj.TagId = record.TagId
+            nobj.IDCard = record.IDCard
+            nobj.EmployeeCode = record.EmployeeCode
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetMemberInfo
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
             });
         })
     }
@@ -259,12 +285,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for member
-router.all('/member', api.Get.entry);
+router.all('/members', api.GetMemberInfos.entry);
+router.get('/members/search/:id', api.GetMemberInfo.entry);
+router.post('/members/search', api.GetMemberInfo.entry);
 router.post('/member/save', api.Save.entry);
 //router.post('/member/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

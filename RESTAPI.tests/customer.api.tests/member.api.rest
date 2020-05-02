@@ -1,10 +1,23 @@
-### Get members
-POST http://localhost:3000/customer/api/member
+### GetMemberInfos (GET)
+GET http://localhost:3000/customers/api/members?customerId=EDL-C2020050001
+
+### GetMemberInfos (POST)
+POST http://localhost:3000/customers/api/members
 content-type: application/json
 
 {
-    "customerId": "EDL-C2020030001"
+    "langId": "TH",
+    "customerId": "EDL-C2020050001"
 }
 
+### GetMemberInfo (GET)
+GET http://localhost:3000/customers/api/members/search/M00001?customerId=EDL-C2020050001
 
-### Get member
+### GetMemberInfo (POST)
+POST http://localhost:3000/customers/api/members/search
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020050001",
+    "memberId": "M00002"
+}
