@@ -23,7 +23,7 @@ content-type: application/json
     "langId": "TH"
 }
 
-### GetPeriodUnit
+### GetPeriodUnit (GET)
 GET http://localhost:3000/api/periodunits/search/1
 ### GetPeriodUnits (POST)
 POST http://localhost:3000/api/periodunits/search
@@ -48,7 +48,16 @@ content-type: application/json
     "langId": "TH"
 }
 
-### GetLimitUnit
+### GetLimitUnit (GET)
+GET http://localhost:3000/api/limitunits/search/1
+### GetLimitUnit (POST)
+POST http://localhost:3000/api/limitunits/search
+content-type: application/json
+
+{
+    "langId": "TH",
+    "limitUnitId": 2
+}
 
 ### GetMemberTypes (GET)
 GET http://localhost:3000/api/membertypes
