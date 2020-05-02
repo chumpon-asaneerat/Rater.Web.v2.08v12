@@ -66,7 +66,51 @@ api.GetMemberTypes = class {
 
 //#endregion
 
+//#region Implement - GetMemberType
+
+api.GetMemberType = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId =  'EN' // not exists so assign EN.
+        params.enabled = true
+        // read id from request object.
+        params.memberTypeId = (req.params.id) ? req.params.id : null
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetMemberType(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'memberTypeId', (nobj, record) => {
+            nobj.Description = record.MemberTypeDescription
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetMemberType
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
 router.all('/membertypes', api.GetMemberTypes.entry)
+router.all('/membertypes/:id', api.GetMemberType.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);
