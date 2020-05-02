@@ -25,6 +25,107 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
+//#region Implement - GetOrgs
+
+api.GetOrgs = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        // format branch id if not assigned.
+        params.branchId = (params.branchId) ? params.branchId : null
+        params.enabled = true
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetOrgs(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'orgId', (nobj, record) => {
+            nobj.parentId = record.parentId
+            nobj.branchId = record.branchId
+            nobj.OrgName = record.OrgName
+            nobj.BranchName = record.BranchName
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetOrgs
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
+//#region Implement - GetOrg
+
+api.GetOrg = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.langId = null // force assign null.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        // read id from request object.
+        let id = 'orgId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
+        params.enabled = true // force assign enable language only.
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetOrg(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'orgId', (nobj, record) => {
+            nobj.parentId = record.parentId
+            nobj.branchId = record.branchId
+            nobj.OrgName = record.OrgName
+            nobj.BranchName = record.BranchName
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetOrg
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
 //#region Implement - Get
 
 api.Get = class {
@@ -257,12 +358,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for org
-router.all('/org', api.Get.entry);
-router.post('/org/save', api.Save.entry);
-//router.post('/org/delete', api.Delete.entry);
+router.all('/orgs', api.GetOrgs.entry);
+router.get('/orgs/search/:id', api.GetOrg.entry);
+router.post('/orgs/search', api.GetOrg.entry);
+router.post('/orgs/save', api.Save.entry);
+//router.post('/orgs/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

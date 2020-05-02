@@ -1,12 +1,32 @@
-### Get orgs
-POST http://localhost:3000/customer/api/org
+### GetOrgs (GET)
+GET http://localhost:3000/customers/api/orgs?customerId=EDL-C2020050001
+
+### GetOrgs (POST)
+POST http://localhost:3000/customers/api/orgs
 content-type: application/json
 
 {
-    "customerId": "EDL-C2020030001"
+    "langId": "TH",
+    "customerId": "EDL-C2020050001"
+}
+### GetOrgs with branch id (POST)
+POST http://localhost:3000/customers/api/orgs
+content-type: application/json
+
+{
+    "langId": "TH",
+    "customerId": "EDL-C2020050001",
+    "branchId": "B0001"
 }
 
-### Get org
+### GetOrg (GET)
+GET http://localhost:3000/customers/api/orgs/search/O0002?customerId=EDL-C2020050001
 
+### GetOrg (POST)
+POST http://localhost:3000/customers/api/orgs/search
+content-type: application/json
 
-
+{
+    "customerId": "EDL-C2020050001",
+    "orgId": "O0003"
+}
