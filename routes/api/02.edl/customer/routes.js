@@ -25,75 +25,51 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - Get
 
-api.Get = class {
+//#region Implement - GetCustomers
+
+api.GetCustomers = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
-        // force langId to null;
-        params.langId = null;
-        params.customerId = null;
-        params.enabled = true;
-
-        return params;
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        params.enabled = true
+        return params
     }
     static async call(db, params) { 
-        return db.GetCustomers(params);
+        return db.GetCustomers(params)
     }
     static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
+        let dbResult = dbutils.validate(db, data)
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.customerId);
-            let idx = map.indexOf(rec.customerId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { customerId: rec.customerId }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            nobj.CustomerName = rec.CustomerName;
-            nobj.TaxCode = rec.TaxCode;
-            nobj.Address1 = rec.Address1;
-            nobj.Address2 = rec.Address2;
-            nobj.City = rec.City;
-            nobj.Province = rec.Province;
-            nobj.PostalCode = rec.PostalCode;
-            nobj.Phone = rec.Phone;
-            nobj.Mobile = rec.Mobile;
-            nobj.Fax = rec.Fax;
-            nobj.Email = rec.Email;
-        })
         // set to result.
-        result.data = ret;
-
-        callback(result);
+        result.data = dbutils.buildTree(dbResult, 'customerId', (nobj, record) => {
+            nobj.CustomerName = record.CustomerName
+            nobj.TaxCode = record.TaxCode
+            nobj.Address1 = record.Address1
+            nobj.Address2 = record.Address2
+            nobj.City = record.City
+            nobj.Province = record.Province
+            nobj.PostalCode = record.PostalCode
+            nobj.Phone = record.Phone
+            nobj.Mobile = record.Mobile
+            nobj.Fax = record.Fax
+            nobj.Email = record.Email
+        })
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
+        let ref = api.GetCustomers
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
         dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
             });
         })
     }
@@ -245,9 +221,9 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for customer
-router.all('/customer/search', api.Get.entry);
-//router.post('/customer/save', api.Save.entry);
-//router.post('/customer/delete', api.Delete.entry);
+router.all('/customers', api.GetCustomers.entry);
+//router.post('/customers/save', api.Save.entry);
+//router.post('/customers/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
     svr.route('/edl/api/', router);

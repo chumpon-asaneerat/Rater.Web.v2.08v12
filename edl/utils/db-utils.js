@@ -47,7 +47,6 @@ class DbUtils {
         return ret;
     }
 }
-
 class TreeResultBuilder {
     static buildTree(result, idFld, mapFieldsCallback) {
         let ret = {}
@@ -82,7 +81,6 @@ class TreeResultBuilder {
         if (mapFieldsCallback) mapFieldsCallback(nobj, record)
     }
 }
-
 class TreeResultBuilder2 {
     static buildTree(result, idFld, idFld2, mapFieldsCallback) {
         let ret = {}
