@@ -110,6 +110,7 @@ DECLARE @memberId nvarchar(30);
 
         IF (UPPER(LTRIM(RTRIM(@mode))) = 'EDL')
         BEGIN
+            -- FOR EDL ACCESS (CLIENT APP)
             SELECT @accessId = AccessId, @iCnt = COUNT(*)
               FROM EDLAccess
              WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
@@ -145,6 +146,7 @@ DECLARE @memberId nvarchar(30);
         END
         ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'CUSTOMER')
         BEGIN
+            -- FOR CUSTOMER ACCESS (CLIENT APP)
             SELECT @accessId = AccessId, @iCnt = COUNT(*)
               FROM CustomerAccess
              WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
@@ -180,6 +182,7 @@ DECLARE @memberId nvarchar(30);
         END
         ELSE IF (UPPER(LTRIM(RTRIM(@mode))) = 'DEVICE')
         BEGIN
+            -- FOR CUSTOMER ACCESS (DEVICE APP)
             SELECT @accessId = AccessId, @iCnt = COUNT(*)
               FROM DeviceAccess
              WHERE UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))

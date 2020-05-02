@@ -118,8 +118,8 @@ Project:
         ☐ License redesign.
         ✔ Check SP Register - for license part. @done(20-05-02 20:29)
         ☐ Register process -> SaveLicenseHistory need to keep status.
-        ☐ Check SP SignIn - for license part.
-        ☐ Check SP CheckUsers - for license part.
+        ✔ Check SP SignIn - for license part. (CHECKED no license related). @done(20-05-02 20:32)
+        ✔ Check SP CheckUsers - for license part. (CHECKED no license related). @done(20-05-02 20:32)
         ☐ Check SP related to License Creation process.
         ☐ Check SP related to License Exten period process.
         ☐ Add payment process (for new license, extend licensee).
