@@ -1,10 +1,24 @@
-### Get branchs
-POST http://localhost:3000/customer/api/branch
+### Get branchs (GET)
+GET http://localhost:3000/customers/api/branchs?customerId=EDL-C2020050001
+
+### Get branchs (POST)
+POST http://localhost:3000/customers/api/branchs
 content-type: application/json
 
 {
-    "customerId": "EDL-C2020030001"
+    "langId": "TH",
+    "customerId": "EDL-C2020050001"
 }
 
-### Get branch
+### Get branch (GET)
+GET http://localhost:3000/customers/api/branchs/search/B0001?customerId=EDL-C2020050001
+
+### Get branch (POST)
+POST http://localhost:3000/customers/api/branchs/search
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020050001",
+    "branchId": "B0001"
+}
 

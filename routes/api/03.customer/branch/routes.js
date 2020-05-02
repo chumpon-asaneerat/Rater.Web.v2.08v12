@@ -22,44 +22,101 @@ const router = new WebRouter();
 
 //#endregion
 
-//#region exec/validate wrapper method
+// static class.
+const api = class { }
 
-const exec = async (db, callback) => {
-    let ret;
-    let connected = await db.connect();
-    if (connected) {
-        ret = await callback();
-        await db.disconnect();
+//#region Implement - GetBranchs
+
+api.GetBranchs = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        params.enabled = true
+        return params
     }
-    else {
-        ret = db.error(db.errorNumbers.CONNECT_ERROR, 'No database connection.');
+    static async call(db, params) { 
+        return db.GetBranchs(params)
     }
-    return ret;
-}
-const validate = (db, data) => {
-    let result = data;
-    if (!result) {
-        result = db.error(db.errorNumbers.NO_DATA_ERROR, 'No data returns');
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'branchId', (nobj, record) => {
+            nobj.branchName = record.BranchName
+        })
+        // execute callback
+        if (callback) callback(result)
     }
-    else {
-        result = checkForError(data);
+    static entry(req, res) {
+        let ref = api.GetBranchs
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
     }
-    return result;
-}
-const checkForError = (data) => {
-    let result = data;
-    if (result.out && result.out.errNum && result.out.errNum !== 0) {
-        result.errors.hasError = true;
-        result.errors.errNum = result.out.errNum;
-        result.errors.errMsg = result.out.errMsg;
-    }
-    return result;
 }
 
 //#endregion
 
-// static class.
-const api = class { }
+//#region Implement - GetBranch
+
+api.GetBranch = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.langId = null // force assign null.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        // read id from request object.
+        let id = 'branchId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
+        params.enabled = true // force assign enable language only.
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetBranch(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'branchId', (nobj, record) => {
+            nobj.branchName = record.BranchName
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetBranch
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
 
 //#region Implement - Get
 
@@ -286,12 +343,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // branch
-router.all('/branch', api.Get.entry);
-router.post('/branch/save', api.Save.entry);
+router.all('/branchs', api.GetBranchs.entry);
+router.get('/branchs/search/:id', api.GetBranch.entry);
+router.post('/branchs/search', api.GetBranch.entry);
+router.post('/branchs/save', api.Save.entry);
 //router.post('/branch/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
