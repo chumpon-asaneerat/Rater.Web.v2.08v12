@@ -134,6 +134,7 @@ Project:
         ☐ Grid layout.
         ✔ Sidebar margin animation. (port from web.tech.note) @done(20-05-01 21:55)
         ☐ Dropdown menu center (horizontal/vertical) image and text.
+        ☐ Collapse submenu sample -> collapse header, collapse body with auto hide.
     JS:
         ✔ Proxy, Observable sample. @done(20-05-02 20:54)
     Express JS:
