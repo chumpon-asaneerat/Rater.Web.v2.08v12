@@ -72,10 +72,10 @@ api.GetLimitUnits = class {
 api.GetLimitUnit = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
-        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        params.langId = null // force assign enable language only.
         // read id from request object.
-        params.limitUnitId = (req.params.id) ? req.params.id : null
-        params.enabled = true
+        params.limitUnitId = (req.params.id) ? req.params.id : params.limitUnitId
+        params.enabled = true // force assign enable language only.
         return params
     }
     static async call(db, params) { 
@@ -112,7 +112,8 @@ api.GetLimitUnit = class {
 //#endregion
 
 router.all('/limitunits', api.GetLimitUnits.entry)
-router.all('/limitunits/:id', api.GetLimitUnit.entry)
+router.get('/limitunits/search/:id', api.GetLimitUnit.entry)
+router.post('/limitunits/search', api.GetLimitUnit.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);

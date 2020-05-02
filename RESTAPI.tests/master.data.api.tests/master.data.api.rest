@@ -1,9 +1,12 @@
-### Getlanguages
+### Getlanguages (GET)
+GET http://localhost:3000/api/languages
+
+### Getlanguages (POST)
 POST http://localhost:3000/api/languages
 content-type: application/json
 
 {
-
+    "enabled": "true"
 }
 
 ### GetPeriodUnits (GET)
@@ -21,6 +24,15 @@ content-type: application/json
 }
 
 ### GetPeriodUnit
+GET http://localhost:3000/api/periodunits/search/1
+### GetPeriodUnits (POST)
+POST http://localhost:3000/api/periodunits/search
+content-type: application/json
+
+{
+    "langId": "TH",
+    "periodUnitId": 2
+}
 
 ### GetLimitUnits (GET)
 GET http://localhost:3000/api/limitunits
@@ -84,8 +96,6 @@ content-type: application/json
 {
     "langId": "TH"
 }
-
-### GetLicenseType
 
 ### GetLicenseFeatures (GET)
 GET http://localhost:3000/api/licensefeatures

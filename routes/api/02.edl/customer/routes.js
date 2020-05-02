@@ -82,9 +82,9 @@ api.GetCustomer = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
         params.langId = null // force assign null.
-        params.enabled = true // force assign enable language only.
         // read id from request object.
         params.customerId = (req.params.id) ? req.params.id : null
+        params.enabled = true // force assign enable language only.
         return params
     }
     static async call(db, params) { 

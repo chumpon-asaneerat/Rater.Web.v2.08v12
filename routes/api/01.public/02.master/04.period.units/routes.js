@@ -71,10 +71,10 @@ api.GetPeriodUnits = class {
 api.GetPeriodUnit = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
-        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        params.langId = null // force assign null.
         // read id from request object.
-        params.periodUnitId = (req.params.id) ? req.params.id : null
-        params.enabled = true
+        params.periodUnitId = (req.params.id) ? req.params.id : params.periodUnitId
+        params.enabled = true // force assign enable language only.
         return params
     }
     static async call(db, params) { 
@@ -110,7 +110,8 @@ api.GetPeriodUnit = class {
 //#endregion
 
 router.all('/periodunits', api.GetPeriodUnits.entry)
-router.all('/periodunits/:id', api.GetPeriodUnit.entry)
+router.get('/periodunits/search/:id', api.GetPeriodUnit.entry)
+router.post('/periodunits/search', api.GetPeriodUnit.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);
