@@ -66,7 +66,51 @@ api.GetPeriodUnits = class {
 
 //#endregion
 
+//#region Implement - GetPeriodUnit
+
+api.GetPeriodUnit = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        params.enabled = true
+        // read id from request object.
+        params.periodUnitId = (req.params.id) ? req.params.id : null
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetPeriodUnit(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'periodUnitId', (nobj, record) => {
+            nobj.Description = record.PeriodUnitDescription
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetPeriodUnits
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
 router.all('/periodunits', api.GetPeriodUnits.entry)
+router.all('/periodunits/:id', api.GetPeriodUnit.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);
