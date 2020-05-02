@@ -1,14 +1,26 @@
-### Get Question sets
-POST http://localhost:3000/customer/api/question/set
+### GetQSets (GET)
+GET http://localhost:3000/customers/api/question/sets?customerId=EDL-C2020050001
+
+### GetQSets (POST)
+POST http://localhost:3000/customers/api/question/sets
 content-type: application/json
 
 {
-    "customerId": "EDL-C2020030001"
+    "langId": "TH",
+    "customerId": "EDL-C2020050001"
 }
 
-### Get Question set
+### GetQSet (GET)
+GET http://localhost:3000/customers/api/question/sets/search/QS00002?customerId=EDL-C2020050001
 
+### GetQSet (POST)
+POST http://localhost:3000/customers/api/question/sets/search
+content-type: application/json
 
+{
+    "customerId": "EDL-C2020050001",
+    "qSetId": "QS00001"
+}
 
 #### Get Question Slides
 

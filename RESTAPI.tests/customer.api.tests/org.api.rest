@@ -9,6 +9,7 @@ content-type: application/json
     "langId": "TH",
     "customerId": "EDL-C2020050001"
 }
+
 ### GetOrgs with branch id (POST)
 POST http://localhost:3000/customers/api/orgs
 content-type: application/json

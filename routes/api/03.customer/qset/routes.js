@@ -25,78 +25,100 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - Get
+//#region Implement - GetQSets
 
-api.Get = class {
+api.GetQSets = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        // replace customer id from cookie if exists
         let storage = new RaterStorage(req, res)
         let customerId = (storage.account) ? storage.account.customerId : null
         if (customerId) params.customerId = customerId
-
-        /* 
-        TODO: Language Id is required to assigned every time the UI Language change.
-        TODO: Parameter checks required.
-        TODO: The get one stored proecdure need to implements new route.
-        */
-        // force langId to null;
-        params.langId = null;
-        params.qsetId = null;
-        params.enabled = true;
-
-        return params;
+        params.enabled = true
+        return params
     }
     static async call(db, params) { 
-        return db.GetQSets(params);
+        return db.GetQSets(params)
     }
     static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
+        let dbResult = dbutils.validate(db, data)
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.qSetId);
-            let idx = map.indexOf(rec.qSetId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { qSetId: rec.qSetId }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            nobj.BeginDate = rec.BeginDate;
-            nobj.EndDate = rec.EndDate;
-            nobj.minVoteDate = rec.MinVoteDate;
-            nobj.maxVoteDate = rec.MaxVoteDate;            
-            nobj.desc = rec.QSetDescription;
-        })
         // set to result.
-        result.data = ret;
-
-        callback(result);
+        result.data = dbutils.buildTree(dbResult, 'qSetId', (nobj, record) => {
+            nobj.BeginDate = record.BeginDate
+            nobj.EndDate = record.EndDate
+            nobj.minVoteDate = record.MinVoteDate
+            nobj.maxVoteDate = record.MaxVoteDate
+            nobj.desc = record.QSetDescription
+        })
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
+        let ref = api.GetQSets
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
         dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
+//#region Implement - GetQSet
+
+api.GetQSet = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.langId = null // force assign null.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        // read id from request object.
+        let id = 'qSetId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
+        params.enabled = true // force assign enable language only.
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetQSet(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'qSetId', (nobj, record) => {
+            nobj.BeginDate = record.BeginDate
+            nobj.EndDate = record.EndDate
+            nobj.minVoteDate = record.MinVoteDate
+            nobj.maxVoteDate = record.MaxVoteDate
+            nobj.desc = record.QSetDescription
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetQSet
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
             });
         })
     }
@@ -248,12 +270,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for question set
-router.all('/question/set', api.Get.entry);
-//router.post('/question/set/save', api.Save.entry);
-//router.post('/question/set/delete', api.Delete.entry);
+router.all('/question/sets', api.GetQSets.entry);
+router.get('/question/sets/search/:id', api.GetQSet.entry);
+router.post('/question/sets/search', api.GetQSet.entry);
+//router.post('/question/sets/save', api.Save.entry);
+//router.post('/question/sets/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
