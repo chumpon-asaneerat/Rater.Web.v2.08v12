@@ -72,9 +72,9 @@ api.GetMemberType = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
         if (!params.langId) params.langId =  'EN' // not exists so assign EN.
-        params.enabled = true
         // read id from request object.
         params.memberTypeId = (req.params.id) ? req.params.id : null
+        params.enabled = true
         return params
     }
     static async call(db, params) { 

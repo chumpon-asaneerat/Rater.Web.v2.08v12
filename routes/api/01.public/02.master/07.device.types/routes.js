@@ -66,7 +66,51 @@ api.GetDeviceTypes = class {
 
 //#endregion
 
+//#region Implement - GetDeviceType
+
+api.GetDeviceType = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        // read id from request object.
+        params.deviceTypeId = (req.params.id) ? req.params.id : null
+        params.enabled = true
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetDeviceType(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'deviceTypeId', (nobj, record) => {
+            nobj.Type = record.Type
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetDeviceType
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
 router.all('/devicetypes', api.GetDeviceTypes.entry)
+router.all('/devicetypes/:id', api.GetDeviceType.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);

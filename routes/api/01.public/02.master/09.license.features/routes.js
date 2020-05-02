@@ -30,7 +30,7 @@ const api = class { }
 api.GetLicenseFeatures = class {
     static prepare(req, res) {
         let params = WebServer.parseReq(req).data
-        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        if (!params.langId) params.langId = null // not exists so assign null.
         if (!params.licenseTypeId) params.licenseTypeId = null // not exists so assigned null.
         return params
     }
