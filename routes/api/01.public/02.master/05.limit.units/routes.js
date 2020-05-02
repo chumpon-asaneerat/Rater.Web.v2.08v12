@@ -67,7 +67,52 @@ api.GetLimitUnits = class {
 
 //#endregion
 
+//#region Implement - GetLimitUnit
+
+api.GetLimitUnit = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        params.enabled = true
+        // read id from request object.
+        params.limitUnitId = (req.params.id) ? req.params.id : null
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetLimitUnit(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'limitUnitId', (nobj, record) => {
+            nobj.Description = record.LimitUnitDescription
+            nobj.Text = record.LimitUnitText
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetLimitUnit
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
 router.all('/limitunits', api.GetLimitUnits.entry)
+router.all('/limitunits/:id', api.GetLimitUnit.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);

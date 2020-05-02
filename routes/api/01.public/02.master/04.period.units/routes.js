@@ -95,7 +95,7 @@ api.GetPeriodUnit = class {
         if (callback) callback(result)
     }
     static entry(req, res) {
-        let ref = api.GetPeriodUnits
+        let ref = api.GetPeriodUnit
         let db = new sqldb()
         let params = ref.prepare(req, res)
         let fn = async () => { return ref.call(db, params) }
