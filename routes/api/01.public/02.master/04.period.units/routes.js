@@ -38,7 +38,40 @@ api.GetPeriodUnits = class {
         return db.GetPeriodUnits(params)
     }
     static parse(db, data, callback) {
-        let result = dbutils.validate(db, data)
+        let dbResult = dbutils.validate(db, data)
+
+        let result = {
+            data : null,
+            //src: dbResult.data,
+            errors: dbResult.errors,
+            //multiple: dbResult.multiple,
+            //datasets: dbResult.datasets,
+            out: dbResult.out
+        }
+        let records = dbResult.data;
+        let ret = {};
+
+        records.forEach(rec => {
+            if (!ret[rec.langId]) {
+                ret[rec.langId] = []
+            }
+            let map = ret[rec.langId].map(c => c.periodUnitId);
+            let idx = map.indexOf(rec.periodUnitId);
+            let nobj;
+            if (idx === -1) {
+                // set id
+                nobj = { periodUnitId: rec.periodUnitId }
+                // init lang properties list.
+                ret[rec.langId].push(nobj)
+            }
+            else {
+                nobj = ret[rec.langId][idx];
+            }
+            nobj.Description = rec.PeriodUnitDescription;
+        })
+        // set to result.
+        result.data = ret;
+
         callback(result)
     }
     static entry(req, res) {
