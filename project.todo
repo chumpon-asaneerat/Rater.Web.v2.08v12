@@ -135,7 +135,7 @@ Project:
         ✔ Sidebar margin animation. (port from web.tech.note) @done(20-05-01 21:55)
         ☐ Dropdown menu center (horizontal/vertical) image and text.
     JS:
-        ☐ Proxy, Observable sample.
+        ✔ Proxy, Observable sample. @done(20-05-02 20:54)
     Express JS:
         ☐ Checks how to make url work with and without tailing slash.
         ☐ Working with REST Api for each datae items to reduce login on client screen.
