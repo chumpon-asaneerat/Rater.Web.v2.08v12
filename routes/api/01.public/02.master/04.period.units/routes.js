@@ -42,10 +42,7 @@ api.GetPeriodUnits = class {
 
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
         let records = dbResult.data;
@@ -97,74 +94,6 @@ api.GetPeriodUnits = class {
     }
 }
 
-//#endregion
-
-//#region Implement - Get
-/*
-api.Get = class {
-    static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
-        //TODO: Language Id is required to assigned every time the UI Language change.
-        //TODO: Parameter checks required.
-        //TODO: The get one stored proecdure need to implements new route.
-        // force langId to null;
-        params.langId = null;
-        params.enabled = true;
-
-        return params;
-    }
-    static async call(db, params) { 
-        return db.GetPeriodUnits(params);
-    }
-    static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
-        let result = {
-            data : null,
-            //src: dbResult.data,
-            errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
-            out: dbResult.out
-        }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.periodUnitId);
-            let idx = map.indexOf(rec.periodUnitId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { periodUnitId: rec.periodUnitId }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            nobj.Description = rec.PeriodUnitDescription;
-        })
-        // set to result.
-        result.data = ret;
-
-        callback(result);
-    }
-    static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
-        dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
-            });
-        })
-    }
-}
-*/
 //#endregion
 
 router.all('/periodunits', api.GetPeriodUnits.entry)
