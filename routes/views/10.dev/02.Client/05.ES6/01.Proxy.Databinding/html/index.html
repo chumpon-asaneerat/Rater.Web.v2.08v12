@@ -10,7 +10,50 @@
 </head>
 <body>
     <h3>Proxy - Data Binding Sample</h3>
+    <label>First Name</label>
+    <br/>
+    <input type="text" data-model="firstname"/>
+    <br/>
+    <label>Last Name</label>
+    <br/>
+    <input type="text" data-model="lastname"/>
+    <br/>
+    <hr/>
+    <label>Result:</label>
+    <br/>
+    <label data-binding="firstname"></label>
+    <br/>
+    <label data-binding="lastname"></label>
     <script src="proxy/js/app.js"></script>
     <script>
+        let item = {
+            firstname: 'Chumpon',
+            lastname: 'Asaneerat'
+        }
+        const render = () => {
+            console.log('render...')
+            document.querySelector('[data-binding="firstname"]').innerHTML = state.firstname;
+            document.querySelector('[data-binding="lastname"]').innerHTML = state.lastname;
+            document.querySelector('[data-model="firstname"]').value = state.firstname;
+            document.querySelector('[data-model="lastname"]').value = state.lastname;
+        };
+        const createState = (state) => {
+            return new Proxy(state, {
+                set(target, property, value) {
+                    target[property] = value; // default set behaviour
+                    render(); // updates the view every time the state changes
+                    return true;
+                }
+            });
+        };
+        const state = createState(item)
+        render()
+
+        const listener = (event) => {
+            state[event.target.dataset.model] = event.target.value;
+        };
+
+        document.querySelector('[data-model="firstname"]').addEventListener('keyup', listener);  
+        document.querySelector('[data-model="lastname"]').addEventListener('keyup', listener);        
     </script>
 </body>
