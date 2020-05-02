@@ -151,8 +151,16 @@ content-type: application/json
     "langId": "TH"
 }
 
-### GetCustomer
-GET http://localhost:3000/edl/api/customers/EDL-C2020050001
+### GetCustomer (GET)
+GET http://localhost:3000/edl/api/customers/search/EDL-C2020050001
+### GetCustomer (POST)
+POST http://localhost:3000/edl/api/customers/search
+content-type: application/json
+
+{
+    "langId": "TH",
+    "customerId": "EDL-C2020050001"
+}
 
 ### GetUserInfos
 GET http://localhost:3000/edl/api/users
