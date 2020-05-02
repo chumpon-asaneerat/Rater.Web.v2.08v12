@@ -25,7 +25,6 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-
 //#region Implement - GetCustomers
 
 api.GetCustomers = class {

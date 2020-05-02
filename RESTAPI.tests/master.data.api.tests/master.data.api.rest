@@ -117,7 +117,19 @@ content-type: application/json
 
 ### GetCustomer
 
-### Get UserInfos
+### GetUserInfos
+GET http://localhost:3000/edl/api/users
 
-### Get UserInfo
+### GetUserInfos EN Only (GET)
+GET http://localhost:3000/edl/api/users?langId=EN
+
+### GetUserInfos (POST)
+POST http://localhost:3000/edl/api/users
+content-type: application/json
+
+{
+    "langId": "TH"
+}
+
+### GetUserInfo
 

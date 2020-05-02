@@ -25,6 +25,54 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
+//#region Implement - GetUserInfos
+
+api.GetUserInfos = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        if (!params.memberType) params.memberType = null // not exists so assign null.
+        params.enabled = true
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetUserInfos(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'userId', (nobj, record) => {
+            nobj.MemberType = record.MemberType
+            nobj.Prefix = record.Prefix
+            nobj.FirstName = record.FirstName
+            nobj.LastName = record.LastName
+            //nobj.FullName = record.FullName
+            nobj.UserName = record.UserName
+            nobj.Password = record.Password
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetUserInfos
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
 //#region Implement - Get
 
 api.Get = class {
@@ -238,9 +286,9 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for userinfo
-router.all('/user/search', api.Get.entry);
-//router.post('/customer/save', api.Save.entry);
-//router.post('/customer/delete', api.Delete.entry);
+router.all('/users', api.GetUserInfos.entry);
+//router.post('/users/save', api.Save.entry);
+//router.post('/users/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
     svr.route('/edl/api/', router);
