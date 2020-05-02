@@ -25,7 +25,7 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - GetPeriodUnits
+//#region Implement - GetLimitUnits
 
 api.GetLimitUnits = class {
     static prepare(req, res) {

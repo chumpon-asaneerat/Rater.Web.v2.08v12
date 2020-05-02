@@ -36,7 +36,7 @@ content-type: application/json
     "langId": "TH"
 }
 
-### Get Limit Unit
+### GetLimitUnit
 
 ### GetMemberTypes (GET)
 GET http://localhost:3000/api/membertypes
@@ -53,9 +53,21 @@ content-type: application/json
 }
 
 
-### Get Member Type
+### GetMemberType
 
-### Get Device Types
+### GetDeviceTypes (GET)
+GET http://localhost:3000/api/devicetypes
+
+### GetDeviceTypes EN Only (GET)
+GET http://localhost:3000/api/devicetypes?langId=EN
+
+### GetDeviceTypes (POST)
+POST http://localhost:3000/api/devicetypes
+content-type: application/json
+
+{
+    "langId": "TH"
+}
 
 ### Get Device Type
 
