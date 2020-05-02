@@ -25,6 +25,109 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
+//#region Implement - GetDevices
+
+api.GetDevices = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        params.enabled = true
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetDevices(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'deviceId', (nobj, record) => {
+            nobj.DeviceName = record.DeviceName
+            nobj.Location = record.Location
+            nobj.deviceTypeId = record.deviceTypeId
+            nobj.memberId = record.memberId
+            nobj.orgId = record.orgId
+            nobj.Type = record.Type
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetDevices
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
+//#region Implement - GetDevice
+
+api.GetDevice = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.langId = null // force assign null.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        // read id from request object.
+        let id = 'deviceId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
+        params.enabled = true // force assign enable language only.
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetDevice(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'deviceId', (nobj, record) => {
+            nobj.DeviceName = record.DeviceName
+            nobj.Location = record.Location
+            nobj.deviceTypeId = record.deviceTypeId
+            nobj.memberId = record.memberId
+            nobj.orgId = record.orgId
+            nobj.Type = record.Type
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetDevice
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
 //#region Implement - Get
 
 api.Get = class {
@@ -258,12 +361,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for device
-router.all('/device', api.Get.entry);
-router.post('/device/save', api.Save.entry);
+router.all('/devices', api.GetDevices.entry);
+router.get('/devices/search/:id', api.GetDevice.entry);
+router.post('/devices/search', api.GetDevice.entry);
+router.post('/devices/save', api.Save.entry);
 //router.post('/device/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

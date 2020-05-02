@@ -1,10 +1,23 @@
-### Get devices
-POST http://localhost:3000/customer/api/device
+### GetDevices (GET)
+GET http://localhost:3000/customers/api/devices?customerId=EDL-C2020050001
+
+### GetDevices (POST)
+POST http://localhost:3000/customers/api/devices
 content-type: application/json
 
 {
-    "customerId": "EDL-C2020030001"
+    "langId": "TH",
+    "customerId": "EDL-C2020050001"
 }
 
+### GetDevice (GET)
+GET http://localhost:3000/customers/api/devices/search/D0001?customerId=EDL-C2020050001
 
-### Get device
+### GetDevice (POST)
+POST http://localhost:3000/customers/api/devices/search
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020050001",
+    "deviceId": "D0002"
+}
