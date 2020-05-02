@@ -55,6 +55,15 @@ api.GetPeriodUnits = class {
             if (!ret[rec.langId]) {
                 ret[rec.langId] = []
             }
+            // Ignore check id.
+            let nobj = { 
+                periodUnitId: rec.periodUnitId, 
+                Description: rec.PeriodUnitDescription
+            }
+            ret[rec.langId].push(nobj)
+
+            // Original code.
+            /*
             let map = ret[rec.langId].map(c => c.periodUnitId);
             let idx = map.indexOf(rec.periodUnitId);
             let nobj;
@@ -68,6 +77,7 @@ api.GetPeriodUnits = class {
                 nobj = ret[rec.langId][idx];
             }
             nobj.Description = rec.PeriodUnitDescription;
+            */
         })
         // set to result.
         result.data = ret;
