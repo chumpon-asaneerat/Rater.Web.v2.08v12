@@ -25,89 +25,95 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - Get
+//#region Implement - GetQSlides
 
-api.Get = class {
+api.GetQSlides = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        // replace customer id from cookie if exists
         let storage = new RaterStorage(req, res)
         let customerId = (storage.account) ? storage.account.customerId : null
         if (customerId) params.customerId = customerId
-
-        /* 
-        TODO: Language Id is required to assigned every time the UI Language change.
-        TODO: Parameter checks required.
-        TODO: The get one stored proecdure need to implements new route.
-        */
-        // force langId to null;
-        params.langId = null;
-        params.qSeq = null;
-        params.enabled = true;
-
-        return params;
+        params.enabled = true
+        return params
     }
     static async call(db, params) { 
-        return db.GetQSlides(params);
+        return db.GetQSlides(params)
     }
     static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
+        let dbResult = dbutils.validate(db, data)
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.qSetId);
-            let idx = map.indexOf(rec.qSetId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { 
-                    qSetId: rec.qSetId,
-                    slides: []
-                }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            let map2 = nobj.slides.map(c => c.qSeq);
-            let idx2 = map2.indexOf(rec.qSeq);
-            let nobj2;
-            if (idx2 === -1) {
-                nobj2 = {
-                    qSeq: rec.qSeq
-                }
-                nobj.slides.push(nobj2)
-            }
-            else {
-                nobj2 = nobj.slides[idx2]
-            }
-            nobj2.text = rec.QSlideText
-        })
         // set to result.
-        result.data = ret;
-
-        callback(result);
+        result.data = dbutils.buildTreeSlides(dbResult, 'qSetId', 'qSeq', (nobj, record) => {
+            nobj.text = record.QSlideText
+        })
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
+        let ref = api.GetQSlides
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
         dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
+//#region Implement - GetQSlide
+
+api.GetQSlide = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.langId = null // force assign null.
+        // replace customer id from cookie if exists
+        let storage = new RaterStorage(req, res)
+        let customerId = (storage.account) ? storage.account.customerId : null
+        if (customerId) params.customerId = customerId
+        // format required parameters
+        api.GetQSlide.formatParams(params)
+        params.enabled = true // force assign enable language only.
+        return params
+    }
+    static formatParams(params) {
+        params.qSetId = (params.qSetId) ? params.qSetId : null
+        params.qSeq = (params.qSeq) ? params.qSeq : null
+    }
+    static async call(db, params) { 
+        return db.GetQSlide(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTreeSlides(dbResult, 'qSetId', 'qSeq', (nobj, record) => {
+            nobj.text = record.QSlideText
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetQSlide
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
             });
         })
     }
@@ -259,12 +265,13 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for question slide
-router.all('/question/slide', api.Get.entry);
-//router.post('/question/slide/save', api.Save.entry);
-//router.post('/question/slide/delete', api.Delete.entry);
+router.all('/question/slides', api.GetQSlides.entry);
+router.post('/question/slides/search', api.GetQSlide.entry);
+//router.post('/questions/slides/save', api.Save.entry);
+//router.post('/questions/slides/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

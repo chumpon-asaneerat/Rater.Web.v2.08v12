@@ -46,6 +46,10 @@ class DbUtils {
         let ret = TreeResultBuilder2.buildTree(result, idFld, idFld2, mapFieldsCallback)
         return ret;
     }
+    static buildTreeSlides(result, idFld, idFld2, mapFieldsCallback) {
+        let ret = TreeSlideBuilder.buildTree(result, idFld, idFld2, mapFieldsCallback)
+        return ret;
+    }
 }
 class TreeResultBuilder {
     static buildTree(result, idFld, mapFieldsCallback) {
@@ -126,6 +130,56 @@ class TreeResultBuilder2 {
         }
         else {
             nobj2 = nobj.items[idx2]
+        }
+        if (mapFieldsCallback) mapFieldsCallback(nobj2, record)
+    }
+}
+class TreeSlideBuilder {
+    static buildTree(result, idFld, idFld2, mapFieldsCallback) {
+        let ret = {}
+        if (result && result.data) {
+            let records = result.data
+            TreeSlideBuilder.processRecords(ret, records, idFld, idFld2, mapFieldsCallback)
+        }
+        return ret;
+    }
+    static processRecords(ret, records, idFld, idFld2, mapFieldsCallback) {
+        records.forEach((record) => {
+            if (!ret[record.langId]) {
+                // no array for target language so create it.
+                ret[record.langId] = []
+            }
+            let langObj = ret[record.langId]
+            TreeSlideBuilder.processRecord(langObj, record, idFld, idFld2, mapFieldsCallback)
+        })
+}
+    static processRecord(langObj, record, idFld, idFld2, mapFieldsCallback) {
+        let map = langObj.map(c => c[idFld])
+        let idx = map.indexOf(record[idFld])
+        let nobj
+        if (idx === -1) {
+            nobj = {} // create new object.
+            nobj[idFld] = record[idFld]
+            nobj.slides = []
+            langObj.push(nobj) // keep to array
+        }
+        else {
+            nobj = langObj[idx]
+        }
+        // process nest level 2
+        TreeSlideBuilder.processRecord2(langObj, record, nobj, idFld, idFld2, mapFieldsCallback)
+    }
+    static processRecord2(langObj, record, nobj, idFld, idFld2, mapFieldsCallback) {
+        let map2 = nobj.slides.map(item => item[idFld2])
+        let idx2 = map2.indexOf(record[idFld2])
+        let nobj2;
+        if (idx2 === -1) {
+            nobj2 = {}
+            nobj2[idFld2] = record[idFld2]
+            nobj.slides.push(nobj2)
+        }
+        else {
+            nobj2 = nobj.slides[idx2]
         }
         if (mapFieldsCallback) mapFieldsCallback(nobj2, record)
     }

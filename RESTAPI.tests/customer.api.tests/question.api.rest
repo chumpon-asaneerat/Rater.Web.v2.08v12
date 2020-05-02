@@ -22,19 +22,27 @@ content-type: application/json
     "qSetId": "QS00001"
 }
 
-#### Get Question Slides
+#### GetQuestionSlides (GET)
+GET http://localhost:3000/customers/api/question/slides?customerId=EDL-C2020050001&qSetId=QS00001
 
-POST http://localhost:3000/customer/api//question/slide
+#### GetQuestionSlides (POST)
+POST http://localhost:3000/customers/api/question/slides
 content-type: application/json
 
 {
-    "langId": null,
-    "customerId": "EDL-C2020030001",
+    "customerId": "EDL-C2020050001",
     "qSetId": "QS00001"
 }
 
-#### Get Question Slide
+#### GetQuestionSlide (POST)
+POST http://localhost:3000/customers/api/question/slides/search
+content-type: application/json
 
+{
+    "customerId": "EDL-C2020050001",
+    "qSetId": "QS00001",
+    "qSeq": 2
+}
 
 
 ### Get Question Slide Items
