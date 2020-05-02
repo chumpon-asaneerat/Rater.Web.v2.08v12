@@ -76,6 +76,59 @@ api.GetCustomers = class {
 
 //#endregion
 
+//#region Implement - GetCustomer
+
+api.GetCustomer = class {
+    static prepare(req, res) {
+        let params = WebServer.parseReq(req).data
+        params.langId = null // force assign null.
+        params.enabled = true // force assign enable language only.
+        // read id from request object.
+        params.customerId = (req.params.id) ? req.params.id : null
+        return params
+    }
+    static async call(db, params) { 
+        return db.GetCustomer(params)
+    }
+    static parse(db, data, callback) {
+        let dbResult = dbutils.validate(db, data)
+        let result = {
+            data : null,
+            errors: dbResult.errors,
+            out: dbResult.out
+        }
+        // set to result.
+        result.data = dbutils.buildTree(dbResult, 'customerId', (nobj, record) => {
+            nobj.CustomerName = record.CustomerName
+            nobj.TaxCode = record.TaxCode
+            nobj.Address1 = record.Address1
+            nobj.Address2 = record.Address2
+            nobj.City = record.City
+            nobj.Province = record.Province
+            nobj.PostalCode = record.PostalCode
+            nobj.Phone = record.Phone
+            nobj.Mobile = record.Mobile
+            nobj.Fax = record.Fax
+            nobj.Email = record.Email
+        })
+        // execute callback
+        if (callback) callback(result)
+    }
+    static entry(req, res) {
+        let ref = api.GetCustomer
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
+        dbutils.exec(db, fn).then(data => {
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
+            });
+        })
+    }
+}
+
+//#endregion
+
 //#region Implement - Save
 
 api.Save = class {
@@ -221,6 +274,7 @@ api.Delete = class {
 router.use(secure.checkAccess);
 // routes for customer
 router.all('/customers', api.GetCustomers.entry);
+router.all('/customers/:id', api.GetCustomer.entry)
 //router.post('/customers/save', api.Save.entry);
 //router.post('/customers/delete', api.Delete.entry);
 

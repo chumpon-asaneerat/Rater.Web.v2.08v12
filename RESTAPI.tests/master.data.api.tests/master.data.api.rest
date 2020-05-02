@@ -116,6 +116,7 @@ content-type: application/json
 }
 
 ### GetCustomer
+GET http://localhost:3000/edl/api/customers/EDL-C2020050001
 
 ### GetUserInfos
 GET http://localhost:3000/edl/api/users
