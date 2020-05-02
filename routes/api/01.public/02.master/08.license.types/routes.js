@@ -25,71 +25,48 @@ const router = new WebRouter();
 // static class.
 const api = class { }
 
-//#region Implement - Get
+//#region Implement - GetLicenseTypes
 
-api.Get = class {
+api.GetLicenseTypes = class {
     static prepare(req, res) {
-        let params = WebServer.parseReq(req).data;
-        // force langId to null;
-        params.langId = null;
-
-        return params;
+        let params = WebServer.parseReq(req).data
+        if (!params.langId) params.langId = 'EN' // not exists so assign EN.
+        params.enabled = true
+        return params
     }
     static async call(db, params) { 
-        return db.GetLicenseTypes(params);
+        return db.GetLicenseTypes(params)
     }
     static parse(db, data, callback) {
-        let dbResult = dbutils.validate(db, data);
-
+        let dbResult = dbutils.validate(db, data)
         let result = {
             data : null,
-            //src: dbResult.data,
             errors: dbResult.errors,
-            //multiple: dbResult.multiple,
-            //datasets: dbResult.datasets,
             out: dbResult.out
         }
-        let records = dbResult.data;
-        let ret = {};
-
-        records.forEach(rec => {
-            if (!ret[rec.langId]) {
-                ret[rec.langId] = []
-            }
-            let map = ret[rec.langId].map(c => c.licenseTypeId);
-            let idx = map.indexOf(rec.licenseTypeId);
-            let nobj;
-            if (idx === -1) {
-                // set id
-                nobj = { licenseTypeId: rec.licenseTypeId }
-                // init lang properties list.
-                ret[rec.langId].push(nobj)
-            }
-            else {
-                nobj = ret[rec.langId][idx];
-            }
-            nobj.type = rec.Type;
-            nobj.Description = rec.LicenseTypeDescription;
-            nobj.AdText = rec.AdText;
-            nobj.periodUnitId = rec.periodUnitId;
-            nobj.NoOfUnit = rec.NoOfUnit;
-            nobj.UseDefaultPrice = rec.UseDefaultPrice;
-            nobj.Price = rec.Price;
-            nobj.CurrencySymbol = rec.CurrencySymbol;
-            nobj.CurrencyText = rec.CurrencyText;
-        })
         // set to result.
-        result.data = ret;
-
-        callback(result);
+        result.data = dbutils.buildTree(dbResult, 'licenseTypeId', (nobj, record) => {
+            nobj.type = record.Type;
+            nobj.Description = record.LicenseTypeDescription;
+            nobj.AdText = record.AdText;
+            nobj.periodUnitId = record.periodUnitId;
+            nobj.NoOfUnit = record.NoOfUnit;
+            nobj.UseDefaultPrice = record.UseDefaultPrice;
+            nobj.Price = record.Price;
+            nobj.CurrencySymbol = record.CurrencySymbol;
+            nobj.CurrencyText = record.CurrencyText;
+        })
+        // execute callback
+        if (callback) callback(result)
     }
     static entry(req, res) {
-        let db = new sqldb();
-        let params = api.Get.prepare(req, res);
-        let fn = async () => { return api.Get.call(db, params); }
+        let ref = api.GetLicenseTypes
+        let db = new sqldb()
+        let params = ref.prepare(req, res)
+        let fn = async () => { return ref.call(db, params) }
         dbutils.exec(db, fn).then(data => {
-            api.Get.parse(db, data, (result) => {
-                WebServer.sendJson(req, res, result);
+            ref.parse(db, data, (result) => {
+                WebServer.sendJson(req, res, result)
             });
         })
     }
@@ -97,7 +74,7 @@ api.Get = class {
 
 //#endregion
 
-router.all('/licensetypes', api.Get.entry)
+router.all('/licensetypes', api.GetLicenseTypes.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);
