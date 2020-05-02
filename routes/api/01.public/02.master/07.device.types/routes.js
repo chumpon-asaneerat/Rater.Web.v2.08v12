@@ -73,7 +73,8 @@ api.GetDeviceType = class {
         let params = WebServer.parseReq(req).data
         params.langId = null // force assign enable language only.
         // read id from request object.
-        params.deviceTypeId = (req.params.id) ? req.params.id : null
+        let id = 'deviceTypeId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
         params.enabled = true // force assign enable language only.
         return params
     }

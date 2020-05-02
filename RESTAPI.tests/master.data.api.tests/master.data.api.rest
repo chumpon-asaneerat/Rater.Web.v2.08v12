@@ -74,7 +74,16 @@ content-type: application/json
 }
 
 
-### GetMemberType
+### GetMemberType (GET)
+GET http://localhost:3000/api/membertypes/search/100
+### GetMemberType (POST)
+POST http://localhost:3000/api/membertypes/search
+content-type: application/json
+
+{
+    "langId": "TH"
+}
+
 
 ### GetDeviceTypes (GET)
 GET http://localhost:3000/api/devicetypes

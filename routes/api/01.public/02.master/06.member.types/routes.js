@@ -73,7 +73,8 @@ api.GetMemberType = class {
         let params = WebServer.parseReq(req).data
         params.langId = null // force assign enable language only.
         // read id from request object.
-        params.memberTypeId = (req.params.id) ? req.params.id : null
+        let id = 'memberTypeId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
         params.enabled = true // force assign enable language only.
         return params
     }
@@ -110,7 +111,8 @@ api.GetMemberType = class {
 //#endregion
 
 router.all('/membertypes', api.GetMemberTypes.entry)
-router.all('/membertypes/:id', api.GetMemberType.entry)
+router.get('/membertypes/search/:id', api.GetMemberType.entry)
+router.post('/membertypes/search', api.GetMemberType.entry)
 
 const init_routes = (svr) => {
     svr.route('/api', router);

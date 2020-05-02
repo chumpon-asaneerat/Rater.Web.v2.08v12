@@ -83,7 +83,8 @@ api.GetCustomer = class {
         let params = WebServer.parseReq(req).data
         params.langId = null // force assign null.
         // read id from request object.
-        params.customerId = (req.params.id) ? req.params.id : null
+        let id = 'customerId'
+        params[id] = (req.params.id) ? req.params.id : params[id]
         params.enabled = true // force assign enable language only.
         return params
     }
@@ -274,7 +275,8 @@ api.Delete = class {
 router.use(secure.checkAccess);
 // routes for customer
 router.all('/customers', api.GetCustomers.entry);
-router.all('/customers/:id', api.GetCustomer.entry)
+router.get('/customers/search/:id', api.GetCustomer.entry)
+router.post('/customers/search', api.GetCustomer.entry)
 //router.post('/customers/save', api.Save.entry);
 //router.post('/customers/delete', api.Delete.entry);
 

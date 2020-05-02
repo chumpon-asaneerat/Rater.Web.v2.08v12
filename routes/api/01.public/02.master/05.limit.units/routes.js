@@ -74,7 +74,8 @@ api.GetLimitUnit = class {
         let params = WebServer.parseReq(req).data
         params.langId = null // force assign enable language only.
         // read id from request object.
-        params.limitUnitId = (req.params.id) ? req.params.id : params.limitUnitId
+        let id = 'limitUnitId'
+        params[id] = (req.params.id) ? req.params.id : (params[id]) ? params[id] : null
         params.enabled = true // force assign enable language only.
         return params
     }
