@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tabulator - theme sample.</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+    <!-- tabulator css -->
+    <link href="/dist/css/semantic-ui/tabulator_semantic-ui.min.css" rel="stylesheet" type="text/css" />
+    <!--
+    <link href="/dist/css/bootstrap/tabulator_bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/bulma/tabulator_bulma.min.css" rel="stylesheet" type="text/css" />
+    -->
+    <link rel="stylesheet" href="themes/css/style.css">
+</head>
+<body>
+    <div id="table"></div>
+
+    <!-- Tabulator -->
+    <script src="/dist/js/tabulator.min.js"></script>
+    <script src="themes/js/app.js"></script>
+    <script>
+        let el = document.querySelector('#table')
+        let opts = {
+            height: 200,
+            layout: 'fitColumns',
+            columns: [
+                { title:"Name", field:"name", width: 150 },
+                { title:"Count", field:"count", width: 150 },
+                { title:"progress", field:"progress", width: 150, formatter:"progress" }
+            ]
+        }
+        let datasource = [
+            { name: 'javascript', count: 20, progress: 30 },
+            { name: 'css', count: 40, progress: 50 },
+            { name: 'html', count: 15, progress: 25 },
+            { name: 'C#', count: 55, progress: 70 },
+            { name: 'VB.NET', count: 35, progress: 20 },
+            { name: 'java', count: 65, progress: 75 },
+            { name: 'SQL', count: 35, progress: 45 },
+            { name: 'python', count: 75, progress: 85 },
+            { name: 'perl', count: 25, progress: 15 },
+            { name: 'C++', count: 15, progress: 95 },
+            { name: 'javascript', count: 20, progress: 30 },
+            { name: 'css', count: 40, progress: 50 },
+            { name: 'html', count: 15, progress: 25 },
+            { name: 'C#', count: 55, progress: 70 },
+            { name: 'VB.NET', count: 35, progress: 20 },
+            { name: 'java', count: 65, progress: 75 },
+            { name: 'SQL', count: 35, progress: 45 },
+            { name: 'python', count: 75, progress: 85 },
+            { name: 'perl', count: 25, progress: 15 },
+            { name: 'C++', count: 15, progress: 95 },
+            { name: 'javascript', count: 20, progress: 30 },
+            { name: 'css', count: 40, progress: 50 },
+            { name: 'html', count: 15, progress: 25 },
+            { name: 'C#', count: 55, progress: 70 },
+            { name: 'VB.NET', count: 35, progress: 20 },
+            { name: 'java', count: 65, progress: 75 },
+            { name: 'SQL', count: 35, progress: 45 },
+            { name: 'python', count: 75, progress: 85 },
+            { name: 'perl', count: 25, progress: 15 },
+            { name: 'C++', count: 15, progress: 95 }
+        ]
+        let table = new Tabulator(el, opts)
+        table.setData(datasource)
+    </script>
+</body>
