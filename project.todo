@@ -124,6 +124,9 @@ Project:
         ☐ Add payment process (for new license, extend licensee).
         ☐ Register process -> SaveLicenseHistory need to keep status.
         ☐ License should supports status (request, paid, expired, etc..)
+        ☐ Add SP - EDLSignIn -> for returns edl user in register device process.
+        ☐ In set device org -> should decide to allow EDL user or Customer member to do it.
+        ☐ Add SP - DeviceSignIn -> for update member in set device user.
         ☐ Drop SP - GetAccessUser.
         ☐ Drop SP - SetDeviceUser.
         ☐ Drop SP - SetDeviceOrg.
