@@ -27,7 +27,7 @@
                     <div class="status responsive" mobile>1</div>&nbsp;&nbsp;
                     -->
                     <div class="caption responsive" mobile>My Choice Rater Web{ (content && content.title) ? '&nbsp;-&nbsp;' : '&nbsp;'}</div>
-                    <div class="title responsive" tablet>{ (content && content.title) ? content.title : 'MANAGEMENT ORGANIZATION INFORMATION' }</div>
+                    <div class="title responsive" tablet>{ (content && content.title) ? content.title : '' }</div>
                 </div>
             </navi-item>
             <navi-item class="center"></navi-item>
