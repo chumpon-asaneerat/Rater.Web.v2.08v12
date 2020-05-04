@@ -148,6 +148,15 @@ Project:
                     ☐ prepare template tag.
                 org-entry:
                     ☐ prepare template tag.
+            device:
+                device-manage:
+                    ☐ prepare template tag.
+                device-view:
+                    ☐ prepare template tag.
+                device-editor:
+                    ☐ prepare template tag.
+                device-entry:
+                    ☐ prepare template tag.
     Rater (database):
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
         ☐ Recheck all database stored procedure(s).
