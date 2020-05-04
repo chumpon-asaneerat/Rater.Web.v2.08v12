@@ -45,6 +45,15 @@ Project:
     Reter Service (Client):
         ☐ Remove Screen change events.
         ☐ Secure service required to implements in seperated tag.
+    Rater estimate:
+        ☐ All edl home routes (6 hours)
+        ☐ All edl view routes (6 houres)
+        ☐ All customer home routes (6 hours)
+        ☐ All customer view routes (6 hours)
+        ☐ All customer question design routes (6 hours)
+        ☐ All device routes excepts question screen (6 hours)
+        ☐ All device question screen runtime routes (6 hours)
+        ☐ other (12 hours)
     Rater routes:
         Uncategories:
             ☐ Check device sign in (edl user) for register device proces.
