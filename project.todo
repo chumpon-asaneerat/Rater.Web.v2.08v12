@@ -119,7 +119,24 @@ Project:
     Rater Riot.js tags:
         Nlib:
             controls:
+                input:
+                popup:
+                tab:
+                tree:
             layouts:
+                card:
+                container:
+                navibar:
+                    navibar:
+                        ☐ prepare template tag.
+                    navi-item:
+                        ☐ prepare template tag.
+                sidebar:
+                    sidebar:
+                        ☐ prepare template tag.
+                statusbar:
+                    statusbar:
+                        ☐ prepare template tag.
         Common:
             controls:
                 language-menu:
