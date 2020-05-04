@@ -18,23 +18,29 @@ let validUrls = [
     /^\/edl?(\/users(\/\S))/,
     */
     // /edl/customers
-    /^\/edl?\/customers/,
     // /edl/customers/{customerId}
-    /\/edl(\/(customers|users)(\/EDL-\w+(\/(branchs|orgs)(\/(B|O)\w+)*))*)*/gm,
-    /\/api(\/(customers|users)(\/EDL-\w+(\/(branchs|orgs)(\/(B|O)\w+)*))*)*/gm
+    /\/(edl|api)(\/(customers|users)(\/EDL-\w+(\/(branchs|orgs)(\/(B|O)\w+)*))*)*/gm
 ]
 let isMatch = (valids, str) => {
-    return valids.some((pattern) => { return pattern.test(str) })
+    return valids.some((pattern) => { 
+        console.log(pattern)
+        let ret = pattern.test(str) 
+        if (ret) {
+            let result = str.match(pattern)
+            console.log(result)
+        }
+        return ret
+    })
 }
 let str;
 //str = '/edl/customers/EDL-2020050500001/staffs/M0002'
 str = '/api' // --> PASS
-set = '/edl/customers' // --> PASS
-set = '/edl/customers/EDL-2020050500003/xxx'
-set = '/edl/customers/EDL-2020050500001/branchs'
-set = '/edl/customers/EDL-2020050500003/branchs/B001'
-set = '/edl/customers/EDL-2020050500003/sample/X001'
-set = '/edl/user'
+str = '/edl/customers' // --> PASS
+str = '/edl/customers/EDL-2020050500003/xxx'
+str = '/edl/customers/EDL-2020050500001/branchs'
+str = '/edl/customers/EDL-2020050500003/branchs/B001'
+str = '/edl/customers/EDL-2020050500003/sample/X001'
+//str = '/xxx'
 
 let isValid = isMatch(validUrls, str)
 console.log('is valid:', isValid)
