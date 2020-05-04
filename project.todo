@@ -120,6 +120,10 @@ Project:
         Nlib:
             controls:
                 input:
+                    ninput:
+                        ☐ prepare template tag.
+                    nselect:
+                        ☐ prepare template tag.
                 popup:
                     osd:
                         ☐ prepare template tag.
