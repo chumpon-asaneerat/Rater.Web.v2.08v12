@@ -253,6 +253,12 @@ Project:
             home:
                 rater-device-home:
                     ☐ prepare template tag.
+            register.device:
+                rater-device-register:
+                    ☐ prepare template tag.
+            setup.org:
+                rater-device-org:
+                    ☐ prepare template tag.
     Rater (database):
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
         ☐ Recheck all database stored procedure(s).
