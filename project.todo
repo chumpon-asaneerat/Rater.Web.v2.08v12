@@ -147,6 +147,13 @@ Project:
                 customer-entry:
                     ☐ prepare template tag.
         Customer:
+            home:
+                admin-home:
+                    ☐ prepare template tag.
+                exclusive-home:
+                    ☐ prepare template tag.
+                staff-home:
+                    ☐ prepare template tag.
             branch:
                 branch-manage:
                     ☐ prepare template tag.
