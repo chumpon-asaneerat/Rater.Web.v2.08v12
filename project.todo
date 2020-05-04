@@ -73,7 +73,10 @@ Project:
             ☐ Prepare routes to stored question.json by QSetId.
         Scenario:
             EDL middleware:
-                ☐ Update code for routes checking change from StartsWith to RegEx for pattern match.
+                ☐ Routes checking change from StartsWith to RegEx for pattern match.
+                ☐ In view url that has ID(s) passing ID(s) to cookie for call API(s).
+            app.js:
+                ☐ provide based code to get ID(s) from cookie for used later to call API(s).
             EDL Users:
                 ☐ Show all customer url: http://localhost:3000/EDL/customers
                 ☐ Show each customer url: http://localhost:3000/EDL/customers/{customerid}
