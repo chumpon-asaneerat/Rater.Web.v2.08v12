@@ -46,3 +46,13 @@ str = '/api' // invalid
 let isValid = isMatch(validUrls, str)
 
 console.log('is valid:', isValid)
+
+// /(edl|api)((\/customers(\/\S+(\/(branchs|orgs))))|(\/users))
+/*
+/edl/customers
+/edl/customers/EDL-2020050500001/branchs
+/edl/users
+/edl/customers/EDL-2020050500001/orgs
+/api
+/api/customers
+*/
