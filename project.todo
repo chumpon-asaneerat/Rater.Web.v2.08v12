@@ -71,6 +71,15 @@ Project:
             ☐ @critical : All reports routes required to pay more attention.
             ☐ @critical : Retest all summaries reports when some Question Item remove.
             ☐ Prepare routes to stored question.json by QSetId.
+        Customer:
+            Scenario:
+                EDL Users:
+                    ☐ Show all customer url: http://localhost:3000/EDL/customers
+                    ☐ Show each customer url: http://localhost:3000/EDL/customers/{customerid}
+                Customer:
+                    ☐ Admin home url: http://localhost:3000/customers/{customerid}
+                    ☐ Branch views url: http://localhost:3000/customers/{customerid}/branchs
+                    ☐ Branch edit url: http://localhost:3000/customers/{customerid}/branchs/{branchId}
         Device:
             Home:
                 ☐ Implements main device menu.
