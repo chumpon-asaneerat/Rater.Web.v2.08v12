@@ -121,223 +121,223 @@ Project:
             controls:
                 input:
                     ninput:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     nselect:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                 popup:
                     osd:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     ndialog:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                 tab:
                     tabcontrol:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     tabheaders:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     tabheader:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     tabpages:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     tabpage:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                 tree:
                     ntree:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     ncheckedtree:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     norgtree:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
             layouts:
                 card:
                     card-container:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     card-row:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                     card-item:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:34)
                 container:
                     napp:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     screen:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     collapse-panel:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     dual-layout:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     tool-window:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                 navibar:
                     navibar:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     navi-item:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                 sidebar:
                     sidebar:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                 statusbar:
                     statusbar:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
         Common:
             controls:
                 language-menu:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 links-menu:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 sidebar-menu:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
             layouts:
                 rater-web-app:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 rater-device-app:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
         EDL:
             home:
                 edl-admin-home:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 edl-supervisor-home:
                     ☐ prepare template tag.
                 edl-staff-home:
                     ☐ prepare template tag.
             staff:
                 staff-mange:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 staff-view:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 staff-editor:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 staff-entry:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
             license:
                 license-mange:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
             customer:
                 customer-mange:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 customer-view:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 customer-editor:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 customer-entry:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
         Customer:
             home:
                 admin-home:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 exclusive-home:
                     ☐ prepare template tag.
                 staff-home:
                     ☐ prepare template tag.
             branch:
                 branch-manage:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 branch-view:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 branch-editor:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 branch-entry:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
             member:
                 member-manage:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 member-view:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 member-editor:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 member-entry:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
             org:
                 org-manage:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 org-view:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 org-editor:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 org-entry:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
             device:
                 device-manage:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 device-view:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 device-editor:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
                 device-entry:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:35)
             report:
                 common:
                     bar-box:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     pie-box:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     date-box:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     member-box:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     org-box:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     question-box:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                 home:
                     report-home:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                 bar-votesummary:
                     bar-votesummary-manage:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     bar-votesummary-search:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     bar-votesummary-result:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                 pie-votesummary:
                     pie-votesummary-manage:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     pie-votesummary-search:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     pie-votesummary-result:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                 rawvote:
                     rawvote-manage:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:35)
                     rawvote-search:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                     rawvote-result:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                 staffcompare:
                     staffcompare-manage:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                     staffcompare-search:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                     staffcompare-result:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                 staffperf:
                     staffperf-manage:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                     staffperf-search:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                     staffperf-result:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                 votesummary:
                     votesummary-manage:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                     votesummary-search:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
                     votesummary-result:
-                        ☐ prepare template tag.
+                        ✔ prepare template tag. @done(20-05-04 23:36)
         device:
             home:
                 rater-device-home:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:36)
             register.device:
                 rater-device-register:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:36)
             setup.org:
                 rater-device-org:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:36)
             signin:
                 rater-device-signin:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:36)
             question:
                 rater-device-question:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-04 23:36)
     Rater (database):
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
         ☐ Recheck all database stored procedure(s).
