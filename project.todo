@@ -118,8 +118,15 @@ Project:
                 ☐ 
     Rater Riot.js tags:
         EDL:
-            Users:
-                ☐ 
+            staff:
+                staff-mange:
+                    ☐ prepare template tag.
+                staff-view:
+                    ☐ prepare template tag.
+                staff-editor:
+                    ☐ prepare template tag.
+                staff-entry:
+                    ☐ prepare template tag.
         Customer:
             branch:
                 branch-manage:
