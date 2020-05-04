@@ -158,6 +158,14 @@ Project:
                 device-entry:
                     ☐ prepare template tag.
             report:
+                common:
+                    bar-box:
+                        ☐ prepare template tag.
+                    date-box:
+                        ☐ prepare template tag.
+                home:
+                    report-home:
+                        ☐ prepare template tag.
                 bar-votesummary:
                     bar-votesummary-manage:
                         ☐ prepare template tag.
