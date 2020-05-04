@@ -127,6 +127,15 @@ Project:
                     ☐ prepare template tag.
                 staff-entry:
                     ☐ prepare template tag.
+            customer:
+                customer-mange:
+                    ☐ prepare template tag.
+                customer-view:
+                    ☐ prepare template tag.
+                customer-editor:
+                    ☐ prepare template tag.
+                customer-entry:
+                    ☐ prepare template tag.
         Customer:
             branch:
                 branch-manage:
