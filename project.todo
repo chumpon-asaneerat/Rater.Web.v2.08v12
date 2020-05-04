@@ -172,6 +172,13 @@ Project:
                         ☐ prepare template tag.
                     pie-votesummary-result:
                         ☐ prepare template tag.
+                staffcompare:
+                    staffcompare-manage:
+                        ☐ prepare template tag.
+                    staffcompare-search:
+                        ☐ prepare template tag.
+                    staffcompare-result:
+                        ☐ prepare template tag.
                 staffperf:
                     staffperf-manage:
                         ☐ prepare template tag.
