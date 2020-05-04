@@ -117,6 +117,13 @@ Project:
             Home (dashboard) (staff):
                 ☐ 
     Rater Riot.js tags:
+        Common:
+            controls:
+            layouts:
+                rater-web-app:
+                    ☐ prepare template tag.
+                rater-device-app:
+                    ☐ prepare template tag.
         EDL:
             home:
                 edl-admin-home:
@@ -258,6 +265,12 @@ Project:
                     ☐ prepare template tag.
             setup.org:
                 rater-device-org:
+                    ☐ prepare template tag.
+            signin:
+                rater-device-signin:
+                    ☐ prepare template tag.
+            question:
+                rater-device-question:
                     ☐ prepare template tag.
     Rater (database):
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
