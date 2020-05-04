@@ -249,6 +249,10 @@ Project:
                         ☐ prepare template tag.
                     votesummary-result:
                         ☐ prepare template tag.
+        device:
+            home:
+                rater-device-home:
+                    ☐ prepare template tag.
     Rater (database):
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
         ☐ Recheck all database stored procedure(s).
