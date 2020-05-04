@@ -125,7 +125,23 @@ Project:
                 tree:
             layouts:
                 card:
+                    card-container:
+                        ☐ prepare template tag.
+                    card-row:
+                        ☐ prepare template tag.
+                    card-item:
+                        ☐ prepare template tag.
                 container:
+                    napp:
+                        ☐ prepare template tag.
+                    screen:
+                        ☐ prepare template tag.
+                    collapse-panel:
+                        ☐ prepare template tag.
+                    dual-layout:
+                        ☐ prepare template tag.
+                    tool-window:
+                        ☐ prepare template tag.
                 navibar:
                     navibar:
                         ☐ prepare template tag.
