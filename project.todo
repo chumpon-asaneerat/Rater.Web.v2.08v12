@@ -121,8 +121,28 @@ Project:
             controls:
                 input:
                 popup:
+                    osd:
+                        ☐ prepare template tag.
+                    ndialog:
+                        ☐ prepare template tag.
                 tab:
+                    tabcontrol:
+                        ☐ prepare template tag.
+                    tabheaders:
+                        ☐ prepare template tag.
+                    tabheader:
+                        ☐ prepare template tag.
+                    tabpages:
+                        ☐ prepare template tag.
+                    tabpage:
+                        ☐ prepare template tag.
                 tree:
+                    ntree:
+                        ☐ prepare template tag.
+                    ncheckedtree:
+                        ☐ prepare template tag.
+                    norgtree:
+                        ☐ prepare template tag.
             layouts:
                 card:
                     card-container:
