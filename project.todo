@@ -121,8 +121,14 @@ Project:
             Users:
                 ☐ 
         Customer:
-            Branch:
+            branch:
+                branch-manage:
+                    ☐ prepare template tag.
+                branch-view:
+                    ☐ prepare template tag.
                 branch-editor:
+                    ☐ prepare template tag.
+                branch-entry:
                     ☐ prepare template tag.
     Rater (database):
         ✔ Port all database scripts from 2020-03-26 to 2020-04-30. @done(20-05-01 23:45)
