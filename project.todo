@@ -117,8 +117,17 @@ Project:
             Home (dashboard) (staff):
                 ☐ 
     Rater Riot.js tags:
+        Nlib:
+            controls:
+            layouts:
         Common:
             controls:
+                language-menu:
+                    ☐ prepare template tag.
+                links-menu:
+                    ☐ prepare template tag.
+                sidebar-menu:
+                    ☐ prepare template tag.
             layouts:
                 rater-web-app:
                     ☐ prepare template tag.
