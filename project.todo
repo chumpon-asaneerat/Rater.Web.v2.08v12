@@ -118,6 +118,13 @@ Project:
                 ☐ 
     Rater Riot.js tags:
         EDL:
+            home:
+                edl-admin-home:
+                    ☐ prepare template tag.
+                edl-supervisor-home:
+                    ☐ prepare template tag.
+                edl-staff-home:
+                    ☐ prepare template tag.
             staff:
                 staff-mange:
                     ☐ prepare template tag.
@@ -126,6 +133,9 @@ Project:
                 staff-editor:
                     ☐ prepare template tag.
                 staff-entry:
+                    ☐ prepare template tag.
+            license:
+                license-mange:
                     ☐ prepare template tag.
             customer:
                 customer-mange:
