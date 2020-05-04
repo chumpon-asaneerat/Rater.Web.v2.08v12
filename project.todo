@@ -161,7 +161,15 @@ Project:
                 common:
                     bar-box:
                         ☐ prepare template tag.
+                    pie-box:
+                        ☐ prepare template tag.
                     date-box:
+                        ☐ prepare template tag.
+                    member-box:
+                        ☐ prepare template tag.
+                    org-box:
+                        ☐ prepare template tag.
+                    question-box:
                         ☐ prepare template tag.
                 home:
                     report-home:
