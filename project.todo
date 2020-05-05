@@ -84,6 +84,8 @@ Project:
                 ☐ Admin home url: http://localhost:3000/customers/{customerid}
                 ☐ Branch views url: http://localhost:3000/customers/{customerid}/branchs
                 ☐ Branch edit url: http://localhost:3000/customers/{customerid}/branchs/{branchId}
+            XHR API(s):
+                ☐ Checks is cookies is assigned when call rest api(s).
         Device:
             Home:
                 ☐ Implements main device menu.
