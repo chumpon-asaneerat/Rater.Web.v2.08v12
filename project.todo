@@ -81,9 +81,12 @@ Project:
                 ☐ Show all customer url: http://localhost:3000/EDL/customers
                 ☐ Show each customer url: http://localhost:3000/EDL/customers/{customerid}
             Customer:
-                ☐ Admin home url: http://localhost:3000/customers/{customerid}
-                ☐ Branch views url: http://localhost:3000/customers/{customerid}/branchs
-                ☐ Branch edit url: http://localhost:3000/customers/{customerid}/branchs/{branchId}
+                ✘ Admin home url: http://localhost:3000/customers/{customerid} @cancelled(20-05-06 03:08)
+                ✘ Branch views url: http://localhost:3000/customers/{customerid}/branchs @cancelled(20-05-06 03:09)
+                ✘ Branch edit url: http://localhost:3000/customers/{customerid}/branchs/{branchId} @cancelled(20-05-06 03:09)
+                ☐ Admin home url: http://localhost:3000/customers (customerId) should in cookie.
+                ☐ Branch views url: http://localhost:3000/customers/branchs (customerId) should in cookie.
+                ☐ Branch edit url: http://localhost:3000/customers/branchs/{branchId} (customerId) should in cookie.
             XHR API(s):
                 ☐ Checks is cookies is assigned when call rest api(s).
         Device:
