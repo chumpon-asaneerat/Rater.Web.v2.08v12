@@ -31,15 +31,19 @@ Project:
             ☐ Image/video/sound upload with progress bar.
     NLib.js (server):
         Update to current project:
+            ☐ Object util for access nested property.
             ☐ Image/video/sound download with progress.
             ☐ Image/video/sound upload with progress.
         Update to NLib server project:
+            ☐ Object util for access nested property.
             ☐ Image/video/sound download with progress.
             ☐ Image/video/sound upload with progress.
         Update to NLib client project:
+            ☐ Object util for access nested property.
             ☐ Image/video/sound download with progress.
             ☐ Image/video/sound upload with progress.
         Update to NLib web app project:
+            ☐ Object util for access nested property.
             ☐ Image/video/sound download with progress.
             ☐ Image/video/sound upload with progress.
     Reter Service (Client):
