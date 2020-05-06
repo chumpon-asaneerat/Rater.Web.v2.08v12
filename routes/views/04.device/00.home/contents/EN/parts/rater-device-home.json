@@ -1,0 +1,8 @@
+{
+    "labels": {
+        "register": "Register device",
+        "setupOrg": "Change Organization",
+        "setupUser": "Sign In",
+        "question": "Question"
+    }
+}

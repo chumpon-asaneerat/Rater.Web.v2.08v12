@@ -289,6 +289,16 @@ class ContentService {
         let ret = (curr && curr.screens) ? curr.screens[scrId] : null
         return ret
     }
+    getParts() {
+        let curr = this.getCurrent()
+        let ret = (curr && curr.parts) ? curr.parts : null
+        return ret
+    }
+    getPart(partId) {
+        let curr = this.getCurrent()
+        let ret = (curr && curr.parts) ? curr.parts[partId] : null
+        return ret
+    }
     get langId() { 
         return (lang.current) ? lang.current.langId : 'EN';
     }
