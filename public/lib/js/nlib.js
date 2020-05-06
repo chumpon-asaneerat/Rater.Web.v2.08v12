@@ -73,6 +73,16 @@ class NUtils {
         return Math.random().toString(36).substring(2, 15) +
             Math.random().toString(36).substring(2, 15);
     }
+    getValue(obj, property) {
+        let props = property.split('.')
+        let prop, ref;
+        while (props.length > 0) {
+            prop = props.shift()
+            ref = (props[prop]) ? props[prop] : null
+        }
+        return ref;
+    }
+    setValue(obj, property, value) {}
     /** init class prototype to nlib */
     static init() {
         if (!nlib.utils) {
