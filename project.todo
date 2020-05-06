@@ -20,7 +20,7 @@ Project:
             ☐ Image/video/sound upload with progress bar.
         Update to NLib server project:
             ✔ Move some utils method(s) to string extension method(s). @done(20-05-02 00:04)
-            ☐ Object util for access nested property.
+            ✔ Object util for access nested property. @done(20-05-06 23:18)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
         Update to NLib client project:
@@ -39,7 +39,7 @@ Project:
             ☐ Image/video/sound download with progress.
             ☐ Image/video/sound upload with progress.
         Update to NLib server project:
-            ☐ Object util for access nested property.
+            ✔ Object util for access nested property. @done(20-05-06 23:18)
             ☐ Image/video/sound download with progress.
             ☐ Image/video/sound upload with progress.
         Update to NLib client project:
