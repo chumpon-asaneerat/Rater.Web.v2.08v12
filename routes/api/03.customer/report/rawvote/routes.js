@@ -125,7 +125,7 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for raw votes
-router.all('/report/rawvotes', api.Get.entry);
+router.all('/report/rawvote', api.Get.entry);
 //router.post('/report/rawvotes/delete', api.Delete.entry);
 
 const init_routes = (svr) => {

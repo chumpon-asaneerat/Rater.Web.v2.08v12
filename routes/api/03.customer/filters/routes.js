@@ -233,9 +233,9 @@ api.filter.QSetByDate = class {
 
 router.use(secure.checkAccess);
 // routes for staff summaries
-router.all('/filter/vote-orgs', api.filter.FilterVoteOrgs.entry);
-router.all('/filter/vote-members', api.filter.FilterVoteMembers.entry);
-router.all('/filter/qsetbydate', api.filter.QSetByDate.entry);
+router.all('/filters/vote-orgs', api.filter.FilterVoteOrgs.entry);
+router.all('/filters/vote-members', api.filter.FilterVoteMembers.entry);
+router.all('/filters/qsetbydate', api.filter.QSetByDate.entry);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);

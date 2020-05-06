@@ -76,8 +76,8 @@ api.Get = class {
 //#endregion
 
 router.use(secure.checkAccess);
-// routes for vote summaries
-router.all('/report/votesummaries', api.Get.entry);
+// routes for vote summary
+router.all('/report/votesummary', api.Get.entry);
 
 const init_routes = (svr) => {
     svr.route('/customer/api/', router);
