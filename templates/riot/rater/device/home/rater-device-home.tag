@@ -18,6 +18,7 @@
     <script>
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let getVal = nlib.utils.getValue, setVal = nlib.utils.setValue
 
         let partId = 'rater-device-home'
         this.content = {
@@ -57,10 +58,10 @@
             console.log('all parts:', partsContent)
             let partContent = contents.getPart(partId)
             //console.log('part <' + partId + '>:', partContent)
-            nlib.utils.setValue(self.content, 'labels.register', nlib.utils.getValue(partContent, 'labels.register'))
-            nlib.utils.setValue(self.content, 'labels.setupOrg', nlib.utils.getValue(partContent, 'labels.setupOrg'))
-            nlib.utils.setValue(self.content, 'labels.setupUser', nlib.utils.getValue(partContent, 'labels.setupUser'))
-            nlib.utils.setValue(self.content, 'labels.question', nlib.utils.getValue(partContent, 'labels.question'))
+            setVal(self.content, 'labels.register', getVal(partContent, 'labels.register'))
+            setVal(self.content, 'labels.setupOrg', getVal(partContent, 'labels.setupOrg'))
+            setVal(self.content, 'labels.setupUser', getVal(partContent, 'labels.setupUser'))
+            setVal(self.content, 'labels.question', getVal(partContent, 'labels.question'))
         }
         let onScreenChanged = () => {
             updateContents()

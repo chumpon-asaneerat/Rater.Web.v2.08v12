@@ -2330,6 +2330,7 @@ riot.tag2('votesummary-search', '', 'votesummary-search,[data-is="votesummary-se
 riot.tag2('rater-device-home', '<h3>{content.title}</h3> <a href="javascript:;"><span>{content.labels.register}</span></a> <a href="javascript:;"><span>{content.labels.setupOrg}</span></a> <a href="javascript:;"><span>{content.labels.setupUser}</span></a> <a href="javascript:;"><span>{content.labels.question}</span></a>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let getVal = nlib.utils.getValue, setVal = nlib.utils.setValue
 
         let partId = 'rater-device-home'
         this.content = {
@@ -2369,10 +2370,10 @@ riot.tag2('rater-device-home', '<h3>{content.title}</h3> <a href="javascript:;">
             console.log('all parts:', partsContent)
             let partContent = contents.getPart(partId)
 
-            nlib.utils.setValue(self.content, 'labels.register', nlib.utils.getValue(partContent, 'labels.register'))
-            nlib.utils.setValue(self.content, 'labels.setupOrg', nlib.utils.getValue(partContent, 'labels.setupOrg'))
-            nlib.utils.setValue(self.content, 'labels.setupUser', nlib.utils.getValue(partContent, 'labels.setupUser'))
-            nlib.utils.setValue(self.content, 'labels.question', nlib.utils.getValue(partContent, 'labels.question'))
+            setVal(self.content, 'labels.register', getVal(partContent, 'labels.register'))
+            setVal(self.content, 'labels.setupOrg', getVal(partContent, 'labels.setupOrg'))
+            setVal(self.content, 'labels.setupUser', getVal(partContent, 'labels.setupUser'))
+            setVal(self.content, 'labels.question', getVal(partContent, 'labels.question'))
         }
         let onScreenChanged = () => {
             updateContents()
