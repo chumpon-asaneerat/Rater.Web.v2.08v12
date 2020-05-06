@@ -13,7 +13,7 @@
             <a class="flag-item { (lang.langId === item.langId) ? 'selected' : '' }" href="javascript:;" onclick="{ selectItem }">
                 &nbsp;
                 <span class="flag-css flag-icon flag-icon-{ item.flagId.toLowerCase() }" ref="css-icon"></span>
-                &nbsp;
+                &nbsp;&nbsp;
                 <div class="flag-text">{ item.Description }</div>
                 &nbsp;&nbsp;&nbsp;
             </a>                
@@ -21,15 +21,18 @@
     </div>
     <style>
         :scope {
+            display: inline-block;
             margin: 0 auto;
             padding: 0, 2px;
             user-select: none;
         }
         .menu {
+            display: inline-block;
             margin: 0 auto;
             padding: 0;
         }
         a {
+            display: inline-block;
             margin: 0 auto;
             color: whitesmoke;            
         }
@@ -39,29 +42,30 @@
             text-decoration: none;
         }
         .flag-combo {
+            display: inline-block;
             margin: 0 auto;
         }
         .flag-combo .flag-css {
-            margin: 0px auto;
+            display: inline-block;
+            margin: 0 auto;
             padding-top: 1px;
-            display: inline-block;            
         }
         .flag-combo .flag-text {
-            margin: 0 auto;
             display: inline-block;
+            margin: 0 auto;
         }
         .flag-combo .drop-symbol {
-            margin: 0 auto;
             display: inline-block;
+            margin: 0 auto;
         }
         .flag-item {
-            margin: 0px auto;
-            padding: 2px;
-            padding-left: 5px;
-            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto;
+            padding: 0;
+            padding-left: 2px;
+            height: 50px;
         }
         .flag-item:hover {
             color: yellow;
@@ -73,16 +77,16 @@
             background-color: darkorange;
         }
         .flag-item .flag-css {
+            display: inline-block;
             margin: 0px auto;
             padding-top: 1px;
             width: 25px;
-            display: inline-block;
         }
         .flag-item .flag-text {
+            display: inline-block;
             margin: 0 auto;
             min-width: 80px;
             max-width: 120px;
-            display: inline-block;            
         }
         .language-dropbox {
             display: inline-block;
