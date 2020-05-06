@@ -352,6 +352,7 @@ Project:
             home:
                 rater-device-home:
                     ✔ prepare template tag. @done(20-05-04 23:36)
+                    ✔ Change main tag to reater-web-app. @done(20-05-07 05:30)
             register.device:
                 rater-device-register:
                     ✔ prepare template tag. @done(20-05-04 23:36)
