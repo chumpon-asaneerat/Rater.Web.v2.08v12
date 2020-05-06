@@ -88,7 +88,7 @@ Project:
                 ☐ Branch views url: http://localhost:3000/customers/branchs (customerId) should in cookie.
                 ☐ Branch edit url: http://localhost:3000/customers/branchs/{branchId} (customerId) should in cookie.
             XHR API(s):
-                ☐ Checks is cookies is assigned when call rest api(s).
+                ✔ Checks is cookies is assigned when call rest api(s) - PASSED. @done(20-05-06 09:10)
         Device:
             Home:
                 ☐ Implements main device menu.
