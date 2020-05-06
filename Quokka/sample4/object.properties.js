@@ -25,9 +25,6 @@ let setValue = (obj, property, value) => {
             ref[prop] = value
         }
     }
-    //console.log(ref)
-    //if (ref) ref = value;
-    console.log(ref)
 }
 
 let screen = {

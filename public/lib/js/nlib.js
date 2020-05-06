@@ -75,14 +75,31 @@ class NUtils {
     }
     getValue(obj, property) {
         let props = property.split('.')
-        let prop, ref;
-        while (props.length > 0) {
+        let prop
+        let ref = obj
+        while (props.length > 0 && ref) {
             prop = props.shift()
-            ref = (props[prop]) ? props[prop] : null
+            ref = (ref[prop]) ? ref[prop] : null
         }
         return ref;
     }
-    setValue(obj, property, value) {}
+    setValue(obj, property, value) {
+        let props = property.split('.')
+        let prop
+        let ref = obj
+        let iCnt = 0
+        let iMax = props.length
+        while (props.length > 0 && ref) {
+            prop = props.shift()        
+            iCnt++
+            if (iCnt < iMax) {
+                ref = (ref[prop]) ? ref[prop] : null
+            }
+            else {
+                ref[prop] = value
+            }
+        }
+    }
     /** init class prototype to nlib */
     static init() {
         if (!nlib.utils) {
