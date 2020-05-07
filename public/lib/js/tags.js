@@ -2330,9 +2330,7 @@ riot.tag2('votesummary-search', '', 'votesummary-search,[data-is="votesummary-se
 riot.tag2('rater-device-home', '<h3>{content.title}</h3> <a href="javascript:;"><span>{content.labels.register}</span></a> <a href="javascript:;"><span>{content.labels.setupOrg}</span></a> <a href="javascript:;"><span>{content.labels.setupUser}</span></a> <a href="javascript:;"><span>{content.labels.question}</span></a>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
-        let getVal = nlib.utils.getValue, setVal = nlib.utils.setValue
-        let assign = (dst, scr, propName) => setVal(dst, propName, getVal(scr, propName))
-        let assigns = (dst, scr, propNames) => propNames.forEach(propNane => setVal(dst, propNane, getVal(scr, propNane)))
+        let assigns = nlib.utils.assigns
 
         let partId = 'rater-device-home'
         this.content = {
@@ -2370,14 +2368,13 @@ riot.tag2('rater-device-home', '<h3>{content.title}</h3> <a href="javascript:;">
         let updateContents = () => {
 
             let partContent = contents.getPart(partId)
-
             let propNames = [
                 'labels.register',
                 'labels.setupOrg',
                 'labels.setupUser',
                 'labels.question'
             ]
-            assigns(self.content, partContent, propNames)
+            assigns(self.content, partContent, ...propNames)
         }
         let onScreenChanged = () => {
             updateContents()
