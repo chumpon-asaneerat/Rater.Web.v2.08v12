@@ -272,7 +272,7 @@ Project:
             member:
                 member-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
-                    ☐ Implelemt dual-layout.
+                    ✔ Implelemt dual-layout. @done(20-05-07 10:33)
                 member-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 member-editor:
@@ -282,7 +282,7 @@ Project:
             org:
                 org-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
-                    ☐ Implelemt dual-layout.
+                    ✔ Implelemt dual-layout. @done(20-05-07 10:33)
                 org-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 org-editor:
@@ -292,7 +292,7 @@ Project:
             device:
                 device-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
-                    ☐ Implelemt dual-layout.
+                    ✔ Implelemt dual-layout. @done(20-05-07 10:33)
                 device-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 device-editor:
