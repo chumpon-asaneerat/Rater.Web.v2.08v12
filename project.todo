@@ -234,10 +234,13 @@ Project:
                     ☐ Implelemt dual-layout.
                 staff-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ required to has edit multilanguage.
                 staff-editor:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 staff-entry:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ should supports one screen default edit.
+                    ☐ when view click edit should redirect to full multilanguage entry
             license:
                 license-mange:
                     ✔ prepare template tag. @done(20-05-04 23:35)
