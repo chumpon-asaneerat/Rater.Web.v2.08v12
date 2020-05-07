@@ -229,8 +229,9 @@ Project:
                 edl-staff-home:
                     ☐ prepare template tag.
             staff:
-                staff-mange:
+                staff-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ Implelemt dual-layout.
                 staff-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 staff-editor:
@@ -241,8 +242,9 @@ Project:
                 license-mange:
                     ✔ prepare template tag. @done(20-05-04 23:35)
             customer:
-                customer-mange:
+                customer-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ Implelemt dual-layout.
                 customer-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 customer-editor:
@@ -260,6 +262,7 @@ Project:
             branch:
                 branch-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ✔ Implelemt dual-layout. @done(20-05-07 10:28)
                 branch-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 branch-editor:
@@ -269,6 +272,7 @@ Project:
             member:
                 member-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ Implelemt dual-layout.
                 member-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 member-editor:
@@ -278,6 +282,7 @@ Project:
             org:
                 org-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ Implelemt dual-layout.
                 org-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 org-editor:
@@ -287,6 +292,7 @@ Project:
             device:
                 device-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ Implelemt dual-layout.
                 device-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 device-editor:

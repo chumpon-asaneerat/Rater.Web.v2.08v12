@@ -1,4 +1,12 @@
 <device-manage>
+    <dual-layout ref="layout">
+        <yield to="left-panel">
+            <device-view ref="leftpanel" class="view"></device-view>
+        </yield>
+        <yield to="right-panel">
+            <device-editor ref="rightpanel" class="entry"></device-editor>
+        </yield>
+    </dual-layout>
     <style>
         :scope {
             position: relative;
@@ -11,8 +19,6 @@
     <script>
         let self = this
 
-        let addEvt = events.doc.add, delEvt = events.doc.remove
-
         this.on('mount', () => {
             initCtrls()
             bindEvents()
@@ -22,9 +28,23 @@
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
+        let layout
+        let initCtrls = () => {
+            layout = self.refs['layout']
+        }
+        let freeCtrls = () => {
+            layout = null
+        }
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
         let bindEvents = () => { }
         let unbindEvents = () => { }
+
+        this.toggle = () => {
+            // toggle screen.
+            layout.toggle()
+        }
+        this.setup = () => {}
+        this.refresh = () => {}
     </script>
 </device-manage>
