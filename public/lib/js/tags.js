@@ -1237,10 +1237,8 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ position: 
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('branch-manage', '', 'branch-manage,[data-is="branch-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('branch-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <branch-view ref="leftpanel" class="view"></branch-view> </yield> <yield to="right-panel"> <branch-editor ref="rightpanel" class="entry"></branch-editor> </yield> </dual-layout>', 'branch-manage,[data-is="branch-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
-
-        let addEvt = events.doc.add, delEvt = events.doc.remove
 
         this.on('mount', () => {
             initCtrls()
@@ -1251,10 +1249,24 @@ riot.tag2('branch-manage', '', 'branch-manage,[data-is="branch-manage"]{ positio
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
+        let layout
+        let initCtrls = () => {
+            layout = self.refs['layout']
+        }
+        let freeCtrls = () => {
+            layout = null
+        }
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
         let bindEvents = () => { }
         let unbindEvents = () => { }
+
+        this.toggle = () => {
+
+            layout.toggle()
+        }
+        this.setup = () => {}
+        this.refresh = () => {}
 });
 riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'branch-view,[data-is="branch-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
