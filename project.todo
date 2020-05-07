@@ -99,7 +99,7 @@ Project:
                 ✔ Checks is cookies is assigned when call rest api(s) - PASSED. @done(20-05-06 09:10)
         Device:
             Home:
-                ☐ Implements main device menu.
+                ✔ Implements main device menu. @done(20-05-07 10:13)
                 Not registered:
                     ☐ enable register button/link.
                     ☐ disable setup org button/link.
@@ -354,15 +354,24 @@ Project:
                     ✔ prepare template tag. @done(20-05-04 23:36)
                     ✔ Change main tag to reater-web-app. @done(20-05-07 05:30)
                     ✔ Prepare sample link menus need to change UI later. @done(20-05-07 08:08)
+                    ☐ Update links.json
+                    ☐ Add new common menu item UI.
+                    ☐ Update new UI.       
             register.device:
                 rater-device-register:
                     ✔ prepare template tag. @done(20-05-04 23:36)
+                    ☐ Change main tag to reater-web-app.
+                    ☐ Update links.json.
             setup.org:
                 rater-device-org:
                     ✔ prepare template tag. @done(20-05-04 23:36)
+                    ☐ Change main tag to reater-web-app.
+                    ☐ Update links.json.
             signin:
                 rater-device-signin:
                     ✔ prepare template tag. @done(20-05-04 23:36)
+                    ☐ Change main tag to reater-web-app.
+                    ☐ Update links.json.
             question:
                 rater-device-question:
                     ✔ prepare template tag. @done(20-05-04 23:36)

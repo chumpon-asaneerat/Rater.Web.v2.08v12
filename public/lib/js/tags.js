@@ -2447,6 +2447,23 @@ riot.tag2('rater-device-org-setup', '<h3>Setup Organization</h3>', 'rater-device
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
+riot.tag2('rater-device-edlsignin', '', 'rater-device-edlsignin,[data-is="rater-device-edlsignin"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+        let self = this
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
+        let bindEvents = () => { }
+        let unbindEvents = () => { }
+});
 riot.tag2('rater-device-signin', '<h3>User Sign In</h3>', 'rater-device-signin,[data-is="rater-device-signin"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
 
