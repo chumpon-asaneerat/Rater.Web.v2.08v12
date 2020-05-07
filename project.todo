@@ -250,10 +250,13 @@ Project:
                     ☐ Implelemt dual-layout.
                 customer-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ required to has edit multilanguage.
                 customer-editor:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 customer-entry:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ should supports one screen default edit.
+                    ☐ when view click edit should redirect to full multilanguage entry
         Customer:
             home:
                 admin-home:
