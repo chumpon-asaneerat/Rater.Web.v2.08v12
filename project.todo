@@ -273,6 +273,8 @@ Project:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 branch-entry:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ should supports one screen default edit.
+                    ☐ when view click edit should redirect to full multilanguage entry
             member:
                 member-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
@@ -295,6 +297,8 @@ Project:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 org-entry:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ should supports one screen default edit.
+                    ☐ when view click edit should redirect to full multilanguage entry
             device:
                 device-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
@@ -306,6 +310,8 @@ Project:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 device-entry:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ should supports one screen default edit.
+                    ☐ when view click edit should redirect to full multilanguage entry
             report:
                 common:
                     bar-box:
