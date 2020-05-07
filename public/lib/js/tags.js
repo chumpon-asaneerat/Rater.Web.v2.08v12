@@ -2327,7 +2327,7 @@ riot.tag2('votesummary-search', '', 'votesummary-search,[data-is="votesummary-se
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('rater-device-home', '<h3>{content.title}</h3> <a href="javascript:;"><span>{content.labels.register}</span></a> <a href="javascript:;"><span>{content.labels.setupOrg}</span></a> <a href="javascript:;"><span>{content.labels.setupUser}</span></a> <a href="javascript:;"><span>{content.labels.question}</span></a>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+riot.tag2('rater-device-home', '<div class="container-area"> <div class="title"><span>{content.title}</span></div> <div class="menus"> <div class="menu"> <a href="javascript:;"><span>{content.labels.register}</span></a> </div> <div class="menu"> <a href="javascript:;"><span>{content.labels.setupOrg}</span></a> </div> <div class="menu"> <a href="javascript:;"><span>{content.labels.setupUser}</span></a> </div> <div class="menu"> <a href="javascript:;"><span>{content.labels.question}</span></a> </div> </div> </div>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } rater-device-home>.container-area,[data-is="rater-device-home"]>.container-area{ position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; grid-template-areas: \'title-area\' \'menus-area\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } rater-device-home>.container-area>.title,[data-is="rater-device-home"]>.container-area>.title{ grid-area: title-area; position: relative; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto; padding: 5px; width: 100%; height: 100%; } rater-device-home>.container-area>.menus,[data-is="rater-device-home"]>.container-area>.menus{ grid-area: menus-area; position: relative; display: grid; grid-template-columns: repeat(2, 1fr); margin: 0 auto; padding: 5px; width: 100%; height: 100%; } rater-device-home>.container-area>.menus .menu,[data-is="rater-device-home"]>.container-area>.menus .menu{ position: relative; display: block; margin: 0 auto; padding: 5px; width: 100%; height: 100%; } rater-device-home>.container-area>.menus .menu>a,[data-is="rater-device-home"]>.container-area>.menus .menu>a{ position: relative; display: flex; align-items: center; justify-items: stretch; justify-content: center; font-size: 1.2rem; margin: 0; padding: 5px; width: 100%; height: 100%; color: whitesmoke; background-color: forestgreen; text-decoration: none; } rater-device-home>.container-area>.menus .menu>a:hover,[data-is="rater-device-home"]>.container-area>.menus .menu>a:hover{ color: whitesmoke; background-color: cornflowerblue; } rater-device-home>.container-area>.menus .menu>a>span,[data-is="rater-device-home"]>.container-area>.menus .menu>a>span{ position: relative; display: inline-block; margin: 0; padding: 0; width: auto; height: auto; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
@@ -2366,7 +2366,6 @@ riot.tag2('rater-device-home', '<h3>{content.title}</h3> <a href="javascript:;">
         }
 
         let updateContents = () => {
-
             let partContent = contents.getPart(partId)
             let propNames = [
                 'labels.register',
@@ -2376,16 +2375,11 @@ riot.tag2('rater-device-home', '<h3>{content.title}</h3> <a href="javascript:;">
             ]
             assigns(self.content, partContent, ...propNames)
         }
-        let onScreenChanged = () => {
-            updateContents()
-        }
-        let onContentChanged = () => {
-            updateContents()
-        }
-        let onLanguageChanged = () => {
-            updateContents()
-        }
+        let onLanguageChanged = () => { updateContents() }
+        let onScreenChanged = () => { updateContents() }
+        let onContentChanged = () => { updateContents() }
 
+        this.setup = () => {}
         this.refresh = () => {}
 });
 riot.tag2('rater-device-question', '<h3>Today Question running..</h3>', 'rater-device-question,[data-is="rater-device-question"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
