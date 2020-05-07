@@ -3,16 +3,16 @@
         <div class="title"><span>{ content.title }</span></div>
         <div class="menus">
             <div class="menu">
-                <a href="javascript:;"><span>{ content.labels.register }</span></a>
+            <a href="javascript:;" onclick="{ registerDeviceClick }"><span>{ content.labels.register }</span></a>
             </div>
             <div class="menu">
-                <a href="javascript:;"><span>{ content.labels.setupOrg }</span></a>
+                <a href="javascript:;" onclick="{ changeOrgClick }"><span>{ content.labels.setupOrg }</span></a>
             </div>
             <div class="menu">
-                <a href="javascript:;"><span>{ content.labels.setupUser }</span></a>
+                <a href="javascript:;" onclick="{ memberSignInClick }"><span>{ content.labels.setupUser }</span></a>
             </div>
             <div class="menu">
-                <a href="javascript:;"><span>{ content.labels.question }</span></a>
+                <a href="javascript:;" onclick="{ questionClick }"><span>{ content.labels.question }</span></a>
             </div>
         </div>
     </div>
@@ -151,6 +151,19 @@
         let onLanguageChanged = () => { updateContents() }
         let onScreenChanged = () => { updateContents() }
         let onContentChanged = () => { updateContents() }
+
+        this.registerDeviceClick = (e) => {
+            console.log('goto register device page click')
+        }
+        this.changeOrgClick = (e) => {
+            console.log('goto org setup click')
+        }
+        this.memberSignInClick = (e) => {
+            console.log('goto member signin click')
+        }
+        this.questionClick = (e) => {
+            console.log('goto question page click')
+        }
 
         this.setup = () => {}
         this.refresh = () => {}

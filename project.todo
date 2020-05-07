@@ -353,6 +353,7 @@ Project:
                 rater-device-home:
                     ✔ prepare template tag. @done(20-05-04 23:36)
                     ✔ Change main tag to reater-web-app. @done(20-05-07 05:30)
+                    ✔ Prepare sample link menus need to change UI later. @done(20-05-07 08:08)
             register.device:
                 rater-device-register:
                     ✔ prepare template tag. @done(20-05-04 23:36)
