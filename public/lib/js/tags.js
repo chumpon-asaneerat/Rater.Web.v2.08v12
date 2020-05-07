@@ -1656,10 +1656,8 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
             }
         }
 });
-riot.tag2('member-manage', '', 'member-manage,[data-is="member-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('member-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <member-view ref="leftpanel" class="view"></member-view> </yield> <yield to="right-panel"> <member-editor ref="rightpanel" class="entry"></member-editor> </yield> </dual-layout>', 'member-manage,[data-is="member-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
-
-        let addEvt = events.doc.add, delEvt = events.doc.remove
 
         this.on('mount', () => {
             initCtrls()
@@ -1670,10 +1668,24 @@ riot.tag2('member-manage', '', 'member-manage,[data-is="member-manage"]{ positio
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
+        let layout
+        let initCtrls = () => {
+            layout = self.refs['layout']
+        }
+        let freeCtrls = () => {
+            layout = null
+        }
+
+        let addEvt = events.doc.add, delEvt = events.doc.remove
         let bindEvents = () => { }
         let unbindEvents = () => { }
+
+        this.toggle = () => {
+
+            layout.toggle()
+        }
+        this.setup = () => {}
+        this.refresh = () => {}
 });
 riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="tool" class="toolarea"> <button class="float-button" onclick="{addnew}"> <span class="fas fa-plus">&nbsp;</span> </button> <button class="float-button" onclick="{refresh}"> <span class="fas fa-sync">&nbsp;</span> </button> </div> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'member-view,[data-is="member-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\' } member-view>.scrarea,[data-is="member-view"]>.scrarea{ grid-area: scrarea; position: relative; display: grid; grid-template-columns: 5px auto 1fr 5px; grid-template-rows: 1fr; grid-template-areas: \'. toolarea gridarea .\'; margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; max-width: 800px; height: 100%; } member-view>.scrarea>.toolarea,[data-is="member-view"]>.scrarea>.toolarea{ position: relative; grid-area: toolarea; margin: 0 auto; margin-right: 5px; padding: 0; height: 100%; overflow: hidden; background-color: transparent; color: whitesmoke; } member-view>.scrarea>.toolarea .float-button,[data-is="member-view"]>.scrarea>.toolarea .float-button{ display: block; margin: 0 auto; margin-bottom: 5px; padding: 3px; padding-right: 1px; height: 40px; width: 40px; color: whitesmoke; background: silver; border: none; outline: none; border-radius: 50%; cursor: pointer; } member-view>.scrarea>.toolarea .float-button:hover,[data-is="member-view"]>.scrarea>.toolarea .float-button:hover{ color: whitesmoke; background: forestgreen; } member-view>.scrarea>.gridarea,[data-is="member-view"]>.scrarea>.gridarea{ position: relative; grid-area: gridarea; display: block; margin: 0 auto; padding: 0; height: 100%; width: 100%; overflow: hidden; } member-view>.scrarea>.gridarea>.gridwrapper,[data-is="member-view"]>.scrarea>.gridarea>.gridwrapper{ position: absolute; display: block; margin: auto; height: 100%; width: 100%; } member-view .tabulator-row button,[data-is="member-view"] .tabulator-row button{ margin: 0 auto; padding: 0px; width: 100%; font-size: small; color: inherit; background: transparent; border: none; outline: none; cursor: pointer; } member-view .tabulator-row button:hover,[data-is="member-view"] .tabulator-row button:hover{ color: forestgreen; } member-view .tabulator-row button>span,[data-is="member-view"] .tabulator-row button>span{ margin: 0 auto; padding: 0; }', '', function(opts) {
         let self = this;
