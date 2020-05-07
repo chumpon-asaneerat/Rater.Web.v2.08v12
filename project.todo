@@ -268,6 +268,7 @@ Project:
                     ✔ Implelemt dual-layout. @done(20-05-07 10:28)
                 branch-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ required to has edit multilanguage.
                 branch-editor:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 branch-entry:
@@ -278,6 +279,7 @@ Project:
                     ✔ Implelemt dual-layout. @done(20-05-07 10:33)
                 member-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ required to has edit multilanguage.
                 member-editor:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 member-entry:
@@ -288,6 +290,7 @@ Project:
                     ✔ Implelemt dual-layout. @done(20-05-07 10:33)
                 org-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ required to has edit multilanguage.
                 org-editor:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 org-entry:
@@ -298,6 +301,7 @@ Project:
                     ✔ Implelemt dual-layout. @done(20-05-07 10:33)
                 device-view:
                     ✔ prepare template tag. @done(20-05-04 23:35)
+                    ☐ required to has edit multilanguage.
                 device-editor:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 device-entry:
