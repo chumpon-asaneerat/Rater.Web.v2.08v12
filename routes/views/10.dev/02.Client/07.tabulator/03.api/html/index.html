@@ -38,13 +38,13 @@
         let el = document.querySelector('#table')
         let opts = {
             height: 200,
-            layout: 'fitColumns',
-            columns: [
+            layout: 'fitColumns'
+        }
+        let columns = [
                 { title:"Name", field:"name", width: 150 },
                 { title:"Count", field:"count", width: 150 },
                 { title:"progress", field:"progress", width: 150, formatter:"progress" }
-            ]
-        }
+        ]
         let datasource = [
             { name: 'javascript', count: 20, progress: 30 },
             { name: 'css', count: 40, progress: 50 },
@@ -82,6 +82,8 @@
 
         let setColumns = () => {
             console.log('set columns')
+            // apply or overwrite existing columns with new columns definition array
+            table.setColumns(columns)
         }
         let loadDataSource = () => {
             console.log('load datasource')
@@ -89,8 +91,8 @@
         }
         let changeColumns = () => {
             console.log('change columns')
-            let col = table.getColumn("name") //get column component for age column.
-            console.log(col)
+            //change the title on the name column
+            table.updateColumnDefinition("name", { title:"ชื่อ" })
         }
         let getSelectItem = () => {
             console.log('get selected item')
