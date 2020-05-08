@@ -38,7 +38,9 @@
         let el = document.querySelector('#table')
         let opts = {
             height: 200,
-            layout: 'fitColumns'
+            layout: 'fitColumns',
+            //selectable: true //make rows selectable
+            selectable: 1 // select with max selected row is 1
         }
         let columns = [
                 { title:"Name", field:"name", width: 150 },
@@ -78,7 +80,6 @@
             { name: 'C++', count: 15, progress: 95 }
         ]
         let table = new Tabulator(el, opts)
-        //table.setData(datasource)
 
         let setColumns = () => {
             console.log('set columns')
@@ -96,6 +97,12 @@
         }
         let getSelectItem = () => {
             console.log('get selected item')
+            //get array of currently selected data.
+            let selectedData = table.getSelectedData()
+            console.log('selectedData:', selectedData)
+            //get array of currently selected row components.
+            let selectedRows = table.getSelectedRows()
+            console.log('selectedRows:', selectedRows)
         }
     </script>
 </body>
