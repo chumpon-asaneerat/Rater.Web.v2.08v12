@@ -78,16 +78,19 @@
             { name: 'C++', count: 15, progress: 95 }
         ]
         let table = new Tabulator(el, opts)
-        table.setData(datasource)
+        //table.setData(datasource)
 
         let setColumns = () => {
             console.log('set columns')
         }
         let loadDataSource = () => {
             console.log('load datasource')
+            table.setData(datasource)
         }
         let changeColumns = () => {
             console.log('change columns')
+            let col = table.getColumn("name") //get column component for age column.
+            console.log(col)
         }
         let getSelectItem = () => {
             console.log('get selected item')
