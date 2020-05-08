@@ -225,9 +225,9 @@ Project:
                 edl-admin-home:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 edl-supervisor-home:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-08 20:48)
                 edl-staff-home:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-08 20:48)
             staff:
                 staff-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
@@ -262,9 +262,9 @@ Project:
                 admin-home:
                     ✔ prepare template tag. @done(20-05-04 23:35)
                 exclusive-home:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-08 20:48)
                 staff-home:
-                    ☐ prepare template tag.
+                    ✔ prepare template tag. @done(20-05-08 20:48)
             branch:
                 branch-manage:
                     ✔ prepare template tag. @done(20-05-04 23:35)
