@@ -28,6 +28,7 @@
         <button onclick="loadDataSource()">Load datasource</button>
         <button onclick="changeColumns()">Change Columns</button>
         <button onclick="getSelectItem()">Get Selected</button>
+        <button onclick="scrollToRow()">Scroll to row</button>
     </div>
     <div id="table"></div>
 
@@ -39,8 +40,9 @@
         let opts = {
             height: 200,
             layout: 'fitColumns',
-            //selectable: true //make rows selectable
-            selectable: 1 // select with max selected row is 1
+            //selectable: true, //make rows selectable
+            selectable: 1, // select with max selected row is 1
+            index: "count" // set the index field to the "count" field default is "id" field.
         }
         let columns = [
                 { title:"Name", field:"name", width: 150 },
@@ -103,6 +105,27 @@
             //get array of currently selected row components.
             let selectedRows = table.getSelectedRows()
             console.log('selectedRows:', selectedRows)
+        }
+        let scrollToRow = () => {
+            console.log('scroll to row:')
+            // Scroll To Row
+            // --------------
+            // If you want to trigger an animated scroll to a row then you can use the 
+            // scrollToRow function.
+            // The first argument should be any of the standard row component look up options 
+            // for the row you want to scroll to.
+            // The second argument is optional, and is used to set the position of the row, it 
+            // should be a string with a value of either top, center, bottom or nearest, 
+            // if omitted it will be set to the value of the scrollToRowPosition option which has a 
+            // default value of top.
+            // The third argument is optional, and is a boolean used to set if the table should 
+            // scroll if the row is already visible, true to scroll, false to not, if omitted it 
+            // will be set to the value of the scrollToRowIfVisible option, which defaults to true
+
+            // select row that count is 65
+            table.selectRow(65)
+            // scroll if not visible on viewport
+            table.scrollToRow(65, "nearest", false)
         }
     </script>
 </body>
