@@ -1,0 +1,59 @@
+#### GetVoteSummaries
+POST http://localhost:3000/customers/api/report/votesummaries
+content-type: application/json
+
+{
+    "langId": "EN",
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-10",
+    "endDate": "2020-05-11",
+    "qsetId": "QS00001",
+    "slides": [
+        { "qSeq": 1 },
+        { "qSeq": 2 },
+        { "qSeq": 3 }
+    ],
+    "orgs": [
+        { "orgId": "O0001" },
+        { "orgId": "O0008" }
+    ],
+    "userId": ""
+}
+
+#### GetVoteSummaries 2
+POST http://localhost:3000/customers/api/report/votesummaries
+content-type: application/json
+
+{
+    "langId": null,
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-10",
+    "endDate": "2020-05-11",
+    "qsetId": "QS00001",
+    "slides": [
+        { "qSeq": 3 }
+    ],
+    "orgs": [
+        { "orgId": "O0001" }
+    ],
+    "userId": null
+}
+
+#### GetVoteSummaries 3
+POST http://localhost:3000/customers/api/report/rawvote
+content-type: application/json
+
+{
+    "langId": "EN",
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-14",
+    "endDate": "2020-05-14",
+    "qsetId": "QS00002",
+    "slides": [
+        { "qSeq": 1 }
+    ],
+    "orgs": [ 
+        { "orgId": "O0010" }
+    ],
+    "userId": ""
+}

@@ -22,6 +22,8 @@ const router = new WebRouter();
 
 //#endregion
 
+const rptAPI = require('../report-api').api;
+
 // static class.
 const api = class { }
 
@@ -125,11 +127,11 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for raw votes
-router.all('/report/rawvote', api.Get.entry);
+router.all('/', api.Get.entry);
 //router.post('/report/rawvotes/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/report/rawvote/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

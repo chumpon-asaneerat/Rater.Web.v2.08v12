@@ -1,0 +1,25 @@
+#### GetRawVotes
+POST http://localhost:3000/customers/api/report/rawvote
+content-type: application/json
+
+{
+    "langId": null,
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-01",
+    "endDate": "2020-06-01",
+    "qsetId": "QS00001",
+    "qSeq": 3
+}
+
+#### GetRawVotes 2
+POST http://localhost:3000/customers/api/report/rawvote
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-16",
+    "endDate": "2020-05-16",
+    "qsetId": "QS00001",
+    "qSeq": 1,
+    "orgId": "O0001"
+}

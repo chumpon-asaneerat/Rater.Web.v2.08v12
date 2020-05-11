@@ -22,6 +22,8 @@ const router = new WebRouter();
 
 //#endregion
 
+const rptAPI = require('../report-api').api;
+
 const api = class {}
 
 //#region Implement - Get
@@ -77,10 +79,10 @@ api.Get = class {
 
 router.use(secure.checkAccess);
 // routes for vote summary
-router.all('/report/votesummary', api.Get.entry);
+router.all('/', api.Get.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/report/votesummary/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

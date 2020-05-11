@@ -1,0 +1,45 @@
+#### Staff Compare
+POST http://localhost:3000/customers/api/report/staffcompare
+content-type: application/json
+
+{
+    "langId": "EN",
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-01",
+    "endDate": "2020-06-01",
+    "qsetId": "QS00001",
+    "slides": [
+        { "qSeq": 1 },
+        { "qSeq": 2 },
+        { "qSeq": 3 }
+    ],
+    "orgId": "O0008",
+    "members": [
+        { "memberId": "M00001" },
+        { "memberId": "M00005" },
+        { "memberId": "M00008" }
+    ]
+}
+
+#### Staff Perf (not implements)
+POST http://localhost:3000/customers/api/report/staffperf
+content-type: application/json
+
+{
+    "langId": "EN",
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-01",
+    "endDate": "2020-06-01",
+    "qsetId": "QS00001",
+    "slides": [
+        { "qSeq": 1 },
+        { "qSeq": 2 },
+        { "qSeq": 3 }
+    ],
+    "orgId": "O0008",
+    "members": [
+        { "memberId": "M00001" },
+        { "memberId": "M00005" },
+        { "memberId": "M00008" }
+    ]
+}
