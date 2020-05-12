@@ -79,10 +79,10 @@ api.Get = class {
 
 router.use(secure.checkAccess);
 // routes for vote summary
-router.all('/', api.Get.entry);
+router.all('/report/votesummary', api.Get.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/report/votesummary/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

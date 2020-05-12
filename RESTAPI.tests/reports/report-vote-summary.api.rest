@@ -1,5 +1,5 @@
 #### GetVoteSummaries
-POST http://localhost:3000/customers/api/report/votesummaries
+POST http://localhost:3000/customers/api/report/votesummary
 content-type: application/json
 
 {
