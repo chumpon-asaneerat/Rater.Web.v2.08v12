@@ -54,7 +54,7 @@ BEGIN
 	   AND UPPER(LTRIM(RTRIM(LangId))) = UPPER(LTRIM(RTRIM(COALESCE(@langId, LangId))))
 	   AND UPPER(LTRIM(RTRIM(CustomerId))) = UPPER(LTRIM(RTRIM(@customerId)))
 	   AND UPPER(LTRIM(RTRIM(QSetId))) = UPPER(LTRIM(RTRIM(@qSetId)))
-	   AND QSeq = @qSeq
+	   AND QSeq = COALESCE(@qSeq, QSeq)
 	 ORDER BY SortOrder, CustomerId, QSetId, QSeq
 END
 

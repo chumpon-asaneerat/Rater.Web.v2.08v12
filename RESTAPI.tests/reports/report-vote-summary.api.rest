@@ -3,10 +3,10 @@ POST http://localhost:3000/customers/api/report/votesummary
 content-type: application/json
 
 {
-    "langId": "EN",
+    //"langId": "EN",
     "customerId": "EDL-C2020050001",
     "beginDate": "2020-05-10",
-    "endDate": "2020-05-11",
+    "endDate": "2020-05-31",
     "qsetId": "QS00001",
     "slides": [
         { "qSeq": 1 },

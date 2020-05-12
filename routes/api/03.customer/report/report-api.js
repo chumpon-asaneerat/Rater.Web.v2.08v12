@@ -60,11 +60,11 @@ api.question.qslideitems = class {
     }
     static async exec_db(db, params) {
         let dbResult = await db.GetQSlideItems({
-            //langId: null,
-            langId: (params.langId) ? params.langId : 'EN',
+            langId: null,
+            //langId: (params.langId) ? params.langId : 'EN',
             customerId: params.customerId,
             qsetId: params.qsetId,
-            qSeq: null, /* required */
+            qSeq: null,
             //qSSeq: null,
             enabled: true,
         });
