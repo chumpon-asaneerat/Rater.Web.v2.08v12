@@ -5,7 +5,7 @@ content-type: application/json
 {
     //"langId": "EN",
     "customerId": "EDL-C2020050001",
-    "beginDate": "2020-05-10",
+    "beginDate": "2020-05-01",
     "endDate": "2020-05-31",
     "qsetId": "QS00001",
     "slides": [
@@ -21,17 +21,17 @@ content-type: application/json
 }
 
 #### GetVoteSummaries 2
-POST http://localhost:3000/customers/api/report/votesummaries
+POST http://localhost:3000/customers/api/report/votesummary
 content-type: application/json
 
 {
     "langId": null,
     "customerId": "EDL-C2020050001",
-    "beginDate": "2020-05-10",
-    "endDate": "2020-05-11",
+    "beginDate": "2020-05-01",
+    "endDate": "2020-05-31",
     "qsetId": "QS00001",
     "slides": [
-        { "qSeq": 3 }
+        { "qSeq": 1 }
     ],
     "orgs": [
         { "orgId": "O0001" }

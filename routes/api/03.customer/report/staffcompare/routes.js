@@ -76,10 +76,10 @@ api.Get = class {
 
 router.use(secure.checkAccess);
 // routes for staff summaries
-router.all('/', api.Get.entry);
+router.all('/report/staffcompare', api.Get.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/report/staffcompare/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
