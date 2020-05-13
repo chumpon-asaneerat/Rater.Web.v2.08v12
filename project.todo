@@ -435,8 +435,8 @@ Project:
     JS:
         ✔ Proxy, Observable sample. @done(20-05-02 20:54)
     Express JS:
-        ☐ Checks how to make url work with and without tailing slash.
-        ☐ Working with REST Api for each datae items to reduce login on client screen.
+        ✘ Checks how to make url work with and without tailing slash. @cancelled(20-05-13 21:45)
+        ☐ Working with REST Api for each data items to reduce login on client screen.
         Update to current project:
             ☐ Add supports XHR upload option to assigned target path.
             ☐ Download/Upload process route(s).
