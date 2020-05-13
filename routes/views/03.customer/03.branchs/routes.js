@@ -37,7 +37,7 @@ router.get('/contents', routes.getContents)
 router.get('/js/:file', routes.getjsfile)
 
 const init_routes = (svr) => {
-    svr.route('/customer/branchs', router);
+    svr.route('/customer/branch', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
