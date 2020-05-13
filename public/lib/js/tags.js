@@ -1268,7 +1268,7 @@ riot.tag2('branch-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'branch-view,[data-is="branch-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridarea"></div> </div> </div>', 'branch-view,[data-is="branch-view"]{ position: relative; margin: 0; padding: 0; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\' } branch-view>.scrarea,[data-is="branch-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 5px auto 1fr; grid-template-rows: 1fr; grid-template-areas: \'. toolarea gridarea\'; margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; max-width: 800px; height: 100%; } branch-view>.scrarea>.toolarea,[data-is="branch-view"]>.scrarea>.toolarea{ grid-area: toolarea; margin: 0 auto; margin-right: 5px; padding: 0; height: 100%; overflow: hidden; background-color: transparent; color: whitesmoke; } branch-view>.scrarea>.gridarea,[data-is="branch-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; }', '', function(opts) {
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
@@ -1296,12 +1296,13 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
             if (el) {
                 console.log('el exists.')
                 let opts = {
-                    height: 200,
+                    height: "100%",
                     layout: 'fitColumns',
                     selectable: 1,
-                    index: self.content.columns[0].field
+                    index: self.content.columns[0].field,
+                    data: []
                 }
-                let grid = new Tabulator(el, opts)
+                grid = new Tabulator(el, opts)
 
                 grid.setColumns(self.content.columns)
                 console.log(self.content.columns)
@@ -1325,18 +1326,15 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
         let onContentChanged = () => { updateContents() }
 
         let datasource;
+        let currentLangId = () => { return (lang.current) ? lang.current.langId : 'EN' }
         let loadDataSource = () => {
             let url = '/customers/api/branchs'
             let paramObj = {}
-            paramObj.langId = (lang.current) ? lang.current.langId : 'EN'
+            paramObj.langId = currentLangId()
             let fn = (r) => {
                 let data = api.parse(r)
                 datasource = data.records
-                console.log(datasource)
-                if (grid) {
-                    console.log('grid exist.')
-                    grid.setData(datasource)
-                }
+                updateDatasource()
             }
             XHR.postJson(url, paramObj, fn)
         }
@@ -1351,6 +1349,14 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
             }
 
             loadDataSource()
+            updateDatasource()
+        }
+
+        let updateDatasource = () => {
+            console.log('update datasource called')
+            console.log('grid:', grid)
+            console.log('datasource:', datasource)
+            if (grid && datasource) grid.setData(datasource[currentLangId()])
         }
 
         this.setup = () => {}
