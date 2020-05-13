@@ -1,0 +1,5 @@
+{
+    "columns": [
+        { "title": "ชื่อสาขา", "field": "branchName", "resizable": false }
+    ]
+}

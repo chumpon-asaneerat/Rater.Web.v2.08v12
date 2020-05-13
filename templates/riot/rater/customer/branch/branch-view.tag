@@ -35,8 +35,22 @@
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
+        let grid;
+        let initCtrls = () => {
+            grid = self.refs['grid']
+            if (grid) {
+                let opts = {
+                    height: 200,
+                    layout: 'fitColumns',
+                    selectable: 1,
+                    index: 'count' // set the index field to the "count" field default is "id" field.
+                }
+                let table = new Tabulator(grid.root, opts)
+            }
+        }
+        let freeCtrls = () => {
+            grid = null
+        }
         let bindEvents = () => {
             addEvt(events.name.LanguageChanged, onLanguageChanged)
             addEvt(events.name.ContentChanged, onContentChanged)
@@ -51,14 +65,24 @@
         let onScreenChanged = () => { updateContents() }
         let onContentChanged = () => { updateContents() }
 
-        let reloadData = () => {}
+        let datasource;
+        let loadDataSource = () => {
+            let url = '/customers/api/branchs'
+            let paramObj = {}
+            paramObj.langId = (lang.current) ? lang.current.langId : 'EN'
+            let fn = (r) => {
+                let data = api.parse(r)
+                datasource = data.records
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
         let updateContents = () => {
             // sync content by part id.
             let partContent = contents.getPart(partId)
-
             // load columns
             self.content.columns = partContent.columns
             // update grid.
+            loadDataSource()
         }
 
         this.setup = () => {}

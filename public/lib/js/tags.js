@@ -1290,8 +1290,22 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
+        let grid;
+        let initCtrls = () => {
+            grid = self.refs['grid']
+            if (grid) {
+                let opts = {
+                    height: 200,
+                    layout: 'fitColumns',
+                    selectable: 1,
+                    index: 'count'
+                }
+                let table = new Tabulator(grid.root, opts)
+            }
+        }
+        let freeCtrls = () => {
+            grid = null
+        }
         let bindEvents = () => {
             addEvt(events.name.LanguageChanged, onLanguageChanged)
             addEvt(events.name.ContentChanged, onContentChanged)
@@ -1306,13 +1320,24 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
         let onScreenChanged = () => { updateContents() }
         let onContentChanged = () => { updateContents() }
 
-        let reloadData = () => {}
+        let datasource;
+        let loadDataSource = () => {
+            let url = '/customers/api/branchs'
+            let paramObj = {}
+            paramObj.langId = (lang.current) ? lang.current.langId : 'EN'
+            let fn = (r) => {
+                let data = api.parse(r)
+                datasource = data.records
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
         let updateContents = () => {
 
             let partContent = contents.getPart(partId)
 
             self.content.columns = partContent.columns
 
+            loadDataSource()
         }
 
         this.setup = () => {}
