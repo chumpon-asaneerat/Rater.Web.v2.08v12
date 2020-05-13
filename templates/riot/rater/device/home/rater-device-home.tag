@@ -137,6 +137,9 @@
             delEvt(events.name.ContentChanged, onContentChanged)
             //delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
+        let onLanguageChanged = () => { updateContents() }
+        let onScreenChanged = () => { updateContents() }
+        let onContentChanged = () => { updateContents() }
 
         let updateContents = () => {
             let partContent = contents.getPart(partId)
@@ -148,9 +151,6 @@
             ]
             assigns(self.content, partContent, ...propNames)
         }
-        let onLanguageChanged = () => { updateContents() }
-        let onScreenChanged = () => { updateContents() }
-        let onContentChanged = () => { updateContents() }
 
         this.registerDeviceClick = (e) => {
             console.log('goto register device page click')

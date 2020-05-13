@@ -1272,6 +1272,14 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+
+        let partId = 'branch-view'
+        this.content = {
+            columns: [
+                { title: 'Branch Name', 'field': 'branchName', resizable: false }
+            ]
+        }
 
         this.on('mount', () => {
             initCtrls()
@@ -1284,8 +1292,31 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
 
         let initCtrls = () => { }
         let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+
+        }
+        let unbindEvents = () => {
+
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+        let onLanguageChanged = () => { updateContents() }
+        let onScreenChanged = () => { updateContents() }
+        let onContentChanged = () => { updateContents() }
+
+        let reloadData = () => {}
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+
+            self.content.columns = partContent.columns
+
+        }
+
+        this.setup = () => {}
+        this.refresh = () => {}
 });
 riot.tag2('device-editor', '', 'device-editor,[data-is="device-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
@@ -2416,6 +2447,9 @@ riot.tag2('rater-device-home', '<div class="container-area"> <div class="title">
             delEvt(events.name.ContentChanged, onContentChanged)
 
         }
+        let onLanguageChanged = () => { updateContents() }
+        let onScreenChanged = () => { updateContents() }
+        let onContentChanged = () => { updateContents() }
 
         let updateContents = () => {
             let partContent = contents.getPart(partId)
@@ -2427,9 +2461,6 @@ riot.tag2('rater-device-home', '<div class="container-area"> <div class="title">
             ]
             assigns(self.content, partContent, ...propNames)
         }
-        let onLanguageChanged = () => { updateContents() }
-        let onScreenChanged = () => { updateContents() }
-        let onContentChanged = () => { updateContents() }
 
         this.registerDeviceClick = (e) => {
             console.log('goto register device page click')
