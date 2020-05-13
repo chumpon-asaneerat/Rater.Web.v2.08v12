@@ -1292,29 +1292,33 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
 
         let grid;
         let initCtrls = () => {
-            grid = self.refs['grid']
-            if (grid) {
+            let el = self.refs['grid']
+            if (el) {
+                console.log('el exists.')
                 let opts = {
                     height: 200,
                     layout: 'fitColumns',
                     selectable: 1,
-                    index: 'count'
+                    index: self.content.columns[0].field
                 }
-                let table = new Tabulator(grid.root, opts)
+                let grid = new Tabulator(el, opts)
+
+                grid.setColumns(self.content.columns)
+                console.log(self.content.columns)
             }
         }
         let freeCtrls = () => {
             grid = null
         }
         let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
+
             addEvt(events.name.ContentChanged, onContentChanged)
 
         }
         let unbindEvents = () => {
 
             delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
+
         }
         let onLanguageChanged = () => { updateContents() }
         let onScreenChanged = () => { updateContents() }
@@ -1328,6 +1332,11 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
             let fn = (r) => {
                 let data = api.parse(r)
                 datasource = data.records
+                console.log(datasource)
+                if (grid) {
+                    console.log('grid exist.')
+                    grid.setData(datasource)
+                }
             }
             XHR.postJson(url, paramObj, fn)
         }
@@ -1335,7 +1344,11 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
 
             let partContent = contents.getPart(partId)
 
-            self.content.columns = partContent.columns
+            if (partContent) {
+                self.content.columns = partContent.columns
+
+                if (grid) grid.setColumns(self.content.columns)
+            }
 
             loadDataSource()
         }

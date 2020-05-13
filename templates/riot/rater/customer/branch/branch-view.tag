@@ -37,29 +37,33 @@
 
         let grid;
         let initCtrls = () => {
-            grid = self.refs['grid']
-            if (grid) {
+            let el = self.refs['grid']
+            if (el) {
+                console.log('el exists.')
                 let opts = {
                     height: 200,
                     layout: 'fitColumns',
                     selectable: 1,
-                    index: 'count' // set the index field to the "count" field default is "id" field.
+                    index: self.content.columns[0].field
                 }
-                let table = new Tabulator(grid.root, opts)
+                let grid = new Tabulator(el, opts)
+                // apply or overwrite existing columns with new columns definition array
+                grid.setColumns(self.content.columns)
+                console.log(self.content.columns)
             }
         }
         let freeCtrls = () => {
             grid = null
         }
         let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            //addEvt(events.name.LanguageChanged, onLanguageChanged)
             addEvt(events.name.ContentChanged, onContentChanged)
             //addEvt(events.name.ScreenChanged, onScreenChanged)
         }
         let unbindEvents = () => {
             //delEvt(events.name.ScreenChanged, onScreenChanged)
             delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
+            //delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
         let onLanguageChanged = () => { updateContents() }
         let onScreenChanged = () => { updateContents() }
@@ -73,6 +77,11 @@
             let fn = (r) => {
                 let data = api.parse(r)
                 datasource = data.records
+                console.log(datasource)
+                if (grid) {
+                    console.log('grid exist.')
+                    grid.setData(datasource)
+                }
             }
             XHR.postJson(url, paramObj, fn)
         }
@@ -80,7 +89,11 @@
             // sync content by part id.
             let partContent = contents.getPart(partId)
             // load columns
-            self.content.columns = partContent.columns
+            if (partContent) {
+                self.content.columns = partContent.columns
+                // apply or overwrite existing columns with new columns definition array
+                if (grid) grid.setColumns(self.content.columns)
+            }
             // update grid.
             loadDataSource()
         }
