@@ -1272,7 +1272,6 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
         let self = this
 
         let addEvt = events.doc.add, delEvt = events.doc.remove
-        let assigns = nlib.utils.assigns
 
         let partId = 'branch-view'
         this.content = {
@@ -1291,53 +1290,17 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
         })
 
         let grid;
-        let initCtrls = () => {
-            let el = self.refs['grid']
-            if (el) {
-                console.log('el exists.')
-                let opts = {
-                    height: "100%",
-                    layout: 'fitColumns',
-                    selectable: 1,
-                    index: self.content.columns[0].field,
-                    data: []
-                }
-                grid = new Tabulator(el, opts)
-
-                grid.setColumns(self.content.columns)
-                console.log(self.content.columns)
-            }
-        }
+        let initCtrls = () => {}
         let freeCtrls = () => {
             grid = null
         }
         let bindEvents = () => {
-
             addEvt(events.name.ContentChanged, onContentChanged)
-
         }
         let unbindEvents = () => {
-
             delEvt(events.name.ContentChanged, onContentChanged)
-
         }
-        let onLanguageChanged = () => { updateContents() }
-        let onScreenChanged = () => { updateContents() }
         let onContentChanged = () => { updateContents() }
-
-        let datasource;
-        let currentLangId = () => { return (lang.current) ? lang.current.langId : 'EN' }
-        let loadDataSource = () => {
-            let url = '/customers/api/branchs'
-            let paramObj = {}
-            paramObj.langId = currentLangId()
-            let fn = (r) => {
-                let data = api.parse(r)
-                datasource = data.records
-                updateDatasource()
-            }
-            XHR.postJson(url, paramObj, fn)
-        }
         let updateContents = () => {
 
             let partContent = contents.getPart(partId)
@@ -1345,22 +1308,42 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
             if (partContent) {
                 self.content.columns = partContent.columns
 
-                if (grid) grid.setColumns(self.content.columns)
+                loadDataSource()
             }
-
-            loadDataSource()
-            updateDatasource()
         }
 
-        let updateDatasource = () => {
-            console.log('update datasource called')
-            console.log('grid:', grid)
-            console.log('datasource:', datasource)
-            if (grid && datasource) grid.setData(datasource[currentLangId()])
+        let datasource = [];
+        let loadDataSource = () => {
+            let langId = (lang.current) ? lang.current.langId : 'EN'
+            let url = '/customers/api/branchs'
+            let paramObj = {}
+            paramObj.langId = langId
+            let fn = (r) => {
+                let data = api.parse(r)
+                datasource = (data.records && data.records[langId]) ? data.records[langId] : []
+                updateGrid()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
+        let updateGrid = () => {
+            let el = self.refs['grid']
+            if (el) {
+                let opts = {
+                    height: "100%",
+                    layout: 'fitDataFill',
+                    selectable: 1,
+                    index: self.content.columns[0].field,
+                    columns: self.content.columns,
+                    data: datasource
+                }
+                grid = new Tabulator(el, opts)
+            }
         }
 
         this.setup = () => {}
-        this.refresh = () => {}
+        this.refresh = () => {
+            updateContents()
+        }
 });
 riot.tag2('device-editor', '', 'device-editor,[data-is="device-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
