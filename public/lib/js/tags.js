@@ -1977,6 +1977,20 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasa
                 loadDataSource()
             }
         }
+        let buildTree = (dataset) => {
+            let hashTable = Object.create(null)
+            dataset.forEach(aData => hashTable[aData.orgId] = { ...aData, children : [] })
+            let dataTree = []
+            dataset.forEach(aData => {
+                if (aData.parentId) {
+                    hashTable[aData.parentId].children.push(hashTable[aData.orgId])
+                }
+                else {
+                    dataTree.push(hashTable[aData.orgId])
+                }
+            })
+            return (dataTree && dataTree.length > 0) ? dataTree[0] : {}
+        }
         let loadDataSource = () => {
             let langId = (lang.current) ? lang.current.langId : 'EN'
             let url = '/customers/api/orgs'
@@ -1986,8 +2000,7 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasa
                 let data = api.parse(r)
                 let src = (data.records && data.records[langId]) ? data.records[langId] : []
 
-                datasource = nest(src)
-                console.log('datasource:', datasource)
+                datasource = buildTree(src)
                 updateChart()
             }
             XHR.postJson(url, paramObj, fn)
@@ -1999,26 +2012,13 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasa
                     el.firstChild.remove();
                 }
                 $(el).orgchart({
-                    'data': datasource,
-                    'nodeTitle': 'OrgName',
-                    'nodeContent': 'OrgName',
-                    'nodeID': 'orgId'
+                    collapsed: false,
+                    data: datasource,
+                    nodeTitle: 'OrgName',
+                    nodeContent: 'OrgName',
+                    nodeID: 'orgId'
                 })
             }
-        }
-        const nest = dataset => {
-            let hashTable = Object.create(null)
-            dataset.forEach(aData => hashTable[aData.orgId] = { ...aData, children : [] })
-            let dataTree = []
-            dataset.forEach( aData => {
-                if (aData.parentId) {
-                    hashTable[aData.parentId].children.push(hashTable[aData.orgId])
-                }
-                else {
-                    dataTree.push(hashTable[aData.orgId])
-                }
-            })
-            return (dataTree && dataTree.length > 0) ? dataTree[0] : {}
         }
 });
 riot.tag2('bar-votesummary-manage', '', 'bar-votesummary-manage,[data-is="bar-votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
