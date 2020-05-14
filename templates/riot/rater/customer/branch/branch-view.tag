@@ -71,7 +71,7 @@
             freeCtrls()
         })
 
-        let grid;
+        let grid = null, datasource = []
         let initCtrls = () => {}
         let freeCtrls = () => {
             grid = null
@@ -93,8 +93,6 @@
                 loadDataSource()
             }
         }
-
-        let datasource = [];
         let loadDataSource = () => {
             let langId = (lang.current) ? lang.current.langId : 'EN'
             let url = '/customers/api/branchs'
@@ -122,9 +120,6 @@
             }
         }
 
-        this.setup = () => {}
-        this.refresh = () => {
-            updateContents()
-        }
+        this.refresh = () => { updateContents() }
     </script>
 </branch-view>

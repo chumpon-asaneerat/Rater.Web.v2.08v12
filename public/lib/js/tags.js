@@ -1289,7 +1289,7 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
             freeCtrls()
         })
 
-        let grid;
+        let grid = null, datasource = []
         let initCtrls = () => {}
         let freeCtrls = () => {
             grid = null
@@ -1311,8 +1311,6 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
                 loadDataSource()
             }
         }
-
-        let datasource = [];
         let loadDataSource = () => {
             let langId = (lang.current) ? lang.current.langId : 'EN'
             let url = '/customers/api/branchs'
@@ -1340,10 +1338,7 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div class="grid
             }
         }
 
-        this.setup = () => {}
-        this.refresh = () => {
-            updateContents()
-        }
+        this.refresh = () => { updateContents() }
 });
 riot.tag2('device-editor', '', 'device-editor,[data-is="device-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
