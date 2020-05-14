@@ -1867,55 +1867,74 @@ riot.tag2('exclusive-home', '', '', '', function(opts) {
 });
 riot.tag2('staff-home', '', '', '', function(opts) {
 });
-riot.tag2('member-editor', '<div class="entry"> <tabcontrol class="tabs" content="{opts.content}"> <tabheaders content="{opts.content}"> <tabheader for="default" content="{opts.content}"> <span class="fas fa-cog"></span> {opts.content.entry.tabDefault} </tabheader> <tabheader for="miltilang" content="{opts.content}"> <span class="fas fa-globe-americas"></span> {opts.content.entry.tabMultiLang} </tabheader> </tabheaders> <tabpages> <tabpage name="default"> <div class="scrollable"> <member-entry ref="EN" langid=""></member-entry> </div> </tabpage> <tabpage name="miltilang"> <div class="scrollable"> <virtual if="{lang.languages}"> <virtual each="{item in lang.languages}"> <virtual if="{item.langId !==\'EN\'}"> <div class="panel-header" langid="{item.langId}"> &nbsp;&nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}"></span> &nbsp;{item.Description}&nbsp; </div> <div class="panel-body" langid="{item.langId}"> <member-entry ref="{item.langId}" langid="{item.langId}"></member-entry> </div> </virtual> </virtual> </virtual> </div> </tabpage> </tabpages> </tabcontrol> <div class="tool"> <button class="float-button save" onclick="{save}"><span class="fas fa-save"></span></button> <button class="float-button cancel" onclick="{cancel}"><span class="fas fa-times"></span></button> </div> </div>', 'member-editor,[data-is="member-editor"]{ margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'entry\'; background-color: white; overflow: hidden; } member-editor>.entry,[data-is="member-editor"]>.entry{ grid-area: entry; position: relative; display: grid; grid-template-columns: 1fr auto 5px; grid-template-rows: 1fr; grid-template-areas: \'tabs tool .\'; margin: 0 auto; padding: 0; padding-top: 20px; padding-bottom: 20px; width: 100%; height: 100%; overflow: auto; } member-editor>.entry .tabs,[data-is="member-editor"]>.entry .tabs{ grid-area: tabs; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } member-editor .scrollable,[data-is="member-editor"] .scrollable{ position: absolute; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: auto; } member-editor>.entry .tool,[data-is="member-editor"]>.entry .tool{ grid-area: tool; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr auto; grid-template-areas: \'. .\' \'btn-cancel .\' \'btn-save .\'; margin: 0 auto; margin-left: 3px; padding: 0; width: 100%; height: 100%; overflow: hidden; } member-editor>.entry .tool .float-button,[data-is="member-editor"]>.entry .tool .float-button{ margin: 0 auto; padding: 0; border: none; outline: none; border-radius: 50%; height: 40px; width: 40px; color: whitesmoke; background: silver; cursor: pointer; } member-editor>.entry .tool .float-button:hover,[data-is="member-editor"]>.entry .tool .float-button:hover{ color: whitesmoke; background: forestgreen; } member-editor>.entry .tool .float-button.save,[data-is="member-editor"]>.entry .tool .float-button.save{ grid-area: btn-save; } member-editor>.entry .tool .float-button.cancel,[data-is="member-editor"]>.entry .tool .float-button.cancel{ grid-area: btn-cancel; } member-editor .panel-header,[data-is="member-editor"] .panel-header{ margin: 0 auto; padding: 0; padding-top: 3px; width: 100%; height: 30px; color: white; background: cornflowerblue; border-radius: 5px 5px 0 0; } member-editor .panel-body,[data-is="member-editor"] .panel-body{ margin: 0 auto; margin-bottom: 5px; padding: 2px; width: 100%; border: 1px solid cornflowerblue; }', '', function(opts) {
-        let self = this;
-        let screenId = 'member-entry'
-        let defaultContent = {
+riot.tag2('member-editor', '<div class="entry"> <tabcontrol class="tabs" content="{opts.content}"> <tabheaders content="{opts.content}"> <tabheader for="default" content="{opts.content}"> <span class="fas fa-cog"></span> {opts.content.entry.tabDefault} </tabheader> <tabheader for="miltilang" content="{opts.content}"> <span class="fas fa-globe-americas"></span> {opts.content.entry.tabMultiLang} </tabheader> </tabheaders> <tabpages class="pages"> <tabpage name="default"> <div class="tab-body-container"> <member-entry ref="EN" langid=""></member-entry> </div> </tabpage> <tabpage name="miltilang"> <div class="tab-body-container"> <virtual if="{lang.languages}"> <virtual each="{item in lang.languages}"> <virtual if="{item.langId !== \'EN\'}"> <div class="panel-header" langid="{item.langId}"> &nbsp;&nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}"></span> &nbsp;{item.Description}&nbsp; </div> <div class="panel-body" langid="{item.langId}"> <member-entry ref="{item.langId}" langid="{item.langId}"></member-entry> </div> </virtual> </virtual> </virtual> </div> </tabpage> </tabpages> </tabcontrol> <div class="tool"> <button class="float-button save" onclick="{save}"><span class="fas fa-save"></span></button> <button class="float-button cancel" onclick="{cancel}"><span class="fas fa-times"></span></button> </div> </div>', 'member-editor,[data-is="member-editor"]{ position: relative; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'entry\'; background-color: white; overflow: hidden; } member-editor>.entry,[data-is="member-editor"]>.entry{ grid-area: entry; display: grid; grid-template-columns: 1fr auto 5px; grid-template-rows: 1fr; grid-template-areas: \'tabs tool .\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } member-editor>.entry .tabs,[data-is="member-editor"]>.entry .tabs{ grid-area: tabs; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } member-editor>.entry .pages .tab-body-container,[data-is="member-editor"]>.entry .pages .tab-body-container{ margin: 0 auto; padding: 5px; width: 100%; height: 100%; } member-editor>.entry .tool,[data-is="member-editor"]>.entry .tool{ grid-area: tool; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr auto; grid-template-areas: \'. .\' \'btn-cancel .\' \'btn-save .\'; margin: 0 auto; margin-left: 3px; padding: 5px; width: 100%; height: 100%; overflow: hidden; } member-editor>.entry .tool .float-button,[data-is="member-editor"]>.entry .tool .float-button{ margin: 0 auto; padding: 0; border: none; outline: none; border-radius: 50%; height: 40px; width: 40px; color: whitesmoke; background: silver; cursor: pointer; } member-editor>.entry .tool .float-button:hover,[data-is="member-editor"]>.entry .tool .float-button:hover{ color: whitesmoke; background: forestgreen; } member-editor>.entry .tool .float-button.save,[data-is="member-editor"]>.entry .tool .float-button.save{ grid-area: btn-save; } member-editor>.entry .tool .float-button.cancel,[data-is="member-editor"]>.entry .tool .float-button.cancel{ grid-area: btn-cancel; } member-editor .panel-header,[data-is="member-editor"] .panel-header{ margin: 0 auto; padding: 0; padding-top: 3px; width: 100%; height: 30px; color: white; background: cornflowerblue; border-radius: 5px 5px 0 0; } member-editor .panel-body,[data-is="member-editor"] .panel-body{ margin: 0 auto; margin-bottom: 5px; padding: 2px; width: 100%; border: 1px solid cornflowerblue; }', '', function(opts) {
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+
+        let partId = 'member-editor'
+        this.content = {
             entry: {
                 tabDefault: 'Default',
                 tabMultiLang: 'Languages'
             }
         }
-        this.content = defaultContent
-        opts.content = this.content
+        opts.content = this.content;
 
-        let addEvt = events.doc.add, delEvt = events.doc.remove
         this.on('mount', () => {
+            initCtrls()
             bindEvents()
         })
         this.on('unmount', () => {
             unbindEvents()
+            freeCtrls()
         })
 
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
         let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
             addEvt(events.name.ContentChanged, onContentChanged)
-            addEvt(events.name.ScreenChanged, onScreenChanged)
         }
         let unbindEvents = () => {
-            delEvt(events.name.ScreenChanged, onScreenChanged)
             delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
+        let onContentChanged = (e) => { updateContents() }
+        let updateContents = () => {
 
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
-        let onScreenChanged = (e) => { updatecontent(); }
-        let updatecontent = () => {
-            if (screens.is(screenId)) {
-                let scrContent = contents.getScreenContent()
-                self.content = scrContent ? scrContent : defaultContent;
-                opts.content = self.content;
-                self.update();
-            }
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.tabDefault',
+                'entry.tabMultiLang'
+            ]
+            assigns(self.content, partContent, ...propNames)
+            opts.content = this.content;
         }
+        let editorOptions
+        this.save = (e) => {
+            console.log('save')
+
+            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+        }
+        this.cancel = (e) => {
+            console.log('cancel')
+
+            if (editorOptions && editorOptions.onClose) editorOptions.onClose()
+        }
+        this.setup = (editOpts) => {
+            editorOptions = editOpts
+            let item = null
+
+        }
+        this.refresh = () => {}
 });
 riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="prefix" title="{content.entry.prefix}" type="text" name="prefix"></ninput> <ninput ref="firstName" title="{content.entry.firstName}" type="text" name="firstName"></ninput> <ninput ref="lastName" title="{content.entry.lastName}" type="text" name="lastName"></ninput> <virtual if="{isDefault()}"> <ninput ref="userName" title="{content.entry.userName}" type="text" name="userName"></ninput> <ninput ref="passWord" title="{content.entry.passWord}" type="password" name="passWord"></ninput> <nselect ref="memberTypes" title="{content.entry.memberType}"></nselect> </virtual>', 'member-entry,[data-is="member-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } member-entry .padtop,[data-is="member-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
         let self = this
-        let screenId = 'member-entry'
-        this.isDefault = () => { return (opts.langid === '' || opts.langid === 'EN') }
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+        let clone = nlib.utils.clone, equals = nlib.utils.equals
 
-        let defaultContent = {
+        let partId = 'member-entry'
+        this.content = {
             title: 'Member Edit',
             entry: {
                 prefix: 'Prefix Name',
@@ -1929,9 +1948,8 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
                 employeeCode: 'Employee Code',
             }
         }
-        this.content = defaultContent;
+        this.isDefault = () => { return (opts.langid === '' || opts.langid === 'EN') }
 
-        let addEvt = events.doc.add, delEvt = events.doc.remove
         this.on('mount', () => {
             initCtrls()
             bindEvents()
@@ -1941,7 +1959,6 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
             freeCtrls()
         })
         let prefix, firstName, lastName, userName, passWord;
-
         let memberTypes;
 
         let initCtrls = () => {
@@ -1973,28 +1990,34 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
 
         }
         let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
             addEvt(events.name.ContentChanged, onContentChanged)
-            addEvt(events.name.ScreenChanged, onScreenChanged)
-
         }
         let unbindEvents = () => {
-
-            delEvt(events.name.ScreenChanged, onScreenChanged)
             delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
 
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
-        let onScreenChanged = (e) => { updatecontent(); }
-        let updatecontent = () => {
-            if (screens.is(screenId)) {
-                let scrContent = contents.getScreenContent()
-                self.content = scrContent ? scrContent : defaultContent;
-                self.update();
-            }
+        let onContentChanged = (e) => { updateContents(); }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.prefix',
+                'entry.firstName',
+                'entry.lastName',
+                'entry.userName',
+                'entry.passWord',
+                'entry.memberType',
+                'entry.tagId',
+                'entry.idCard',
+                'entry.employeeCode'
+            ]
+            assigns(self.content, partContent, ...propNames)
         }
+
+        this.setup = (item) => {
+
+        }
+        this.refresh = () => { updateContents() }
 });
 riot.tag2('member-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <member-view ref="leftpanel" class="view"></member-view> </yield> <yield to="right-panel"> <member-editor ref="rightpanel" class="entry"></member-editor> </yield> </dual-layout>', 'member-manage,[data-is="member-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
@@ -2027,7 +2050,7 @@ riot.tag2('member-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'member-view,[data-is="member-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } member-view>.scrarea,[data-is="member-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } member-view>.scrarea>.gridarea,[data-is="member-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } member-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="member-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
+riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <member-editor ref="editor"></member-editor> </ndialog>', 'member-view,[data-is="member-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } member-view>.scrarea,[data-is="member-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } member-view>.scrarea>.gridarea,[data-is="member-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } member-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="member-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -2050,8 +2073,14 @@ riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         })
 
         let grid = null, datasource = []
-        let initCtrls = () => {}
+        let dialog, editor
+        let initCtrls = () => {
+            dialog = self.refs['dialog']
+            editor = (dialog) ? dialog.refs['editor'] : null
+        }
         let freeCtrls = () => {
+            dialog = null
+            editor = null
             grid = null
         }
         let bindEvents = () => {
@@ -2094,15 +2123,17 @@ riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="grid" 
             let el = self.refs['grid']
             if (el) {
                 let gridColumns = []
-                gridColumns.push({
-                    formatter: editIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: editRow
-                }, {
-                    formatter: deleteIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: deleteRow
-                })
+                if (self.opts.viewonly !== 'true') {
+                    gridColumns.push({
+                        formatter: editIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: editRow
+                    }, {
+                        formatter: deleteIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: deleteRow
+                    })
+                }
                 gridColumns.push(...self.content.columns)
                 let opts = {
                     height: "100%",
@@ -2118,6 +2149,16 @@ riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
             console.log('edit:', data)
+            let editOpts = {
+                onClose: () => {
+                    dialog.hide()
+                },
+                onSave: () => {
+                    dialog.hide()
+                }
+            }
+            dialog.show()
+            if (editor) editor.setup(editOpts)
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()
@@ -2194,7 +2235,7 @@ riot.tag2('org-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <org
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasarea"> <div ref="canvas"></div> </div> </div>', 'org-view,[data-is="org-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } org-view>.scrarea,[data-is="org-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'canvasarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } org-view>.scrarea>.canvasarea,[data-is="org-view"]>.scrarea>.canvasarea{ grid-area: canvasarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; overflow: auto; } org-view>.scrarea>.canvasarea .orgchart,[data-is="org-view"]>.scrarea>.canvasarea .orgchart{ background-image: none; } org-view>.scrarea>.canvasarea .orgchart .node .edge,[data-is="org-view"]>.scrarea>.canvasarea .orgchart .node .edge{ display: none; }', '', function(opts) {
+riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasarea"> <div ref="canvas"></div> </div> </div> <ndialog ref="dialog"> <org-editor ref="editor"></org-editor> </ndialog>', 'org-view,[data-is="org-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } org-view>.scrarea,[data-is="org-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'canvasarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } org-view>.scrarea>.canvasarea,[data-is="org-view"]>.scrarea>.canvasarea{ grid-area: canvasarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; overflow: auto; } org-view>.scrarea>.canvasarea .orgchart,[data-is="org-view"]>.scrarea>.canvasarea .orgchart{ background-image: none; } org-view>.scrarea>.canvasarea .orgchart .node .edge,[data-is="org-view"]>.scrarea>.canvasarea .orgchart .node .edge{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -2210,8 +2251,14 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasa
         })
 
         let orgchart = null, datasource = {}
-        let initCtrls = () => {}
+        let dialog, editor
+        let initCtrls = () => {
+            dialog = self.refs['dialog']
+            editor = (dialog) ? dialog.refs['editor'] : null
+        }
         let freeCtrls = () => {
+            dialog = null
+            editor = null
             orgchart = null
         }
         let bindEvents = () => {

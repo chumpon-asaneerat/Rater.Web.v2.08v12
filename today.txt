@@ -20,7 +20,10 @@ Update 2020-05-14 #34
 -
 -------------------------------------------------------------------------------------
 Update 2020-05-14 #33
--
+- update member entry #1.
+- update member editor #1.
+- update member view #3.
+- update org view #8.
 -------------------------------------------------------------------------------------
 Update 2020-05-14 #32
 - nlib.js (client) add clone, equals method.

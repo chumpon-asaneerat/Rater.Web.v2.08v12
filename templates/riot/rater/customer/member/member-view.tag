@@ -2,6 +2,9 @@
     <div ref="container" class="scrarea">
         <div ref="grid" class="gridarea"></div>
     </div>
+    <ndialog ref="dialog">
+        <member-editor ref="editor"></member-editor>
+    </ndialog>
     <style>
         :scope {
             position: relative;
@@ -68,8 +71,14 @@
         })
 
         let grid = null, datasource = []
-        let initCtrls = () => {}
+        let dialog, editor
+        let initCtrls = () => {
+            dialog = self.refs['dialog']
+            editor = (dialog) ? dialog.refs['editor'] : null
+        }
         let freeCtrls = () => {
+            dialog = null
+            editor = null
             grid = null
         }
         let bindEvents = () => {
@@ -112,15 +121,17 @@
             let el = self.refs['grid']
             if (el) {
                 let gridColumns = []
-                gridColumns.push({
-                    formatter: editIcon, hozAlign: "center", width: 30, 
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: editRow
-                }, {
-                    formatter: deleteIcon, hozAlign: "center", width: 30, 
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: deleteRow
-                })
+                if (self.opts.viewonly !== 'true') {
+                    gridColumns.push({
+                        formatter: editIcon, hozAlign: "center", width: 30, 
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: editRow
+                    }, {
+                        formatter: deleteIcon, hozAlign: "center", width: 30, 
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: deleteRow
+                    })
+                }
                 gridColumns.push(...self.content.columns)
                 let opts = {
                     height: "100%",
@@ -136,6 +147,16 @@
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
             console.log('edit:', data)
+            let editOpts = {
+                onClose: () => { 
+                    dialog.hide()
+                },
+                onSave: () => {
+                    dialog.hide()
+                }
+            }
+            dialog.show()
+            if (editor) editor.setup(editOpts)
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()

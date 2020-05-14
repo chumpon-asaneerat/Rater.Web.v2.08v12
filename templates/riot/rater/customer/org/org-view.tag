@@ -5,6 +5,9 @@
             <div ref="canvas"></div>
         </div>
     </div>
+    <ndialog ref="dialog">
+        <org-editor ref="editor"></org-editor>
+    </ndialog>
     <style>
         :scope {
             position: relative;
@@ -35,6 +38,7 @@
             max-width: 800px;
             height: 100%;
             overflow: hidden;
+            box-shadow: var(--default-box-shadow);
         }
         :scope>.scrarea>.canvasarea {
             grid-area: canvasarea;
@@ -67,8 +71,14 @@
         })
 
         let orgchart = null, datasource = {}
-        let initCtrls = () => {}
+        let dialog, editor
+        let initCtrls = () => {
+            dialog = self.refs['dialog']
+            editor = (dialog) ? dialog.refs['editor'] : null
+        }
         let freeCtrls = () => {
+            dialog = null
+            editor = null
             orgchart = null
         }
         let bindEvents = () => {

@@ -11,17 +11,17 @@
                     { opts.content.entry.tabMultiLang }
                 </tabheader>
             </tabheaders>
-            <tabpages>
+            <tabpages class="pages">
                 <tabpage name="default">
-                    <div class="scrollable">
+                    <div class="tab-body-container">
                         <member-entry ref="EN" langId=""></member-entry>
                     </div>
                 </tabpage>
                 <tabpage name="miltilang">
-                    <div class="scrollable">
+                    <div class="tab-body-container">
                         <virtual if={ lang.languages }>
                             <virtual each={ item in lang.languages }>
-                                <virtual if={ item.langId !=='EN' }>
+                                <virtual if={ item.langId !== 'EN' }>
                                     <div class="panel-header" langId="{ item.langId }">
                                         &nbsp;&nbsp;
                                         <span class="flag-css flag-icon flag-icon-{ item.flagId.toLowerCase() }"></span>
@@ -44,6 +44,7 @@
     </div>
     <style>
         :scope {
+            position: relative;
             margin: 0 auto;
             padding: 0;
             width: 100%;
@@ -52,26 +53,23 @@
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: 1fr;
-            grid-template-areas:
+            grid-template-areas: 
                 'entry';
             background-color: white;
             overflow: hidden;
         }
         :scope>.entry {
             grid-area: entry;
-            position: relative;
             display: grid;
             grid-template-columns: 1fr auto 5px;
             grid-template-rows: 1fr;
-            grid-template-areas:
+            grid-template-areas: 
                 'tabs tool .';
             margin: 0 auto;
             padding: 0;
-            padding-top: 20px;
-            padding-bottom: 20px;
             width: 100%;
             height: 100%;
-            overflow: auto;
+            overflow: hidden;
         }
         :scope>.entry .tabs {
             grid-area: tabs;
@@ -81,26 +79,24 @@
             height: 100%;
             overflow: hidden;
         }
-        :scope .scrollable {
-            position: absolute;
+        :scope>.entry .pages .tab-body-container {
             margin: 0 auto;
-            padding: 0;
+            padding: 5px;
             width: 100%;
             height: 100%;
-            overflow: auto;
         }
         :scope>.entry .tool {
             grid-area: tool;
             display: grid;
             grid-template-columns: 1fr auto;
             grid-template-rows: auto 1fr auto;
-            grid-template-areas:
+            grid-template-areas: 
                 '. .'
                 'btn-cancel .'
                 'btn-save .';
             margin: 0 auto;
             margin-left: 3px;
-            padding: 0;
+            padding: 5px;
             width: 100%;
             height: 100%;
             /* background-color: sandybrown; */
@@ -147,46 +143,63 @@
         }
     </style>
     <script>
-        let self = this;
-        let screenId = 'member-entry'
-        let defaultContent = {
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+
+        let partId = 'member-editor'
+        this.content = {
             entry: { 
                 tabDefault: 'Default',
                 tabMultiLang: 'Languages'
             }
         }
-        this.content = defaultContent
-        opts.content = this.content
+        opts.content = this.content; // update 2019-12-19
 
-        let addEvt = events.doc.add, delEvt = events.doc.remove
         this.on('mount', () => {
+            initCtrls()
             bindEvents()
         })
         this.on('unmount', () => {
             unbindEvents()
+            freeCtrls()
         })
 
+        let initCtrls = () => { }
+        let freeCtrls = () => { }
         let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
             addEvt(events.name.ContentChanged, onContentChanged)
-            addEvt(events.name.ScreenChanged, onScreenChanged)
         }
         let unbindEvents = () => {
-            delEvt(events.name.ScreenChanged, onScreenChanged)
             delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
-
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
-        let onScreenChanged = (e) => { updatecontent(); }
-        let updatecontent = () => {
-            if (screens.is(screenId)) {
-                let scrContent = contents.getScreenContent()
-                self.content = scrContent ? scrContent : defaultContent;
-                opts.content = self.content;
-                self.update();
-            }
+        let onContentChanged = (e) => { updateContents() }
+        let updateContents = () => {
+            // sync content by part id.
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.tabDefault',
+                'entry.tabMultiLang'
+            ]
+            assigns(self.content, partContent, ...propNames)
+            opts.content = this.content; // update 2019-12-19
         }
+        let editorOptions
+        this.save = (e) => {
+            console.log('save')
+            // close after save
+            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+        }
+        this.cancel = (e) => {
+            console.log('cancel')
+            // close without save
+            if (editorOptions && editorOptions.onClose) editorOptions.onClose()
+        }
+        this.setup = (editOpts) => {
+            editorOptions = editOpts
+            let item = null // get fron api
+            // set item (contains all languages).
+        }
+        this.refresh = () => {}
     </script>
 </member-editor>

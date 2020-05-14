@@ -33,10 +33,12 @@
     </style>
     <script>
         let self = this
-        let screenId = 'member-entry'
-        this.isDefault = () => { return (opts.langid === '' || opts.langid === 'EN') }
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+        let clone = nlib.utils.clone, equals = nlib.utils.equals
 
-        let defaultContent = {
+        let partId = 'member-entry'
+        this.content = {
             title: 'Member Edit',
             entry: { 
                 prefix: 'Prefix Name', 
@@ -50,9 +52,8 @@
                 employeeCode: 'Employee Code',
             }
         }
-        this.content = defaultContent;
+        this.isDefault = () => { return (opts.langid === '' || opts.langid === 'EN') }
 
-        let addEvt = events.doc.add, delEvt = events.doc.remove
         this.on('mount', () => {
             initCtrls()
             bindEvents()
@@ -62,7 +63,6 @@
             freeCtrls()
         })
         let prefix, firstName, lastName, userName, passWord;
-        //let memberType;
         let memberTypes;
         //let tagId, idCard, employeeCode;
         let initCtrls = () => {
@@ -107,27 +107,33 @@
             */
         }
         let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
             addEvt(events.name.ContentChanged, onContentChanged)
-            addEvt(events.name.ScreenChanged, onScreenChanged)
-            //addEvt(events.name.MemberTypeListChanged, onMemberTypeListChanged)
         }
         let unbindEvents = () => {
-            //delEvt(events.name.MemberTypeListChanged, onMemberTypeListChanged)
-            delEvt(events.name.ScreenChanged, onScreenChanged)
             delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
 
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => { updatecontent(); }
-        let onScreenChanged = (e) => { updatecontent(); }
-        let updatecontent = () => {
-            if (screens.is(screenId)) {
-                let scrContent = contents.getScreenContent()
-                self.content = scrContent ? scrContent : defaultContent;
-                self.update();
-            }
+        let onContentChanged = (e) => { updateContents(); }
+        let updateContents = () => {
+            // sync content by part id.
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.prefix',
+                'entry.firstName',
+                'entry.lastName',
+                'entry.userName',
+                'entry.passWord',
+                'entry.memberType',
+                'entry.tagId',
+                'entry.idCard',
+                'entry.employeeCode'
+            ]
+            assigns(self.content, partContent, ...propNames)
         }
+
+        this.setup = (item) => {
+            // set item (1 language)
+        }
+        this.refresh = () => { updateContents() }
     </script>
 </member-entry>
