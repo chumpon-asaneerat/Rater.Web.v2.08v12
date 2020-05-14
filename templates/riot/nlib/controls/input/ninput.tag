@@ -1,6 +1,6 @@
 <ninput>
     <input ref="input" type={ opts.type } name={ opts.name } value={ opts.value } required="" autocomplete="off">
-    <div ref="clear" class="clear">x</div>
+    <div ref="clear" class="clear"><span class="fas fa-times"></span></div>
     <label>{ opts.title }</label>
     <style>
         :scope {
@@ -39,11 +39,11 @@
         :scope .clear {
             display: inline-block;
             margin: 0;
-            padding: 0px 6px;
+            padding: 0px 5px;
             font-size: 12px;
             font-weight: bold;
-            width: 21px;
-            height: 21px;
+            width: 20px;
+            height: 20px;
             color: white;
             cursor: pointer;
             user-select: none;

@@ -11,25 +11,29 @@
                     { opts.content.entry.tabMultiLang }
                 </tabheader>
             </tabheaders>
-            <tabpages>
+            <tabpages class="pages">
                 <tabpage name="default">
-                    <branch-entry ref="EN" langId=""></branch-entry>
+                    <div class="tab-body-container">
+                        <branch-entry ref="EN" langId=""></branch-entry>
+                    </div>
                 </tabpage>
                 <tabpage name="miltilang">
-                    <virtual if={ lang.languages }>
-                        <virtual each={ item in lang.languages }>
-                            <virtual if={ item.langId !== 'EN' }>
-                                <div class="panel-header" langId="{ item.langId }">
-                                    &nbsp;&nbsp;
-                                    <span class="flag-css flag-icon flag-icon-{ item.flagId.toLowerCase() }"></span>
-                                    &nbsp;{ item.Description }&nbsp;
-                                </div>
-                                <div class="panel-body" langId="{ item.langId }">
-                                    <branch-entry ref="{ item.langId }" langId="{ item.langId }"></branch-entry>
-                                </div>
+                    <div class="tab-body-container">
+                        <virtual if={ lang.languages }>
+                            <virtual each={ item in lang.languages }>
+                                <virtual if={ item.langId !== 'EN' }>
+                                    <div class="panel-header" langId="{ item.langId }">
+                                        &nbsp;&nbsp;
+                                        <span class="flag-css flag-icon flag-icon-{ item.flagId.toLowerCase() }"></span>
+                                        &nbsp;{ item.Description }&nbsp;
+                                    </div>
+                                    <div class="panel-body" langId="{ item.langId }">
+                                        <branch-entry ref="{ item.langId }" langId="{ item.langId }"></branch-entry>
+                                    </div>
+                                </virtual>
                             </virtual>
                         </virtual>
-                    </virtual>
+                    </div>
                 </tabpage>
             </tabpages>
         </tabcontrol>
@@ -75,6 +79,12 @@
             height: 100%;
             overflow: hidden;
         }
+        :scope>.entry .pages .tab-body-container {
+            margin: 0 auto;
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+        }
         :scope>.entry .tool {
             grid-area: tool;
             display: grid;
@@ -86,7 +96,7 @@
                 'btn-save .';
             margin: 0 auto;
             margin-left: 3px;
-            padding: 0;
+            padding: 5px;
             width: 100%;
             height: 100%;
             /* background-color: sandybrown; */
