@@ -75,7 +75,7 @@
             let partContent = contents.getPart(partId)
             // load columns
             if (partContent) {
-                self.content.columns = partContent.columns
+                //self.content.columns = partContent.columns
                 // update canvas.
                 loadDataSource()
             }

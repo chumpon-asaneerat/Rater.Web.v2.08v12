@@ -1973,7 +1973,6 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div ref="canvas" c
             let partContent = contents.getPart(partId)
 
             if (partContent) {
-                self.content.columns = partContent.columns
 
                 loadDataSource()
             }
