@@ -76,6 +76,7 @@
             editor = (dialog) ? dialog.refs['editor'] : null
         }
         let freeCtrls = () => {
+            dialog = null
             editor = null
             grid = null
         }

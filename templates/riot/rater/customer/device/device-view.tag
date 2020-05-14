@@ -2,6 +2,9 @@
     <div ref="container" class="scrarea">
         <div ref="grid" class="gridarea"></div>
     </div>
+    <ndialog ref="dialog">
+        <device-editor ref="editor"></device-editor>
+    </ndialog>
     <style>
         :scope {
             position: relative;
@@ -68,8 +71,14 @@
         })
 
         let grid = null, datasource = []
-        let initCtrls = () => {}
+        let dialog, editor
+        let initCtrls = () => {
+            dialog = self.refs['dialog']
+            editor = (dialog) ? dialog.refs['editor'] : null
+        }
         let freeCtrls = () => {
+            dialog = null
+            editor = null
             grid = null
         }
         let bindEvents = () => {
@@ -135,6 +144,16 @@
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
             console.log('edit:', data)
+            let editOpts = {
+                onClose: () => { 
+                    dialog.hide()
+                },
+                onSave: () => {
+                    dialog.hide()
+                }
+            }
+            dialog.show()
+            if (editor) editor.setup(editOpts)
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()
