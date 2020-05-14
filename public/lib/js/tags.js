@@ -1201,7 +1201,6 @@ riot.tag2('rater-web-app', '<napp> <navibar> <navi-item> <sidebar-menu></sidebar
 });
 riot.tag2('branch-editor', '', 'branch-editor,[data-is="branch-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
         this.on('mount', () => {
@@ -1217,11 +1216,21 @@ riot.tag2('branch-editor', '', 'branch-editor,[data-is="branch-editor"]{ positio
         let freeCtrls = () => { }
         let bindEvents = () => { }
         let unbindEvents = () => { }
+
+        this.setup = () => {}
+        this.refresh = () => {}
 });
-riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('branch-entry', '<ninput ref="branchName" title="{content.entry.branchName}" type="text" name="branchName"></ninput> <div class="padtop"></div>', 'branch-entry,[data-is="branch-entry"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } branch-entry .padtop,[data-is="branch-entry"] .padtop{ position: relative; display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+
+        let partId = 'branch-entry'
+        this.content = {
+            entry: {
+                branchName: 'Branch Name'
+            }
+        }
 
         this.on('mount', () => {
             initCtrls()
@@ -1232,10 +1241,33 @@ riot.tag2('branch-entry', '', 'branch-entry,[data-is="branch-entry"]{ position: 
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let branchName;
+        let initCtrls = () => {
+            branchName = self.refs['branchName']
+        }
+        let freeCtrls = () => {
+            branchName = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+
+        let onContentChanged = () => { updateContents() }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.branchName'
+            ]
+            assigns(self.content, partContent, ...propNames)
+            console.log('content:', self.content)
+        }
+
+        this.setup = () => {}
+        this.refresh = () => { updateContents() }
 });
 riot.tag2('branch-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <branch-view ref="leftpanel" class="view"></branch-view> </yield> <yield to="right-panel"> <branch-editor ref="rightpanel" class="entry"></branch-editor> </yield> </dual-layout>', 'branch-manage,[data-is="branch-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this

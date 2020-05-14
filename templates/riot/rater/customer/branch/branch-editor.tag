@@ -10,7 +10,6 @@
     </style>
     <script>
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
         this.on('mount', () => {
@@ -26,5 +25,8 @@
         let freeCtrls = () => { }
         let bindEvents = () => { }
         let unbindEvents = () => { }
+        
+        this.setup = () => {}
+        this.refresh = () => {}
     </script>
 </branch-editor>
