@@ -185,7 +185,16 @@
             assigns(self.content, partContent, ...propNames)
             opts.content = this.content; // update 2019-12-19
         }
-        this.setup = () => {}
+        this.save = (e) => {
+            console.log('save')
+        }
+        this.cancel = (e) => {
+            console.log('cancel')
+        }
+        this.setup = (id) => {
+            let item = null // get fron api
+            // set item (contains all languages).
+        }
         this.refresh = () => {}
     </script>
 </branch-editor>

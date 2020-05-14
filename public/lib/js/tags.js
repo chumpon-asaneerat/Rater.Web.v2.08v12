@@ -1242,7 +1242,16 @@ riot.tag2('branch-editor', '<div class="entry"> <tabcontrol class="tabs" content
             assigns(self.content, partContent, ...propNames)
             opts.content = this.content;
         }
-        this.setup = () => {}
+        this.save = (e) => {
+            console.log('save')
+        }
+        this.cancel = (e) => {
+            console.log('cancel')
+        }
+        this.setup = (id) => {
+            let item = null
+
+        }
         this.refresh = () => {}
 });
 riot.tag2('branch-entry', '<ninput ref="branchName" title="{content.entry.branchName}" type="text" name="branchName"></ninput> <div class="padtop"></div>', 'branch-entry,[data-is="branch-entry"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } branch-entry .padtop,[data-is="branch-entry"] .padtop{ position: relative; display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
@@ -1290,10 +1299,12 @@ riot.tag2('branch-entry', '<ninput ref="branchName" title="{content.entry.branch
             assigns(self.content, partContent, ...propNames)
         }
 
-        this.setup = () => {}
+        this.setup = (item) => {
+
+        }
         this.refresh = () => { updateContents() }
 });
-riot.tag2('branch-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <branch-view ref="leftpanel" class="view"></branch-view> </yield> <yield to="right-panel"> <branch-editor ref="rightpanel" class="entry"></branch-editor> </yield> </dual-layout>', 'branch-manage,[data-is="branch-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('branch-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <branch-view ref="leftpanel" class="view"></branch-view> </yield> <yield to="right-panel"> <branch-editor ref="rightpanel" class="entry"></branch-editor> </yield> </dual-layout>', 'branch-manage,[data-is="branch-manage"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
@@ -1328,7 +1339,7 @@ riot.tag2('branch-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'branch-view,[data-is="branch-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } branch-view>.scrarea,[data-is="branch-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } branch-view>.scrarea>.gridarea,[data-is="branch-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; }', '', function(opts) {
+riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'branch-view,[data-is="branch-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; background: transparent; overflow: hidden; } branch-view>.scrarea,[data-is="branch-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } branch-view>.scrarea>.gridarea,[data-is="branch-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 

@@ -6,17 +6,18 @@
         :scope {
             position: relative;
             margin: 0;
-            padding: 2px;
+            padding: 5px;
             overflow: hidden;
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: 20px 1fr 20px;
+            grid-template-rows: 1px 1fr 1px;
             grid-template-areas: 
                 '.'
                 'scrarea'
                 '.';
             width: 100%;
             height: 100%;
+            background: transparent;
             overflow: hidden;
         }
         :scope>.scrarea {
@@ -32,6 +33,7 @@
             max-width: 800px;
             height: 100%;
             overflow: hidden;
+            box-shadow: var(--default-box-shadow);
         }
         :scope>.scrarea>.gridarea {
             grid-area: gridarea;

@@ -64,7 +64,9 @@
             assigns(self.content, partContent, ...propNames)
         }
 
-        this.setup = () => {}
+        this.setup = (item) => {
+            // set item (1 language)
+        }
         this.refresh = () => { updateContents() }
     </script>
 </branch-entry>
