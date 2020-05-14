@@ -3057,7 +3057,7 @@ riot.tag2('customer-manage', '', 'customer-manage,[data-is="customer-manage"]{ p
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'customer-view,[data-is="customer-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } customer-view>.scrarea,[data-is="customer-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } customer-view>.scrarea>.gridarea,[data-is="customer-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } customer-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="customer-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
+riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <member-editor ref="editor"></member-editor> </ndialog>', 'customer-view,[data-is="customer-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } customer-view>.scrarea,[data-is="customer-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } customer-view>.scrarea>.gridarea,[data-is="customer-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } customer-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="customer-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -3082,8 +3082,14 @@ riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div ref="grid
         })
 
         let grid = null, datasource = []
-        let initCtrls = () => {}
+        let dialog, editor
+        let initCtrls = () => {
+            dialog = self.refs['dialog']
+            editor = (dialog) ? dialog.refs['editor'] : null
+        }
         let freeCtrls = () => {
+            dialog = null
+            editor = null
             grid = null
         }
         let bindEvents = () => {
@@ -3125,15 +3131,17 @@ riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div ref="grid
             let el = self.refs['grid']
             if (el) {
                 let gridColumns = []
-                gridColumns.push({
-                    formatter: editIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: editRow
-                }, {
-                    formatter: deleteIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: deleteRow
-                })
+                if (self.opts.viewonly !== 'true') {
+                    gridColumns.push({
+                        formatter: editIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: editRow
+                    }, {
+                        formatter: deleteIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: deleteRow
+                    })
+                }
                 gridColumns.push(...self.content.columns)
                 let opts = {
                     height: "100%",
@@ -3149,6 +3157,16 @@ riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div ref="grid
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
             console.log('edit:', data)
+            let editOpts = {
+                onClose: () => {
+                    dialog.hide()
+                },
+                onSave: () => {
+                    dialog.hide()
+                }
+            }
+            dialog.show()
+            if (editor) editor.setup(editOpts)
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()
@@ -3359,7 +3377,7 @@ riot.tag2('staff-manage', '', 'staff-manage,[data-is="staff-manage"]{ position: 
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('staff-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'staff-view,[data-is="staff-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } staff-view>.scrarea,[data-is="staff-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } staff-view>.scrarea>.gridarea,[data-is="staff-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } staff-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="staff-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
+riot.tag2('staff-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <member-editor ref="editor"></member-editor> </ndialog>', 'staff-view,[data-is="staff-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } staff-view>.scrarea,[data-is="staff-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } staff-view>.scrarea>.gridarea,[data-is="staff-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } staff-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="staff-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -3382,8 +3400,14 @@ riot.tag2('staff-view', '<div ref="container" class="scrarea"> <div ref="grid" c
         })
 
         let grid = null, datasource = []
-        let initCtrls = () => {}
+        let dialog, editor
+        let initCtrls = () => {
+            dialog = self.refs['dialog']
+            editor = (dialog) ? dialog.refs['editor'] : null
+        }
         let freeCtrls = () => {
+            dialog = null
+            editor = null
             grid = null
         }
         let bindEvents = () => {
@@ -3425,15 +3449,17 @@ riot.tag2('staff-view', '<div ref="container" class="scrarea"> <div ref="grid" c
             let el = self.refs['grid']
             if (el) {
                 let gridColumns = []
-                gridColumns.push({
-                    formatter: editIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: editRow
-                }, {
-                    formatter: deleteIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: deleteRow
-                })
+                if (self.opts.viewonly !== 'true') {
+                    gridColumns.push({
+                        formatter: editIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: editRow
+                    }, {
+                        formatter: deleteIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: deleteRow
+                    })
+                }
                 gridColumns.push(...self.content.columns)
                 let opts = {
                     height: "100%",
@@ -3449,6 +3475,16 @@ riot.tag2('staff-view', '<div ref="container" class="scrarea"> <div ref="grid" c
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
             console.log('edit:', data)
+            let editOpts = {
+                onClose: () => {
+                    dialog.hide()
+                },
+                onSave: () => {
+                    dialog.hide()
+                }
+            }
+            dialog.show()
+            if (editor) editor.setup(editOpts)
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()
