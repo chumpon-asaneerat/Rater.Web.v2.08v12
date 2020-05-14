@@ -44,6 +44,9 @@
             width: 100%;
             overflow: auto;
         }
+        :scope>.scrarea>.canvasarea .orgchart {
+            background-image: none; /* hide grid */
+        }
         :scope>.scrarea>.canvasarea .orgchart .node .edge {
             display: none; /* disable collapse edges */
         }
