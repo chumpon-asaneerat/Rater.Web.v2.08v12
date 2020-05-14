@@ -1393,21 +1393,30 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" 
             }
             XHR.postJson(url, paramObj, fn)
         }
+        let editIcon = (cell, formatterParams) => {
+            return "<button><span class='fas fa-edit'></span></button>";
+        };
         let updateGrid = () => {
             let el = self.refs['grid']
             if (el) {
+                let gridColumns = []
+                gridColumns.push({ formatter: editIcon, hozAlign: "center", width: 56,
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: editRow
+                })
+                gridColumns.push(...self.content.columns)
                 let opts = {
                     height: "100%",
                     layout: 'fitDataFill',
                     selectable: 1,
                     index: self.content.columns[0].field,
-                    columns: self.content.columns,
+                    columns: gridColumns,
                     data: datasource
                 }
                 grid = new Tabulator(el, opts)
             }
         }
-
+        let editRow = (e, cell) => {}
         this.refresh = () => { updateContents() }
 });
 riot.tag2('device-editor', '', 'device-editor,[data-is="device-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
