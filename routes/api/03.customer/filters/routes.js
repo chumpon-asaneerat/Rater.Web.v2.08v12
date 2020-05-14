@@ -238,7 +238,7 @@ router.all('/filters/vote-members', api.filter.FilterVoteMembers.entry);
 router.all('/filters/qsetbydate', api.filter.QSetByDate.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customers/api/', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

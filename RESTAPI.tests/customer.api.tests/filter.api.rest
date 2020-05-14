@@ -1,47 +1,47 @@
 #### FilterVoteOrgs
-POST http://localhost:3000/customer/api/filter/vote-orgs
+POST http://localhost:3000/customers/api/filters/vote-orgs
 content-type: application/json
 
 {
     "langId": null,
-    "customerId": "EDL-C2020030001",
+    "customerId": "EDL-C2020050001",
     "qsetId": "QS00001",
-    "beginDate": "2020-04-01",
-    "endDate": "2020-05-01"
+    "beginDate": "2020-05-01",
+    "endDate": "2020-06-01"
 }
 
 #### FilterVoteMembers
-POST http://localhost:3000/customer/api/filter/vote-members
+POST http://localhost:3000/customers/api/filters/vote-members
 content-type: application/json
 
 {
     "langId": null,
-    "customerId": "EDL-C2020030001",
+    "customerId": "EDL-C2020050001",
     "qsetId": "QS00001",
-    "beginDate": "2020-04-15",
-    "endDate": "2020-04-15",
+    "beginDate": "2020-05-01",
+    "endDate": "2020-06-01",
     "orgId": null
 }
 
 #### GetQSetByDate
-POST http://localhost:3000/customer/api/filter/qsetbydate
+POST http://localhost:3000/customers/api/filters/qsetbydate
 content-type: application/json
 
 {
     "langId": null,
-    "customerId": "EDL-C2020030001",
-    "beginDate": "2020-04-01",
-    "endDate": "2020-05-01"
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-01",
+    "endDate": "2020-06-01"
 }
 
 #### GetQSetByDate2
-POST http://localhost:3000/customer/api/filter/qsetbydate
+POST http://localhost:3000/customers/api/filters/qsetbydate
 content-type: application/json
 
 {
     "langId": null,
-    "customerId": "EDL-C2020030001",
-    "beginDate": "2020-04-01",
-    "endDate": "2020-05-01"
+    "customerId": "EDL-C2020050001",
+    "beginDate": "2020-05-01",
+    "endDate": "2020-06-01"
 }
 

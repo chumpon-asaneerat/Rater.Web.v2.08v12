@@ -1940,7 +1940,7 @@ riot.tag2('org-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <org
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasarea"> <div ref="canvas"></div> </div> </div>', 'org-view,[data-is="org-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } org-view>.scrarea,[data-is="org-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'canvasarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } org-view>.scrarea>.canvasarea,[data-is="org-view"]>.scrarea>.canvasarea{ grid-area: canvasarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; overflow: auto; }', '', function(opts) {
+riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasarea"> <div ref="canvas"></div> </div> </div>', 'org-view,[data-is="org-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } org-view>.scrarea,[data-is="org-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'canvasarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } org-view>.scrarea>.canvasarea,[data-is="org-view"]>.scrarea>.canvasarea{ grid-area: canvasarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; overflow: auto; } org-view>.scrarea>.canvasarea .orgchart .node .edge,[data-is="org-view"]>.scrarea>.canvasarea .orgchart .node .edge{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -1991,6 +1991,13 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasa
             })
             return (dataTree && dataTree.length > 0) ? dataTree[0] : {}
         }
+        let nodeTemplate = (data) => {
+            console.log(data)
+            return `
+                <div class="title">${data.OrgName}</div>
+                <div class="content">${data.OrgName} - ${data.BranchName}</div>
+            `;
+        };
         let loadDataSource = () => {
             let langId = (lang.current) ? lang.current.langId : 'EN'
             let url = '/customers/api/orgs'
@@ -2016,7 +2023,8 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasa
                     data: datasource,
                     nodeTitle: 'OrgName',
                     nodeContent: 'OrgName',
-                    nodeID: 'orgId'
+                    nodeID: 'orgId',
+                    nodeTemplate: nodeTemplate
                 })
             }
         }

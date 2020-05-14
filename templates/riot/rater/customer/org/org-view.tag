@@ -44,6 +44,9 @@
             width: 100%;
             overflow: auto;
         }
+        :scope>.scrarea>.canvasarea .orgchart .node .edge {
+            display: none; /* disable collapse edges */
+        }
     </style>
     <script>
         let self = this
@@ -96,7 +99,14 @@
                 }
             })
             return (dataTree && dataTree.length > 0) ? dataTree[0] : {}
-        }        
+        }
+        let nodeTemplate = (data) => {
+            console.log(data)
+            return `
+                <div class="title">${data.OrgName}</div>
+                <div class="content">${data.OrgName} - ${data.BranchName}</div>
+            `;
+        };
         let loadDataSource = () => {
             let langId = (lang.current) ? lang.current.langId : 'EN'
             let url = '/customers/api/orgs'
@@ -122,7 +132,8 @@
                     data: datasource,
                     nodeTitle: 'OrgName',
                     nodeContent: 'OrgName',
-                    nodeID: 'orgId'
+                    nodeID: 'orgId',
+                    nodeTemplate: nodeTemplate
                 })
             }
         }
