@@ -1408,10 +1408,16 @@ riot.tag2('device-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('device-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'device-view,[data-is="device-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('device-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'device-view,[data-is="device-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } device-view>.scrarea,[data-is="device-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } device-view>.scrarea>.gridarea,[data-is="device-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        let partId = 'device-view'
+        this.content = {
+            columns: [
+                { title: 'Device Name', 'field': 'DeviceName', resizable: false }
+            ]
+        }
 
         this.on('mount', () => {
             initCtrls()
@@ -1422,10 +1428,56 @@ riot.tag2('device-view', '<div ref="container" class="scrarea"> <div class="grid
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let grid = null, datasource = []
+        let initCtrls = () => {}
+        let freeCtrls = () => {
+            grid = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let onContentChanged = () => { updateContents() }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+
+            if (partContent) {
+                self.content.columns = partContent.columns
+
+                loadDataSource()
+            }
+        }
+        let loadDataSource = () => {
+            let langId = (lang.current) ? lang.current.langId : 'EN'
+            let url = '/customers/api/devices'
+            let paramObj = {}
+            paramObj.langId = langId
+            let fn = (r) => {
+                let data = api.parse(r)
+                datasource = (data.records && data.records[langId]) ? data.records[langId] : []
+                updateGrid()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
+        let updateGrid = () => {
+            let el = self.refs['grid']
+            if (el) {
+                let opts = {
+                    height: "100%",
+                    layout: 'fitDataFill',
+                    selectable: 1,
+                    index: self.content.columns[0].field,
+                    columns: self.content.columns,
+                    data: datasource
+                }
+                grid = new Tabulator(el, opts)
+            }
+        }
+
+        this.refresh = () => { updateContents() }
 });
 riot.tag2('admin-home', '<div class="client-area"> <div class="info-panel"> <div class="info-box"> <div class="info-data"> <div class="info-data-value">3.82</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Average </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">87%</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Average % </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">200 K+</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Total Votes </div> </div> </div> <div class="info-box"> <div class="info-data"> <div class="info-data-value">30</div> </div> <div class="info-caption"> <div class="info-caption-icon"> <span class="fas fa-calendar"></span> </div> <div class="info-caption-text"> Wait list </div> </div> </div> </div> <div class="chart-panel"> <div class="bar-chart"> <div class="chart-box" ref="bar1"></div> </div> <div class="pie-chart"> <div class="chart-box" ref="pie1"></div> </div> </div> </div>', 'admin-home,[data-is="admin-home"]{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'client-area\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; } admin-home>.client-area,[data-is="admin-home"]>.client-area{ grid-area: client-area; display: grid; grid-auto-flow: row; grid-auto-rows: max-content; grid-gap: 10px; margin: 0; padding: 5px; width: 100%; height: 100%; border: 1px dotted navy; overflow: auto; } admin-home>.client-area .chart-panel,[data-is="admin-home"]>.client-area .chart-panel{ display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); grid-gap: 10px; grid-auto-rows: minmax(200px, max-content); margin: 0; padding: 5px; width: 100%; height: auto; } admin-home>.client-area .bar-chart,[data-is="admin-home"]>.client-area .bar-chart{ position: relative; display: block; margin: 0; padding: 5px; width: 100%; height: 100%; background: whitesmoke; border: 1px dotted orchid; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } admin-home>.client-area .bar-chart .chart-box,[data-is="admin-home"]>.client-area .bar-chart .chart-box{ display: block; position: absolute; margin: 0; padding: 5px; width: 100%; height: 100%; min-width: 100px; } admin-home .bar-chart .chart-box .highcharts-background,[data-is="admin-home"] .bar-chart .chart-box .highcharts-background{ fill: rgba(250, 250, 250, .1); } admin-home>.client-area .pie-chart,[data-is="admin-home"]>.client-area .pie-chart{ position: relative; display: block; margin: 0; padding: 5px; width: 100%; height: 100%; background: whitesmoke; border: 1px dotted skyblue; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } admin-home>.client-area .pie-chart .chart-box,[data-is="admin-home"]>.client-area .pie-chart .chart-box{ display: block; margin: 0 auto; padding: 5px; width: 100%; height: 100%; } admin-home>.client-area .pie-chart .chart-box .highcharts-background,[data-is="admin-home"]>.client-area .pie-chart .chart-box .highcharts-background{ fill: rgba(250, 250, 250, .1); } admin-home>.client-area .info-panel,[data-is="admin-home"]>.client-area .info-panel{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); grid-gap: 10px; grid-auto-rows: max-content; margin: 0; padding: 5px; width: 100%; height: auto; } admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ display: inline-block; margin: 0; padding: 5px; height: fit-content; font-size: 1rem; background: wheat; border: 1px dotted chocolate; border-radius: 5px; box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.4); } @media only screen and (min-width: 400px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: olive; } } @media only screen and (min-width: 600px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: hotpink; } } @media only screen and (min-width: 800px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: fuchsia; } } @media only screen and (min-width: 1000px) { admin-home>.client-area .info-box,[data-is="admin-home"]>.client-area .info-box{ background: grey; } } admin-home>.client-area .info-box .info-data-value,[data-is="admin-home"]>.client-area .info-box .info-data-value{ display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: auto; font-size: 2.5em; font-weight: bold; text-align: center; } admin-home>.client-area .info-box .info-caption,[data-is="admin-home"]>.client-area .info-box .info-caption{ display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: auto; text-align: center; } admin-home>.client-area .info-box .info-caption-icon,[data-is="admin-home"]>.client-area .info-box .info-caption-icon{ display: inline-block; margin: 0; padding: 0; height: auto; font-size: 0.7em; font-weight: normal; } admin-home>.client-area .info-box .info-caption-text,[data-is="admin-home"]>.client-area .info-box .info-caption-text{ display: inline-block; margin: 0; padding: 0; height: auto; font-size: 0.7em; font-weight: normal; }', '', function(opts) {
         let self = this

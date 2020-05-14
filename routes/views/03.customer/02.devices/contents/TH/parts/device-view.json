@@ -1,0 +1,7 @@
+{
+    "columns": [
+        { "title": "ชื่ออุปกรณ์", "field": "DeviceName", "resizable": false },
+        { "title": "สถานที่ติดตั้ง", "field": "Location", "resizable": false },
+        { "title": "ประเภทอุปกรณ์", "field": "Type", "resizable": false }
+    ]
+}

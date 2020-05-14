@@ -1,22 +1,56 @@
 <device-view>
     <div ref="container" class="scrarea">
-        <div class="gridarea">
-            <div ref="grid" class="gridwrapper"></div>
-        </div>
+        <div ref="grid" class="gridarea"></div>
     </div>
     <style>
         :scope {
             position: relative;
-            display: block;
             margin: 0;
-            padding: 0;
+            padding: 2px;
             overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 20px 1fr 20px;
+            grid-template-areas: 
+                '.'
+                'scrarea'
+                '.';
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        :scope>.scrarea {
+            grid-area: scrarea;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: 
+                'gridarea';
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            max-width: 800px;
+            height: 100%;
+            overflow: hidden;
+        }
+        :scope>.scrarea>.gridarea {
+            grid-area: gridarea;
+            margin: 0 auto;
+            padding: 0;
+            height: 100%;
+            width: 100%;
         }
     </style>
     <script>
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        let partId = 'device-view'
+        this.content = {
+            columns: [
+                { title: 'Device Name', 'field': 'DeviceName', resizable: false }
+            ]
+        }
 
         this.on('mount', () => {
             initCtrls()
@@ -27,9 +61,55 @@
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let grid = null, datasource = []
+        let initCtrls = () => {}
+        let freeCtrls = () => {
+            grid = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let onContentChanged = () => { updateContents() }
+        let updateContents = () => {
+            // sync content by part id.
+            let partContent = contents.getPart(partId)
+            // load columns
+            if (partContent) {
+                self.content.columns = partContent.columns
+                // update grid.
+                loadDataSource()
+            }
+        }
+        let loadDataSource = () => {
+            let langId = (lang.current) ? lang.current.langId : 'EN'
+            let url = '/customers/api/devices'
+            let paramObj = {}
+            paramObj.langId = langId
+            let fn = (r) => {
+                let data = api.parse(r)
+                datasource = (data.records && data.records[langId]) ? data.records[langId] : []
+                updateGrid()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
+        let updateGrid = () => {
+            let el = self.refs['grid']
+            if (el) {
+                let opts = {
+                    height: "100%",
+                    layout: 'fitDataFill',
+                    selectable: 1,
+                    index: self.content.columns[0].field,
+                    columns: self.content.columns,
+                    data: datasource
+                }
+                grid = new Tabulator(el, opts)
+            }
+        }
+
+        this.refresh = () => { updateContents() }
     </script>
 </device-view>
