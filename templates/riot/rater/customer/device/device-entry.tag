@@ -25,6 +25,7 @@
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
+        let clone = nlib.utils.clone, equals = nlib.utils.equals
 
         let partId = 'device-entry'
         this.content = {
