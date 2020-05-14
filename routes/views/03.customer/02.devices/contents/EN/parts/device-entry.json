@@ -1,0 +1,7 @@
+{
+    "entry": {
+        "deviceName": "Device Name",
+        "location": "Location",
+        "deviceTypeId": "Type"
+    }
+}
