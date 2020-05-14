@@ -219,7 +219,7 @@ riot.tag2('nselect', '<select ref="input"> <option each="{item in items}" riot-v
 
 });
 
-riot.tag2('ndialog', '<div class="modal-content"> <span ref="closeBtn" class="close">&times;</span> <p>Some text in the Modal..</p> </div>', 'ndialog,[data-is="ndialog"]{ display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4); } ndialog .modal-content,[data-is="ndialog"] .modal-content{ background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; } ndialog .close,[data-is="ndialog"] .close{ color: #aaa; float: right; font-size: 28px; font-weight: bold; } ndialog .close:hover,[data-is="ndialog"] .close:hover,ndialog .close:focus,[data-is="ndialog"] .close:focus{ color: black; text-decoration: none; cursor: pointer; }', '', function(opts) {
+riot.tag2('ndialog', '<div class="modal-content"> <span ref="closeBtn" class="close">&times;</span> <div class="modal-content-area"> <yield></yield> </div> </div>', 'ndialog,[data-is="ndialog"]{ display: none; position: fixed; z-index: 1; left: 0; top: 0; margin: 0; padding: 0; width: 100%; height: 100%; overflow: none; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4); } ndialog .modal-content,[data-is="ndialog"] .modal-content{ position: relative; display: block; background-color: #fefefe; margin: 5% auto; padding: 10px; border: 1px solid #888; width: 80%; height: 80%; } ndialog .modal-content .modal-content-area,[data-is="ndialog"] .modal-content .modal-content-area{ position: relative; display: block; margin: 0; padding: 5%; width: 100%; height: 100%; overflow: hidden; } ndialog .close,[data-is="ndialog"] .close{ position: relative; float: right; color: #aaa; font-size: 28px; font-weight: bold; display: none; } ndialog .close:hover,[data-is="ndialog"] .close:hover,ndialog .close:focus,[data-is="ndialog"] .close:focus{ color: black; text-decoration: none; cursor: pointer; }', '', function(opts) {
 
 
         let self = this;
@@ -1339,7 +1339,7 @@ riot.tag2('branch-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'branch-view,[data-is="branch-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; background: transparent; overflow: hidden; } branch-view>.scrarea,[data-is="branch-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } branch-view>.scrarea>.gridarea,[data-is="branch-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } branch-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="branch-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
+riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <branch-editor></branch-editor> </ndialog>', 'branch-view,[data-is="branch-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; background: transparent; overflow: hidden; } branch-view>.scrarea,[data-is="branch-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } branch-view>.scrarea>.gridarea,[data-is="branch-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } branch-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="branch-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -1360,8 +1360,12 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         })
 
         let grid = null, datasource = []
-        let initCtrls = () => {}
+        let dialog
+        let initCtrls = () => {
+            dialog = self.refs['dialog']
+        }
         let freeCtrls = () => {
+            dialog = null
             grid = null
         }
         let bindEvents = () => {
@@ -1427,6 +1431,7 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
             console.log('edit:', data)
+            dialog.show()
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()
