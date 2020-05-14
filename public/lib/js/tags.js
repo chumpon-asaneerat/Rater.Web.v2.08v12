@@ -1400,15 +1400,17 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" 
             let el = self.refs['grid']
             if (el) {
                 let gridColumns = []
-                gridColumns.push({
-                    formatter: editIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: editRow
-                }, {
-                    formatter: deleteIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: deleteRow
-                })
+                if (self.opts.viewonly !== 'true') {
+                    gridColumns.push({
+                        formatter: editIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: editRow
+                    }, {
+                        formatter: deleteIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: deleteRow
+                    })
+                }
                 gridColumns.push(...self.content.columns)
                 let opts = {
                     height: "100%",
@@ -1664,15 +1666,17 @@ riot.tag2('device-view', '<div ref="container" class="scrarea"> <div ref="grid" 
             let el = self.refs['grid']
             if (el) {
                 let gridColumns = []
-                gridColumns.push({
-                    formatter: editIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: editRow
-                }, {
-                    formatter: deleteIcon, hozAlign: "center", width: 30,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: deleteRow
-                })
+                if (self.opts.viewonly !== 'true') {
+                    gridColumns.push({
+                        formatter: editIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: editRow
+                    }, {
+                        formatter: deleteIcon, hozAlign: "center", width: 30,
+                        resizable: false, frozen: true, headerSort: false,
+                        cellClick: deleteRow
+                    })
+                }
                 gridColumns.push(...self.content.columns)
                 let opts = {
                     height: "100%",
