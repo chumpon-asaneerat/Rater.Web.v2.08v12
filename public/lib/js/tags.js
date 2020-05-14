@@ -1940,10 +1940,11 @@ riot.tag2('org-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <org
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'org-view,[data-is="org-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('org-view', '<div ref="container" class="scrarea"> <div ref="canvas" class="canvasarea"></div> </div>', 'org-view,[data-is="org-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } org-view>.scrarea,[data-is="org-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'canvasarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } org-view>.scrarea>.canvasarea,[data-is="org-view"]>.scrarea>.canvasarea{ grid-area: canvasarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        let partId = 'org-view'
 
         this.on('mount', () => {
             initCtrls()
@@ -1954,10 +1955,48 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="gridare
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let orgchart = null, datasource = []
+        let initCtrls = () => {}
+        let freeCtrls = () => {
+            orgchart = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let onContentChanged = () => { updateContents() }
+
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+
+            if (partContent) {
+                self.content.columns = partContent.columns
+
+                loadDataSource()
+            }
+        }
+        let loadDataSource = () => {
+            let langId = (lang.current) ? lang.current.langId : 'EN'
+            let url = '/customers/api/orgs'
+            let paramObj = {}
+            paramObj.langId = langId
+            let fn = (r) => {
+                let data = api.parse(r)
+                datasource = (data.records && data.records[langId]) ? data.records[langId] : []
+                updateChart()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
+        let updateChart = () => {
+            let el = self.refs['canvas']
+            if (el) {
+                console.log('el:', el)
+                console.log('datasource:', datasource)
+            }
+        }
 });
 riot.tag2('bar-votesummary-manage', '', 'bar-votesummary-manage,[data-is="bar-votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
