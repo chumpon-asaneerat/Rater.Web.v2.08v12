@@ -42,6 +42,9 @@
             height: 100%;
             width: 100%;
         }
+        :scope>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left {
+            display: none; /* hide frozen left header */
+        }
     </style>
     <script>
         let self = this
@@ -98,15 +101,23 @@
             XHR.postJson(url, paramObj, fn)
         }
         let editIcon = (cell, formatterParams) => {
-            return "<button><span class='fas fa-edit'></span></button>";
+            return "<span class='fas fa-edit' style='font-weight:bold;'></span>";
+        };
+        let deleteIcon = (cell, formatterParams) => {
+            return "<span class='fas fa-trash-alt' style='font-weight:bold;'></span>";
         };
         let updateGrid = () => {
             let el = self.refs['grid']
             if (el) {
                 let gridColumns = []
-                gridColumns.push({ formatter: editIcon, hozAlign: "center", width: 56, 
+                gridColumns.push({
+                    formatter: editIcon, hozAlign: "center", width: 30, 
                     resizable: false, frozen: true, headerSort: false,
                     cellClick: editRow
+                }, {
+                    formatter: deleteIcon, hozAlign: "center", width: 30, 
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: deleteRow
                 })
                 gridColumns.push(...self.content.columns)
                 let opts = {
@@ -120,7 +131,14 @@
                 grid = new Tabulator(el, opts)
             }
         }
-        let editRow = (e, cell) => {}
+        let editRow = (e, cell) => {
+            let data = cell.getRow().getData()
+            console.log('edit:', data)
+        }
+        let deleteRow = (e, cell) => {
+            let data = cell.getRow().getData()
+            console.log('delete:', data)
+        }
         this.refresh = () => { updateContents() }
     </script>
 </branch-view>

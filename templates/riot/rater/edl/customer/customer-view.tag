@@ -6,11 +6,11 @@
         :scope {
             position: relative;
             margin: 0;
-            padding: 2px;
+            padding: 5px;
             overflow: hidden;
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: 20px 1fr 20px;
+            grid-template-rows: 1px 1fr 1px;
             grid-template-areas: 
                 '.'
                 'scrarea'
@@ -32,6 +32,7 @@
             max-width: 800px;
             height: 100%;
             overflow: hidden;
+            box-shadow: var(--default-box-shadow);
         }
         :scope>.scrarea>.gridarea {
             grid-area: gridarea;
@@ -39,6 +40,9 @@
             padding: 0;
             height: 100%;
             width: 100%;
+        }
+        :scope>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left {
+            display: none; /* hide frozen left header */
         }
     </style>
     <script>
@@ -99,21 +103,45 @@
             }
             XHR.postJson(url, paramObj, fn)
         }
+        let editIcon = (cell, formatterParams) => {
+            return "<span class='fas fa-edit' style='font-weight:bold;'></span>";
+        };
+        let deleteIcon = (cell, formatterParams) => {
+            return "<span class='fas fa-trash-alt' style='font-weight:bold;'></span>";
+        };
         let updateGrid = () => {
             let el = self.refs['grid']
             if (el) {
+                let gridColumns = []
+                gridColumns.push({
+                    formatter: editIcon, hozAlign: "center", width: 30, 
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: editRow
+                }, {
+                    formatter: deleteIcon, hozAlign: "center", width: 30, 
+                    resizable: false, frozen: true, headerSort: false,
+                    cellClick: deleteRow
+                })
+                gridColumns.push(...self.content.columns)
                 let opts = {
                     height: "100%",
                     layout: 'fitDataFill',
                     selectable: 1,
                     index: self.content.columns[0].field,
-                    columns: self.content.columns,
+                    columns: gridColumns,
                     data: datasource
                 }
                 grid = new Tabulator(el, opts)
             }
         }
-
+        let editRow = (e, cell) => {
+            let data = cell.getRow().getData()
+            console.log('edit:', data)
+        }
+        let deleteRow = (e, cell) => {
+            let data = cell.getRow().getData()
+            console.log('delete:', data)
+        }
         this.refresh = () => { updateContents() }
     </script>
 </customer-view>
