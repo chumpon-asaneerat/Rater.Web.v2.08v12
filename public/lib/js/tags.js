@@ -1958,25 +1958,25 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
             unbindEvents()
             freeCtrls()
         })
-        let prefix, firstName, lastName, userName, passWord;
-        let memberTypes;
+        let prefix, firstName, lastName, userName, passWord
+        let memberTypes
 
         let initCtrls = () => {
-            prefix = self.refs['prefix'];
-            firstName = self.refs['firstName'];
-            lastName = self.refs['lastName'];
-            userName = self.refs['userName'];
-            passWord = self.refs['passWord'];
-            memberTypes = self.refs['memberTypes'];
+            prefix = self.refs['prefix']
+            firstName = self.refs['firstName']
+            lastName = self.refs['lastName']
+            userName = self.refs['userName']
+            passWord = self.refs['passWord']
+            memberTypes = self.refs['memberTypes']
 
         }
         let freeCtrls = () => {
-            prefix = null;
-            firstName = null;
-            lastName = null;
-            userName = null;
-            passWord = null;
-            memberTypes = null;
+            prefix = null
+            firstName = null
+            lastName = null
+            userName = null
+            passWord = null
+            memberTypes = null
 
         }
         let clearInputs = () => {
@@ -1986,7 +1986,7 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
             userName.clear()
             passWord.clear()
 
-            if (memberTypes) memberTypes.clear();
+            if (memberTypes) memberTypes.clear()
 
         }
         let bindEvents = () => {
@@ -3019,10 +3019,19 @@ riot.tag2('customer-editor', '<div class="entry"> <tabcontrol class="tabs" conte
         }
         this.refresh = () => {}
 });
-riot.tag2('customer-entry', '', 'customer-entry,[data-is="customer-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('customer-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="customerName" title="{content.entry.customerName}" type="text" name="customerName"></ninput>', 'customer-entry,[data-is="customer-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } customer-entry .padtop,[data-is="customer-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+        let clone = nlib.utils.clone, equals = nlib.utils.equals
+
+        let partId = 'customer-entry'
+        this.content = {
+            entry: {
+                customerName: 'Customer Name'
+            }
+        }
+        this.isDefault = () => { return (opts.langid === '' || opts.langid === 'EN') }
 
         this.on('mount', () => {
             initCtrls()
@@ -3033,10 +3042,29 @@ riot.tag2('customer-entry', '', 'customer-entry,[data-is="customer-entry"]{ posi
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let custoemrName
+        let initCtrls = () => {
+            custoemrName = self.refs['custoemrName']
+        }
+        let freeCtrls = () => {
+            custoemrName = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+
+        let onContentChanged = (e) => { updateContents(); }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.customerName'
+            ]
+            assigns(self.content, partContent, ...propNames)
+        }
 });
 riot.tag2('customer-manage', '', 'customer-manage,[data-is="customer-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
@@ -3057,7 +3085,7 @@ riot.tag2('customer-manage', '', 'customer-manage,[data-is="customer-manage"]{ p
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <member-editor ref="editor"></member-editor> </ndialog>', 'customer-view,[data-is="customer-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } customer-view>.scrarea,[data-is="customer-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } customer-view>.scrarea>.gridarea,[data-is="customer-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } customer-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="customer-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
+riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <customer-editor ref="editor"></customer-editor> </ndialog>', 'customer-view,[data-is="customer-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } customer-view>.scrarea,[data-is="customer-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } customer-view>.scrarea>.gridarea,[data-is="customer-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } customer-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="customer-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -3282,9 +3310,8 @@ riot.tag2('staff-entry', '<div class="padtop"></div> <div class="padtop"></div> 
         let assigns = nlib.utils.assigns
         let clone = nlib.utils.clone, equals = nlib.utils.equals
 
-        let partId = 'member-entry'
+        let partId = 'staff-entry'
         this.content = {
-            title: 'Member Edit',
             entry: {
                 prefix: 'Prefix Name',
                 firstName: 'First Name',
@@ -3304,23 +3331,23 @@ riot.tag2('staff-entry', '<div class="padtop"></div> <div class="padtop"></div> 
             unbindEvents()
             freeCtrls()
         })
-        let prefix, firstName, lastName, userName, passWord;
-        let memberTypes;
+        let prefix, firstName, lastName, userName, passWord
+        let memberTypes
         let initCtrls = () => {
-            prefix = self.refs['prefix'];
-            firstName = self.refs['firstName'];
-            lastName = self.refs['lastName'];
-            userName = self.refs['userName'];
-            passWord = self.refs['passWord'];
-            memberTypes = self.refs['memberTypes'];
+            prefix = self.refs['prefix']
+            firstName = self.refs['firstName']
+            lastName = self.refs['lastName']
+            userName = self.refs['userName']
+            passWord = self.refs['passWord']
+            memberTypes = self.refs['memberTypes']
         }
         let freeCtrls = () => {
-            prefix = null;
-            firstName = null;
-            lastName = null;
-            userName = null;
-            passWord = null;
-            memberTypes = null;
+            prefix = null
+            firstName = null
+            lastName = null
+            userName = null
+            passWord = null
+            memberTypes = null
         }
         let clearInputs = () => {
             prefix.clear()
@@ -3329,7 +3356,7 @@ riot.tag2('staff-entry', '<div class="padtop"></div> <div class="padtop"></div> 
             userName.clear()
             passWord.clear()
 
-            if (memberTypes) memberTypes.clear();
+            if (memberTypes) memberTypes.clear()
         }
         let bindEvents = () => {
             addEvt(events.name.ContentChanged, onContentChanged)
@@ -3377,7 +3404,7 @@ riot.tag2('staff-manage', '', 'staff-manage,[data-is="staff-manage"]{ position: 
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('staff-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <member-editor ref="editor"></member-editor> </ndialog>', 'staff-view,[data-is="staff-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } staff-view>.scrarea,[data-is="staff-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } staff-view>.scrarea>.gridarea,[data-is="staff-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } staff-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="staff-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
+riot.tag2('staff-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <staff-editor ref="editor"></staff-editor> </ndialog>', 'staff-view,[data-is="staff-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } staff-view>.scrarea,[data-is="staff-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } staff-view>.scrarea>.gridarea,[data-is="staff-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } staff-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="staff-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 

@@ -32,9 +32,8 @@
         let assigns = nlib.utils.assigns
         let clone = nlib.utils.clone, equals = nlib.utils.equals
 
-        let partId = 'member-entry'
+        let partId = 'staff-entry'
         this.content = {
-            title: 'Member Edit',
             entry: { 
                 prefix: 'Prefix Name', 
                 firstName: 'First Name', 
@@ -54,23 +53,23 @@
             unbindEvents()
             freeCtrls()
         })
-        let prefix, firstName, lastName, userName, passWord;
-        let memberTypes;
+        let prefix, firstName, lastName, userName, passWord
+        let memberTypes
         let initCtrls = () => {
-            prefix = self.refs['prefix'];
-            firstName = self.refs['firstName'];
-            lastName = self.refs['lastName'];
-            userName = self.refs['userName'];
-            passWord = self.refs['passWord'];
-            memberTypes = self.refs['memberTypes'];
+            prefix = self.refs['prefix']
+            firstName = self.refs['firstName']
+            lastName = self.refs['lastName']
+            userName = self.refs['userName']
+            passWord = self.refs['passWord']
+            memberTypes = self.refs['memberTypes']
         }
         let freeCtrls = () => {
-            prefix = null;
-            firstName = null;
-            lastName = null;
-            userName = null;
-            passWord = null;
-            memberTypes = null;
+            prefix = null
+            firstName = null
+            lastName = null
+            userName = null
+            passWord = null
+            memberTypes = null
         }
         let clearInputs = () => {
             prefix.clear()
@@ -80,7 +79,7 @@
             passWord.clear()
             // required to check null in case some input(s) not used in
             // multilanguages tab
-            if (memberTypes) memberTypes.clear();
+            if (memberTypes) memberTypes.clear()
         }
         let bindEvents = () => {
             addEvt(events.name.ContentChanged, onContentChanged)

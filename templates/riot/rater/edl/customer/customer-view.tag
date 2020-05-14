@@ -3,7 +3,7 @@
         <div ref="grid" class="gridarea"></div>
     </div>
     <ndialog ref="dialog">
-        <member-editor ref="editor"></member-editor>
+        <customer-editor ref="editor"></customer-editor>
     </ndialog>
     <style>
         :scope {

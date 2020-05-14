@@ -62,33 +62,33 @@
             unbindEvents()
             freeCtrls()
         })
-        let prefix, firstName, lastName, userName, passWord;
-        let memberTypes;
+        let prefix, firstName, lastName, userName, passWord
+        let memberTypes
         //let tagId, idCard, employeeCode;
         let initCtrls = () => {
-            prefix = self.refs['prefix'];
-            firstName = self.refs['firstName'];
-            lastName = self.refs['lastName'];
-            userName = self.refs['userName'];
-            passWord = self.refs['passWord'];
-            memberTypes = self.refs['memberTypes'];
+            prefix = self.refs['prefix']
+            firstName = self.refs['firstName']
+            lastName = self.refs['lastName']
+            userName = self.refs['userName']
+            passWord = self.refs['passWord']
+            memberTypes = self.refs['memberTypes']
             /*
-            tagId = self.refs['tagId'];
-            idCard = self.refs['idCard'];
-            employeeCode = self.refs['employeeCode'];
+            tagId = self.refs['tagId']
+            idCard = self.refs['idCard']
+            employeeCode = self.refs['employeeCode']
             */
         }
         let freeCtrls = () => {
-            prefix = null;
-            firstName = null;
-            lastName = null;
-            userName = null;
-            passWord = null;
-            memberTypes = null;
+            prefix = null
+            firstName = null
+            lastName = null
+            userName = null
+            passWord = null
+            memberTypes = null
             /*
-            tagId = null;
-            idCard = null;
-            employeeCode = null;
+            tagId = null
+            idCard = null
+            employeeCode = null
             */
         }
         let clearInputs = () => {
@@ -99,7 +99,7 @@
             passWord.clear()
             // required to check null in case some input(s) not used in
             // multilanguages tab
-            if (memberTypes) memberTypes.clear();
+            if (memberTypes) memberTypes.clear()
             /*
             tagId.clear()
             idCard.clear()
