@@ -118,7 +118,7 @@
             let fn = (r) => {
                 let data = api.parse(r)
                 let src = (data.records && data.records[langId]) ? data.records[langId] : []
-                // flatten
+                // array to tree
                 datasource = buildTree(src)
                 updateChart()
             }

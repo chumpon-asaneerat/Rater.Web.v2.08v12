@@ -2715,10 +2715,20 @@ riot.tag2('customer-manage', '', 'customer-manage,[data-is="customer-manage"]{ p
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'customer-view,[data-is="customer-view"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'customer-view,[data-is="customer-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } customer-view>.scrarea,[data-is="customer-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } customer-view>.scrarea>.gridarea,[data-is="customer-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        let partId = 'customer-view'
+        this.content = {
+            columns: [
+                { title: 'Customer Name', field: 'CustomerName', resizable: false },
+                { title: 'Address 1', field: 'Address1', resizable: false },
+                { title: 'Address 2', field: 'Address2', resizable: false },
+                { title: 'City', field: 'City', resizable: false },
+                { title: 'Province', field: 'Province', resizable: false }
+            ]
+        }
 
         this.on('mount', () => {
             initCtrls()
@@ -2729,10 +2739,56 @@ riot.tag2('customer-view', '<div ref="container" class="scrarea"> <div class="gr
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let grid = null, datasource = []
+        let initCtrls = () => {}
+        let freeCtrls = () => {
+            grid = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let onContentChanged = () => { updateContents() }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+
+            if (partContent) {
+                self.content.columns = partContent.columns
+
+                loadDataSource()
+            }
+        }
+        let loadDataSource = () => {
+            let langId = (lang.current) ? lang.current.langId : 'EN'
+            let url = '/edl/api/customers'
+            let paramObj = {}
+            paramObj.langId = langId
+            let fn = (r) => {
+                let data = api.parse(r)
+                datasource = (data.records && data.records[langId]) ? data.records[langId] : []
+                updateGrid()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
+        let updateGrid = () => {
+            let el = self.refs['grid']
+            if (el) {
+                let opts = {
+                    height: "100%",
+                    layout: 'fitDataFill',
+                    selectable: 1,
+                    index: self.content.columns[0].field,
+                    columns: self.content.columns,
+                    data: datasource
+                }
+                grid = new Tabulator(el, opts)
+            }
+        }
+
+        this.refresh = () => { updateContents() }
 });
 riot.tag2('edl-admin-home', '', 'edl-admin-home,[data-is="edl-admin-home"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
