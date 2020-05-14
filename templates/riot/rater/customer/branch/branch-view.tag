@@ -48,7 +48,7 @@
         let partId = 'branch-view'
         this.content = {
             columns: [
-                { title: 'Branch Name', 'field': 'branchName', resizable: false }
+                { title: 'Branch Name', field: 'branchName', resizable: false }
             ]
         }
 

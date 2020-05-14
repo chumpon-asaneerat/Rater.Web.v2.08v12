@@ -48,7 +48,9 @@
         let partId = 'device-view'
         this.content = {
             columns: [
-                { title: 'Device Name', 'field': 'DeviceName', resizable: false }
+                { title: 'Device Name', field: 'DeviceName', resizable: false },
+                { title: 'Location', field: 'Location', resizable: false },
+                { title: 'Type', field: 'Type', resizable: false }
             ]
         }
 

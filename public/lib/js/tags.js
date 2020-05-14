@@ -1275,7 +1275,7 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         let partId = 'branch-view'
         this.content = {
             columns: [
-                { title: 'Branch Name', 'field': 'branchName', resizable: false }
+                { title: 'Branch Name', field: 'branchName', resizable: false }
             ]
         }
 
@@ -1415,7 +1415,9 @@ riot.tag2('device-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         let partId = 'device-view'
         this.content = {
             columns: [
-                { title: 'Device Name', 'field': 'DeviceName', resizable: false }
+                { title: 'Device Name', field: 'DeviceName', resizable: false },
+                { title: 'Location', field: 'Location', resizable: false },
+                { title: 'Type', field: 'Type', resizable: false }
             ]
         }
 
@@ -1795,16 +1797,19 @@ riot.tag2('member-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="tool" class="toolarea"> <button class="float-button" onclick="{addnew}"> <span class="fas fa-plus">&nbsp;</span> </button> <button class="float-button" onclick="{refresh}"> <span class="fas fa-sync">&nbsp;</span> </button> </div> <div class="gridarea"> <div ref="grid" class="gridwrapper"></div> </div> </div>', 'member-view,[data-is="member-view"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\' } member-view>.scrarea,[data-is="member-view"]>.scrarea{ grid-area: scrarea; position: relative; display: grid; grid-template-columns: 5px auto 1fr 5px; grid-template-rows: 1fr; grid-template-areas: \'. toolarea gridarea .\'; margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; max-width: 800px; height: 100%; } member-view>.scrarea>.toolarea,[data-is="member-view"]>.scrarea>.toolarea{ position: relative; grid-area: toolarea; margin: 0 auto; margin-right: 5px; padding: 0; height: 100%; overflow: hidden; background-color: transparent; color: whitesmoke; } member-view>.scrarea>.toolarea .float-button,[data-is="member-view"]>.scrarea>.toolarea .float-button{ display: block; margin: 0 auto; margin-bottom: 5px; padding: 3px; padding-right: 1px; height: 40px; width: 40px; color: whitesmoke; background: silver; border: none; outline: none; border-radius: 50%; cursor: pointer; } member-view>.scrarea>.toolarea .float-button:hover,[data-is="member-view"]>.scrarea>.toolarea .float-button:hover{ color: whitesmoke; background: forestgreen; } member-view>.scrarea>.gridarea,[data-is="member-view"]>.scrarea>.gridarea{ position: relative; grid-area: gridarea; display: block; margin: 0 auto; padding: 0; height: 100%; width: 100%; overflow: hidden; } member-view>.scrarea>.gridarea>.gridwrapper,[data-is="member-view"]>.scrarea>.gridarea>.gridwrapper{ position: absolute; display: block; margin: auto; height: 100%; width: 100%; } member-view .tabulator-row button,[data-is="member-view"] .tabulator-row button{ margin: 0 auto; padding: 0px; width: 100%; font-size: small; color: inherit; background: transparent; border: none; outline: none; cursor: pointer; } member-view .tabulator-row button:hover,[data-is="member-view"] .tabulator-row button:hover{ color: forestgreen; } member-view .tabulator-row button>span,[data-is="member-view"] .tabulator-row button>span{ margin: 0 auto; padding: 0; }', '', function(opts) {
-        let self = this;
-        let screenId = 'member-view'
-        let defaultContent = {
-            title: 'Member Management',
-            columns: []
-        }
-        this.content = defaultContent
-
+riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div>', 'member-view,[data-is="member-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } member-view>.scrarea,[data-is="member-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } member-view>.scrarea>.gridarea,[data-is="member-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; }', '', function(opts) {
+        let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        let partId = 'member-view'
+        this.content = {
+            columns: [
+                { title: 'Prefix', field: 'Prefix', resizable: false },
+                { title: 'First Name', field: 'FirstName', resizable: false },
+                { title: 'Last Name', field: 'LastName', resizable: false }
+            ]
+        }
+
         this.on('mount', () => {
             initCtrls()
             bindEvents()
@@ -1813,112 +1818,58 @@ riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="tool" 
             unbindEvents()
             freeCtrls()
         })
-        let initCtrls = () => { initGrid() }
-        let freeCtrls = () => { table = null }
 
-        let table
-        let initGrid = (data) => {
-            let opts = {
-                height: "100%",
-                layout: "fitDataFill",
-                data: (data) ? data : []
-            }
-            setupColumns(opts)
-            table = new Tabulator(self.refs['grid'], opts)
+        let grid = null, datasource = []
+        let initCtrls = () => {}
+        let freeCtrls = () => {
+            grid = null
         }
-        let setupColumns = (opts) => {
-            let = columns = [
-                { formatter: editIcon, align:"center", width: 44,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: editRow
-                },
-                { formatter: deleteIcon, align:"center", width: 44,
-                    resizable: false, frozen: true, headerSort: false,
-                    cellClick: deleteRow
-                }
-            ]
-            if (self.content && self.content.columns) {
-                let cols = self.content.columns
-                columns.push(...cols)
-            }
-            opts.columns = columns
-        }
-        let datasource
-        let syncData = () => {
-            if (table) table = null
-            let data = (datasource && datasource[lang.langId]) ? datasource[lang.langId] : null
-            initGrid(data)
-        }
-        let editIcon = (cell, formatterParams) => {
-            return "<button><span class='fas fa-edit'></span></button>"
-        };
-        let deleteIcon = (cell, formatterParams) => {
-            return "<button><span class='fas fa-trash-alt'></span></button>"
-        };
-
         let bindEvents = () => {
-            addEvt(events.name.LanguageChanged, onLanguageChanged)
             addEvt(events.name.ContentChanged, onContentChanged)
-            addEvt(events.name.ScreenChanged, onScreenChanged)
-
         }
         let unbindEvents = () => {
-
-            delEvt(events.name.ScreenChanged, onScreenChanged)
             delEvt(events.name.ContentChanged, onContentChanged)
-            delEvt(events.name.LanguageChanged, onLanguageChanged)
         }
-        let onContentChanged = (e) => { updatecontent(); }
-        let onLanguageChanged = (e) => {
-            if (screens.is(screenId)) {
-                updatecontent();
-                syncData();
+        let onContentChanged = () => { updateContents() }
+
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+
+            if (partContent) {
+                self.content.columns = partContent.columns
+
+                loadDataSource()
             }
         }
-        let onScreenChanged = (e) => {
-            if (screens.is(screenId)) {
-                updatecontent();
-                self.refresh();
-            }
-        }
-        let onMemberListChanged = (e) => {
-
-        }
-
-        let editRow = (e, cell) => {
-
-        }
-        let deleteRow = (e, cell) => {
-
-        }
-        let onEndEdit = (e) => {
-
-        }
-
-        let updatecontent = () => {
-            if (screens.is(screenId)) {
-                let scrContent = contents.getScreenContent()
-                self.content = scrContent ? scrContent : defaultContent
-                self.update()
-                if (table) table.redraw(true)
-            }
-        }
-        this.addnew = (e) => {
-
-        }
-        this.refresh = (e) => {
-            let url = '/customer/api/member'
-            let paramObj = {
-                langId: lang.langId
-            }
+        let loadDataSource = () => {
+            let langId = (lang.current) ? lang.current.langId : 'EN'
+            let url = '/customers/api/members'
+            let paramObj = {}
+            paramObj.langId = langId
             let fn = (r) => {
-                let ret = api.parse(r)
-                datasource = ret.records
-                syncData()
-                updatecontent()
+                let data = api.parse(r)
+                datasource = (data.records && data.records[langId]) ? data.records[langId] : []
+                updateGrid()
             }
-            XHR.get(url, paramObj, fn)
+            XHR.postJson(url, paramObj, fn)
         }
+        let updateGrid = () => {
+            let el = self.refs['grid']
+            if (el) {
+                let opts = {
+                    height: "100%",
+                    layout: 'fitDataFill',
+                    selectable: 1,
+                    index: self.content.columns[0].field,
+                    columns: self.content.columns,
+                    data: datasource
+                }
+                grid = new Tabulator(el, opts)
+            }
+        }
+
+        this.refresh = () => { updateContents() }
 });
 riot.tag2('org-editor', '', 'org-editor,[data-is="org-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
