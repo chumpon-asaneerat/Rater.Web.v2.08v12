@@ -1,14 +1,12 @@
 <branch-view>
     <div ref="container" class="scrarea">
-        <div class="gridarea">
-            <div ref="grid" class="gridarea"></div>
-        </div>
+        <div ref="grid" class="gridarea"></div>
     </div>
     <style>
         :scope {
             position: relative;
             margin: 0;
-            padding: 0;
+            padding: 2px;
             overflow: hidden;
             display: grid;
             grid-template-columns: 1fr;
@@ -16,31 +14,24 @@
             grid-template-areas: 
                 '.'
                 'scrarea'
-                '.'
+                '.';
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
         :scope>.scrarea {
             grid-area: scrarea;
             display: grid;
-            grid-template-columns: 5px auto 1fr;
+            grid-template-columns: 1fr;
             grid-template-rows: 1fr;
             grid-template-areas: 
-                '. toolarea gridarea';
+                'gridarea';
             margin: 0 auto;
             padding: 0;
-            margin-top: 3px;
             width: 100%;
             max-width: 800px;
             height: 100%;
-        }
-        :scope>.scrarea>.toolarea {
-            grid-area: toolarea;
-            margin: 0 auto;
-            margin-right: 5px;
-            padding: 0;
-            height: 100%;
             overflow: hidden;
-            background-color: transparent;
-            color: whitesmoke;
         }
         :scope>.scrarea>.gridarea {
             grid-area: gridarea;
@@ -52,7 +43,6 @@
     </style>
     <script>
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
         let partId = 'branch-view'
