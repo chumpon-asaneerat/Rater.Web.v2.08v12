@@ -185,13 +185,19 @@
             assigns(self.content, partContent, ...propNames)
             opts.content = this.content; // update 2019-12-19
         }
+        let editorOptions
         this.save = (e) => {
             console.log('save')
+            // close after save
+            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
         }
         this.cancel = (e) => {
             console.log('cancel')
+            // close without save
+            if (editorOptions && editorOptions.onClose) editorOptions.onClose()
         }
-        this.setup = (id) => {
+        this.setup = (editOpts) => {
+            editorOptions = editOpts
             let item = null // get fron api
             // set item (contains all languages).
         }

@@ -58,51 +58,7 @@
         }
     </style>
     <script>
-        //#region Internal Variables
-
         let self = this;
-
-        //#endregion
-
-        //#region controls variables and methods
-
-        let closeBtn;
-        let initCtrls = () => {
-            closeBtn = self.refs['closeBtn']
-        }
-        let freeCtrls = () => {
-            closeBtn = null;
-        }
-
-        //#endregion
-
-        //#region document listener add/remove handler
-
-        let addEvt = (evtName, handle) => { document.addEventListener(evtName, handle) }
-        let delEvt = (evtName, handle) => { document.removeEventListener(evtName, handle) }
-
-        //#endregion
-
-        //#region events bind/unbind
-
-        let bindEvents = () => {
-            //addEvt(events.name.ShowOsd, showOsd)
-            //addEvt(events.name.UpdateOsd, updateOsd)
-            //addEvt(events.name.HideOsd, hideOsd)
-            window.addEventListener('click', windowClick)
-            closeBtn.addEventListener('click', closeClick)
-        }
-        let unbindEvents = () => {
-            closeBtn.removeEventListener('click', closeClick)
-            window.removeEventListener('click', windowClick)
-            //delEvt(events.name.HideOsd, hideOsd)
-            //delEvt(events.name.UpdateOsd, updateOsd)
-            //delEvt(events.name.ShowOsd, showOsd)
-        }
-
-        //#endregion
-
-        //#region riot handlers
 
         this.on('mount', () => {
             initCtrls();
@@ -113,23 +69,31 @@
             freeCtrls();
         });
 
-        //#endregion
+        //let closeBtn;
+        let initCtrls = () => {
+            //closeBtn = self.refs['closeBtn']
+        }
+        let freeCtrls = () => {
+            //closeBtn = null;
+        }
+        let bindEvents = () => {
+            window.addEventListener('click', windowClick)
+            //closeBtn.addEventListener('click', closeClick)
+        }
+        let unbindEvents = () => {
+            //closeBtn.removeEventListener('click', closeClick)
+            window.removeEventListener('click', windowClick)
+        }
 
         let windowClick = (evt) => {
             // When the user clicks anywhere outside of the modal, close it
             if (evt.target === self.root) { 
-                console.log('target:', evt.target)
+                //console.log('target:', evt.target)
                 self.hide()
             }
         }
-        let closeClick = (evt) => {
-            self.hide()
-        }
-        this.show = () => {
-            self.root.style.display = "block";
-        }
-        this.hide = () => {
-            self.root.style.display = "none";
-        }
+        //let closeClick = (evt) => { self.hide() }
+        this.show = () => { self.root.style.display = "block"; }
+        this.hide = () => { self.root.style.display = "none"; }
     </script>
 </ndialog>

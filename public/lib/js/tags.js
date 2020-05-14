@@ -220,31 +220,7 @@ riot.tag2('nselect', '<select ref="input"> <option each="{item in items}" riot-v
 });
 
 riot.tag2('ndialog', '<div class="modal-content"> <span ref="closeBtn" class="close">&times;</span> <div class="modal-content-area"> <yield></yield> </div> </div>', 'ndialog,[data-is="ndialog"]{ display: none; position: fixed; z-index: 1; left: 0; top: 0; margin: 0; padding: 0; width: 100%; height: 100%; overflow: none; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4); } ndialog .modal-content,[data-is="ndialog"] .modal-content{ position: relative; display: block; background-color: #fefefe; margin: 5% auto; padding: 10px; border: 1px solid #888; width: 80%; height: 80%; } ndialog .modal-content .modal-content-area,[data-is="ndialog"] .modal-content .modal-content-area{ position: relative; display: block; margin: 0; padding: 5%; width: 100%; height: 100%; overflow: hidden; } ndialog .close,[data-is="ndialog"] .close{ position: relative; float: right; color: #aaa; font-size: 28px; font-weight: bold; display: none; } ndialog .close:hover,[data-is="ndialog"] .close:hover,ndialog .close:focus,[data-is="ndialog"] .close:focus{ color: black; text-decoration: none; cursor: pointer; }', '', function(opts) {
-
-
         let self = this;
-
-        let closeBtn;
-        let initCtrls = () => {
-            closeBtn = self.refs['closeBtn']
-        }
-        let freeCtrls = () => {
-            closeBtn = null;
-        }
-
-        let addEvt = (evtName, handle) => { document.addEventListener(evtName, handle) }
-        let delEvt = (evtName, handle) => { document.removeEventListener(evtName, handle) }
-
-        let bindEvents = () => {
-
-            window.addEventListener('click', windowClick)
-            closeBtn.addEventListener('click', closeClick)
-        }
-        let unbindEvents = () => {
-            closeBtn.removeEventListener('click', closeClick)
-            window.removeEventListener('click', windowClick)
-
-        }
 
         this.on('mount', () => {
             initCtrls();
@@ -255,22 +231,31 @@ riot.tag2('ndialog', '<div class="modal-content"> <span ref="closeBtn" class="cl
             freeCtrls();
         });
 
+        let initCtrls = () => {
+
+        }
+        let freeCtrls = () => {
+
+        }
+        let bindEvents = () => {
+            window.addEventListener('click', windowClick)
+
+        }
+        let unbindEvents = () => {
+
+            window.removeEventListener('click', windowClick)
+        }
+
         let windowClick = (evt) => {
 
             if (evt.target === self.root) {
-                console.log('target:', evt.target)
+
                 self.hide()
             }
         }
-        let closeClick = (evt) => {
-            self.hide()
-        }
-        this.show = () => {
-            self.root.style.display = "block";
-        }
-        this.hide = () => {
-            self.root.style.display = "none";
-        }
+
+        this.show = () => { self.root.style.display = "block"; }
+        this.hide = () => { self.root.style.display = "none"; }
 });
 riot.tag2('osd', '<div ref="osd-ctrl" class="osd error"> <label style="margin: 0 auto; padding: 0;"></label> </div>', 'osd,[data-is="osd"]{ display: inline-block; position: absolute; margin: 0 auto; padding: 0; left: 50px; right: 50px; bottom: 50px; z-index: 1000; background-color: transparent; } osd .osd,[data-is="osd"] .osd{ display: block; position: relative; margin: 0 auto; padding: 5px; height: auto; width: 200px; color: white; background-color: rgba(0, 0, 0, .7); text-align: center; border: 1; border-color: rgba(0, 0, 0, 1); border-radius: 8px; user-select: none; visibility: hidden; } osd .osd.show,[data-is="osd"] .osd.show{ visibility: visible; } osd .osd.show.info,[data-is="osd"] .osd.show.info{ color: whitesmoke; background-color: rgba(0, 0, 0, .7); border-color: rgba(0, 0, 0, 1); } osd .osd.show.warn,[data-is="osd"] .osd.show.warn{ color: black; background-color: rgba(255, 255, 0, .7); border-color: rgba(255, 255, 0, 1); } osd .osd.show.error,[data-is="osd"] .osd.show.error{ color: yellow; background-color: rgba(255, 0, 0, .7); border-color: rgba(255, 0, 0, 1); }', '', function(opts) {
 
@@ -1242,13 +1227,19 @@ riot.tag2('branch-editor', '<div class="entry"> <tabcontrol class="tabs" content
             assigns(self.content, partContent, ...propNames)
             opts.content = this.content;
         }
+        let editorOptions
         this.save = (e) => {
             console.log('save')
+
+            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
         }
         this.cancel = (e) => {
             console.log('cancel')
+
+            if (editorOptions && editorOptions.onClose) editorOptions.onClose()
         }
-        this.setup = (id) => {
+        this.setup = (editOpts) => {
+            editorOptions = editOpts
             let item = null
 
         }
@@ -1339,7 +1330,7 @@ riot.tag2('branch-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <branch-editor></branch-editor> </ndialog>', 'branch-view,[data-is="branch-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; background: transparent; overflow: hidden; } branch-view>.scrarea,[data-is="branch-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } branch-view>.scrarea>.gridarea,[data-is="branch-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } branch-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="branch-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
+riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" class="gridarea"></div> </div> <ndialog ref="dialog"> <branch-editor ref="editor"></branch-editor> </ndialog>', 'branch-view,[data-is="branch-view"]{ position: relative; margin: 0; padding: 5px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; background: transparent; overflow: hidden; } branch-view>.scrarea,[data-is="branch-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'gridarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } branch-view>.scrarea>.gridarea,[data-is="branch-view"]>.scrarea>.gridarea{ grid-area: gridarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } branch-view>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left,[data-is="branch-view"]>.scrarea>.gridarea.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left{ display: none; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -1360,12 +1351,13 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         })
 
         let grid = null, datasource = []
-        let dialog
+        let dialog, editor
         let initCtrls = () => {
             dialog = self.refs['dialog']
+            editor = (dialog) ? dialog.refs['editor'] : null
         }
         let freeCtrls = () => {
-            dialog = null
+            editor = null
             grid = null
         }
         let bindEvents = () => {
@@ -1431,7 +1423,16 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
             console.log('edit:', data)
+            let editOpts = {
+                onClose: () => {
+                    dialog.hide()
+                },
+                onSave: () => {
+                    dialog.hide()
+                }
+            }
             dialog.show()
+            if (editor) editor.setup(editOpts)
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()
