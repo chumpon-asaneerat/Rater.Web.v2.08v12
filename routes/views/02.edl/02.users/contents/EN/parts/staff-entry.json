@@ -1,0 +1,13 @@
+{
+    "entry": {
+        "prefix": "คำนำหน้า",
+        "firstName": "ชื่อ",
+        "lastName": "นามสกุล",
+        "userName": "ชื่อบัญชี",
+        "passWord": "รหัสผ่าน",
+        "tagId": "หมายเลขแท็ก",
+        "idCard": "หมายเลขบัตรประชาชน",
+        "employeeCode": "รหัสพนักงาน",
+        "memberType": "ประเภทบัญชี"
+    }
+}

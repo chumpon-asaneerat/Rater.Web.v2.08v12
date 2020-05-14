@@ -49,7 +49,7 @@
                 memberType: 'Member Type',
                 tagId: 'Tag ID',
                 idCard: 'ID Card',
-                employeeCode: 'Employee Code',
+                employeeCode: 'Employee Code'
             }
         }
         this.isDefault = () => { return (opts.langid === '' || opts.langid === 'EN') }

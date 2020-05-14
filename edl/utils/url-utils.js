@@ -62,6 +62,12 @@ const edlAdminUrls = [
     'edl/staff/edit',
     // staff
     'edl/staff',
+    // user view
+    'edl/user/view',
+    // user edit
+    'edl/user/edit',
+    // user
+    'edl/user',
     // license
     'edl/license',
     // home
@@ -94,6 +100,12 @@ const edlSupervisorUrls = [
     'edl/staff/edit',
     // staff
     'edl/staff',
+    // user view
+    'edl/user/view',
+    // user edit
+    'edl/user/edit',
+    // user
+    'edl/user',
     // license
     //'edl/license',
     // home

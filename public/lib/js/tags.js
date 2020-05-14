@@ -1945,7 +1945,7 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
                 memberType: 'Member Type',
                 tagId: 'Tag ID',
                 idCard: 'ID Card',
-                employeeCode: 'Employee Code',
+                employeeCode: 'Employee Code'
             }
         }
         this.isDefault = () => { return (opts.langid === '' || opts.langid === 'EN') }
@@ -2959,10 +2959,19 @@ riot.tag2('rater-device-signin', '<h3>User Sign In</h3>', 'rater-device-signin,[
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('customer-editor', '', 'customer-editor,[data-is="customer-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('customer-editor', '<div class="entry"> <tabcontrol class="tabs" content="{opts.content}"> <tabheaders content="{opts.content}"> <tabheader for="default" content="{opts.content}"> <span class="fas fa-cog"></span> {opts.content.entry.tabDefault} </tabheader> <tabheader for="miltilang" content="{opts.content}"> <span class="fas fa-globe-americas"></span> {opts.content.entry.tabMultiLang} </tabheader> </tabheaders> <tabpages class="pages"> <tabpage name="default"> <div class="tab-body-container"> <customer-entry ref="EN" langid=""></customer-entry> </div> </tabpage> <tabpage name="miltilang"> <div class="tab-body-container"> <virtual if="{lang.languages}"> <virtual each="{item in lang.languages}"> <virtual if="{item.langId !== \'EN\'}"> <div class="panel-header" langid="{item.langId}"> &nbsp;&nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}"></span> &nbsp;{item.Description}&nbsp; </div> <div class="panel-body" langid="{item.langId}"> <customer-entry ref="{item.langId}" langid="{item.langId}"></customer-entry> </div> </virtual> </virtual> </virtual> </div> </tabpage> </tabpages> </tabcontrol> <div class="tool"> <button class="float-button save" onclick="{save}"><span class="fas fa-save"></span></button> <button class="float-button cancel" onclick="{cancel}"><span class="fas fa-times"></span></button> </div> </div>', 'customer-editor,[data-is="customer-editor"]{ position: relative; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'entry\'; background-color: white; overflow: hidden; } customer-editor>.entry,[data-is="customer-editor"]>.entry{ grid-area: entry; display: grid; grid-template-columns: 1fr auto 5px; grid-template-rows: 1fr; grid-template-areas: \'tabs tool .\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } customer-editor>.entry .tabs,[data-is="customer-editor"]>.entry .tabs{ grid-area: tabs; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } customer-editor>.entry .pages .tab-body-container,[data-is="customer-editor"]>.entry .pages .tab-body-container{ margin: 0 auto; padding: 5px; width: 100%; height: 100%; } customer-editor>.entry .tool,[data-is="customer-editor"]>.entry .tool{ grid-area: tool; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr auto; grid-template-areas: \'. .\' \'btn-cancel .\' \'btn-save .\'; margin: 0 auto; margin-left: 3px; padding: 5px; width: 100%; height: 100%; overflow: hidden; } customer-editor>.entry .tool .float-button,[data-is="customer-editor"]>.entry .tool .float-button{ margin: 0 auto; padding: 0; border: none; outline: none; border-radius: 50%; height: 40px; width: 40px; color: whitesmoke; background: silver; cursor: pointer; } customer-editor>.entry .tool .float-button:hover,[data-is="customer-editor"]>.entry .tool .float-button:hover{ color: whitesmoke; background: forestgreen; } customer-editor>.entry .tool .float-button.save,[data-is="customer-editor"]>.entry .tool .float-button.save{ grid-area: btn-save; } customer-editor>.entry .tool .float-button.cancel,[data-is="customer-editor"]>.entry .tool .float-button.cancel{ grid-area: btn-cancel; } customer-editor .panel-header,[data-is="customer-editor"] .panel-header{ margin: 0 auto; padding: 0; padding-top: 3px; width: 100%; height: 30px; color: white; background: cornflowerblue; border-radius: 5px 5px 0 0; } customer-editor .panel-body,[data-is="customer-editor"] .panel-body{ margin: 0 auto; margin-bottom: 5px; padding: 2px; width: 100%; border: 1px solid cornflowerblue; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+
+        let partId = 'customer-editor'
+        this.content = {
+            entry: {
+                tabDefault: 'Default',
+                tabMultiLang: 'Languages'
+            }
+        }
+        opts.content = this.content;
 
         this.on('mount', () => {
             initCtrls()
@@ -2975,8 +2984,40 @@ riot.tag2('customer-editor', '', 'customer-editor,[data-is="customer-editor"]{ p
 
         let initCtrls = () => { }
         let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let onContentChanged = (e) => { updateContents() }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.tabDefault',
+                'entry.tabMultiLang'
+            ]
+            assigns(self.content, partContent, ...propNames)
+            opts.content = this.content;
+        }
+        let editorOptions
+        this.save = (e) => {
+            console.log('save')
+
+            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+        }
+        this.cancel = (e) => {
+            console.log('cancel')
+
+            if (editorOptions && editorOptions.onClose) editorOptions.onClose()
+        }
+        this.setup = (editOpts) => {
+            editorOptions = editOpts
+            let item = null
+
+        }
+        this.refresh = () => {}
 });
 riot.tag2('customer-entry', '', 'customer-entry,[data-is="customer-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
@@ -3157,10 +3198,19 @@ riot.tag2('license-manage', '', 'license-manage,[data-is="license-manage"]{ posi
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('staff-editor', '', 'staff-editor,[data-is="staff-editor"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('staff-editor', '<div class="entry"> <tabcontrol class="tabs" content="{opts.content}"> <tabheaders content="{opts.content}"> <tabheader for="default" content="{opts.content}"> <span class="fas fa-cog"></span> {opts.content.entry.tabDefault} </tabheader> <tabheader for="miltilang" content="{opts.content}"> <span class="fas fa-globe-americas"></span> {opts.content.entry.tabMultiLang} </tabheader> </tabheaders> <tabpages class="pages"> <tabpage name="default"> <div class="tab-body-container"> <staff-entry ref="EN" langid=""></staff-entry> </div> </tabpage> <tabpage name="miltilang"> <div class="tab-body-container"> <virtual if="{lang.languages}"> <virtual each="{item in lang.languages}"> <virtual if="{item.langId !== \'EN\'}"> <div class="panel-header" langid="{item.langId}"> &nbsp;&nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}"></span> &nbsp;{item.Description}&nbsp; </div> <div class="panel-body" langid="{item.langId}"> <staff-entry ref="{item.langId}" langid="{item.langId}"></staff-entry> </div> </virtual> </virtual> </virtual> </div> </tabpage> </tabpages> </tabcontrol> <div class="tool"> <button class="float-button save" onclick="{save}"><span class="fas fa-save"></span></button> <button class="float-button cancel" onclick="{cancel}"><span class="fas fa-times"></span></button> </div> </div>', 'staff-editor,[data-is="staff-editor"]{ position: relative; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'entry\'; background-color: white; overflow: hidden; } staff-editor>.entry,[data-is="staff-editor"]>.entry{ grid-area: entry; display: grid; grid-template-columns: 1fr auto 5px; grid-template-rows: 1fr; grid-template-areas: \'tabs tool .\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } staff-editor>.entry .tabs,[data-is="staff-editor"]>.entry .tabs{ grid-area: tabs; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } staff-editor>.entry .pages .tab-body-container,[data-is="staff-editor"]>.entry .pages .tab-body-container{ margin: 0 auto; padding: 5px; width: 100%; height: 100%; } staff-editor>.entry .tool,[data-is="staff-editor"]>.entry .tool{ grid-area: tool; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr auto; grid-template-areas: \'. .\' \'btn-cancel .\' \'btn-save .\'; margin: 0 auto; margin-left: 3px; padding: 5px; width: 100%; height: 100%; overflow: hidden; } staff-editor>.entry .tool .float-button,[data-is="staff-editor"]>.entry .tool .float-button{ margin: 0 auto; padding: 0; border: none; outline: none; border-radius: 50%; height: 40px; width: 40px; color: whitesmoke; background: silver; cursor: pointer; } staff-editor>.entry .tool .float-button:hover,[data-is="staff-editor"]>.entry .tool .float-button:hover{ color: whitesmoke; background: forestgreen; } staff-editor>.entry .tool .float-button.save,[data-is="staff-editor"]>.entry .tool .float-button.save{ grid-area: btn-save; } staff-editor>.entry .tool .float-button.cancel,[data-is="staff-editor"]>.entry .tool .float-button.cancel{ grid-area: btn-cancel; } staff-editor .panel-header,[data-is="staff-editor"] .panel-header{ margin: 0 auto; padding: 0; padding-top: 3px; width: 100%; height: 30px; color: white; background: cornflowerblue; border-radius: 5px 5px 0 0; } staff-editor .panel-body,[data-is="staff-editor"] .panel-body{ margin: 0 auto; margin-bottom: 5px; padding: 2px; width: 100%; border: 1px solid cornflowerblue; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+
+        let partId = 'staff-editor'
+        this.content = {
+            entry: {
+                tabDefault: 'Default',
+                tabMultiLang: 'Languages'
+            }
+        }
+        opts.content = this.content;
 
         this.on('mount', () => {
             initCtrls()
@@ -3173,13 +3223,60 @@ riot.tag2('staff-editor', '', 'staff-editor,[data-is="staff-editor"]{ position: 
 
         let initCtrls = () => { }
         let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let onContentChanged = (e) => { updateContents() }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.tabDefault',
+                'entry.tabMultiLang'
+            ]
+            assigns(self.content, partContent, ...propNames)
+            opts.content = this.content;
+        }
+        let editorOptions
+        this.save = (e) => {
+            console.log('save')
+
+            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+        }
+        this.cancel = (e) => {
+            console.log('cancel')
+
+            if (editorOptions && editorOptions.onClose) editorOptions.onClose()
+        }
+        this.setup = (editOpts) => {
+            editorOptions = editOpts
+            let item = null
+
+        }
+        this.refresh = () => {}
 });
-riot.tag2('staff-entry', '', 'staff-entry,[data-is="staff-entry"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('staff-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="prefix" title="{content.entry.prefix}" type="text" name="prefix"></ninput> <ninput ref="firstName" title="{content.entry.firstName}" type="text" name="firstName"></ninput> <ninput ref="lastName" title="{content.entry.lastName}" type="text" name="lastName"></ninput> <virtual if="{isDefault()}"> <ninput ref="userName" title="{content.entry.userName}" type="text" name="userName"></ninput> <ninput ref="passWord" title="{content.entry.passWord}" type="password" name="passWord"></ninput> <nselect ref="memberTypes" title="{content.entry.memberType}"></nselect> </virtual>', 'staff-entry,[data-is="staff-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } staff-entry .padtop,[data-is="staff-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+        let clone = nlib.utils.clone, equals = nlib.utils.equals
+
+        let partId = 'member-entry'
+        this.content = {
+            title: 'Member Edit',
+            entry: {
+                prefix: 'Prefix Name',
+                firstName: 'First Name',
+                lastName: 'Last Name',
+                userName: 'User Name',
+                passWord: 'Password',
+                memberType: 'Member Type'
+            }
+        }
+        this.isDefault = () => { return (opts.langid === '' || opts.langid === 'EN') }
 
         this.on('mount', () => {
             initCtrls()
@@ -3189,11 +3286,59 @@ riot.tag2('staff-entry', '', 'staff-entry,[data-is="staff-entry"]{ position: rel
             unbindEvents()
             freeCtrls()
         })
+        let prefix, firstName, lastName, userName, passWord;
+        let memberTypes;
+        let initCtrls = () => {
+            prefix = self.refs['prefix'];
+            firstName = self.refs['firstName'];
+            lastName = self.refs['lastName'];
+            userName = self.refs['userName'];
+            passWord = self.refs['passWord'];
+            memberTypes = self.refs['memberTypes'];
+        }
+        let freeCtrls = () => {
+            prefix = null;
+            firstName = null;
+            lastName = null;
+            userName = null;
+            passWord = null;
+            memberTypes = null;
+        }
+        let clearInputs = () => {
+            prefix.clear()
+            firstName.clear()
+            lastName.clear()
+            userName.clear()
+            passWord.clear()
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+            if (memberTypes) memberTypes.clear();
+        }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+
+        let onContentChanged = (e) => { updateContents(); }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'entry.prefix',
+                'entry.firstName',
+                'entry.lastName',
+                'entry.userName',
+                'entry.passWord',
+                'entry.memberType'
+            ]
+            assigns(self.content, partContent, ...propNames)
+        }
+
+        this.setup = (item) => {
+
+        }
+        this.refresh = () => { updateContents() }
 });
 riot.tag2('staff-manage', '', 'staff-manage,[data-is="staff-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
