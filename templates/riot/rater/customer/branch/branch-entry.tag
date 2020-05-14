@@ -62,7 +62,6 @@
                 'entry.branchName'
             ]
             assigns(self.content, partContent, ...propNames)
-            console.log('content:', self.content)
         }
 
         this.setup = () => {}

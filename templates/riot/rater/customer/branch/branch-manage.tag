@@ -18,6 +18,12 @@
     </style>
     <script>
         let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+
+        let screenId = 'branch-manage'
+        this.content = {
+        }
 
         this.on('mount', () => {
             initCtrls()
@@ -35,8 +41,6 @@
         let freeCtrls = () => {
             layout = null
         }
-
-        let addEvt = events.doc.add, delEvt = events.doc.remove
         let bindEvents = () => { }
         let unbindEvents = () => { }
 
