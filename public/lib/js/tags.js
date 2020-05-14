@@ -1940,7 +1940,7 @@ riot.tag2('org-manage', '<dual-layout ref="layout"> <yield to="left-panel"> <org
         this.setup = () => {}
         this.refresh = () => {}
 });
-riot.tag2('org-view', '<div ref="container" class="scrarea"> <div ref="canvas" class="canvasarea"></div> </div>', 'org-view,[data-is="org-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } org-view>.scrarea,[data-is="org-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'canvasarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } org-view>.scrarea>.canvasarea,[data-is="org-view"]>.scrarea>.canvasarea{ grid-area: canvasarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; }', '', function(opts) {
+riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasarea"> <div ref="canvas"></div> </div> </div>', 'org-view,[data-is="org-view"]{ position: relative; margin: 0; padding: 2px; overflow: hidden; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\'; width: 100%; height: 100%; overflow: hidden; } org-view>.scrarea,[data-is="org-view"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'canvasarea\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; } org-view>.scrarea>.canvasarea,[data-is="org-view"]>.scrarea>.canvasarea{ grid-area: canvasarea; margin: 0 auto; padding: 0; height: 100%; width: 100%; overflow: auto; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 
@@ -1955,7 +1955,7 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div ref="canvas" c
             freeCtrls()
         })
 
-        let orgchart = null, datasource = []
+        let orgchart = null, datasource = {}
         let initCtrls = () => {}
         let freeCtrls = () => {
             orgchart = null
@@ -1984,7 +1984,10 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div ref="canvas" c
             paramObj.langId = langId
             let fn = (r) => {
                 let data = api.parse(r)
-                datasource = (data.records && data.records[langId]) ? data.records[langId] : []
+                let src = (data.records && data.records[langId]) ? data.records[langId] : []
+
+                datasource = nest(src)
+                console.log('datasource:', datasource)
                 updateChart()
             }
             XHR.postJson(url, paramObj, fn)
@@ -1992,9 +1995,30 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div ref="canvas" c
         let updateChart = () => {
             let el = self.refs['canvas']
             if (el) {
-                console.log('el:', el)
-                console.log('datasource:', datasource)
+                while (el.firstChild) {
+                    el.firstChild.remove();
+                }
+                $(el).orgchart({
+                    'data': datasource,
+                    'nodeTitle': 'OrgName',
+                    'nodeContent': 'OrgName',
+                    'nodeID': 'orgId'
+                })
             }
+        }
+        const nest = dataset => {
+            let hashTable = Object.create(null)
+            dataset.forEach(aData => hashTable[aData.orgId] = { ...aData, children : [] })
+            let dataTree = []
+            dataset.forEach( aData => {
+                if (aData.parentId) {
+                    hashTable[aData.parentId].children.push(hashTable[aData.orgId])
+                }
+                else {
+                    dataTree.push(hashTable[aData.orgId])
+                }
+            })
+            return (dataTree && dataTree.length > 0) ? dataTree[0] : {}
         }
 });
 riot.tag2('bar-votesummary-manage', '', 'bar-votesummary-manage,[data-is="bar-votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {

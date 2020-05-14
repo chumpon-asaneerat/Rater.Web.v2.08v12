@@ -1,7 +1,9 @@
 <org-view>
     <!-- Need to change to org chart. -->
     <div ref="container" class="scrarea">
-        <div ref="canvas" class="canvasarea"></div>
+        <div class="canvasarea">
+            <div ref="canvas"></div>
+        </div>
     </div>
     <style>
         :scope {
@@ -40,6 +42,7 @@
             padding: 0;
             height: 100%;
             width: 100%;
+            overflow: auto;
         }
     </style>
     <script>
@@ -57,7 +60,7 @@
             freeCtrls()
         })
 
-        let orgchart = null, datasource = []
+        let orgchart = null, datasource = {}
         let initCtrls = () => {}
         let freeCtrls = () => {
             orgchart = null
@@ -87,17 +90,41 @@
             paramObj.langId = langId
             let fn = (r) => {
                 let data = api.parse(r)
-                datasource = (data.records && data.records[langId]) ? data.records[langId] : []
+                let src = (data.records && data.records[langId]) ? data.records[langId] : []
+                // flatten
+                datasource = nest(src)
+                console.log('datasource:', datasource)
                 updateChart()
             }
             XHR.postJson(url, paramObj, fn)
         }
         let updateChart = () => {
-            let el = self.refs['canvas']
+            let el = self.refs['canvas']            
             if (el) {
-                console.log('el:', el)
-                console.log('datasource:', datasource)
+                while (el.firstChild) {
+                    el.firstChild.remove();
+                }
+                $(el).orgchart({
+                    'data': datasource,
+                    'nodeTitle': 'OrgName',
+                    'nodeContent': 'OrgName',
+                    'nodeID': 'orgId'
+                })
             }
         }
+        const nest = dataset => {
+            let hashTable = Object.create(null)
+            dataset.forEach(aData => hashTable[aData.orgId] = { ...aData, children : [] })
+            let dataTree = []
+            dataset.forEach( aData => {
+                if (aData.parentId) {
+                    hashTable[aData.parentId].children.push(hashTable[aData.orgId])
+                }
+                else {
+                    dataTree.push(hashTable[aData.orgId])
+                }
+            })
+            return (dataTree && dataTree.length > 0) ? dataTree[0] : {}
+        }        
     </script>
 </org-view>
