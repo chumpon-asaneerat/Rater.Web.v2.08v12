@@ -8,14 +8,5 @@
         "question": "Question",
         "organization": "Organization",
         "staff": "Staff"
-    },
-    "columns": {
-        "organization": "Organization",
-        "branch": "Branch",
-        "totalCnt": "Count<br>(Total)",
-        "totalAvg": "Avg<br>(Total)",
-        "totalPct": "Percent<br>(Total)",
-        "eachCnt": "Count",
-        "eachPct": "Percent"
     }
 }
