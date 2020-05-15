@@ -1,9 +1,9 @@
 [
     { "type": "url", "id":"home", "ref": "/customer/admin", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
-    { "type": "url", "id":"member-view", "ref": "/customer/member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
-    { "type": "url", "id":"branch-view", "ref": "/customer/branch", "text":"Branch", "icon": "fas fa-sitemap", "icontype": "fontcss" },
-    { "type": "url", "id":"org-view", "ref": "/customer/org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
-    { "type": "url", "id":"device-manviewage", "ref": "/customer/device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+    { "type": "url", "id":"member-manage", "ref": "/customer/member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+    { "type": "url", "id":"branch-manage", "ref": "/customer/branch", "text":"Branch", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+    { "type": "url", "id":"org-manage", "ref": "/customer/org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+    { "type": "url", "id":"device-manage", "ref": "/customer/device", "text":"Device", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
     { "type": "url", "id":"question-view", "ref": "/customer/question", "text":"Question", "icon": "far fa-newspaper", "icontype": "fontcss" },
     { "type": "url", "id":"report-home", "ref": "/customer/report", "text":"Reports", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
     { "type": "cmd", "id":"signout", "ref": "signout", "text":"Sign Out", "icon": "fas fa-user-times", "icontype": "fontcss" }

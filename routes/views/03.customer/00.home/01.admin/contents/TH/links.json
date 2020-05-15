@@ -1,9 +1,9 @@
 [
     { "type": "url", "id":"home", "ref": "/customer/admin", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
-    { "type": "url", "id":"member-view", "ref": "/customer/member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
-    { "type": "url", "id":"branch-view", "ref": "/customer/branch", "text":"ข้อมูลสาขา", "icon": "fas fa-sitemap", "icontype": "fontcss" },
-    { "type": "url", "id":"org-view", "ref": "/customer/org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
-    { "type": "url", "id":"device-view", "ref": "/customer/device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
+    { "type": "url", "id":"member-manage", "ref": "/customer/member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
+    { "type": "url", "id":"branch-manage", "ref": "/customer/branch", "text":"ข้อมูลสาขา", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+    { "type": "url", "id":"org-manage", "ref": "/customer/org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
+    { "type": "url", "id":"device-manage", "ref": "/customer/device", "text":"บัญชีอุปกรณ์", "icon": "fas fa-mobile-alt", "icontype": "fontcss" },
     { "type": "url", "id":"question-view", "ref": "/customer/question", "text":"จัดการชุดคำถาม", "icon": "far fa-newspaper", "icontype": "fontcss" },
     { "type": "url", "id":"report-home", "ref": "/customer/report", "text":"รายงานสรุป", "icon": "fas fa-chart-pie", "icontype": "fontcss" },
     { "type": "cmd", "id":"signout", "ref": "signout", "text":"ออกจากระบบ", "icon": "fas fa-user-times", "icontype": "fontcss" }
