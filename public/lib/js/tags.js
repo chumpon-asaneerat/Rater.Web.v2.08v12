@@ -2720,6 +2720,7 @@ riot.tag2('org-view', '<div ref="container" class="scrarea"> <div class="canvasa
                 let oc = $(el).orgchart({
                     collapsed: false,
                     data: datasource,
+
                     nodeTitle: 'OrgName',
                     nodeContent: 'OrgName',
                     nodeID: 'orgId',

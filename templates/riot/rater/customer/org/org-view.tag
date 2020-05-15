@@ -179,6 +179,8 @@
                 let oc = $(el).orgchart({
                     collapsed: false,
                     data: datasource,
+                    //pan: true,
+                    //zoom: true,
                     nodeTitle: 'OrgName',
                     nodeContent: 'OrgName',
                     nodeID: 'orgId',
