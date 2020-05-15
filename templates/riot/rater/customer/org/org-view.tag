@@ -54,6 +54,32 @@
         :scope>.scrarea>.canvasarea .orgchart .node .edge {
             display: none; /* disable collapse edges */
         }
+        :scope>.scrarea>.canvasarea .orgchart .node {
+            padding: 3px;
+            width: auto;
+            min-width: 150px;
+        }
+        :scope>.scrarea>.canvasarea .orgchart .node .content {
+            padding: 3px;
+            height: auto; /* override orgchart node height. */
+            min-height: 2.2rem;
+            font-weight: bold;
+        }
+        :scope>.scrarea>.canvasarea .orgchart .node .add-node,
+        :scope>.scrarea>.canvasarea .orgchart .node .edit-node,
+        :scope>.scrarea>.canvasarea .orgchart .node .delete-node {
+            color: black;
+            cursor: pointer;
+            margin: 0;
+            padding: 2px;
+            width: 25px;
+            height: 20px;
+        }
+        :scope>.scrarea>.canvasarea .orgchart .node .add-node:hover,
+        :scope>.scrarea>.canvasarea .orgchart .node .edit-node:hover,
+        :scope>.scrarea>.canvasarea .orgchart .node .delete-node:hover {
+            color: cornflowerblue;
+        }
     </style>
     <script>
         let self = this
@@ -118,7 +144,9 @@
             return `
                 <div class="title">${data.OrgName}</div>
                 <div class="content">
-                        ${data.OrgName} - ${data.BranchName}
+                        <span>${data.OrgName}</span>
+                        <br/>
+                        <span>(${data.BranchName})</span>
                 </div>
                 <div style="display: block; position: relative; margin: 0 auto; padding: 2px;">
                     <span class='add-node fas fa-plus'></span>&nbsp;
