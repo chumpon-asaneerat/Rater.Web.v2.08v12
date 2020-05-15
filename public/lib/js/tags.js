@@ -2918,10 +2918,23 @@ riot.tag2('question-box', '', 'question-box,[data-is="question-box"]{ position: 
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('report-home', '', 'report-home,[data-is="report-home"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('report-home', '<div ref="container" class="scrarea"> <div class="menu-area"> <div class="report-item"> <button onclick="{showvotesummary}"> <span class="icon fa-3x fas fa-table cr1"></span> <span class="text">{content.labels.voteSummary}</span> </button> </div> <div class="report-item"> <button onclick="{showpiesummary}"> <span class="icon fa-3x fas fa-chart-pie cr2"></span> <span class="text">{content.labels.pieChart}</span> </button> </div> <div class="report-item"> <button onclick="{showbarsummary}"> <span class="icon fa-3x fas fa-chart-bar cr3"></span> <span class="text">{content.labels.barChart}</span> </button> </div> <div class="report-item"> <button onclick="{showstaffcompare}"> <span class="icon fa-3x fas fa-chalkboard-teacher cr6"></span> <span class="text">{content.labels.staffCompare}</span> </button> </div> <div class="report-item"> <button onclick="{showrawvote}"> <span class="icon fa-3x fas fa-table cr4"></span> <span class="text">{content.labels.rawVote}</span> </button> </div> <div class="report-item"> <button onclick="{showstaffperf}"> <span class="icon fa-3x far fa-id-card cr5"></span> <span class="text">{content.labels.staffPerf}</span> </button> </div> </div> </div>', 'report-home,[data-is="report-home"]{ position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 1px 1fr 1px; grid-template-areas: \'.\' \'scrarea\' \'.\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } report-home>.scrarea,[data-is="report-home"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'menu-area\'; margin: 0 auto; padding: 0; width: 100%; max-width: 800px; height: 100%; overflow: hidden; box-shadow: var(--default-box-shadow); } @media (min-width: 620px) { report-home>.scrarea>.menu-area,[data-is="report-home"]>.scrarea>.menu-area{ column-count: 2; column-gap: 20px; } } @media (min-width: 960px) { report-home>.scrarea>.menu-area,[data-is="report-home"]>.scrarea>.menu-area{ column-count: 3; column-gap: 20px; } } report-home>.scrarea>.menu-area,[data-is="report-home"]>.scrarea>.menu-area{ grid-area: menu-area; margin: 0 auto; padding: 20px; max-width: 1000px; } report-home>.scrarea>.menu-area .report-item,[data-is="report-home"]>.scrarea>.menu-area .report-item{ margin: 2px auto; padding: 0; margin-bottom: 20px; width: 200px; height: 150px; break-inside: avoid; } report-home>.scrarea>.menu-area .report-item button,[data-is="report-home"]>.scrarea>.menu-area .report-item button{ margin: 0 auto; padding: 0; display: grid; width: 100%; height: 100%; } report-home>.scrarea>.menu-area .report-item button .icon,[data-is="report-home"]>.scrarea>.menu-area .report-item button .icon{ justify-self: center; align-self: center; } report-home>.scrarea>.menu-area .report-item button .text,[data-is="report-home"]>.scrarea>.menu-area .report-item button .text{ justify-self: center; align-self: center; font-size: 1rem; font-weight: bold; } report-home>.scrarea>.menu-area .report-item button .icon.cr1,[data-is="report-home"]>.scrarea>.menu-area .report-item button .icon.cr1{ color: chocolate; } report-home>.scrarea>.menu-area .report-item button .icon.cr2,[data-is="report-home"]>.scrarea>.menu-area .report-item button .icon.cr2{ color: cornflowerblue; } report-home>.scrarea>.menu-area .report-item button .icon.cr3,[data-is="report-home"]>.scrarea>.menu-area .report-item button .icon.cr3{ color: olivedrab; } report-home>.scrarea>.menu-area .report-item button .icon.cr4,[data-is="report-home"]>.scrarea>.menu-area .report-item button .icon.cr4{ color: darkorchid; } report-home>.scrarea>.menu-area .report-item button .icon.cr5,[data-is="report-home"]>.scrarea>.menu-area .report-item button .icon.cr5{ color: sandybrown; } report-home>.scrarea>.menu-area .report-item button .icon.cr6,[data-is="report-home"]>.scrarea>.menu-area .report-item button .icon.cr6{ color: navy; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let assigns = nlib.utils.assigns
+
+        let partId = 'report-home'
+        this.content = {
+            labels: {
+                voteSummary: 'Vote Summary',
+                pieChart: 'Pie Chart',
+                barChart: 'Bar Chart',
+                rawVote: 'Raw Vote',
+                staffCompare: 'Staff Compare',
+                staffPerf: 'Staff Performance',
+
+            }
+        }
 
         this.on('mount', () => {
             initCtrls()
@@ -2934,8 +2947,27 @@ riot.tag2('report-home', '', 'report-home,[data-is="report-home"]{ position: rel
 
         let initCtrls = () => { }
         let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let bindEvents = () => {
+            addEvt(events.name.ContentChanged, onContentChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ContentChanged, onContentChanged)
+        }
+
+        let onContentChanged = (e) => { updateContents(); }
+        let updateContents = () => {
+
+            let partContent = contents.getPart(partId)
+            let propNames = [
+                'labels.voteSummary',
+                'labels.pieChart',
+                'labels.barChart',
+                'labels.rawVote',
+                'labels.staffCompare',
+                'labels.staffPerf'
+            ]
+            assigns(self.content, partContent, ...propNames)
+        }
 });
 riot.tag2('pie-votesummary-manage', '', 'pie-votesummary-manage,[data-is="pie-votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this

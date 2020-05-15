@@ -1,0 +1,10 @@
+{
+    "labels": {
+        "voteSummary": "Vote Summary",
+        "pieChart": "Pie Chart",
+        "barChart": "Bar Chart",
+        "rawVote": "Raw Vote",
+        "staffCompare": "Staff Compare",
+        "staffPerf": "Staff Performance"
+    }
+}
