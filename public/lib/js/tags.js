@@ -2968,6 +2968,30 @@ riot.tag2('report-home', '<div ref="container" class="scrarea"> <div class="menu
             ]
             assigns(self.content, partContent, ...propNames)
         }
+        this.showpiesummary = () => {
+            let url = '/customer/report/piechart';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showbarsummary = () => {
+            let url = '/customer/report/barchart';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showvotesummary = () => {
+            let url = '/customer/report/votesummary';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showrawvote = () => {
+            let url = '/customer/report/rawvote';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showstaffcompare = () => {
+            let url = '/customer/report/staffcompare';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showstaffperf = () => {
+            let url = '/customer/report/staffperf';
+            nlib.nav.gotoUrl(url)
+        }
 });
 riot.tag2('pie-votesummary-manage', '', 'pie-votesummary-manage,[data-is="pie-votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this

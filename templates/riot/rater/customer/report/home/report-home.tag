@@ -173,5 +173,29 @@
             ]
             assigns(self.content, partContent, ...propNames)
         }
+        this.showpiesummary = () => { 
+            let url = '/customer/report/piechart';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showbarsummary = () => { 
+            let url = '/customer/report/barchart';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showvotesummary = () => { 
+            let url = '/customer/report/votesummary';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showrawvote = () => { 
+            let url = '/customer/report/rawvote';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showstaffcompare = () => { 
+            let url = '/customer/report/staffcompare';
+            nlib.nav.gotoUrl(url)
+        }
+        this.showstaffperf = () => {             
+            let url = '/customer/report/staffperf';
+            nlib.nav.gotoUrl(url)
+        }
     </script>
 </report-home>
