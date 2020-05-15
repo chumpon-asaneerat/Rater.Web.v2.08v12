@@ -1,5 +1,5 @@
 [
-    { "type": "url", "id":"home", "ref": "/customer/admin", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
+    { "type": "url", "id":"home", "ref": "/", "text":"Home", "icon": "fas fa-home", "icontype": "fontcss" },
     { "type": "url", "id":"member-manage", "ref": "/customer/member", "text":"User Account", "icon": "fas fa-user-friends", "icontype": "fontcss" },
     { "type": "url", "id":"branch-manage", "ref": "/customer/branch", "text":"Branch", "icon": "fas fa-sitemap", "icontype": "fontcss" },
     { "type": "url", "id":"org-manage", "ref": "/customer/org", "text":"Organization", "icon": "fas fa-sitemap", "icontype": "fontcss" },

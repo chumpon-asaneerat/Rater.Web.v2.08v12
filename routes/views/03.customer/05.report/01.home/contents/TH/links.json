@@ -1,5 +1,5 @@
 [
-    { "type": "url", "id":"home", "ref": "/customer/admin", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
+    { "type": "url", "id":"home", "ref": "/", "text":"หน้าหลัก", "icon": "fas fa-home", "icontype": "fontcss" },
     { "type": "url", "id":"member-manage", "ref": "/customer/member", "text":"บัญชีผู้ใช้งาน", "icon": "fas fa-user-friends", "icontype": "fontcss" },
     { "type": "url", "id":"branch-manage", "ref": "/customer/branch", "text":"ข้อมูลสาขา", "icon": "fas fa-sitemap", "icontype": "fontcss" },
     { "type": "url", "id":"org-manage", "ref": "/customer/org", "text":"ผังองกรณ์", "icon": "fas fa-sitemap", "icontype": "fontcss" },
