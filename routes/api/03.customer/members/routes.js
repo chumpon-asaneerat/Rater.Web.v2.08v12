@@ -288,7 +288,7 @@ router.use(secure.checkAccess);
 router.all('/members', api.GetMemberInfos.entry);
 router.get('/members/search/:id', api.GetMemberInfo.entry);
 router.post('/members/search', api.GetMemberInfo.entry);
-router.post('/member/save', api.Save.entry);
+router.post('/members/save', api.Save.entry);
 //router.post('/member/delete', api.Delete.entry);
 
 const init_routes = (svr) => {

@@ -144,19 +144,39 @@
                 grid = new Tabulator(el, opts)
             }
         }
+        let membertypes
+        let loadMemberTypes = (callback) => {
+            let langId = (lang.current) ? lang.current.langId : 'EN' 
+            let url = '/api/membertypes'
+            let paramObj = {
+                langId: langId
+            }
+            let fn = (r) => {
+                let data = api.parse(r)
+                membertypes = data.records[langId]
+                callback()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
-            console.log('edit:', data)
-            let editOpts = {
-                onClose: () => { 
-                    dialog.hide()
-                },
-                onSave: () => {
-                    dialog.hide()
+            loadMemberTypes(() => {
+                let editOpts = {
+                    data: data,
+                    lookup: {
+                        membertypes: membertypes
+                    },
+                    isNew: false,
+                    onClose: () => { 
+                        dialog.hide()
+                    },
+                    onSave: () => {
+                        dialog.hide()
+                    }
                 }
-            }
-            dialog.show()
-            if (editor) editor.setup(editOpts)
+                dialog.show()
+                if (editor) editor.setup(editOpts)
+            })
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()

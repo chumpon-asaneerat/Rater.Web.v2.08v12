@@ -95,10 +95,10 @@
             prefix.clear()
             firstName.clear()
             lastName.clear()
-            userName.clear()
-            passWord.clear()
             // required to check null in case some input(s) not used in
             // multilanguages tab
+            if (userName) userName.clear()
+            if (passWord) passWord.clear()
             if (memberTypes) memberTypes.clear()
             /*
             tagId.clear()
@@ -131,8 +131,61 @@
             assigns(self.content, partContent, ...propNames)
         }
 
-        this.setup = (item) => {
-            // set item (1 language)
+        let origObj
+        let editObj
+        let ctrlToObj = () => {
+            if (editObj) {
+                //console.log('ctrlToObj:', editObj)
+                if (prefix) editObj.Prefix = prefix.value()
+                if (firstName) editObj.FirstName = firstName.value()
+                if (lastName) editObj.LastName = lastName.value()
+                if (userName) editObj.UserName = userName.value()
+                if (passWord) editObj.Password = passWord.value()
+                if (memberTypes) editObj.MemberType = memberTypes.value()
+                /*
+                if (tagId) editObj.TagId = tagId.value()
+                if (idCard) editObj.IDCard = idCard.value()
+                if (employeeCode) editObj.EmployeeCode = employeeCode.value()
+                */
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+                //console.log('objToCtrl:', editObj)
+                if (prefix) prefix.value(editObj.Prefix)
+                if (firstName) firstName.value(editObj.FirstName)
+                if (lastName) lastName.value(editObj.LastName)
+                if (userName) userName.value(editObj.UserName)
+                if (passWord) passWord.value(editObj.Password)
+                if (memberTypes && editObj.MemberType) {
+                    memberTypes.value(editObj.MemberType.toString())
+                }
+                /*
+                if (tagId) tagId.value(editObj.TagId)
+                if (idCard) idCard.value(editObj.IDCard)
+                if (employeeCode) employeeCode.value(editObj.EmployeeCode)
+                */
+            }
+        }
+        this.setup = (item, lookup) => {
+            clearInputs()
+            // set lookup.
+            if (memberTypes) {
+                memberTypes.setup(lookup.membertypes, { valueField:'memberTypeId', textField:'Description' });
+            }
+
+            origObj = clone(item)
+            editObj = clone(item)
+            //console.log('edit obj:', editObj)
+            objToCtrl()
+        }
+        this.getItem = () => {
+            ctrlToObj()
+            //console.log('getItem:', editObj)
+            let hasId = (editObj.memberId !== undefined && editObj.memberId != null)
+            let isDirty = !hasId || !equals(origObj, editObj)
+            //console.log(editObj)
+            return (isDirty) ? editObj : null
         }
         this.refresh = () => { updateContents() }
     </script>

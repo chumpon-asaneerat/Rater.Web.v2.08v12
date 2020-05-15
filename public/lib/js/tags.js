@@ -2117,6 +2117,7 @@ riot.tag2('member-editor', '<div class="entry"> <tabcontrol class="tabs" content
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
+        let clone = nlib.utils.clone, equals = nlib.utils.equals
 
         let partId = 'member-editor'
         this.content = {
@@ -2155,11 +2156,88 @@ riot.tag2('member-editor', '<div class="entry"> <tabcontrol class="tabs" content
             assigns(self.content, partContent, ...propNames)
             opts.content = this.content;
         }
-        let editorOptions
-        this.save = (e) => {
-            console.log('save')
 
-            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+        findCtrl = (langId) => {
+            let ctrl;
+            let tabpages = self.tags['tabcontrol'].tags['tabpages'].tags['tabpage'];
+            for (let i = 0; i < tabpages.length; i++) {
+                let tp = tabpages[i];
+                ctrl = tp.refs[langId];
+                if (ctrl) break;
+            }
+            return ctrl;
+        }
+        let editorOptions
+        let editItem
+        let isNew
+        let loadItem = () => {
+            editItem = null
+            isNew = false
+            if (editorOptions && editorOptions.data) {
+                isNew = editorOptions.isNew
+                let url = '/customers/api/members/search'
+                let paramObj = {
+                    memberId: editorOptions.data.memberId
+                }
+                paramObj.langId = null
+                let fn = (r) => {
+                    let data = api.parse(r)
+                    editItem = data.records
+                    bindControls()
+                }
+                XHR.postJson(url, paramObj, fn)
+            }
+        }
+        let ctrls = []
+        let bindControls = () => {
+            ctrls = []
+            isNew = false
+            lang.languages.forEach(lg => {
+                let ctrl = findCtrl(lg.langId)
+                let original = (isNew) ? clone(editItem) : editItem[lg.langId][0]
+                if (ctrl) {
+                    let obj = {
+                        langId: lg.langId,
+                        entry: ctrl,
+                        scrObj: original
+                    }
+                    ctrl.setup(original, editorOptions.lookup);
+                    ctrls.push(obj)
+                }
+            })
+        }
+        let saveItems = (items) => {
+            let self = this;
+            let url = '/customers/api/members/save'
+
+            let paramObj = {
+                items: items
+            };
+            let fn = (r) => {
+                let results = []
+                for (let i = 0; i < r.result.length; i++) {
+                    let data = {}
+                    data.records = r.result[i].data
+                    data.out = r.result[i].out
+                    data.errors = r.result[i].errors
+                    results.push(data)
+                }
+
+                if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
+        this.save = (e) => {
+            let item;
+            let items = []
+            ctrls.forEach(oRef => {
+                item = (oRef.entry) ? oRef.entry.getItem() : null
+                if (item) {
+                    item.langId = oRef.langId
+                    items.push(item)
+                }
+            })
+            saveItems(items)
         }
         this.cancel = (e) => {
             console.log('cancel')
@@ -2168,8 +2246,7 @@ riot.tag2('member-editor', '<div class="entry"> <tabcontrol class="tabs" content
         }
         this.setup = (editOpts) => {
             editorOptions = editOpts
-            let item = null
-
+            loadItem()
         }
         this.refresh = () => {}
 });
@@ -2229,9 +2306,9 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
             prefix.clear()
             firstName.clear()
             lastName.clear()
-            userName.clear()
-            passWord.clear()
 
+            if (userName) userName.clear()
+            if (passWord) passWord.clear()
             if (memberTypes) memberTypes.clear()
 
         }
@@ -2260,8 +2337,53 @@ riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div>
             assigns(self.content, partContent, ...propNames)
         }
 
-        this.setup = (item) => {
+        let origObj
+        let editObj
+        let ctrlToObj = () => {
+            if (editObj) {
 
+                if (prefix) editObj.Prefix = prefix.value()
+                if (firstName) editObj.FirstName = firstName.value()
+                if (lastName) editObj.LastName = lastName.value()
+                if (userName) editObj.UserName = userName.value()
+                if (passWord) editObj.Password = passWord.value()
+                if (memberTypes) editObj.MemberType = memberTypes.value()
+
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+
+                if (prefix) prefix.value(editObj.Prefix)
+                if (firstName) firstName.value(editObj.FirstName)
+                if (lastName) lastName.value(editObj.LastName)
+                if (userName) userName.value(editObj.UserName)
+                if (passWord) passWord.value(editObj.Password)
+                if (memberTypes && editObj.MemberType) {
+                    memberTypes.value(editObj.MemberType.toString())
+                }
+
+            }
+        }
+        this.setup = (item, lookup) => {
+            clearInputs()
+
+            if (memberTypes) {
+                memberTypes.setup(lookup.membertypes, { valueField:'memberTypeId', textField:'Description' });
+            }
+
+            origObj = clone(item)
+            editObj = clone(item)
+
+            objToCtrl()
+        }
+        this.getItem = () => {
+            ctrlToObj()
+
+            let hasId = (editObj.memberId !== undefined && editObj.memberId != null)
+            let isDirty = !hasId || !equals(origObj, editObj)
+
+            return (isDirty) ? editObj : null
         }
         this.refresh = () => { updateContents() }
 });
@@ -2392,19 +2514,39 @@ riot.tag2('member-view', '<div ref="container" class="scrarea"> <div ref="grid" 
                 grid = new Tabulator(el, opts)
             }
         }
+        let membertypes
+        let loadMemberTypes = (callback) => {
+            let langId = (lang.current) ? lang.current.langId : 'EN'
+            let url = '/api/membertypes'
+            let paramObj = {
+                langId: langId
+            }
+            let fn = (r) => {
+                let data = api.parse(r)
+                membertypes = data.records[langId]
+                callback()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
-            console.log('edit:', data)
-            let editOpts = {
-                onClose: () => {
-                    dialog.hide()
-                },
-                onSave: () => {
-                    dialog.hide()
+            loadMemberTypes(() => {
+                let editOpts = {
+                    data: data,
+                    lookup: {
+                        membertypes: membertypes
+                    },
+                    isNew: false,
+                    onClose: () => {
+                        dialog.hide()
+                    },
+                    onSave: () => {
+                        dialog.hide()
+                    }
                 }
-            }
-            dialog.show()
-            if (editor) editor.setup(editOpts)
+                dialog.show()
+                if (editor) editor.setup(editOpts)
+            })
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()
