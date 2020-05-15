@@ -156,12 +156,12 @@
         this.content = this.defaultContent;
 
         this.on('mount', () => {
-            initCtrls()
-            bindEvents()
+            //initCtrls()
+            //bindEvents()
         })
         this.on('unmount', () => {
-            unbindEvents()
-            freeCtrls()
+            //unbindEvents()
+            //freeCtrls()
         })
 
         let ctrlQSets, ctrlBegin, ctrlEnd, ctrlQuesTree, ctrlOrgTree
@@ -235,7 +235,6 @@
         }
 
         let loadQSets = () => {
-            /*
             let criteria = {
                 langId: (lang.current) ? lang.current.langId : 'EN'
             }
@@ -256,7 +255,6 @@
                     }
                 })
             }
-            */
         }
 
         //#endregion

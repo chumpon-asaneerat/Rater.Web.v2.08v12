@@ -3359,12 +3359,10 @@ riot.tag2('votesummary-search', '<div ref="container" class="scrarea"> <div ref=
         this.content = this.defaultContent;
 
         this.on('mount', () => {
-            initCtrls()
-            bindEvents()
+
         })
         this.on('unmount', () => {
-            unbindEvents()
-            freeCtrls()
+
         })
 
         let ctrlQSets, ctrlBegin, ctrlEnd, ctrlQuesTree, ctrlOrgTree
@@ -3436,7 +3434,26 @@ riot.tag2('votesummary-search', '<div ref="container" class="scrarea"> <div ref=
         }
 
         let loadQSets = () => {
-
+            let criteria = {
+                langId: (lang.current) ? lang.current.langId : 'EN'
+            }
+            if (ctrlQSets) {
+                $.ajax({
+                    type: "POST",
+                    url: "/customers/api/question/sets/search",
+                    data: JSON.stringify(criteria),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: (ret) => {
+                        console.log(ret);
+                        qsetModel = ret.data;
+                        updateQSets();
+                    },
+                    failure: (errMsg) => {
+                        console.log(errMsg);
+                    }
+                })
+            }
         }
 
         let clearQuestions = () => {
