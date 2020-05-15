@@ -144,14 +144,9 @@
         }
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
-            //let a = new xdata()
-            //console.log('test class xdata:', a)
-            console.log('edit:', data)
             let editOpts = {
                 data: data,
-                lookup: {
-                    // the lookup source(s).
-                },
+                isNew: false,
                 onClose: () => { 
                     dialog.hide()
                 },
@@ -167,11 +162,5 @@
             console.log('delete:', data)
         }
         this.refresh = () => { updateContents() }
-
-        /*
-        class xdata {
-            get a() { return 1 }
-        }
-        */
     </script>
 </branch-view>

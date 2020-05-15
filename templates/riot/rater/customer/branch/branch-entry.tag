@@ -48,6 +48,9 @@
         let freeCtrls = () => {
             branchName = null
         }
+        let clearInputs = () => {
+            branchName.clear()
+        }
         let bindEvents = () => {
             addEvt(events.name.ContentChanged, onContentChanged)
         }
@@ -65,8 +68,34 @@
             assigns(self.content, partContent, ...propNames)
         }
 
+        let origObj
+        let editObj
+        let ctrlToObj = () => {
+            if (editObj) {
+                //console.log('ctrlToObj:', editObj)
+                if (branchName) editObj.branchName = branchName.value()
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+                //console.log('objToCtrl:', editObj)
+                if (branchName) branchName.value(editObj.branchName);
+            }
+        }
         this.setup = (item) => {
-            // set item (1 language)
+            clearInputs()
+            origObj = clone(item)
+            editObj = clone(item)
+            //console.log('edit obj:', editObj)
+            objToCtrl()
+        }
+        this.getItem = () => {
+            ctrlToObj()
+            //console.log('getItem:', editObj)
+            let hasId = (editObj.branchId !== undefined && editObj.branchId != null)
+            let isDirty = !hasId || !equals(origObj, editObj)
+            //console.log(editObj)
+            return (isDirty) ? editObj : null
         }
         this.refresh = () => { updateContents() }
     </script>
