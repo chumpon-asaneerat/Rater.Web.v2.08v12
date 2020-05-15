@@ -146,6 +146,7 @@
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
+        let clone = nlib.utils.clone, equals = nlib.utils.equals
 
         let partId = 'device-editor'
         this.content = {
@@ -185,11 +186,88 @@
             assigns(self.content, partContent, ...propNames)
             opts.content = this.content; // update 2019-12-19
         }
+        // update 2019-12-19
+        findCtrl = (langId) => {
+            let ctrl;
+            let tabpages = self.tags['tabcontrol'].tags['tabpages'].tags['tabpage'];
+            for (let i = 0; i < tabpages.length; i++) {
+                let tp = tabpages[i];
+                ctrl = tp.refs[langId];
+                if (ctrl) break;
+            }
+            return ctrl;
+        }
         let editorOptions
+        let editItem
+        let isNew
+        let loadItem = () => {
+            editItem = null
+            isNew = false
+            if (editorOptions && editorOptions.data) {
+                isNew = editorOptions.isNew
+                let url = '/customers/api/devices/search'
+                let paramObj = {
+                    deviceId: editorOptions.data.deviceId
+                }
+                paramObj.langId = null
+                let fn = (r) => {
+                    let data = api.parse(r)
+                    editItem = data.records
+                    bindControls()
+                }
+                XHR.postJson(url, paramObj, fn)
+            }
+        }
+        let ctrls = []
+        let bindControls = () => {
+            ctrls = []
+            isNew = false
+            lang.languages.forEach(lg => {
+                let ctrl = findCtrl(lg.langId) // update 2019-12-19
+                let original = (isNew) ? clone(editItem) : editItem[lg.langId][0]
+                if (ctrl) {
+                    let obj = {
+                        langId: lg.langId,
+                        entry: ctrl,
+                        scrObj: original
+                    }
+                    ctrl.setup(original, editorOptions.lookup);
+                    ctrls.push(obj)
+                }
+            })
+        }
+        let saveItems = (items) => {
+            let self = this;
+            let url = '/customers/api/devices/save'
+            //console.log('save:', items)
+            let paramObj = {
+                items: items
+            };
+            let fn = (r) => {
+                let results = []
+                for (let i = 0; i < r.result.length; i++) {
+                    let data = {}
+                    data.records = r.result[i].data
+                    data.out = r.result[i].out
+                    data.errors = r.result[i].errors
+                    results.push(data)
+                }
+                // close after save
+                if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
         this.save = (e) => {
-            console.log('save')
-            // close after save
-            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+            let item;
+            let items = []
+            ctrls.forEach(oRef => {
+                item = (oRef.entry) ? oRef.entry.getItem() : null
+                if (item) {
+                    item.langId = oRef.langId
+                    items.push(item)
+                }
+            })
+            saveItems(items)
         }
         this.cancel = (e) => {
             console.log('cancel')
@@ -198,8 +276,7 @@
         }
         this.setup = (editOpts) => {
             editorOptions = editOpts
-            let item = null // get fron api
-            // set item (contains all languages).
+            loadItem()
         }
         this.refresh = () => {}
     </script>

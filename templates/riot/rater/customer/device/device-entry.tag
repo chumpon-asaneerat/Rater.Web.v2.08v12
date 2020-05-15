@@ -58,6 +58,13 @@
             deviceTypes = null
             deviceName = null
         }
+        let clearInputs = () => {
+            location.clear()
+            // required to check null in case some input(s) not used in
+            // multilanguages tab
+            if (deviceTypes) deviceTypes.clear()
+            deviceName.clear()
+        }
         let bindEvents = () => {
             addEvt(events.name.ContentChanged, onContentChanged)
         }
@@ -76,8 +83,45 @@
             assigns(self.content, partContent, ...propNames)
         }
 
-        this.setup = (item) => {
-            // set item (1 language)
+        let origObj
+        let editObj
+        let ctrlToObj = () => {
+            if (editObj) {
+                //console.log('ctrlToObj:', editObj)
+                if (deviceName) editObj.DeviceName = deviceName.value()
+                if (location) editObj.Location = location.value()
+                if (deviceTypes) editObj.deviceTypeId = deviceTypes.value()
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+                //console.log('objToCtrl:', editObj)
+                if (deviceName) deviceName.value(editObj.DeviceName)
+                if (location) location.value(editObj.Location)
+                if (deviceTypes && editObj.deviceTypeId) {
+                    deviceTypes.value(editObj.deviceTypeId.toString())
+                }
+            }
+        }
+        this.setup = (item, lookup) => {
+            clearInputs()
+            // set lookup.
+            if (deviceTypes) {
+                deviceTypes.setup(lookup.devicetypes, { valueField:'deviceTypeId', textField:'Type' })
+            }
+
+            origObj = clone(item)
+            editObj = clone(item)
+            //console.log('edit obj:', editObj)
+            objToCtrl()
+        }
+        this.getItem = () => {
+            ctrlToObj()
+            //console.log('getItem:', editObj)
+            let hasId = (editObj.deviceId !== undefined && editObj.deviceId != null)
+            let isDirty = !hasId || !equals(origObj, editObj)
+            //console.log(editObj)
+            return (isDirty) ? editObj : null
         }
         this.refresh = () => { updateContents() }
     </script>

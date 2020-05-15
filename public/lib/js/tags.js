@@ -1554,6 +1554,7 @@ riot.tag2('device-editor', '<div class="entry"> <tabcontrol class="tabs" content
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
+        let clone = nlib.utils.clone, equals = nlib.utils.equals
 
         let partId = 'device-editor'
         this.content = {
@@ -1593,11 +1594,88 @@ riot.tag2('device-editor', '<div class="entry"> <tabcontrol class="tabs" content
             assigns(self.content, partContent, ...propNames)
             opts.content = this.content;
         }
-        let editorOptions
-        this.save = (e) => {
-            console.log('save')
 
-            if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+        findCtrl = (langId) => {
+            let ctrl;
+            let tabpages = self.tags['tabcontrol'].tags['tabpages'].tags['tabpage'];
+            for (let i = 0; i < tabpages.length; i++) {
+                let tp = tabpages[i];
+                ctrl = tp.refs[langId];
+                if (ctrl) break;
+            }
+            return ctrl;
+        }
+        let editorOptions
+        let editItem
+        let isNew
+        let loadItem = () => {
+            editItem = null
+            isNew = false
+            if (editorOptions && editorOptions.data) {
+                isNew = editorOptions.isNew
+                let url = '/customers/api/devices/search'
+                let paramObj = {
+                    deviceId: editorOptions.data.deviceId
+                }
+                paramObj.langId = null
+                let fn = (r) => {
+                    let data = api.parse(r)
+                    editItem = data.records
+                    bindControls()
+                }
+                XHR.postJson(url, paramObj, fn)
+            }
+        }
+        let ctrls = []
+        let bindControls = () => {
+            ctrls = []
+            isNew = false
+            lang.languages.forEach(lg => {
+                let ctrl = findCtrl(lg.langId)
+                let original = (isNew) ? clone(editItem) : editItem[lg.langId][0]
+                if (ctrl) {
+                    let obj = {
+                        langId: lg.langId,
+                        entry: ctrl,
+                        scrObj: original
+                    }
+                    ctrl.setup(original, editorOptions.lookup);
+                    ctrls.push(obj)
+                }
+            })
+        }
+        let saveItems = (items) => {
+            let self = this;
+            let url = '/customers/api/devices/save'
+
+            let paramObj = {
+                items: items
+            };
+            let fn = (r) => {
+                let results = []
+                for (let i = 0; i < r.result.length; i++) {
+                    let data = {}
+                    data.records = r.result[i].data
+                    data.out = r.result[i].out
+                    data.errors = r.result[i].errors
+                    results.push(data)
+                }
+
+                if (editorOptions && editorOptions.onSave) editorOptions.onSave()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
+        this.save = (e) => {
+            let item;
+            let items = []
+            ctrls.forEach(oRef => {
+                item = (oRef.entry) ? oRef.entry.getItem() : null
+                if (item) {
+                    item.langId = oRef.langId
+                    items.push(item)
+                }
+            })
+            saveItems(items)
         }
         this.cancel = (e) => {
             console.log('cancel')
@@ -1606,8 +1684,7 @@ riot.tag2('device-editor', '<div class="entry"> <tabcontrol class="tabs" content
         }
         this.setup = (editOpts) => {
             editorOptions = editOpts
-            let item = null
-
+            loadItem()
         }
         this.refresh = () => {}
 });
@@ -1648,6 +1725,12 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
             deviceTypes = null
             deviceName = null
         }
+        let clearInputs = () => {
+            location.clear()
+
+            if (deviceTypes) deviceTypes.clear()
+            deviceName.clear()
+        }
         let bindEvents = () => {
             addEvt(events.name.ContentChanged, onContentChanged)
         }
@@ -1666,8 +1749,45 @@ riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div>
             assigns(self.content, partContent, ...propNames)
         }
 
-        this.setup = (item) => {
+        let origObj
+        let editObj
+        let ctrlToObj = () => {
+            if (editObj) {
 
+                if (deviceName) editObj.DeviceName = deviceName.value()
+                if (location) editObj.Location = location.value()
+                if (deviceTypes) editObj.deviceTypeId = deviceTypes.value()
+            }
+        }
+        let objToCtrl = () => {
+            if (editObj) {
+
+                if (deviceName) deviceName.value(editObj.DeviceName)
+                if (location) location.value(editObj.Location)
+                if (deviceTypes && editObj.deviceTypeId) {
+                    deviceTypes.value(editObj.deviceTypeId.toString())
+                }
+            }
+        }
+        this.setup = (item, lookup) => {
+            clearInputs()
+
+            if (deviceTypes) {
+                deviceTypes.setup(lookup.devicetypes, { valueField:'deviceTypeId', textField:'Type' })
+            }
+
+            origObj = clone(item)
+            editObj = clone(item)
+
+            objToCtrl()
+        }
+        this.getItem = () => {
+            ctrlToObj()
+
+            let hasId = (editObj.deviceId !== undefined && editObj.deviceId != null)
+            let isDirty = !hasId || !equals(origObj, editObj)
+
+            return (isDirty) ? editObj : null
         }
         this.refresh = () => { updateContents() }
 });
@@ -1797,19 +1917,39 @@ riot.tag2('device-view', '<div ref="container" class="scrarea"> <div ref="grid" 
                 grid = new Tabulator(el, opts)
             }
         }
+        let devicetypes
+        let loadDeviceTypes = (callback) => {
+            let langId = (lang.current) ? lang.current.langId : 'EN'
+            let url = '/api/devicetypes'
+            let paramObj = {
+                langId: langId
+            }
+            let fn = (r) => {
+                let data = api.parse(r)
+                devicetypes = data.records[langId]
+                callback()
+            }
+            XHR.postJson(url, paramObj, fn)
+        }
         let editRow = (e, cell) => {
             let data = cell.getRow().getData()
-            console.log('edit:', data)
-            let editOpts = {
-                onClose: () => {
-                    dialog.hide()
-                },
-                onSave: () => {
-                    dialog.hide()
+            loadDeviceTypes(() => {
+                let editOpts = {
+                    data: data,
+                    lookup: {
+                        devicetypes: devicetypes
+                    },
+                    isNew: false,
+                    onClose: () => {
+                        dialog.hide()
+                    },
+                    onSave: () => {
+                        dialog.hide()
+                    }
                 }
-            }
-            dialog.show()
-            if (editor) editor.setup(editOpts)
+                dialog.show()
+                if (editor) editor.setup(editOpts)
+            })
         }
         let deleteRow = (e, cell) => {
             let data = cell.getRow().getData()
