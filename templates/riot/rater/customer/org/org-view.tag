@@ -114,10 +114,17 @@
             return (dataTree && dataTree.length > 0) ? dataTree[0] : {}
         }
         let nodeTemplate = (data) => {
-            console.log(data)
+            //console.log(data)
             return `
                 <div class="title">${data.OrgName}</div>
-                <div class="content">${data.OrgName} - ${data.BranchName}</div>
+                <div class="content">
+                        ${data.OrgName} - ${data.BranchName}
+                </div>
+                <div style="display: block; position: relative; margin: 0 auto; padding: 2px;">
+                    <span class='add-node fas fa-plus'></span>&nbsp;
+                    <span class='edit-node fas fa-edit'></span>&nbsp;
+                    <span class='delete-node fas fa-trash-alt'></span>
+                </div>
             `;
         };
         let loadDataSource = () => {
@@ -135,20 +142,39 @@
             XHR.postJson(url, paramObj, fn)
         }
         let updateChart = () => {
-            let el = self.refs['canvas']            
+            let el = self.refs['canvas']
+            selectedItem = null  
             if (el) {
                 while (el.firstChild) {
                     el.firstChild.remove();
                 }
-                $(el).orgchart({
+                let oc = $(el).orgchart({
                     collapsed: false,
                     data: datasource,
                     nodeTitle: 'OrgName',
                     nodeContent: 'OrgName',
                     nodeID: 'orgId',
-                    nodeTemplate: nodeTemplate
+                    nodeTemplate: nodeTemplate,
+                    'createNode': ($node, data) => {
+                        let $add = $node.find('.add-node')
+                        let $edit = $node.find('.edit-node')
+                        let $del = $node.find('.delete-node')
+                        $add.on('mousedown', (evt) => addNode(data))
+                        $edit.on('mousedown', (evt) => editNode(data))
+                        $del.on('mousedown', (evt) => deleteNode(data))
+                    }
                 })
             }
+        }
+
+        let addNode = (data) => {
+            console.log('add click:', data)
+        }
+        let editNode = (data) => {
+            console.log('edit click:', data)
+        }
+        let deleteNode = (data) => {
+            console.log('delete click:', data)
         }
     </script>
 </org-view>
