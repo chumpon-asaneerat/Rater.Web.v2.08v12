@@ -10,7 +10,7 @@
     <style>
         :scope {
             position: relative;
-            display: block;
+            /* display: block; */
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -36,10 +36,12 @@
         let flipper, view, entry
         let initCtrls = () => {
             flipper = self.refs['flipper']
+            view = (flipper) ? flipper.refs['viewer'] : undefined
             entry = (flipper) ? flipper.refs['entry'] : undefined
         }
         let freeCtrls = () => {
             entry = null
+            view = null
             flipper = null
         }
         let bindEvents = () => {

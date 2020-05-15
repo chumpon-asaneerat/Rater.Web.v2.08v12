@@ -3253,7 +3253,7 @@ riot.tag2('staffperf-search', '', 'staffperf-search,[data-is="staffperf-search"]
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('votesummary-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <votesummary-search ref="viewer" class="view"></votesummary-search> </yield> <yield to="entry"> <votesummary-result ref="entry" class="entry"></votesummary-result> </yield> </flip-screen>', 'votesummary-manage,[data-is="votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('votesummary-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <votesummary-search ref="viewer" class="view"></votesummary-search> </yield> <yield to="entry"> <votesummary-result ref="entry" class="entry"></votesummary-result> </yield> </flip-screen>', 'votesummary-manage,[data-is="votesummary-manage"]{ position: relative; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let defaultContent = {
@@ -3273,10 +3273,12 @@ riot.tag2('votesummary-manage', '<flip-screen ref="flipper"> <yield to="viewer">
         let flipper, view, entry
         let initCtrls = () => {
             flipper = self.refs['flipper']
+            view = (flipper) ? flipper.refs['viewer'] : undefined
             entry = (flipper) ? flipper.refs['entry'] : undefined
         }
         let freeCtrls = () => {
             entry = null
+            view = null
             flipper = null
         }
         let bindEvents = () => {
