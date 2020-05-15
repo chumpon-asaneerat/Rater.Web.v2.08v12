@@ -1,5 +1,12 @@
 let app;
 (() => {
+    let tags = riot.mount('rater-web-app')
+    let screenId = 'votesummary-manage'
+    screens.show(screenId)
+})();
+
+/*
+(() => {
     nlib.signout = () => { secure.signout() }
 
     nlib.info = () => {
@@ -9,3 +16,4 @@ let app;
         console.log(app.info)
     }
  })();
+*/

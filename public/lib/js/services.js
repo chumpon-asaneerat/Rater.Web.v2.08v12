@@ -412,3 +412,22 @@ class SecureService {
 window.secure = window.secure || new SecureService();
 
 //#endregion
+
+/** Reports. */
+window.events.name.VoteSummarySearch = 'app:report:votesummary:search';
+window.events.name.VoteSummaryResult = 'app:report:votesummary:result';
+
+window.events.name.PieSummarySearch = 'app:report:piesummary:search';
+window.events.name.PieSummaryResult = 'app:report:piesummary:result';
+
+window.events.name.BarSummarySearch = 'app:report:barsummary:search';
+window.events.name.BarSummaryResult = 'app:report:barsummary:result';
+
+window.events.name.RawVoteSearch = 'app:report:rawvote:search';
+window.events.name.RawVoteResult = 'app:report:rawvotemary:result';
+
+window.events.name.StaffCompareSearch = 'app:report:staffcompare:search';
+window.events.name.StaffCompareResult = 'app:report:staffcompare:result';
+
+window.events.name.StaffPerfSearch = 'app:report:staffperf:search';
+window.events.name.StaffPerfResult = 'app:report:staffperf:result';

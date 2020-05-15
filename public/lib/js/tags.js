@@ -830,6 +830,38 @@ riot.tag2('dual-layout', '<div ref="flipper" class="dual-layout-container"> <div
             flipper.classList.toggle('toggle');
         }
 });
+riot.tag2('flip-screen', '<div class="auto-container"> <div ref="flipper" class="flipper"> <div class="viewer-block"> <div class="content"> <yield from="viewer"></yield> </div> </div> <div class="entry-block"> <div class="content"> <yield from="entry"></yield> </div> </div> </div> </div>', 'flip-screen,[data-is="flip-screen"]{ margin: 0; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'auto-container\'; overflow: hidden; } flip-screen .auto-container,[data-is="flip-screen"] .auto-container{ margin: 0; padding: 0; grid-area: auto-container; border: 1px solid #f1f1f1; } flip-screen .flipper,[data-is="flip-screen"] .flipper{ margin: 0; padding: 0; position: relative; width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; } flip-screen .auto-container .flipper.toggle,[data-is="flip-screen"] .auto-container .flipper.toggle{ transform: rotateY(180deg); } flip-screen .viewer-block,[data-is="flip-screen"] .viewer-block{ position: absolute; margin: 0; padding: 0; width: 100%; height: 100%; backface-visibility: hidden; transform: rotateY(0deg); } flip-screen .entry-block,[data-is="flip-screen"] .entry-block{ position: absolute; width: 100%; height: 100%; margin: 0; padding: 0; backface-visibility: hidden; transform: rotateY(180deg); } flip-screen .content,[data-is="flip-screen"] .content{ position: relative; display: block; width: 100%; height: 100%; }', '', function(opts) {
+
+
+        let self = this;
+
+        let flipper;
+
+        let initCtrls = () => {
+            flipper = self.refs['flipper'];
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => {}
+
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            freeCtrls();
+        });
+
+        this.toggle = () => {
+            flipper.classList.toggle('toggle');
+        }
+
+});
 riot.tag2('napp', '<div class="app-area"> <yield></yield> </div>', 'napp,[data-is="napp"]{ display: grid; margin: 0 auto; padding: 0; height: 100vh; width: 100vw; grid-template-areas: \'app-area\'; background: inherit; overflow: hidden; } napp>.app-area,[data-is="napp"]>.app-area{ grid-area: app-area; position: relative; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \'sidebar-area navi-area\' \'sidebar-area scrn-area\' \'sidebar-area stat-area\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } napp>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar),[data-is="napp"]>.app-area>:not(sidebar):not(navibar):not(screen):not(statusbar){ display: none; } napp>.app-area sidebar,[data-is="napp"]>.app-area sidebar{ grid-area: sidebar-area; position: relative; } napp>.app-area sidebar:nth-of-type(1):empty,[data-is="napp"]>.app-area sidebar:nth-of-type(1):empty,napp>.app-area sidebar:not(:nth-of-type(1)),[data-is="napp"]>.app-area sidebar:not(:nth-of-type(1)){ display: none; } napp>.app-area navibar,[data-is="napp"]>.app-area navibar{ grid-area: navi-area; position: relative; } napp>.app-area navibar:nth-of-type(1):empty,[data-is="napp"]>.app-area navibar:nth-of-type(1):empty,napp>.app-area navibar:not(:nth-of-type(1)),[data-is="napp"]>.app-area navibar:not(:nth-of-type(1)){ display: none; } napp>.app-area screen,[data-is="napp"]>.app-area screen{ grid-area: scrn-area; position: relative; } napp>.app-area statusbar,[data-is="napp"]>.app-area statusbar{ grid-area: stat-area; position: relative; line-height: 1rem; } napp>.app-area statusbar:nth-of-type(1):empty,[data-is="napp"]>.app-area statusbar:nth-of-type(1):empty,napp>.app-area statusbar:not(:nth-of-type(1)),[data-is="napp"]>.app-area statusbar:not(:nth-of-type(1)){ display: none; }', '', function(opts) {
 });
 riot.tag2('screen', '<div class="content-area"> <yield></yield> </div>', 'screen,[data-is="screen"]{ margin: 0 auto; padding: 0; display: none; width: 100%; height: 100%; } screen.active,[data-is="screen"].active,screen.show,[data-is="screen"].show{ display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } screen .content-area,[data-is="screen"] .content-area{ grid-area: content-area; position: relative; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
@@ -3221,10 +3253,13 @@ riot.tag2('staffperf-search', '', 'staffperf-search,[data-is="staffperf-search"]
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('votesummary-manage', '', 'votesummary-manage,[data-is="votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('votesummary-manage', '<flip-screen ref="flipper"> <yield to="viewer"> <votesummary-search ref="viewer" class="view"></votesummary-search> </yield> <yield to="entry"> <votesummary-result ref="entry" class="entry"></votesummary-result> </yield> </flip-screen>', 'votesummary-manage,[data-is="votesummary-manage"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+        let defaultContent = {
+            title: 'Vote Summary'
+        }
+        this.content = defaultContent;
 
         this.on('mount', () => {
             initCtrls()
@@ -3235,10 +3270,51 @@ riot.tag2('votesummary-manage', '', 'votesummary-manage,[data-is="votesummary-ma
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let flipper, view, entry
+        let initCtrls = () => {
+            flipper = self.refs['flipper']
+            entry = (flipper) ? flipper.refs['entry'] : undefined
+        }
+        let freeCtrls = () => {
+            entry = null
+            flipper = null
+        }
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+            addEvt(events.name.ScreenChanged, onScreenChanged)
+            addEvt(events.name.VoteSummarySearch, onShowSearch)
+            addEvt(events.name.VoteSummaryResult, onShowResult)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.VoteSummaryResult, onShowResult)
+            delEvt(events.name.VoteSummarySearch, onShowSearch)
+            delEvt(events.name.ScreenChanged, onScreenChanged)
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+        let onContentChanged = (e) => { updateContents() }
+        let onLanguageChanged = (e) => { updateContents() }
+        let onScreenChanged = (e) => { updateContents() }
+        let onShowResult = (e) => {
+            if (flipper) {
+                flipper.toggle()
+                let criteria = e.detail.data
+                if (entry) entry.setup(criteria)
+            }
+
+        }
+        let onShowSearch = (e) => {
+            if (flipper) {
+                flipper.toggle()
+            }
+        }
+        let updateContents = () => {
+            let scrId = screens.current.screenId
+            let scrContent = (contents.current && contents.current.screens) ? contents.current.screens[scrId] : null
+            self.content = scrContent ? scrContent : defaultContent
+            self.update()
+        }
 });
 riot.tag2('votesummary-result', '', 'votesummary-result,[data-is="votesummary-result"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
         let self = this
@@ -3259,10 +3335,28 @@ riot.tag2('votesummary-result', '', 'votesummary-result,[data-is="votesummary-re
         let bindEvents = () => { }
         let unbindEvents = () => { }
 });
-riot.tag2('votesummary-search', '', 'votesummary-search,[data-is="votesummary-search"]{ position: relative; display: block; margin: 0; padding: 0; overflow: hidden; }', '', function(opts) {
+riot.tag2('votesummary-search', '<div ref="container" class="scrarea"> <div ref="tool" class="toolarea"> <button class="float-button" onclick="{onseach}"> <span class="fas fa-search">&nbsp;</span> </button> <button class="float-button" onclick="{onhome}"> <span class="fas fa-home">&nbsp;</span> </button> </div> <div ref="search" class="searcharea"> <div class="input-block center"> <span>{(content) ? content.title : \'Vote Summary.\'}</span> </div> <div class="input-block center"> <nselect ref="ctrlQSets" title="{(content && content.labels) ? content.labels.questionSet : \'Question Set\'}"></nselect> </div> <div class="input-block center"> <ninput ref="ctrlBegin" title="{(content && content.labels) ? content.labels.beginDate : \'Begin Date\'}" type="date"></ninput> <ninput ref="ctrlEnd" title="{(content && content.labels) ? content.labels.endDate : \'End Date\'}" type="date"></ninput> </div> <div class="input-block center"> <ncheckedtree ref="ctrlQuesTree" title="{(content && content.labels) ? content.labels.question : \'Question\'}" class="tree"></ncheckedtree> </div> <div class="input-block center"> <ncheckedtree ref="ctrlOrgTree" title="{(content && content.labels) ? content.labels.organization : \'Organization\'}" class="tree"></ncheckedtree> </div> <br> </div> </div>', 'votesummary-search,[data-is="votesummary-search"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 20px 1fr 20px; grid-template-areas: \'.\' \'scrarea\' \'.\' } votesummary-search>.scrarea,[data-is="votesummary-search"]>.scrarea{ grid-area: scrarea; display: grid; grid-template-columns: 5px auto 1fr; grid-template-rows: 1fr; grid-template-areas: \'. toolarea searcharea\'; margin: 0 auto; padding: 0; margin-top: 3px; width: 100%; max-width: 800px; height: 100%; } votesummary-search>.scrarea>.toolarea,[data-is="votesummary-search"]>.scrarea>.toolarea{ grid-area: toolarea; margin: 0 auto; margin-right: 5px; padding: 0; height: 100%; overflow: hidden; background-color: transparent; color: whitesmoke; } votesummary-search>.scrarea>.toolarea .float-button,[data-is="votesummary-search"]>.scrarea>.toolarea .float-button{ display: block; margin: 0 auto; margin-bottom: 5px; padding: 3px; padding-right: 1px; height: 40px; width: 40px; color: whitesmoke; background: silver; border: none; outline: none; border-radius: 50%; cursor: pointer; } votesummary-search>.scrarea>.toolarea .float-button:hover,[data-is="votesummary-search"]>.scrarea>.toolarea .float-button:hover{ color: whitesmoke; background: forestgreen; } votesummary-search>.scrarea>.searcharea,[data-is="votesummary-search"]>.scrarea>.searcharea{ grid-area: searcharea; margin: 0 auto; padding: 0; height: 100%; width: 100%; } votesummary-search>.scrarea>.searcharea .input-block,[data-is="votesummary-search"]>.scrarea>.searcharea .input-block{ display: block; margin: 0; margin-top: 10px; padding: 0; width: 100%; max-width: 800px; text-align: center; } votesummary-search>.scrarea>.searcharea .input-block.center,[data-is="votesummary-search"]>.scrarea>.searcharea .input-block.center{ margin: auto; margin-top: 10px; } votesummary-search>.scrarea>.searcharea .input-block span,[data-is="votesummary-search"]>.scrarea>.searcharea .input-block span,votesummary-search>.scrarea>.searcharea .input-block button,[data-is="votesummary-search"]>.scrarea>.searcharea .input-block button{ display: inline-block; margin: 0 auto; padding: 0; width: 50%; font-size: 1rem; font-size: bold; } votesummary-search>.scrarea>.searcharea .input-block span.label,[data-is="votesummary-search"]>.scrarea>.searcharea .input-block span.label{ margin: 1px; padding: 2px; text-align: left; color: cornflowerblue; width: 100%; } votesummary-search>.scrarea>.searcharea .input-block span input,[data-is="votesummary-search"]>.scrarea>.searcharea .input-block span input{ margin: 1px; padding: 2px; text-align: left; color: cornflowerblue; width: 100%; } votesummary-search>.scrarea>.searcharea .input-block .tree,[data-is="votesummary-search"]>.scrarea>.searcharea .input-block .tree{ text-align: left; }', '', function(opts) {
         let self = this
-
         let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        let screenId = 'votesummary-manage';
+        let qsetModel;
+        let quesModel;
+        let orgModel;
+
+        let defaultContent = {
+            title: 'Vote Summary.',
+            labels: {
+                questionSet: 'Question Set',
+                date: 'Date',
+                beginDate: 'Begin Date',
+                endDate: 'End Date',
+                question: 'Question',
+                organization: 'Organization',
+                staff: 'Staff'
+            }
+        }
+        this.content = this.defaultContent;
 
         this.on('mount', () => {
             initCtrls()
@@ -3273,10 +3367,196 @@ riot.tag2('votesummary-search', '', 'votesummary-search,[data-is="votesummary-se
             freeCtrls()
         })
 
-        let initCtrls = () => { }
-        let freeCtrls = () => { }
-        let bindEvents = () => { }
-        let unbindEvents = () => { }
+        let ctrlQSets, ctrlBegin, ctrlEnd, ctrlQuesTree, ctrlOrgTree
+        let initCtrls = () => {
+            ctrlQSets = self.refs['ctrlQSets']
+            ctrlBegin = self.refs['ctrlBegin']
+            ctrlEnd = self.refs['ctrlEnd']
+            ctrlQuesTree = self.refs['ctrlQuesTree']
+            ctrlOrgTree = self.refs['ctrlOrgTree']
+            loadQSets();
+
+            loadOrgs();
+        }
+        let freeCtrls = () => {
+            ctrlOrgTree = null;
+            ctrlQuesTree = null;
+            ctrlEnd = null;
+            ctrlBegin = null;
+            ctrlQSets = null;
+        }
+        let bindEvents = () => {
+            addEvt(events.name.LanguageChanged, onLanguageChanged)
+            addEvt(events.name.ContentChanged, onContentChanged)
+            addEvt(events.name.ScreenChanged, onScreenChanged)
+        }
+        let unbindEvents = () => {
+            delEvt(events.name.ScreenChanged, onScreenChanged)
+            delEvt(events.name.ContentChanged, onContentChanged)
+            delEvt(events.name.LanguageChanged, onLanguageChanged)
+        }
+        let onContentChanged = (e) => { updatecontent(); }
+        let onLanguageChanged = (e) => { updatecontent(); }
+        let onScreenChanged = (e) => { updatecontent(); }
+        let updatecontent = () => {
+            let scrId = screens.current.screenId;
+            if (screenId === scrId) {
+                let scrContent = (contents.current && contents.current.screens) ? contents.current.screens[scrId] : null;
+                self.content = scrContent ? scrContent : defaultContent;
+                updateQSets();
+                updateQuestions();
+                updateOrgs();
+                self.update();
+            }
+        }
+
+        let onQSetSelectd = () => {
+            if (ctrlQSets) {
+                let qsetid = ctrlQSets.value();
+
+                if (qsetid) {
+                    loadQuestions(qsetid);
+                }
+                else {
+                    clearQuestions();
+                }
+            }
+        }
+
+        let updateQSets = () => {
+            if (ctrlQSets && qsetModel) {
+                let lastValue = ctrlQSets.value();
+
+                let values = qsetModel[lang.langId];
+                let fldmap = { valueField: 'qSetId', textField: 'desc'}
+                ctrlQSets.setup(values, fldmap, onQSetSelectd);
+
+                ctrlQSets.value(lastValue);
+            }
+        }
+
+        let loadQSets = () => {
+
+        }
+
+        let clearQuestions = () => {
+            if (ctrlQuesTree) {
+                ctrlQuesTree.clear();
+            }
+        }
+
+        let updateQuestions = () => {
+            if (ctrlQuesTree && quesModel) {
+                let lastValues = ctrlQuesTree.selectedItems();
+
+                let questions = quesModel[lang.langId];
+                let values = questions[0].slides;
+
+                let fldmap = { valueField: 'qSeq', textField: 'text', parentField: null }
+                ctrlQuesTree.setup(values, fldmap);
+
+                ctrlQuesTree.selectedItems(lastValues);
+            }
+        }
+
+        let loadQuestions = (qsetid) => {
+            let criteria = {
+                qSetId: qsetid
+            }
+            if (ctrlQuesTree) {
+                $.ajax({
+                    type: "POST",
+                    url: "/customers/api/question/slides/search",
+                    data: JSON.stringify(criteria),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: (ret) => {
+
+                        quesModel = ret.data;
+                        updateQuestions();
+                    },
+                    failure: (errMsg) => {
+                        console.log(errMsg);
+                    }
+                })
+            }
+        }
+
+        let clearOrgs = () => {
+            if (ctrlOrgTree) {
+                ctrlOrgTree.clear();
+            }
+        }
+
+        let updateOrgs = () => {
+            if (ctrlOrgTree && orgModel) {
+                let lastValues = ctrlOrgTree.selectedItems();
+
+                let values = orgModel[lang.langId];
+
+                let fldmap = { valueField: 'orgId', textField: 'OrgName', parentField: 'parentId' }
+                ctrlOrgTree.setup(values, fldmap);
+
+                ctrlOrgTree.selectedItems(lastValues);
+            }
+        }
+
+        let loadOrgs = (qsetid) => {
+            let criteria = { }
+            if (ctrlOrgTree) {
+                $.ajax({
+                    type: "POST",
+                    url: "/customers/api/orgs/search",
+                    data: JSON.stringify(criteria),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: (ret) => {
+
+                        orgModel = ret.data;
+                        updateOrgs();
+                    },
+                    failure: (errMsg) => {
+                        console.log(errMsg);
+                    }
+                })
+            }
+        }
+
+        this.onseach = () => {
+            let qsetid = ctrlQSets.value();
+            let beginDT = String(ctrlBegin.value());
+            let endDT = String(ctrlEnd.value());
+
+            let slides = [];
+            let quesmap = ctrlQuesTree.selectedItems().map(item => item.id );
+            quesmap.forEach(quesId => {
+                slides.push({ qSeq: quesId })
+            });
+            let orgs = []
+            let orgmap = ctrlOrgTree.selectedItems().map(item => item.id );
+            orgmap.forEach(orgId => {
+                orgs.push({ orgId: orgId })
+            });
+
+            let criteria = {
+                qsetId: qsetid,
+                beginDate: beginDT,
+                endDate: endDT,
+                slides: slides,
+                orgs: orgs
+            }
+
+            events.raise(events.name.VoteSummaryResult, criteria)
+        }
+        this.onhome = () => {
+            let paths = window.location.pathname.split('/');
+            let url = window.location.origin
+            for (i = 0; i < paths.length - 1; i++) {
+                if (paths[i].length > 0) url += '/'
+                url += paths[i]
+            }
+            nlib.nav.gotoUrl(url)
+        }
 });
 riot.tag2('rater-device-home', '<div class="container-area"> <div class="title"><span>{content.title}</span></div> <div class="menus"> <div class="menu"> <a href="javascript:;" onclick="{registerDeviceClick}"><span>{content.labels.register}</span></a> </div> <div class="menu"> <a href="javascript:;" onclick="{changeOrgClick}"><span>{content.labels.setupOrg}</span></a> </div> <div class="menu"> <a href="javascript:;" onclick="{memberSignInClick}"><span>{content.labels.setupUser}</span></a> </div> <div class="menu"> <a href="javascript:;" onclick="{questionClick}"><span>{content.labels.question}</span></a> </div> </div> </div>', 'rater-device-home,[data-is="rater-device-home"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } rater-device-home>.container-area,[data-is="rater-device-home"]>.container-area{ position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; grid-template-areas: \'title-area\' \'menus-area\'; margin: 0 auto; padding: 0; width: 100%; height: 100%; overflow: hidden; } rater-device-home>.container-area>.title,[data-is="rater-device-home"]>.container-area>.title{ grid-area: title-area; position: relative; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto; padding: 5px; width: 100%; height: 100%; } rater-device-home>.container-area>.menus,[data-is="rater-device-home"]>.container-area>.menus{ grid-area: menus-area; position: relative; display: grid; grid-template-columns: repeat(2, 1fr); margin: 0 auto; padding: 5px; width: 100%; height: 100%; } rater-device-home>.container-area>.menus .menu,[data-is="rater-device-home"]>.container-area>.menus .menu{ position: relative; display: block; margin: 0 auto; padding: 5px; width: 100%; height: 100%; } rater-device-home>.container-area>.menus .menu>a,[data-is="rater-device-home"]>.container-area>.menus .menu>a{ position: relative; display: flex; align-items: center; justify-items: stretch; justify-content: center; font-size: 1.2rem; margin: 0; padding: 5px; width: 100%; height: 100%; color: whitesmoke; background-color: forestgreen; text-decoration: none; } rater-device-home>.container-area>.menus .menu>a:hover,[data-is="rater-device-home"]>.container-area>.menus .menu>a:hover{ color: whitesmoke; background-color: cornflowerblue; } rater-device-home>.container-area>.menus .menu>a>span,[data-is="rater-device-home"]>.container-area>.menus .menu>a>span{ position: relative; display: inline-block; margin: 0; padding: 0; width: auto; height: auto; }', '', function(opts) {
         let self = this
