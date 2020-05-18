@@ -22,21 +22,25 @@ Project:
             ✔ Object util for access nested property. @done(20-05-06 23:17)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
+            ✔ Object util for clone and check equals. @done(20-05-18 22:04)
         Update to NLib server project:
             ✔ Move some utils method(s) to string extension method(s). @done(20-05-02 00:04)
             ✔ Object util for access nested property. @done(20-05-06 23:18)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
+            ✔ Object util for clone and check equals. @done(20-05-18 22:04)
         Update to NLib client project:
             ✔ Move some utils method(s) to string extension method(s). @done(20-05-02 00:04)
             ✔ Object util for access nested property. @done(20-05-06 23:19)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
+            ✔ Object util for clone and check equals. @done(20-05-18 22:04)
         Update to NLib web app project:
             ✔ Move some utils method(s) to string extension method(s). @done(20-05-02 00:04)
             ✔ Object util for access nested property. @done(20-05-06 23:20)
             ☐ Image/video/sound download with progress bar.
             ☐ Image/video/sound upload with progress bar.
+            ✔ Object util for clone and check equals. @done(20-05-18 22:04)
     NLib.js (server):
         Update to current project:
             ✔ Object util for access nested property. @done(20-05-06 23:17)
