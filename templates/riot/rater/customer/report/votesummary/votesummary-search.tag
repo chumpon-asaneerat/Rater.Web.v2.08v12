@@ -170,6 +170,7 @@
             //freeCtrls()
         })
 
+        /*
         let ctrlQSets, ctrlBegin, ctrlEnd, ctrlQuesTree, ctrlOrgTree
         let initCtrls = () => {
             ctrlQSets = self.refs['ctrlQSets']
@@ -395,5 +396,6 @@
             }
             nlib.nav.gotoUrl(url)
         }
+        */
     </script>
 </votesummary-search>
