@@ -10,7 +10,7 @@
         </div>
         <div ref="search" class="searcharea">
             <div class="input-block center">
-                <span>{ (content) ? content.title : 'Vote Summary.' }</span>
+                <h3>{ (content) ? content.title : 'Vote Summary.' }</h3>
             </div>
             <div class="input-block center">
                 <nselect ref="ctrlQSets" title="{ (content && content.labels) ? content.labels.questionSet : 'Question Set' }"></nselect>
@@ -40,7 +40,8 @@
             grid-template-areas:
                 '.'
                 'scrarea'
-                '.'
+                '.';
+            overflow: hidden;
         }
         :scope>.scrarea {
             grid-area: scrarea;
@@ -55,6 +56,7 @@
             width: 100%;
             max-width: 800px;
             height: 100%;
+            overflow: hidden;
         }
         :scope>.scrarea>.toolarea {
             grid-area: toolarea;
@@ -87,10 +89,14 @@
         }
         :scope>.scrarea>.searcharea {
             grid-area: searcharea;
+            position: relative;
+            display: block;
             margin: 0 auto;
             padding: 0;
             height: 100%;
             width: 100%;
+
+            overflow: auto;
         }
         :scope>.scrarea>.searcharea .input-block {
             display: block;
