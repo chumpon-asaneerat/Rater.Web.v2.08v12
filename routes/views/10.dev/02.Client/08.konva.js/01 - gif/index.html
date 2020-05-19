@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>konva.js sample 1 - gif.</title>
+    <!-- style.css -->
+    <link href="gif/style.css" rel="stylesheet" type="text/css" />
+    <style>
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- gifuctjs -->
+    <script src="/dist/js/gifuct-js.min.js"></script>
+    <!-- giflerjs -->
+    <script src="/dist/js/gifler.min.js"></script>
+    <!-- libgifjs -->
+    <script src="https://cdn.rawgit.com/buzzfeed/libgif-js/master/libgif.js"></script>
+    <!-- fabricjs -->
+    <script src="/dist/js/konva.min.js"></script>
+    <!-- nlib -->
+    <!--
+    <script src="/dist/js/nlib.js"></script>
+    -->
+    <!-- script.js -->
+    <script src="gif/script.js"></script>
+    <script>
+        console.log('load konva.js gif app.')
+
+        // use external library to parse and draw gif animation
+        /*
+        function onDrawFrame(ctx, frame) {
+            // update canvas size
+            canvas.width = frame.width;
+            canvas.height = frame.height;
+            // update canvas that we are using for Konva.Image
+            ctx.drawImage(frame.buffer, 0, 0);
+            // redraw the layer
+            layer.draw();
+        }
+        */
+        //let asset = '/public/assets/images/gif/anime/anime-01.gif'
+        let asset = '/public/assets/images/gif/emoji/transparent/emo-nt-35.gif'
+        //let asset = 'https://konvajs.org/assets/yoda.gif'
+
+        //gifler(asset).frames(canvas, onDrawFrame);
+
+        /*
+        let promisedGif = fetch(gifURL)
+            .then(resp => resp.arrayBuffer())
+            .then(buff => parseGIF(buff))
+            .then(gif => decompressFrames(gif, true));
+        */
+
+        var templateImage = new Image();
+        templateImage.onload = function() {
+            // image  has been loaded
+            drawKonva(templateImage);
+        };
+        templateImage.src = asset;
+
+        function drawKonva(templateImage) {
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            let stage = new Konva.Stage({
+                container: 'container',
+                width: width,
+                height: height,
+            });
+            let layer = new Konva.Layer();
+            stage.add(layer);
+
+            var gif = new SuperGif({
+                gif: templateImage,
+                progressbar_height: 0,
+                auto_play: true,
+                loop_mode: true,
+                draw_while_loading: true
+            });
+            gif.load();
+
+            var gif_canvas = gif.get_canvas(); // the lib canvas
+            // a copy of this canvas which will be appended to the doc
+            var canvas = gif_canvas.cloneNode();
+            var context = canvas.getContext('2d');
+
+            function anim(t) { // our animation loop
+                context.clearRect(0, 0, canvas.width, canvas.height); // in case of transparency ?
+                context.drawImage(gif_canvas, 0, 0); // draw the gif frame
+                layer.draw();
+                requestAnimationFrame(anim);
+            };
+            anim();
+
+            // draw resulted canvas into the stage as Konva.Image
+            let image = new Konva.Image({
+                image: canvas,
+                draggable: true
+            });
+            layer.add(image);
+        }
+    </script>
+</body>
+</html>

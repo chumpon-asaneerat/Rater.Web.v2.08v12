@@ -9,7 +9,11 @@ Update 2020-05-19 #5
 -
 -------------------------------------------------------------------------------------
 Update 2020-05-19 #4
--
+- add konvasjs 6.0.0
+- update nlib.config.json
+- update nlib webserver.
+- add dev->konva->gif sample.
+- update launch.json (both).
 -------------------------------------------------------------------------------------
 Update 2020-05-19 #3
 - update vscode launch.json.
