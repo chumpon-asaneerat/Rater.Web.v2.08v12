@@ -172,8 +172,8 @@
         }
         
         fabric.LabeledRect = fabric.util.createClass(fabric.Rect, rectObj);
-        console.log('Rect Object:', rectObj)
-        console.log('fabric.LabeledRect:', fabric.LabeledRect)
+        //console.log('Rect Object:', rectObj)
+        //console.log('fabric.LabeledRect:', fabric.LabeledRect)
         fabric.LabeledRect.fromObject = function (object, callback, forceAsync) {
             //console.log('create label rect:', object)
             return fabric.Object._fromObject('LabeledRect', object, callback, forceAsync)

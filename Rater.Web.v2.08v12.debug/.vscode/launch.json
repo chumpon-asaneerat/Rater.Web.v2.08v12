@@ -12,7 +12,7 @@
             First start server (node.js) and then run attach to connect to opened browser
             after refresh browser you should see debug console display log from target url.
             */
-            "name": "attach admin",
+            "name": "attach chrome",
             "type": "chrome",
             "request": "attach",
             "port": 9222,

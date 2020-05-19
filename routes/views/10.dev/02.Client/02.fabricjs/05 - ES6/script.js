@@ -122,8 +122,10 @@ function createClass() {
 
     let Base = createClass(null, {})
     console.log('Base:', Base)
+    console.log('Base instance:', new Base())
     let Rect = createClass(Base, { type:'Rect' })
     console.log('Rect:', Rect)
+    console.log('Rect instance:', new Rect())
 
     class es6 {
         constructor() {
