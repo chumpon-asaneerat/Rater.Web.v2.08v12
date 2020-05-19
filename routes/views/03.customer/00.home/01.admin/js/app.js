@@ -1,5 +1,6 @@
 let app;
 (() => {
+    console.log('debug break point here.')
     let tags = riot.mount('rater-web-app')
     let screenId = 'admin-home'
     screens.show(screenId)

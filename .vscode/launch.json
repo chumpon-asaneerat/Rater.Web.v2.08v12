@@ -10,6 +10,21 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}\\server.js",
             "outputCapture": "std"
+        },
+        {
+            /* 
+            required to set chrome debugger first by open chrome shotcut -> properties
+            then in target append --remote-debugging-port=9222 then save.
+
+            First start server (node.js) and then run attach to connect to opened browser
+            after refresh browser you should see debug console display log from target url.
+            */
+            "name": "attach admin",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "url": "http://localhost:3000/customer/admin/js/app.js",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

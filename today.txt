@@ -18,8 +18,8 @@ Update 2020-05-19 #2
 -
 -------------------------------------------------------------------------------------
 Update 2020-05-19 #1
--
-
+- add attach admin in vscode launch.json for remote debugger.
+- add Live Server test project for debug client side js.
 
 -------------------------------------------------------------------------------------
 Update 2020-05-18 #6
