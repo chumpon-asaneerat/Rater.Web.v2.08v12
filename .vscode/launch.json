@@ -64,6 +64,7 @@
                 "/dev/fabricjs/dualcanvas": "${workspaceFolder}/routes/views/10.dev/02.Client/02.fabricjs/02 - dual canvas",
                 "/dev/fabricjs/dualcanvas2": "${workspaceFolder}/routes/views/10.dev/02.Client/02.fabricjs/03 - dual canvas2",
                 "/dev/fabricjs/selection": "${workspaceFolder}/routes/views/10.dev/02.Client/02.fabricjs/04 - Selection",
+                "/dev/fabricjs/es6": "${workspaceFolder}/routes/views/10.dev/02.Client/02.fabricjs/05 - ES6",
                 /* dev routes -> riot.js */
                 "/dev/riot/components/webapp": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/01.webapp",
                 "/dev/riot/components/deviceapp": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/02.deviceapp",
