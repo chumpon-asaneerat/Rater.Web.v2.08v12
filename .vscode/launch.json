@@ -77,7 +77,9 @@
                 "/dev/layouts/dashboard": "${workspaceFolder}/routes/views/10.dev/02.Client/06.layouts/dashboard",
                 "/dev/layouts/dashboard2": "${workspaceFolder}/routes/views/10.dev/02.Client/06.layouts/dashboard2",
                 /* dev routes -> konva.js */
-                "/dev/konvajs/gif": "${workspaceFolder}/routes/views/10.dev/02.Client/08.konvajs/01 - gif"
+                "/dev/konvajs/gif": "${workspaceFolder}/routes/views/10.dev/02.Client/08.konvajs/01 - gif",
+                "/dev/konvajs/gif2": "${workspaceFolder}/routes/views/10.dev/02.Client/08.konvajs/02 - gif2",
+                "/dev/konvajs/gif3": "${workspaceFolder}/routes/views/10.dev/02.Client/08.konvajs/03 - gif3"
             }
         }
     ]
