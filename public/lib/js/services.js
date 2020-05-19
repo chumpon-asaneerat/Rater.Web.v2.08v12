@@ -199,6 +199,7 @@ class ScreenService {
         };
     }
     show(screenId) {
+        console.log('show screen:', screenId)
         if (this.current.screenId !== screenId) {
             // change screen id.
             this.current.screenId = screenId

@@ -12,7 +12,9 @@ Update 2020-05-19 #4
 -
 -------------------------------------------------------------------------------------
 Update 2020-05-19 #3
--
+- update vscode launch.json.
+- add seperate debug folder for open in another vscode window.
+
 -------------------------------------------------------------------------------------
 Update 2020-05-19 #2
 - Update today.txt.

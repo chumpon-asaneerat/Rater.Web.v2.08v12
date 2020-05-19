@@ -5,13 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}\\server.js",
-            "outputCapture": "std"
-        },
-        {
             /* 
             required to set chrome debugger first by open chrome shotcut -> properties
             then in target append --remote-debugging-port=9222 then save.

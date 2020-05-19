@@ -2885,3 +2885,4 @@ NRuntime.File.js.init()
 //#endregion
 
 console.log('nlib loaded.')
+console.log('start debugging click here in vs-code.')
