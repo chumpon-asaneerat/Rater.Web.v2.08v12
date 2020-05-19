@@ -24,14 +24,18 @@ const routes = class {
     static getCss(req, res) {
         WebServer.sendFile(req, res, __dirname, 'style.css');
     }
-    static getJs(req, res) {
+    static getScriptJs(req, res) {
         WebServer.sendFile(req, res, __dirname, 'script.js');
+    }
+    static getFabricJs(req, res) {
+        WebServer.sendFile(req, res, __dirname, 'fabric-ex.js');
     }
 }
 
 router.get('/es6', routes.home)
 router.get('/es6/style.css', routes.getCss)
-router.get('/es6/script.js', routes.getJs)
+router.get('/es6/script.js', routes.getScriptJs)
+router.get('/es6/fabric-ex.js', routes.getFabricJs)
 
 const init_routes = (svr) => {
     svr.route('/dev/fabricjs', router);
