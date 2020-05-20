@@ -19,26 +19,34 @@ const routes = class {
      * @param {Response} res The Response.
      */
     static home(req, res) {
-        WebServer.sendFile(req, res, __dirname, 'index.html');
+        WebServer.sendFile(req, res, __dirname, 'html', 'index.html');
     }
-    static getCss(req, res) {
-        WebServer.sendFile(req, res, __dirname, 'style.css');
+    static getcssfile(req, res) {
+        let file = req.params.file.toLowerCase();
+        let files = ['style.css']
+        let idx = files.indexOf(file);
+        if (idx !== -1) {
+            let fname = path.join(__dirname, 'css', files[idx]);
+            WebServer.sendFile(req, res, fname);
+        }
     }
-    static getScriptJs(req, res) {
-        WebServer.sendFile(req, res, __dirname, 'script.js');
-    }
-    static getFabricJs(req, res) {
-        WebServer.sendFile(req, res, __dirname, 'fabric-ex.js');
+    static getjsfile(req, res) {
+        let file = req.params.file.toLowerCase();
+        let files = ['app.js', 'script.js', 'fabric-ex.js']
+        let idx = files.indexOf(file);
+        if (idx !== -1) {
+            let fname = path.join(__dirname, 'js', files[idx]);
+            WebServer.sendFile(req, res, fname);
+        }
     }
 }
 
-router.get('/es6', routes.home)
-router.get('/es6/style.css', routes.getCss)
-router.get('/es6/script.js', routes.getScriptJs)
-router.get('/es6/fabric-ex.js', routes.getFabricJs)
+router.get('/', routes.home)
+router.get('/css/:file', routes.getcssfile)
+router.get('/js/:file', routes.getjsfile)
 
 const init_routes = (svr) => {
-    svr.route('/dev/fabricjs', router);
+    svr.route('/dev/fabricjs/es6', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

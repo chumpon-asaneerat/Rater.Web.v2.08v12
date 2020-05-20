@@ -15,7 +15,9 @@ Update 2020-05-20 #5
 -
 -------------------------------------------------------------------------------------
 Update 2020-05-20 #4
--
+- update all pathMappings in launch.json (both files).
+- update all routes (views) for easy to locate source file.
+- reorganize folder in each routes (view).
 -------------------------------------------------------------------------------------
 Update 2020-05-20 #3
 - update dev->fabric.js->es6 sample #5. fabric.js not flaver ES6 class.

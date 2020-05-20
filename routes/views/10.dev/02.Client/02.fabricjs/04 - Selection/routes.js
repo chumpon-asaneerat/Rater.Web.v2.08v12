@@ -13,22 +13,26 @@ const router = new WebRouter();
 //#endregion
 
 const routes = class {
-    /**
-     * home
-     * @param {Request} req The Request.
-     * @param {Response} res The Response.
-     */
     static home(req, res) {
-        WebServer.sendFile(req, res, __dirname, 'index.html');
+        WebServer.sendFile(req, res, __dirname, 'html', 'index.html');
     }
-    static getCss(req, res) {
-        WebServer.sendFile(req, res, __dirname, 'style.css');
+    static getcssfile(req, res) {
+        let file = req.params.file.toLowerCase();
+        let files = ['style.css']
+        let idx = files.indexOf(file);
+        if (idx !== -1) {
+            let fname = path.join(__dirname, 'css', files[idx]);
+            WebServer.sendFile(req, res, fname);
+        }
     }
-    static getJs(req, res) {
-        WebServer.sendFile(req, res, __dirname, 'script.js');
-    }
-    static getFabricJs(req, res) {
-        WebServer.sendFile(req, res, __dirname, 'nlib-fabric.js');
+    static getjsfile(req, res) {
+        let file = req.params.file.toLowerCase();
+        let files = ['app.js', 'script.js', 'nlib-fabric.js']
+        let idx = files.indexOf(file);
+        if (idx !== -1) {
+            let fname = path.join(__dirname, 'js', files[idx]);
+            WebServer.sendFile(req, res, fname);
+        }
     }
     static getAssetList(req, res) {
         let obj = { urls: [] }
@@ -41,13 +45,12 @@ const routes = class {
     }
 }
 
-router.get('/selection', routes.home)
-router.get('/selection/style.css', routes.getCss)
-router.get('/selection/script.js', routes.getJs)
-router.get('/selection/nlib-fabric.js', routes.getFabricJs)
+router.get('/', routes.home)
+router.get('/css/:file', routes.getcssfile)
+router.get('/js/:file', routes.getjsfile)
 
 const init_routes = (svr) => {
-    svr.route('/dev/fabricjs', router);
+    svr.route('/dev/fabricjs/selection', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
