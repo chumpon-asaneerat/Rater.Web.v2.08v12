@@ -172,6 +172,10 @@
                 label: 'TEST 1',
                 fill: '#faa'
             });
+            canvas.add(obj1); // add object
+            console.log(obj1.protoyype)
+            // not work
+            /*
             let obj2 = new fabric.LabeledRect2({
                 width: 100,
                 height: 50,
@@ -180,10 +184,9 @@
                 label: 'TEST 2',
                 fill: '#faa'
             });
-            canvas.add(obj1); // add object
-            console.log(obj1.protoyype)
             canvas.add(obj2); // add object
             console.log(obj2.protoyype)
+            */
         }
         addGif = (index) => {
             let urls = [

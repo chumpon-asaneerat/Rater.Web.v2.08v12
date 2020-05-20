@@ -98,11 +98,14 @@ toJSON = (proto) => {
 let obj = toJSON(new LabeledRect2())
 console.log(obj)
 
+// Not work.
+/*
 //fabric.LabeledRect2 = fabric.util.createClass(fabric.Rect, LabeledRect2);
 fabric.LabeledRect2 = fabric.util.createClass(fabric.Rect, obj);
 fabric.LabeledRect2.fromObject = function (object, callback, forceAsync) {
     return fabric.Object._fromObject('LabeledRect2', object, callback, forceAsync)
 }
+*/
 //console.log(fabric.LabeledRect2, new fabric.LabeledRect2())
 
 //let rect2Obj = new LabeledRect2()
