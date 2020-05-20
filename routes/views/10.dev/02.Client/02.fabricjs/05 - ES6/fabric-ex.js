@@ -62,15 +62,61 @@ class LabeledRect2 {
 }
 LabeledRect2.prototype.type = 'LabeledRect2'
 
-fabric.LabeledRect2 = fabric.util.createClass(fabric.Rect, LabeledRect2);
+
+toJSON = (proto) => {
+    let jsoned = {};
+    let toConvert = proto || this;
+    Object.getOwnPropertyNames(toConvert).forEach((prop) => {
+        const val = toConvert[prop];
+        // don't include those
+        if (prop === 'toJSON' || prop === 'constructor') {
+            return;
+        }
+        if (typeof val === 'function') {
+            jsoned[prop] = val.bind(jsoned);
+            return;
+        }
+        jsoned[prop] = val;
+    });
+    
+    const inherited = Object.getPrototypeOf(toConvert);
+    if (inherited !== null) {
+        Object.keys(this.toJSON(inherited)).forEach(key => {
+            if (!!jsoned[key] || key === 'constructor' || key === 'toJSON')
+                return;
+            if (typeof inherited[key] === 'function') {
+                jsoned[key] = inherited[key].bind(jsoned);
+                return;
+            }
+            jsoned[key] = inherited[key];
+        });
+    }
+
+    return jsoned;
+}
+
+let obj = toJSON(new LabeledRect2())
+console.log(obj)
+
+//fabric.LabeledRect2 = fabric.util.createClass(fabric.Rect, LabeledRect2);
+fabric.LabeledRect2 = fabric.util.createClass(fabric.Rect, obj);
 fabric.LabeledRect2.fromObject = function (object, callback, forceAsync) {
     return fabric.Object._fromObject('LabeledRect2', object, callback, forceAsync)
 }
 //console.log(fabric.LabeledRect2, new fabric.LabeledRect2())
 
-let rect2Obj = new LabeledRect2()
-console.log(rectObj)
-console.log(Object.getOwnPropertyNames(LabeledRect2.prototype)) // for class
+//let rect2Obj = new LabeledRect2()
+//console.log(rectObj)
+//console.log(Object.getOwnPropertyNames(LabeledRect2.prototype)) // for class
+
+const classToObject = theClass => {
+    const originalClass = theClass || {}
+    const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(originalClass))
+    return keys.reduce((classAsObj, key) => {
+        classAsObj[key] = originalClass[key]
+        return classAsObj
+    }, {})
+}
 
 
 class GIFFrame {
