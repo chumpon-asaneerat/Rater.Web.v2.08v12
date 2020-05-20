@@ -25,13 +25,18 @@
             "runtimeExecutable": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
             "runtimeArgs": [
                 "--remote-debugging-port=9222",
-                "--user-data-dir=remote-profile"
+                /* "--user-data-dir=remote-profile" */
             ],
             /* "port": 9222, */
             "url": "http://localhost:3000",
             "pathMapping": {
                 "/": "${workspaceFolder}/routes/views/01.public/home/html/index.html",
                 "/js": "${workspaceFolder}/routes/views/01.public/home/js",
+                /* dist/js - lib  */
+                "/dist/js/nlib.js": "${workspaceFolder}/public/lib/js/nlib.js",
+                "/dist/js/services.js": "${workspaceFolder}/public/lib/js/services.js",
+                "/dist/js/fabric-service.js": "${workspaceFolder}/public/lib/js/fabric-service.js",
+                "/dist/js/tags.js": "${workspaceFolder}/public/lib/js/tags.js",
                 /* edl -> home (admin/exlusive/staff) */
                 "/edl/admin": "${workspaceFolder}/routes/views/02.edl/00.home/01.admin/html/index.html",
                 "/edl/admin/js": "${workspaceFolder}/routes/views/02.edl/00.home/01.admin/js",

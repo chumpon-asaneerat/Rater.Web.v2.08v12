@@ -9,7 +9,8 @@ Update 2020-05-20 #7
 -
 -------------------------------------------------------------------------------------
 Update 2020-05-20 #6
--
+- fixed pathMappings in launch.json (both files).
+- rename dev -> konva.js route to dev -> konvajs.
 -------------------------------------------------------------------------------------
 Update 2020-05-20 #5
 - fixed some routes (view) for easy to locate source file.

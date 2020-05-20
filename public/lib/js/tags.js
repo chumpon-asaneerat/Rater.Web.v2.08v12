@@ -1508,6 +1508,7 @@ riot.tag2('branch-view', '<div ref="container" class="scrarea"> <div ref="grid" 
         let onContentChanged = () => { updateContents() }
         let updateContents = () => {
 
+            console.log('update content called.')
             let partContent = contents.getPart(partId)
 
             if (partContent) {

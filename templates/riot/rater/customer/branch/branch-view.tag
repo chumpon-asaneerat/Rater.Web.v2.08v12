@@ -89,6 +89,7 @@
         let onContentChanged = () => { updateContents() }
         let updateContents = () => {
             // sync content by part id.
+            console.log('update content called.')
             let partContent = contents.getPart(partId)
             // load columns
             if (partContent) {
