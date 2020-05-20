@@ -57,11 +57,8 @@ class LabeledRect2 {
         ctx.fillStyle = '#333';
         ctx.fillText(this.label, -this.width/2, -this.height/2 + 20);
     }
-    //get type() { return 'LabeledRect2' }
-    //static get type() { return 'LabeledRect2' }
 }
 LabeledRect2.prototype.type = 'LabeledRect2'
-
 
 toJSON = (proto) => {
     let jsoned = {};
@@ -100,13 +97,14 @@ console.log(obj)
 
 // Not work.
 /*
-//fabric.LabeledRect2 = fabric.util.createClass(fabric.Rect, LabeledRect2);
 fabric.LabeledRect2 = fabric.util.createClass(fabric.Rect, obj);
 fabric.LabeledRect2.fromObject = function (object, callback, forceAsync) {
     return fabric.Object._fromObject('LabeledRect2', object, callback, forceAsync)
 }
+
+console.log(fabric.LabeledRect, new fabric.LabeledRect())
+console.log(fabric.LabeledRect2, new fabric.LabeledRect2())
 */
-//console.log(fabric.LabeledRect2, new fabric.LabeledRect2())
 
 //let rect2Obj = new LabeledRect2()
 //console.log(rectObj)
