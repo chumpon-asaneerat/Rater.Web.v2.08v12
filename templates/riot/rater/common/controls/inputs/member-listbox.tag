@@ -1,6 +1,6 @@
-<org-selection>
+<member-listbox>
     <style>
     </style>
     <script>
     </script>
-</org-selection>
+</member-listbox>

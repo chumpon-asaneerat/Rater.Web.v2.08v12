@@ -1,6 +1,6 @@
-<end-date-selection>
+<date-textbox>
     <style>
     </style>
     <script>
     </script>
-</end-date-selection>
+</date-textbox>

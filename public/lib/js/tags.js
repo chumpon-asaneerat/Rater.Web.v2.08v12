@@ -1155,18 +1155,15 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
             e.stopPropagation();
         }
 });
-riot.tag2('begin-date-selection', '', '', '', function(opts) {
+riot.tag2('date-textbox', '', '', '', function(opts) {
 });
-
-riot.tag2('end-date-selection', '', '', '', function(opts) {
+riot.tag2('member-listbox', '', '', '', function(opts) {
 });
-riot.tag2('member-selection', '', '', '', function(opts) {
+riot.tag2('org-treeview', '', '', '', function(opts) {
 });
-riot.tag2('org-selection', '', '', '', function(opts) {
+riot.tag2('qset-combobox', '', '', '', function(opts) {
 });
-riot.tag2('qset-selection', '', '', '', function(opts) {
-});
-riot.tag2('qslide-selection', '', '', '', function(opts) {
+riot.tag2('qslide-listbox', '', '', '', function(opts) {
 });
 riot.tag2('sidebar-menu', '<div class="menu"> <a class="link-combo" href="javascript:;" onclick="{toggle}"> <span class="burger fas fa-bars"></span> </a> </div>', 'sidebar-menu,[data-is="sidebar-menu"]{ display: inline-block; margin: 0 auto; padding: 0, 2px; user-select: none; } sidebar-menu .menu,[data-is="sidebar-menu"] .menu{ display: none; } @media only screen and (max-width: 600px) { sidebar-menu .menu,[data-is="sidebar-menu"] .menu{ display: inline-block; } } sidebar-menu .menu>a,[data-is="sidebar-menu"] .menu>a{ margin: 0 auto; color: whitesmoke; } sidebar-menu .menu>a:link,[data-is="sidebar-menu"] .menu>a:link,sidebar-menu .menu>a:visited,[data-is="sidebar-menu"] .menu>a:visited{ text-decoration: none; } sidebar-menu .menu>a:hover,[data-is="sidebar-menu"] .menu>a:hover,sidebar-menu .menu>a:active,[data-is="sidebar-menu"] .menu>a:active{ color: yellow; text-decoration: none; }', '', function(opts) {
         let self = this;

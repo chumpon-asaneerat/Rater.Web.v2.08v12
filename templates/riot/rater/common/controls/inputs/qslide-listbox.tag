@@ -1,6 +1,6 @@
-<qset-selection>
+<qslide-listbox>
     <style>
     </style>
     <script>
     </script>
-</qset-selection>
+</qslide-listbox>
