@@ -1,6 +1,6 @@
-<audio-item>
+<video-mini-player>
     <style>
     </style>
     <script>
     </script>
-</audio-item>
+</video-mini-player>

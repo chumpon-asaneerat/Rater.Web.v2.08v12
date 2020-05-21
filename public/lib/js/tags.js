@@ -1187,11 +1187,13 @@ riot.tag2('sidebar-menu', '<div class="menu"> <a class="link-combo" href="javasc
             let app = navibar.parent
         }
 });
-riot.tag2('audio-item', '', '', '', function(opts) {
+riot.tag2('audio-mini-player', '', '', '', function(opts) {
 });
-riot.tag2('image-item', '', '', '', function(opts) {
+riot.tag2('image-browser', '', '', '', function(opts) {
 });
-riot.tag2('video-item', '', '', '', function(opts) {
+riot.tag2('image-preview', '', '', '', function(opts) {
+});
+riot.tag2('video-mini-player', '', '', '', function(opts) {
 });
 riot.tag2('rater-device-app', '<napp> <yield></yield> </napp>', 'rater-device-app,[data-is="rater-device-app"]{ position: relative; display: block; margin: 0; padding: 0; width: auto; height: auto; overflow: hidden; }', '', function(opts) {
 });

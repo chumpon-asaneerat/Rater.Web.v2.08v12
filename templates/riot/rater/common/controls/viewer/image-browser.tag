@@ -1,6 +1,6 @@
-<image-item>
+<image-browser>
     <style>
     </style>
     <script>
     </script>
-</image-item>
+</image-browser>
