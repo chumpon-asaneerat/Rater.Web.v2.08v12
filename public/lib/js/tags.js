@@ -1187,11 +1187,15 @@ riot.tag2('sidebar-menu', '<div class="menu"> <a class="link-combo" href="javasc
             let app = navibar.parent
         }
 });
+riot.tag2('audio-browser', '', '', '', function(opts) {
+});
 riot.tag2('audio-mini-player', '', '', '', function(opts) {
 });
 riot.tag2('image-browser', '', '', '', function(opts) {
 });
 riot.tag2('image-preview', '', '', '', function(opts) {
+});
+riot.tag2('video-browser', '', '', '', function(opts) {
 });
 riot.tag2('video-mini-player', '', '', '', function(opts) {
 });
