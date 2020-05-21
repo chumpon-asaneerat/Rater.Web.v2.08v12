@@ -788,6 +788,18 @@ riot.tag2('ntree', '<div class="ntree-container"> <div ref="tree" class="tree"><
         }
 });
 
+riot.tag2('audio-browser', '', '', '', function(opts) {
+});
+riot.tag2('audio-mini-player', '', '', '', function(opts) {
+});
+riot.tag2('image-browser', '', '', '', function(opts) {
+});
+riot.tag2('image-preview', '', '', '', function(opts) {
+});
+riot.tag2('video-browser', '', '', '', function(opts) {
+});
+riot.tag2('video-mini-player', '', '', '', function(opts) {
+});
 riot.tag2('card-container', '<div class="card-container-wrapper"> <yield></yield> </div>', 'card-container,[data-is="card-container"]{ position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'card-container-area\'; margin: 0; padding: 5px; padding-right: 10px; width: 100%; height: 100%; overflow: hidden; } card-container>.card-container-wrapper,[data-is="card-container"]>.card-container-wrapper{ grid-area: card-container-area; position: absolute; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; overflow-y: auto; } card-container[shadow]>.card-container-wrapper,[data-is="card-container"][shadow]>.card-container-wrapper{ box-shadow: var(--card-box-shadow); }', '', function(opts) {
 });
 riot.tag2('card-item', '<div class="card-item-wrapper"> <yield></yield> </div>', 'card-item,[data-is="card-item"]{ position: relative; display: inline-block; margin: 0; padding: 5px; padding-bottom: 10px; } card-item>.card-item-wrapper,[data-is="card-item"]>.card-item-wrapper{ position: relative; display: inline-block; margin: 0 auto; padding: 0; width: 100%; height: 100%; } card-item[shadow]>.card-item-wrapper,[data-is="card-item"][shadow]>.card-item-wrapper{ box-shadow: var(--card-box-shadow); }', '', function(opts) {
@@ -1186,18 +1198,6 @@ riot.tag2('sidebar-menu', '<div class="menu"> <a class="link-combo" href="javasc
             let navibar = self.parent
             let app = navibar.parent
         }
-});
-riot.tag2('audio-browser', '', '', '', function(opts) {
-});
-riot.tag2('audio-mini-player', '', '', '', function(opts) {
-});
-riot.tag2('image-browser', '', '', '', function(opts) {
-});
-riot.tag2('image-preview', '', '', '', function(opts) {
-});
-riot.tag2('video-browser', '', '', '', function(opts) {
-});
-riot.tag2('video-mini-player', '', '', '', function(opts) {
 });
 riot.tag2('rater-device-app', '<napp> <yield></yield> </napp>', 'rater-device-app,[data-is="rater-device-app"]{ position: relative; display: block; margin: 0; padding: 0; width: auto; height: auto; overflow: hidden; }', '', function(opts) {
 });
