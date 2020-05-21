@@ -1157,7 +1157,11 @@ riot.tag2('links-menu', '<div class="menu"> <a ref="links" class="link-combo" hr
 });
 riot.tag2('date-textbox', '', '', '', function(opts) {
 });
+riot.tag2('device-type-combobox', '', '', '', function(opts) {
+});
 riot.tag2('member-listbox', '', '', '', function(opts) {
+});
+riot.tag2('member-type-combobox', '', '', '', function(opts) {
 });
 riot.tag2('org-treeview', '', '', '', function(opts) {
 });
