@@ -2,5 +2,6 @@
     <style>
     </style>
     <script>
+        // supports click command selection.
     </script>
 </button-properties-editor>

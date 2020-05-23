@@ -1028,6 +1028,9 @@ riot.tag2('button-properties-editor', '', '', '', function(opts) {
 
 riot.tag2('shape-properties-editor', '', '', '', function(opts) {
 });
+riot.tag2('slide-properties-editor', '', '', '', function(opts) {
+});
+
 riot.tag2('text-properties-editor', '', '', '', function(opts) {
 });
 
