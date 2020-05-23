@@ -1,8 +1,3 @@
-riot.tag2('element-properties-editor', '', '', '', function(opts) {
-});
-riot.tag2('font-properties-editor', '', '', '', function(opts) {
-});
-
 riot.tag2('audio-property-editor', '', '', '', function(opts) {
 });
 
@@ -27,6 +22,13 @@ riot.tag2('transform-property-editor', '', '', '', function(opts) {
 riot.tag2('video-property-editor', '', '', '', function(opts) {
 });
 
+riot.tag2('font-properties-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('shape-properties-editor', '', '', '', function(opts) {
+});
+riot.tag2('text-properties-editor', '', '', '', function(opts) {
+});
 riot.tag2('groupcontrol', '', '', '', function(opts) {
 });
 riot.tag2('groupheader', '', '', '', function(opts) {
