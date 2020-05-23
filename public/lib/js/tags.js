@@ -1,34 +1,3 @@
-riot.tag2('audio-property-editor', '', '', '', function(opts) {
-});
-
-riot.tag2('background-property-editor', '', '', '', function(opts) {
-});
-riot.tag2('color-property-editor', '', '', '', function(opts) {
-});
-
-riot.tag2('dimension-property-editor', '', '', '', function(opts) {
-});
-
-riot.tag2('font-family-property-editor', '', '', '', function(opts) {
-});
-riot.tag2('font-size-property-editor', '', '', '', function(opts) {
-});
-
-riot.tag2('image-property-editor', '', '', '', function(opts) {
-});
-
-riot.tag2('transform-property-editor', '', '', '', function(opts) {
-});
-riot.tag2('video-property-editor', '', '', '', function(opts) {
-});
-
-riot.tag2('font-properties-editor', '', '', '', function(opts) {
-});
-
-riot.tag2('shape-properties-editor', '', '', '', function(opts) {
-});
-riot.tag2('text-properties-editor', '', '', '', function(opts) {
-});
 riot.tag2('groupcontrol', '', '', '', function(opts) {
 });
 riot.tag2('groupheader', '', '', '', function(opts) {
@@ -1024,6 +993,39 @@ riot.tag2('sidebar', '<div class="sidebar-container"> <yield></yield> </div>', '
         }
 });
 riot.tag2('statusbar', '<div class="statusbar-container"> <yield></yield> </div>', 'statusbar,[data-is="statusbar"]{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; user-select: none; white-space: nowrap; overflow: hidden; } statusbar>.statusbar-container,[data-is="statusbar"]>.statusbar-container{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; height: fit-content; }', '', function(opts) {
+});
+riot.tag2('audio-property-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('background-property-editor', '', '', '', function(opts) {
+});
+riot.tag2('color-property-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('dimension-property-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('font-family-property-editor', '', '', '', function(opts) {
+});
+riot.tag2('font-size-property-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('group-property-editor', '', '', '', function(opts) {
+});
+riot.tag2('image-property-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('transform-property-editor', '', '', '', function(opts) {
+});
+riot.tag2('video-property-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('font-properties-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('shape-properties-editor', '', '', '', function(opts) {
+});
+riot.tag2('text-properties-editor', '', '', '', function(opts) {
 });
 riot.tag2('language-menu', '<div class="menu"> <a ref="flags" class="flag-combo" href="javascript:;"> <span class="flag-css flag-icon flag-icon-{lang.current.flagId.toLowerCase()}" ref="css-icon"></span> <div class="flag-text">&nbsp;{lang.langId}&nbsp;</div> <virtual if="{isMultiple()}"> <span class="drop-synbol fas fa-caret-down"></span> </virtual> </a> </div> <div ref="dropItems" class="language-dropbox"> <div each="{item in lang.languages}"> <a class="flag-item {(lang.langId === item.langId) ? \'selected\' : \'\'}" href="javascript:;" onclick="{selectItem}"> &nbsp; <span class="flag-css flag-icon flag-icon-{item.flagId.toLowerCase()}" ref="css-icon"></span> &nbsp;&nbsp; <div class="flag-text">{item.Description}</div> &nbsp;&nbsp;&nbsp; </a> </div> </div>', 'language-menu,[data-is="language-menu"]{ display: inline-block; margin: 0 auto; padding: 0, 2px; user-select: none; } language-menu .menu,[data-is="language-menu"] .menu{ display: inline-block; margin: 0 auto; padding: 0; } language-menu a,[data-is="language-menu"] a{ display: inline-block; margin: 0 auto; color: whitesmoke; } language-menu a:link,[data-is="language-menu"] a:link,language-menu a:visited,[data-is="language-menu"] a:visited{ text-decoration: none; } language-menu a:hover,[data-is="language-menu"] a:hover,language-menu a:active,[data-is="language-menu"] a:active{ color: yellow; text-decoration: none; } language-menu .flag-combo,[data-is="language-menu"] .flag-combo{ display: inline-block; margin: 0 auto; } language-menu .flag-combo .flag-css,[data-is="language-menu"] .flag-combo .flag-css{ display: inline-block; margin: 0 auto; padding-top: 1px; } language-menu .flag-combo .flag-text,[data-is="language-menu"] .flag-combo .flag-text{ display: inline-block; margin: 0 auto; } language-menu .flag-combo .drop-symbol,[data-is="language-menu"] .flag-combo .drop-symbol{ display: inline-block; margin: 0 auto; } language-menu .flag-item,[data-is="language-menu"] .flag-item{ display: flex; align-items: center; justify-content: center; margin: 0 auto; padding: 0; padding-left: 2px; height: 50px; } language-menu .flag-item:hover,[data-is="language-menu"] .flag-item:hover{ color: yellow; background:linear-gradient(to bottom, #0c5a24 5%, #35750a 100%); background-color:#77a809; cursor: pointer; } language-menu .flag-item.selected,[data-is="language-menu"] .flag-item.selected{ background-color: darkorange; } language-menu .flag-item .flag-css,[data-is="language-menu"] .flag-item .flag-css{ display: inline-block; margin: 0px auto; padding-top: 1px; width: 25px; } language-menu .flag-item .flag-text,[data-is="language-menu"] .flag-item .flag-text{ display: inline-block; margin: 0 auto; min-width: 80px; max-width: 120px; } language-menu .language-dropbox,[data-is="language-menu"] .language-dropbox{ display: inline-block; position: fixed; margin: 0 auto; padding: 1px; top: 45px; right: 5px; background-color: #333; color:whitesmoke; max-height: calc(100vh - 50px - 20px); overflow: hidden; overflow-y: auto; display: none; } language-menu .language-dropbox.show,[data-is="language-menu"] .language-dropbox.show{ display: inline-block; z-index: 99999; }', '', function(opts) {
         let self = this;
