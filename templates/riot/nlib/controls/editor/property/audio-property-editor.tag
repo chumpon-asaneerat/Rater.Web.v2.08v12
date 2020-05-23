@@ -1,6 +1,6 @@
-<image-editor>
+<audio-property-editor>
     <script>
     </script>
     <style>
     </style>
-</image-editor>
+</audio-property-editor>

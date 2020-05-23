@@ -1,7 +1,7 @@
-<font-family-editor>
+<font-family-property-editor>
     <style>
     </style>
     <script>
         // change font family.
     </script>
-</font-family-editor>
+</font-family-property-editor>

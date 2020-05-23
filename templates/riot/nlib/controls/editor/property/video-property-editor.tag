@@ -1,6 +1,6 @@
-<video-editor>
+<video-property-editor>
     <script>
     </script>
     <style>
     </style>
-</video-editor>
+</video-property-editor>

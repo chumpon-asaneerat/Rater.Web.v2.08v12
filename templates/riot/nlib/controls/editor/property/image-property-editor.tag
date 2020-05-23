@@ -1,6 +1,6 @@
-<color-editor>
+<image-property-editor>
     <script>
     </script>
     <style>
     </style>
-</color-editor>
+</image-property-editor>

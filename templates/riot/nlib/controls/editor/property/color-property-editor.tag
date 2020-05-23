@@ -1,6 +1,6 @@
-<audio-editor>
+<color-property-editor>
     <script>
     </script>
     <style>
     </style>
-</audio-editor>
+</color-property-editor>
