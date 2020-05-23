@@ -1,17 +1,20 @@
+riot.tag2('element-properties-editor', '', '', '', function(opts) {
+});
+
+riot.tag2('element-dimension-editor', '', '', '', function(opts) {
+});
+
+
+riot.tag2('element-transform-editor', '', '', '', function(opts) {
+});
 riot.tag2('font-properties-editor', '', '', '', function(opts) {
 });
 
+riot.tag2('font-family-editor', '', '', '', function(opts) {
+});
 riot.tag2('font-size-editor', '', '', '', function(opts) {
 });
 
-riot.tag2('shape-dimension-editor', '', '', '', function(opts) {
-});
-
-
-riot.tag2('shape-properties-editor', '', '', '', function(opts) {
-});
-riot.tag2('shape-transform-editor', '', '', '', function(opts) {
-});
 riot.tag2('groupcontrol', '', '', '', function(opts) {
 });
 riot.tag2('groupheader', '', '', '', function(opts) {

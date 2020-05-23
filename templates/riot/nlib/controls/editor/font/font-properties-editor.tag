@@ -2,5 +2,6 @@
     <style>
     </style>
     <script>
+        // common all font properties
     </script>
 </font-properties-editor>
