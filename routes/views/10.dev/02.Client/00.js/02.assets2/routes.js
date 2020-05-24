@@ -21,26 +21,7 @@ const routes = class {
 router.get('/', routes.home)
 
 const init_routes = (svr) => {
-    svr.route('/dev/js/assets', router);
+    svr.route('/dev/js/assets2', router);
 };
 
-/*
-Source: nlib-client backup->v03
-
-    getJson: (req, res, next) => {
-        let data = {
-            name: 'joe',
-            value: Date.now()
-        }
-        wsvr.sendJson(req, res, data);
-    },
-    getJavaScript: (req, res, next) => {
-        res.sendFile(path.join(__dirname, 'server.js'))
-    },
-    postJson: (req, res, next) => {
-        let data = { result: 'success' }
-        wsvr.sendJson(req, res, data);
-    },
-
-*/
 module.exports.init_routes = exports.init_routes = init_routes;
