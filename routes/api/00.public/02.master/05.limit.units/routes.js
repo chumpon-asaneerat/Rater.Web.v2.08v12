@@ -112,12 +112,12 @@ api.GetLimitUnit = class {
 
 //#endregion
 
-router.all('/limitunits', api.GetLimitUnits.entry)
-router.get('/limitunits/search/:id', api.GetLimitUnit.entry)
-router.post('/limitunits/search', api.GetLimitUnit.entry)
+router.all('/', api.GetLimitUnits.entry)
+router.get('/search/:id', api.GetLimitUnit.entry)
+router.post('/search', api.GetLimitUnit.entry)
 
 const init_routes = (svr) => {
-    svr.route('/api', router);
+    svr.route('/api/limitunits', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

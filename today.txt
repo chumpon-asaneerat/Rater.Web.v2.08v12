@@ -4,6 +4,10 @@ Update 2020-05-25 #1
 
 
 -------------------------------------------------------------------------------------
+Update 2020-05-24 #2
+- Add api dev routes for XHR upload/download.
+- Format all api routes's url.
+-------------------------------------------------------------------------------------
 Update 2020-05-24 #1
 - Add dev->js/assets sample for implement preload image/video function.
 

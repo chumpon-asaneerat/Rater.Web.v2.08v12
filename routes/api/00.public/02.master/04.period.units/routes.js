@@ -110,12 +110,12 @@ api.GetPeriodUnit = class {
 
 //#endregion
 
-router.all('/periodunits', api.GetPeriodUnits.entry)
-router.get('/periodunits/search/:id', api.GetPeriodUnit.entry)
-router.post('/periodunits/search', api.GetPeriodUnit.entry)
+router.all('/', api.GetPeriodUnits.entry)
+router.get('/search/:id', api.GetPeriodUnit.entry)
+router.post('/search', api.GetPeriodUnit.entry)
 
 const init_routes = (svr) => {
-    svr.route('/api', router);
+    svr.route('/api/periodunits', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

@@ -285,14 +285,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for member
-router.all('/members', api.GetMemberInfos.entry);
-router.get('/members/search/:id', api.GetMemberInfo.entry);
-router.post('/members/search', api.GetMemberInfo.entry);
-router.post('/members/save', api.Save.entry);
+router.all('/', api.GetMemberInfos.entry);
+router.get('/search/:id', api.GetMemberInfo.entry);
+router.post('/search', api.GetMemberInfo.entry);
+router.post('/save', api.Save.entry);
 //router.post('/member/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/', router);
+    svr.route('/customers/api/members', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

@@ -272,14 +272,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // branch
-router.all('/branchs', api.GetBranchs.entry);
-router.get('/branchs/search/:id', api.GetBranch.entry);
-router.post('/branchs/search', api.GetBranch.entry);
-router.post('/branchs/save', api.Save.entry);
+router.all('/', api.GetBranchs.entry);
+router.get('/search/:id', api.GetBranch.entry);
+router.post('/search', api.GetBranch.entry);
+router.post('/save', api.Save.entry);
 //router.post('/branch/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/', router);
+    svr.route('/customers/api/branchs', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

@@ -56,10 +56,10 @@ api.GetLanguages = class {
 
 //#endregion
 
-router.all('/languages', api.GetLanguages.entry)
+router.all('/', api.GetLanguages.entry)
 
 const init_routes = (svr) => {
-    svr.route('/api', router);
+    svr.route('/api/languages', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

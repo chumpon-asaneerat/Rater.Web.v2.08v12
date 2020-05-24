@@ -110,12 +110,12 @@ api.GetMemberType = class {
 
 //#endregion
 
-router.all('/membertypes', api.GetMemberTypes.entry)
-router.get('/membertypes/search/:id', api.GetMemberType.entry)
-router.post('/membertypes/search', api.GetMemberType.entry)
+router.all('/', api.GetMemberTypes.entry)
+router.get('/search/:id', api.GetMemberType.entry)
+router.post('/search', api.GetMemberType.entry)
 
 const init_routes = (svr) => {
-    svr.route('/api', router);
+    svr.route('/api/membertypes', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

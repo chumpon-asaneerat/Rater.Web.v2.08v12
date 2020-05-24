@@ -274,14 +274,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for customer
-router.all('/customers', api.GetCustomers.entry);
-router.get('/customers/search/:id', api.GetCustomer.entry)
-router.post('/customers/search', api.GetCustomer.entry)
+router.all('/', api.GetCustomers.entry);
+router.get('/search/:id', api.GetCustomer.entry)
+router.post('/search', api.GetCustomer.entry)
 //router.post('/customers/save', api.Save.entry);
 //router.post('/customers/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/edl/api/', router);
+    svr.route('/edl/api/customers', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

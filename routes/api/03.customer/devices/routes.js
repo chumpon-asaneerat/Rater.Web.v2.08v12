@@ -281,14 +281,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for device
-router.all('/devices', api.GetDevices.entry);
-router.get('/devices/search/:id', api.GetDevice.entry);
-router.post('/devices/search', api.GetDevice.entry);
-router.post('/devices/save', api.Save.entry);
+router.all('/', api.GetDevices.entry);
+router.get('/search/:id', api.GetDevice.entry);
+router.post('/search', api.GetDevice.entry);
+router.post('/save', api.Save.entry);
 //router.post('/device/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/', router);
+    svr.route('/customers/api/devices', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

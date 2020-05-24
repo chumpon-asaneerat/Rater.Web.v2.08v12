@@ -279,14 +279,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for org
-router.all('/orgs', api.GetOrgs.entry);
-router.get('/orgs/search/:id', api.GetOrg.entry);
-router.post('/orgs/search', api.GetOrg.entry);
-router.post('/orgs/save', api.Save.entry);
+router.all('/', api.GetOrgs.entry);
+router.get('/search/:id', api.GetOrg.entry);
+router.post('/search', api.GetOrg.entry);
+router.post('/save', api.Save.entry);
 //router.post('/orgs/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/', router);
+    svr.route('/customers/api/orgs', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

@@ -105,11 +105,11 @@ api.Save = class {
 
 router.use(secure.checkAccess);
 // routes for rating/org
-router.all('/rating/org', api.Get.entry);
-router.post('/rating/org/save', api.Save.entry);
+router.all('/', api.Get.entry);
+router.post('/save', api.Save.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customer/api/rating/org', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

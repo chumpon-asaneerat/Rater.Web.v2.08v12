@@ -131,7 +131,7 @@ router.all('/', api.Get.entry);
 //router.post('/report/rawvotes/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/report/rawvote/', router);
+    svr.route('/customers/api/report/rawvote', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

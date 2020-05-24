@@ -110,12 +110,12 @@ api.GetDeviceType = class {
 
 //#endregion
 
-router.all('/devicetypes', api.GetDeviceTypes.entry)
-router.get('/devicetypes/search/:id', api.GetDeviceType.entry)
-router.post('/devicetypes/search', api.GetDeviceType.entry)
+router.all('/', api.GetDeviceTypes.entry)
+router.get('/search/:id', api.GetDeviceType.entry)
+router.post('/search', api.GetDeviceType.entry)
 
 const init_routes = (svr) => {
-    svr.route('/api', router);
+    svr.route('/api/devicetypes', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

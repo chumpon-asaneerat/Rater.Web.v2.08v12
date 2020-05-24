@@ -233,12 +233,12 @@ api.filter.QSetByDate = class {
 
 router.use(secure.checkAccess);
 // routes for staff summaries
-router.all('/filters/vote-orgs', api.filter.FilterVoteOrgs.entry);
-router.all('/filters/vote-members', api.filter.FilterVoteMembers.entry);
-router.all('/filters/qsetbydate', api.filter.QSetByDate.entry);
+router.all('/vote-orgs', api.filter.FilterVoteOrgs.entry);
+router.all('/vote-members', api.filter.FilterVoteMembers.entry);
+router.all('/qsetbydate', api.filter.QSetByDate.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/', router);
+    svr.route('/customers/api/filters', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

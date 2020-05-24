@@ -64,11 +64,11 @@ const routes = class {
 
 //router.use(secure.checkAccess);
 
-router.post('/question/save', routes.SaveJsonQuestion);
-router.post('/question/load', routes.LoadJsonQuestion);
+router.post('/save', routes.SaveJsonQuestion);
+router.post('/load', routes.LoadJsonQuestion);
 
 const init_routes = (svr) => {
-    svr.route('/dev/api/', router);
+    svr.route('/dev/api/question', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

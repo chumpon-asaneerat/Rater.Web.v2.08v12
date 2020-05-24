@@ -102,11 +102,11 @@ api.Save = class {
 
 router.use(secure.checkAccess);
 // routes for device
-router.all('/rating/device', api.Get.entry);
-router.post('/rating/device/save', api.Save.entry);
+router.all('/', api.Get.entry);
+router.post('/save', api.Save.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customer/api/rating/device', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

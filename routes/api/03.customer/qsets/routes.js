@@ -270,14 +270,14 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for question set
-router.all('/question/sets', api.GetQSets.entry);
-router.get('/question/sets/search/:id', api.GetQSet.entry);
-router.post('/question/sets/search', api.GetQSet.entry);
+router.all('/', api.GetQSets.entry);
+router.get('/search/:id', api.GetQSet.entry);
+router.post('/search', api.GetQSet.entry);
 //router.post('/question/sets/save', api.Save.entry);
 //router.post('/question/sets/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/', router);
+    svr.route('/customers/api/question/sets', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

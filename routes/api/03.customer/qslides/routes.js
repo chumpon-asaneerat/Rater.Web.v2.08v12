@@ -265,13 +265,13 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // routes for question slide
-router.all('/question/slides', api.GetQSlides.entry);
-router.post('/question/slides/search', api.GetQSlide.entry);
+router.all('/', api.GetQSlides.entry);
+router.post('/search', api.GetQSlide.entry);
 //router.post('/questions/slides/save', api.Save.entry);
 //router.post('/questions/slides/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customers/api/', router);
+    svr.route('/customers/api/question/slides', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

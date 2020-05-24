@@ -233,7 +233,7 @@ router.use(secure.checkAccess);
 router.all('/votes/save', api.Save.entry);
 
 const init_routes = (svr) => {
-    svr.route('/dev/api/', router);
+    svr.route('/dev/api', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

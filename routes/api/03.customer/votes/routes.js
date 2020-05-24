@@ -237,12 +237,12 @@ api.Delete = class {
 
 router.use(secure.checkAccess);
 // same as rawvote
-router.all('/votes', api.Get.entry);
-router.all('/votes/save', api.Save.entry);
+router.all('/', api.Get.entry);
+router.all('/save', api.Save.entry);
 //router.all('/report/vote/delete', api.Delete.entry);
 
 const init_routes = (svr) => {
-    svr.route('/customer/api/', router);
+    svr.route('/customer/api//votes', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
