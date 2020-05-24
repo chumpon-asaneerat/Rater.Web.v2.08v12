@@ -1,0 +1,15 @@
+### Upload
+POST http://localhost:3000/dev/api/xhr/upload
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020050001"
+}
+
+### Download
+POST http://localhost:3000/dev/api/xhr/download
+content-type: application/json
+
+{
+    "customerId": "EDL-C2020050001"
+}

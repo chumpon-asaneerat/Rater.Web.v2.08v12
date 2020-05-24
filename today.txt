@@ -4,6 +4,9 @@ Update 2020-05-25 #1
 
 
 -------------------------------------------------------------------------------------
+Update 2020-05-24 #3
+- Add REST api test for dev routes for XHR upload/download.
+-------------------------------------------------------------------------------------
 Update 2020-05-24 #2
 - Add api dev routes for XHR upload/download.
 - Format all api routes's url.
