@@ -37,12 +37,12 @@ const routes = class {
     }
 }
 
-router.get('/collapse-panels', routes.home)
-router.get('/collapse-panels/contents', routes.getContents)
-router.get('/collapse-panels/js/:file', routes.getjsfile)
+router.get('/', routes.home)
+router.get('/contents', routes.getContents)
+router.get('/js/:file', routes.getjsfile)
 
 const init_routes = (svr) => {
-    svr.route('/dev/riot/components', router);
+    svr.route('/dev/riot/components/collapse-panels', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

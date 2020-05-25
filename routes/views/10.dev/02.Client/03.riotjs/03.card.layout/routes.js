@@ -37,12 +37,12 @@ const routes = class {
     }
 }
 
-router.get('/card', routes.home)
-router.get('/card/contents', routes.getContents)
-router.get('/card/js/:file', routes.getjsfile)
+router.get('/', routes.home)
+router.get('/contents', routes.getContents)
+router.get('/js/:file', routes.getjsfile)
 
 const init_routes = (svr) => {
-    svr.route('/dev/riot/components', router);
+    svr.route('/dev/riot/components/card', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;

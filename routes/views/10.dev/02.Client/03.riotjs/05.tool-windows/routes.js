@@ -37,12 +37,12 @@ const routes = class {
     }
 }
 
-router.get('/tool-windows', routes.home)
-router.get('/tool-windows/contents', routes.getContents)
-router.get('/tool-windows/js/:file', routes.getjsfile)
+router.get('/', routes.home)
+router.get('/contents', routes.getContents)
+router.get('/js/:file', routes.getjsfile)
 
 const init_routes = (svr) => {
-    svr.route('/dev/riot/components', router);
+    svr.route('/dev/riot/components/tool-windows', router);
 };
 
 module.exports.init_routes = exports.init_routes = init_routes;
