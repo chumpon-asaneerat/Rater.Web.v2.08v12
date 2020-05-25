@@ -135,6 +135,8 @@
                 "/dev/riot/components/video-browser/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/11.video.browser/js",
                 "/dev/riot/components/ninput2": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/12.ninput2/html/index.html",
                 "/dev/riot/components/ninput2/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/12.ninput2/js",
+                "/dev/riot/components/nselect2": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/13.nselect2/html/index.html",
+                "/dev/riot/components/nselect2/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/13.nselect2/js",
                 /* dev routes -> layouts */
                 "/dev/layouts/dashboard": "${workspaceFolder}/routes/views/10.dev/02.Client/06.layouts/dashboard/html/index.html",
                 "/dev/layouts/dashboard/js": "${workspaceFolder}/routes/views/10.dev/02.Client/06.layouts/dashboard/js",
