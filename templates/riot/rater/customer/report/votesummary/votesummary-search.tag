@@ -111,29 +111,6 @@
             margin: auto;
             margin-top: 10px;
         }
-        :scope>.scrarea>.searcharea .input-block span,
-        :scope>.scrarea>.searcharea .input-block button {
-            display: inline-block;
-            margin: 0 auto;
-            padding: 0;
-            width: 50%;
-            font-size: 1rem;
-            font-size: bold;
-        }
-        :scope>.scrarea>.searcharea .input-block span.label {
-            margin: 1px;
-            padding: 2px;
-            text-align: left;
-            color: cornflowerblue;
-            width: 100%;
-        }
-        :scope>.scrarea>.searcharea .input-block span input {
-            margin: 1px;
-            padding: 2px;
-            text-align: left;
-            color: cornflowerblue;
-            width: 100%;
-        }
         :scope>.scrarea>.searcharea .input-block .tree {
             text-align: left;
         }

@@ -2,7 +2,7 @@
     <select ref="input">
         <option each={ item in items } value="{ item.value }">{ item.text }</option>
     </select>
-    <div ref="clear" class="clear">x</div>
+    <div ref="clear" class="clear"><span class="fas fa-times"></span></div>
     <label>{ opts.title }</label>
     <style>
         :scope {
