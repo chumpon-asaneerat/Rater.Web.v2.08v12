@@ -5,6 +5,20 @@ const eventbus = function() {
     riot.observable(this)
 }
 
+riot.hook = (tag) => {
+    tag.on('before-mount', () => { 
+        //console.log(tag.__.tagName, ' before-mount.')
+        riot.eventbus.trigger('update-tag-count')
+    })
+    tag.on('mount', () => {
+        //console.log(tag.__.tagName, ' mounted. group: ', tag.opts.group)
+        riot.eventbus.trigger('update-tag-mount')
+    })
+    tag.on('unmount', () => {
+        console.log(tag.__.tagName, ' unmount')
+    })
+}
+
 riot.tagCount = 0
 riot.eventbus = new eventbus()
 riot.eventbus.on('all-tags-mounted', () => {
