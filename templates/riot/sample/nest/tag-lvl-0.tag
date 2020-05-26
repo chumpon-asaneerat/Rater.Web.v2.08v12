@@ -13,7 +13,7 @@
         let self = this
 
         this.on('mount', () => {
-            console.log(self.__.tagName, ' mounted.')
+            console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
         })
     </script>
 </tag-lvl-0>
