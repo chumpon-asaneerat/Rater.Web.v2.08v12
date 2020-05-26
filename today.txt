@@ -6,7 +6,8 @@ Update 2020-05-26 #6
 -
 -------------------------------------------------------------------------------------
 Update 2020-05-26 #5
--
+- Add riot tag for common components #32.
+- Update dev->riotjs->mount.and.trigger sample #3.
 -------------------------------------------------------------------------------------
 Update 2020-05-26 #4
 - Add riot tag for common components #31.

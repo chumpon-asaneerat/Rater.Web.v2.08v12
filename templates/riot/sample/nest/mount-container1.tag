@@ -5,8 +5,13 @@
     <script>
         let self = this
 
+        this.on('before-mount', () => {
+            console.log(self.__.tagName, ' before-mount.')
+            riot.eventbus.trigger('update-tag-count')
+        })
         this.on('mount', () => {
             console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
+            riot.eventbus.trigger('update-tag-mount')
         })
     </script>
 </mount-container1>

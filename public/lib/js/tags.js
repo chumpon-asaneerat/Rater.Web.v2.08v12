@@ -4405,50 +4405,85 @@ riot.tag2('right-screen', '<h2>Right Screen</h2> <div class="fake-content"></div
 riot.tag2('mount-container1', '<yield></yield>', '', '', function(opts) {
         let self = this
 
+        this.on('before-mount', () => {
+            console.log(self.__.tagName, ' before-mount.')
+            riot.eventbus.trigger('update-tag-count')
+        })
         this.on('mount', () => {
             console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
+            riot.eventbus.trigger('update-tag-mount')
         })
 });
 riot.tag2('tag-lvl-0', '<yield></yield>', 'tag-lvl-0,[data-is="tag-lvl-0"]{ position: relative; display: block; margin: 0 auto; padding: 5px; background-color: beige; }', '', function(opts) {
         let self = this
 
+        this.on('before-mount', () => {
+            console.log(self.__.tagName, ' before-mount.')
+            riot.eventbus.trigger('update-tag-count')
+        })
         this.on('mount', () => {
             console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
+            riot.eventbus.trigger('update-tag-mount')
         })
 });
 riot.tag2('tag-lvl-1', '<yield></yield>', 'tag-lvl-1,[data-is="tag-lvl-1"]{ position: relative; display: block; margin: 0 auto; padding: 5px; background-color: silver; }', '', function(opts) {
         let self = this
 
+        this.on('before-mount', () => {
+            console.log(self.__.tagName, ' before-mount.')
+            riot.eventbus.trigger('update-tag-count')
+        })
         this.on('mount', () => {
             console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
+            riot.eventbus.trigger('update-tag-mount')
         })
 });
 riot.tag2('tag-lvl-2', '<yield></yield>', 'tag-lvl-2,[data-is="tag-lvl-2"]{ position: relative; display: block; margin: 0 auto; padding: 5px; background-color: azure; }', '', function(opts) {
         let self = this
 
+        this.on('before-mount', () => {
+            console.log(self.__.tagName, ' before-mount.')
+            riot.eventbus.trigger('update-tag-count')
+        })
         this.on('mount', () => {
             console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
+            riot.eventbus.trigger('update-tag-mount')
         })
 });
 riot.tag2('tag-lvl-3', '<yield></yield>', 'tag-lvl-3,[data-is="tag-lvl-3"]{ position: relative; display: block; margin: 0 auto; padding: 5px; background-color: oldlace; }', '', function(opts) {
         let self = this
 
+        this.on('before-mount', () => {
+            console.log(self.__.tagName, ' before-mount.')
+            riot.eventbus.trigger('update-tag-count')
+        })
         this.on('mount', () => {
             console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
+            riot.eventbus.trigger('update-tag-mount')
         })
 });
 riot.tag2('tag-lvl-4', '<yield></yield>', 'tag-lvl-4,[data-is="tag-lvl-4"]{ position: relative; display: block; margin: 0 auto; padding: 5px; background-color: lightblue; }', '', function(opts) {
         let self = this
 
+        this.on('before-mount', () => {
+            console.log(self.__.tagName, ' before-mount.')
+            riot.eventbus.trigger('update-tag-count')
+        })
         this.on('mount', () => {
             console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
+            riot.eventbus.trigger('update-tag-mount')
         })
 });
 riot.tag2('tag-lvl-5', '<yield></yield>', 'tag-lvl-5,[data-is="tag-lvl-5"]{ position: relative; display: block; margin: 0 auto; padding: 5px; background-color: azure; }', '', function(opts) {
         let self = this
 
+        this.on('before-mount', () => {
+            console.log(self.__.tagName, ' before-mount.')
+            riot.eventbus.trigger('update-tag-count')
+        })
         this.on('mount', () => {
             console.log(self.__.tagName, ' mounted. group: ', self.opts.group)
+            riot.eventbus.trigger('update-tag-mount')
         })
 });
 riot.tag2('screen1', '<h4>Screen 1</h4> <button onclick="{gotoScreen2}">Goto Screen 2</button>', 'screen1,[data-is="screen1"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
