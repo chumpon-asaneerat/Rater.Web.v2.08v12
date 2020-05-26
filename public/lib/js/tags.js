@@ -4319,7 +4319,14 @@ riot.tag2('rater-home', '<div class="content-area"> <div class="padtop"></div> <
             self.update()
         }
 });
+riot.tag2('app-signin', '', '', '', function(opts) {
+});
+
 riot.tag2('companies-dialog', '', '', '', function(opts) {
+});
+riot.tag2('device-signin', '', '', '', function(opts) {
+});
+riot.tag2('edl-signin', '', '', '', function(opts) {
 });
 riot.tag2('company-selection', '<virtual each="{user in users}"> <div class="account"> <div class="info1"> <span class="label">{opts.companyname}</span> <span class="data">{user.CustomerName}</span> </div> <div class="info2"> <span class="label">{opts.fullname}</span> <span class="data">{user.FullName}</span> </div> <button onclick="{onSignIn}">&nbsp;<span class="fas fa-2x fa-sign-in-alt">&nbsp;</span></button> </div> <hr> </virtual>', 'company-selection,[data-is="company-selection"]{ display: block; margin: 0 auto; padding: 0; } company-selection .account,[data-is="company-selection"] .account{ margin: 0 auto; padding: 2px; height: 100%; width: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; grid-template-areas: \'info1 button\' \'info2 button\'; overflow: hidden; overflow-y: auto; } company-selection .account div,[data-is="company-selection"] .account div{ display: block; margin: 0 auto; padding: 0; } company-selection .account div.info1,[data-is="company-selection"] .account div.info1{ grid-area: info1; display: block; margin: 0; padding: 0; padding-left: 20px; } company-selection .account div.info2,[data-is="company-selection"] .account div.info2{ grid-area: info2; display: block; margin: 0; padding: 0; padding-left: 20px; } company-selection .account div.info1 span,[data-is="company-selection"] .account div.info1 span,company-selection .account div.info2 span,[data-is="company-selection"] .account div.info2 span{ display: inline-block; margin: 0; padding: 0; } company-selection .account div.info1 span.label,[data-is="company-selection"] .account div.info1 span.label,company-selection .account div.info2 span.label,[data-is="company-selection"] .account div.info2 span.label{ display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: navy; width: 100%; } company-selection .account div.info1 span.data,[data-is="company-selection"] .account div.info1 span.data,company-selection .account div.info2 span.data,[data-is="company-selection"] .account div.info2 span.data{ display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: forestgreen; width: 100%; } company-selection .account button,[data-is="company-selection"] .account button{ grid-area: button; display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: forestgreen; width: 100%; }', '', function(opts) {
         let self = this
@@ -4358,20 +4365,6 @@ riot.tag2('company-selection', '<virtual each="{user in users}"> <div class="acc
             let acc = e.item.user
             secure.signin(acc.customerId)
         }
-});
-riot.tag2('register-entry', '', 'register-entry,[data-is="register-entry"]{ margin: 0 auto; }', '', function(opts) {
-
-
-        this.on('mount', () => { });
-        this.on('unmount', () => { });
-
-});
-riot.tag2('signin-entry', '', 'signin-entry,[data-is="signin-entry"]{ margin: 0 auto; }', '', function(opts) {
-
-
-        this.on('mount', () => { });
-        this.on('unmount', () => { });
-
 });
 riot.tag2('register', '', '', '', function(opts) {
 });

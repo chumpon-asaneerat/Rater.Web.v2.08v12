@@ -134,6 +134,8 @@
                 "/dev/riot/components/ntree2/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/14.ntree2/js",
                 "/dev/riot/components/nfilter": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/15.nfilter/html/index.html",
                 "/dev/riot/components/nfilter/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/15.nfilter/js",
+                "/dev/riot/components/signin": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/16.signin/html/index.html",
+                "/dev/riot/components/signin/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/16.signin/js",
                 /* dev routes -> layouts */
                 "/dev/layouts/dashboard": "${workspaceFolder}/routes/views/10.dev/02.Client/06.layouts/dashboard/html/index.html",
                 "/dev/layouts/dashboard/js": "${workspaceFolder}/routes/views/10.dev/02.Client/06.layouts/dashboard/js",
