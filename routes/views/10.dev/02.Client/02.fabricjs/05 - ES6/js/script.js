@@ -107,7 +107,7 @@ function createClass() {
     return klass;
 }
 
-(() => {
+;(() => {
     console.log('script.js loaded.')
     let obj = {
         type: 'LabeledRect',
@@ -137,4 +137,4 @@ function createClass() {
     }
 
     console.log(es6.prototype)
-})();
+})()

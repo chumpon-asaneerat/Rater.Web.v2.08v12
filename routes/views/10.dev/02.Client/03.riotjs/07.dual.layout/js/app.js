@@ -1,4 +1,5 @@
-let app;
-(() => {
-    riot.mount('rater-web-app');
-})();
+let app
+
+;(() => {
+    riot.mount('rater-web-app')
+})()

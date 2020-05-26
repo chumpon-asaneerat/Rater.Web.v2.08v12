@@ -1,4 +1,4 @@
-let app;
+let app
 
 const eventbus = function() {
     console.log('init event bus.')
