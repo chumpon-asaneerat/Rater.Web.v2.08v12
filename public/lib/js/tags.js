@@ -4402,6 +4402,20 @@ riot.tag2('right-screen', '<h2>Right Screen</h2> <div class="fake-content"></div
             self.parent.toggle()
         }
 });
+riot.tag2('mount-container1', '<yield></yield>', '', '', function(opts) {
+});
+riot.tag2('tag-lvl-0', '<yield></yield>', '', '', function(opts) {
+});
+riot.tag2('tag-lvl-1', '<yield></yield>', '', '', function(opts) {
+});
+riot.tag2('tag-lvl-2', '<yield></yield>', '', '', function(opts) {
+});
+riot.tag2('tag-lvl-3', '<yield></yield>', '', '', function(opts) {
+});
+riot.tag2('tag-lvl-4', '<yield></yield>', '', '', function(opts) {
+});
+riot.tag2('tag-lvl-5', '<yield></yield>', '', '', function(opts) {
+});
 riot.tag2('screen1', '<h4>Screen 1</h4> <button onclick="{gotoScreen2}">Goto Screen 2</button>', 'screen1,[data-is="screen1"]{ margin: 0 auto; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         let self = this
         let scrId = 'screen1'

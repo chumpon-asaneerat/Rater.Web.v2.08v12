@@ -143,6 +143,8 @@
                 "/dev/riot/components/nfilter/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/15.nfilter/js",
                 "/dev/riot/components/signin": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/16.signin/html/index.html",
                 "/dev/riot/components/signin/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/16.signin/js",
+                "/dev/riot/components/mount": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/17.mount.and.trigger/html/index.html",
+                "/dev/riot/components/mount/js": "${workspaceFolder}/routes/views/10.dev/02.Client/03.riotjs/17.mount.and.trigger/js",
                 /* dev routes -> layouts */
                 "/dev/layouts/dashboard": "${workspaceFolder}/routes/views/10.dev/02.Client/06.layouts/dashboard/html/index.html",
                 "/dev/layouts/dashboard/js": "${workspaceFolder}/routes/views/10.dev/02.Client/06.layouts/dashboard/js",
