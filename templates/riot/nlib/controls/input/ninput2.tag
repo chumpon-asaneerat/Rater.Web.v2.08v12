@@ -25,7 +25,7 @@
             position: relative;
             display: grid;
             grid-template-columns: 2px 5px 1fr 5px 20px 2px;
-            grid-template-rows: 5px 2rem auto 5px;
+            grid-template-rows: 5px 1.7rem auto 5px;
             grid-template-areas: 
                 '. . .  . . .'
                 '. . .  . . .'
@@ -42,6 +42,7 @@
             display: inline-block;
             margin: 0;
             padding: 0 5px;
+            padding-bottom: 5px;
             width: 100%;
             background-color: whitesmoke;
             box-sizing: border-box;
@@ -74,12 +75,11 @@
         :scope>.input-container input:-webkit-autofill,
         :scope>.input-container input:-webkit-autofill:hover, 
         :scope>.input-container input:-webkit-autofill:focus {
-            font-size: 14px;
             transition: background-color 5000s ease-in-out 0s;
         }
         :scope>.input-container label {
             position: absolute;
-            top: 2.25rem;
+            top: 2rem;
             left: 14px;
             color: #555;
             transition: .2s;
@@ -89,6 +89,13 @@
             top: .25rem;
             left: 10px;
             color: #f7497d;
+            font-weight: bold;
+        }
+        :scope>.input-container input:-webkit-autofill ~ label,
+        :scope>.input-container input:valid ~ label {
+            top: .25rem;
+            left: 10px;
+            color: cornflowerblue;
             font-weight: bold;
         }
         :scope>.input-container input:focus {
@@ -102,10 +109,79 @@
         let self = this
 
         this.on('mount', () => {
-            console.log('mount')
+            initCtrls()
+            bindEvents()
         })
         this.on('unmount', () => {
-            console.log('unmount')
+            unbindEvents()
+            clearInputs()
+            freeCtrls()
         })
+
+        let input, clear;
+        let initCtrls = () => {
+            input = self.refs['input']
+            clear = self.refs['clear']
+            checkOnBlur()
+        }
+        let clearInputs = () => {
+            if (input) input.value = ''
+        }
+        let freeCtrls = () => {
+            input = null
+            clear = null
+        }
+        let bindEvents = () => {
+            input.addEventListener('focus', checkOnFocus);
+            input.addEventListener('blur', checkOnBlur);
+            clear.addEventListener('click', onClear);
+        }
+        let unbindEvents = () => {
+            clear.removeEventListener('click', onClear);
+            input.removeEventListener('blur', checkOnBlur);
+            input.removeEventListener('focus', checkOnFocus);
+        }
+        let oType
+        let checkOnFocus = () => {
+            if (input) {
+                //console.log(input.type, ':', input.value)
+                if (!oType) {
+                    oType = input.type
+                    if (self.opts.type === 'date') {
+                        // set today.
+                        input.value = moment().format('YYYY-MM-DD')
+                    }
+                }
+                if (oType === 'date') {
+                    if (self.opts.type === 'date' && input.value === '') {
+                        input.type = 'date'
+                    }
+                }
+            }
+        }
+        let checkOnBlur = () => {
+            if (input) {
+                //console.log(input.type, ':', input.value)
+                if (!oType) {
+                    oType = input.type
+                    if (self.opts.type === 'date') {
+                        // set today.
+                        input.value = moment().format('YYYY-MM-DD')
+                    }
+                }
+                if (oType === 'date' && self.opts.type === 'date') {
+                    if (input.value === '') {
+                        input.type = 'text'
+                    }
+                }
+            }
+        }
+        let onClear = () => {
+            if (input) input.value = ''
+            checkOnBlur()
+        }
+
+        this.clear = () => { clearInputs() }
+        this.focus = () => { if (input) input.focus() }
     </script>
 </ninput2>

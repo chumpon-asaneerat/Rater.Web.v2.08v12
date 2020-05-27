@@ -107,15 +107,84 @@ riot.tag2('ninput', '<input ref="input" type="{opts.type}" name="{opts.name}" ri
         }
 
 });
-riot.tag2('ninput2', '<div class="input-container"> <input ref="input" type="{opts.type}" name="{opts.name}" riot-value="{opts.value}" required="" autocomplete="off"> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label> </div>', 'ninput2,[data-is="ninput2"]{ position: relative; display: grid; margin: 0 auto; padding: 0; grid-template-columns: 3px 1fr 3px; grid-template-rows: 3px auto 3px; grid-template-areas: \'. . .\' \'. input-ares .\' \'. . .\'; height: auto; width: 100%; background: transparent; } ninput2>.input-container,[data-is="ninput2"]>.input-container{ grid-area: input-ares; position: relative; display: grid; grid-template-columns: 2px 5px 1fr 5px 20px 2px; grid-template-rows: 5px 2rem auto 5px; grid-template-areas: \'. . . . . .\' \'. . . . . .\' \'. . ctrl . clear .\' \'. . . . . .\'; margin: 0; padding: 0; height: auto; width: 100%; box-shadow: 0 5px 10px rgba(0, 0, 0, .2); } ninput2>.input-container input,[data-is="ninput2"]>.input-container input{ grid-area: ctrl; display: inline-block; margin: 0; padding: 0 5px; width: 100%; background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput2>.input-container .clear,[data-is="ninput2"]>.input-container .clear{ grid-area: clear; display: flex; margin: 0 auto; margin-top: 4px; padding: 0px 3px; align-items: center; justify-items: center; font-weight: bold; font-size: .7rem; width: 18px; height: 18px; color: silver; cursor: pointer; user-select: none; } ninput2>.input-container .clear:hover,[data-is="ninput2"]>.input-container .clear:hover{ color: red; } ninput2>.input-container input:-webkit-autofill,[data-is="ninput2"]>.input-container input:-webkit-autofill,ninput2>.input-container input:-webkit-autofill:hover,[data-is="ninput2"]>.input-container input:-webkit-autofill:hover,ninput2>.input-container input:-webkit-autofill:focus,[data-is="ninput2"]>.input-container input:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } ninput2>.input-container label,[data-is="ninput2"]>.input-container label{ position: absolute; top: 2.25rem; left: 14px; color: #555; transition: .2s; pointer-events: none; } ninput2>.input-container input:focus ~ label,[data-is="ninput2"]>.input-container input:focus ~ label{ top: .25rem; left: 10px; color: #f7497d; font-weight: bold; } ninput2>.input-container input:focus,[data-is="ninput2"]>.input-container input:focus{ border-bottom: 2px solid #f7497d; } ninput2>.input-container input:valid,[data-is="ninput2"]>.input-container input:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
+riot.tag2('ninput2', '<div class="input-container"> <input ref="input" type="{opts.type}" name="{opts.name}" riot-value="{opts.value}" required="" autocomplete="off"> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label> </div>', 'ninput2,[data-is="ninput2"]{ position: relative; display: grid; margin: 0 auto; padding: 0; grid-template-columns: 3px 1fr 3px; grid-template-rows: 3px auto 3px; grid-template-areas: \'. . .\' \'. input-ares .\' \'. . .\'; height: auto; width: 100%; background: transparent; } ninput2>.input-container,[data-is="ninput2"]>.input-container{ grid-area: input-ares; position: relative; display: grid; grid-template-columns: 2px 5px 1fr 5px 20px 2px; grid-template-rows: 5px 1.7rem auto 5px; grid-template-areas: \'. . . . . .\' \'. . . . . .\' \'. . ctrl . clear .\' \'. . . . . .\'; margin: 0; padding: 0; height: auto; width: 100%; box-shadow: 0 5px 10px rgba(0, 0, 0, .2); } ninput2>.input-container input,[data-is="ninput2"]>.input-container input{ grid-area: ctrl; display: inline-block; margin: 0; padding: 0 5px; padding-bottom: 5px; width: 100%; background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput2>.input-container .clear,[data-is="ninput2"]>.input-container .clear{ grid-area: clear; display: flex; margin: 0 auto; margin-top: 4px; padding: 0px 3px; align-items: center; justify-items: center; font-weight: bold; font-size: .7rem; width: 18px; height: 18px; color: silver; cursor: pointer; user-select: none; } ninput2>.input-container .clear:hover,[data-is="ninput2"]>.input-container .clear:hover{ color: red; } ninput2>.input-container input:-webkit-autofill,[data-is="ninput2"]>.input-container input:-webkit-autofill,ninput2>.input-container input:-webkit-autofill:hover,[data-is="ninput2"]>.input-container input:-webkit-autofill:hover,ninput2>.input-container input:-webkit-autofill:focus,[data-is="ninput2"]>.input-container input:-webkit-autofill:focus{ transition: background-color 5000s ease-in-out 0s; } ninput2>.input-container label,[data-is="ninput2"]>.input-container label{ position: absolute; top: 2rem; left: 14px; color: #555; transition: .2s; pointer-events: none; } ninput2>.input-container input:focus ~ label,[data-is="ninput2"]>.input-container input:focus ~ label{ top: .25rem; left: 10px; color: #f7497d; font-weight: bold; } ninput2>.input-container input:-webkit-autofill ~ label,[data-is="ninput2"]>.input-container input:-webkit-autofill ~ label,ninput2>.input-container input:valid ~ label,[data-is="ninput2"]>.input-container input:valid ~ label{ top: .25rem; left: 10px; color: cornflowerblue; font-weight: bold; } ninput2>.input-container input:focus,[data-is="ninput2"]>.input-container input:focus{ border-bottom: 2px solid #f7497d; } ninput2>.input-container input:valid,[data-is="ninput2"]>.input-container input:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
         let self = this
 
         this.on('mount', () => {
-            console.log('mount')
+            initCtrls()
+            bindEvents()
         })
         this.on('unmount', () => {
-            console.log('unmount')
+            unbindEvents()
+            clearInputs()
+            freeCtrls()
         })
+
+        let input, clear;
+        let initCtrls = () => {
+            input = self.refs['input']
+            clear = self.refs['clear']
+            checkOnBlur()
+        }
+        let clearInputs = () => {
+            if (input) input.value = ''
+        }
+        let freeCtrls = () => {
+            input = null
+            clear = null
+        }
+        let bindEvents = () => {
+            input.addEventListener('focus', checkOnFocus);
+            input.addEventListener('blur', checkOnBlur);
+            clear.addEventListener('click', onClear);
+        }
+        let unbindEvents = () => {
+            clear.removeEventListener('click', onClear);
+            input.removeEventListener('blur', checkOnBlur);
+            input.removeEventListener('focus', checkOnFocus);
+        }
+        let oType
+        let checkOnFocus = () => {
+            if (input) {
+
+                if (!oType) {
+                    oType = input.type
+                    if (self.opts.type === 'date') {
+
+                        input.value = moment().format('YYYY-MM-DD')
+                    }
+                }
+                if (oType === 'date') {
+                    if (self.opts.type === 'date' && input.value === '') {
+                        input.type = 'date'
+                    }
+                }
+            }
+        }
+        let checkOnBlur = () => {
+            if (input) {
+
+                if (!oType) {
+                    oType = input.type
+                    if (self.opts.type === 'date') {
+
+                        input.value = moment().format('YYYY-MM-DD')
+                    }
+                }
+                if (oType === 'date' && self.opts.type === 'date') {
+                    if (input.value === '') {
+                        input.type = 'text'
+                    }
+                }
+            }
+        }
+        let onClear = () => {
+            if (input) input.value = ''
+            checkOnBlur()
+        }
+
+        this.clear = () => { clearInputs() }
+        this.focus = () => { if (input) input.focus() }
 });
 riot.tag2('nselect', '<select ref="input"> <option each="{item in items}" riot-value="{item.value}">{item.text}</option> </select> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label>', 'nselect,[data-is="nselect"]{ margin: 0; margin-top: 5px; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: transparent; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } nselect select,[data-is="nselect"] select{ display: inline-block; padding: 20px 0 10px 0; margin-bottom: 0px; width: calc(100% - 25px); background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg fill=\'black\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/><path d=\'M0 0h24v24H0z\' fill=\'none\'/></svg>"); background-repeat: no-repeat; background-position-x: 100%; background-position-y: 20px; border-radius: 2px; } nselect .clear,[data-is="nselect"] .clear{ display: inline-block; margin: 0; padding: 0px 6px; font-size: 12px; font-weight: bold; width: 21px; height: 21px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } nselect .clear:hover,[data-is="nselect"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } nselect select:-webkit-autofill,[data-is="nselect"] select:-webkit-autofill,nselect select:-webkit-autofill:hover,[data-is="nselect"] select:-webkit-autofill:hover,nselect select:-webkit-autofill:focus,[data-is="nselect"] select:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } nselect label,[data-is="nselect"] label{ position: absolute; top: 30px; left: 14px; color: #555; transition: .2s; pointer-events: none; } nselect select:focus ~ label,[data-is="nselect"] select:focus ~ label{ top: 5px; left: 10px; color: #f7497d; font-weight: bold; } nselect select:-webkit-autofill ~ label,[data-is="nselect"] select:-webkit-autofill ~ label,nselect select:valid ~ label,[data-is="nselect"] select:valid ~ label{ top: 5px; left: 10px; color: cornflowerblue; font-weight: bold; } nselect select:focus,[data-is="nselect"] select:focus{ border-bottom: 2px solid #f7497d; } nselect select:valid,[data-is="nselect"] select:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
 
