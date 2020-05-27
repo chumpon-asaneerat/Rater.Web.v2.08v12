@@ -1,6 +1,5 @@
 <branch-entry>
     <ninput ref="branchName" title="{ content.entry.branchName }" type="text" name="branchName"></ninput>
-    <div class="padtop"></div>
     <style>
         :scope {
             position: relative;
@@ -10,13 +9,6 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-        }
-        :scope .padtop {
-            position: relative;
-            display: block;
-            margin: 0 auto;
-            width: 100%;
-            min-height: 10px;
         }
     </style>
     <script>

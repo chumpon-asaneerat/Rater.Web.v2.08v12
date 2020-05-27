@@ -1,6 +1,4 @@
 <customer-entry>
-    <div class="padtop"></div>
-    <div class="padtop"></div>
     <ninput ref="customerName" title="{ content.entry.customerName }" type="text" name="customerName"></ninput>
     <style>
         :scope {
@@ -8,12 +6,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-        }
-        :scope .padtop {
-            display: block;
-            margin: 0 auto;
-            width: 100%;
-            min-height: 10px;
         }
     </style>
     <script>

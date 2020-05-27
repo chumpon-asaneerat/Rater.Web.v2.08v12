@@ -10,104 +10,7 @@ riot.tag2('grouppages', '', '', '', function(opts) {
 });
 riot.tag2('nfilter', '', '', '', function(opts) {
 });
-riot.tag2('ninput', '<input ref="input" type="{opts.type}" name="{opts.name}" riot-value="{opts.value}" required="" autocomplete="off"> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label>', 'ninput,[data-is="ninput"]{ margin: 0; margin-top: 5px; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: transparent; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } ninput input,[data-is="ninput"] input{ display: inline-block; padding: 20px 0 10px 0; margin-bottom: 0px; width: calc(100% - 25px); background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput .clear,[data-is="ninput"] .clear{ display: inline-block; margin: 0; padding: 0px 5px; font-size: 12px; font-weight: bold; width: 20px; height: 20px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } ninput .clear:hover,[data-is="ninput"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } ninput input:-webkit-autofill,[data-is="ninput"] input:-webkit-autofill,ninput input:-webkit-autofill:hover,[data-is="ninput"] input:-webkit-autofill:hover,ninput input:-webkit-autofill:focus,[data-is="ninput"] input:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } ninput label,[data-is="ninput"] label{ position: absolute; top: 30px; left: 14px; color: #555; transition: .2s; pointer-events: none; } ninput input:focus ~ label,[data-is="ninput"] input:focus ~ label{ top: 5px; left: 10px; color: #f7497d; font-weight: bold; } ninput input:-webkit-autofill ~ label,[data-is="ninput"] input:-webkit-autofill ~ label,ninput input:valid ~ label,[data-is="ninput"] input:valid ~ label{ top: 5px; left: 10px; color: cornflowerblue; font-weight: bold; } ninput input:focus,[data-is="ninput"] input:focus{ border-bottom: 2px solid #f7497d; } ninput input:valid,[data-is="ninput"] input:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
-
-
-        let self = this;
-
-        let input, clear;
-
-        let initCtrls = () => {
-            input = self.refs['input'];
-            clear = self.refs['clear'];
-            checkOnBlur();
-        }
-        let freeCtrls = () => {
-            flipper = null;
-        }
-        let clearInputs = () => {
-            input = null;
-            clear = null;
-        }
-
-        let bindEvents = () => {
-            input.addEventListener('focus', checkOnFocus);
-            input.addEventListener('blur', checkOnBlur);
-            clear.addEventListener('click', onClear);
-        }
-        let unbindEvents = () => {
-            clear.removeEventListener('click', onClear);
-            input.removeEventListener('blur', checkOnBlur);
-            input.removeEventListener('focus', checkOnFocus);
-        }
-
-        this.on('mount', () => {
-            initCtrls();
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-            clearInputs();
-        });
-
-        let oType;
-        let checkOnFocus = () => {
-            if (input) {
-
-                if (!oType) {
-                    oType = input.type;
-                    if (self.opts.type === 'date') {
-
-                        input.value = moment().format('YYYY-MM-DD');
-                    }
-                }
-                if (oType === 'date' && self.opts.type === 'date') {
-                    if (input.value === '') {
-                        input.type = 'date'
-                    }
-                }
-            }
-        }
-        let checkOnBlur = () => {
-            if (input) {
-
-                if (!oType) {
-                    oType = input.type;
-                    if (self.opts.type === 'date') {
-
-                        input.value = moment().format('YYYY-MM-DD');
-                    }
-                }
-                if (oType === 'date' && self.opts.type === 'date') {
-                    if (input.value === '') {
-                        input.type = 'text'
-                    }
-                }
-            }
-        }
-        let onClear = () => {
-            if (input) input.value = '';
-            checkOnBlur();
-        }
-
-        this.clear = () => { if (input) input.value = ''; }
-        this.focus = () => { if (input) input.focus(); }
-        this.value = (text) => {
-            let ret;
-            if (input) {
-                if (text !== undefined && text !== null) {
-                    input.value = text;
-                    checkOnBlur();
-                }
-                else {
-                    ret = input.value;
-                }
-            }
-            return ret;
-        }
-
-});
-riot.tag2('ninput2', '<div class="input-container"> <input ref="input" type="{opts.type}" name="{opts.name}" riot-value="{opts.value}" required="" autocomplete="off"> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label> </div>', 'ninput2,[data-is="ninput2"]{ position: relative; display: grid; margin: 0 auto; padding: 0; grid-template-columns: 3px 1fr 3px; grid-template-rows: 3px auto 3px; grid-template-areas: \'. . .\' \'. input-ares .\' \'. . .\'; height: auto; width: 100%; background: transparent; } ninput2>.input-container,[data-is="ninput2"]>.input-container{ grid-area: input-ares; position: relative; display: grid; grid-template-columns: 2px 5px 1fr 5px 20px 2px; grid-template-rows: 5px 1.7rem auto 5px; grid-template-areas: \'. . . . . .\' \'. . . . . .\' \'. . ctrl . clear .\' \'. . . . . .\'; margin: 0; padding: 0; height: auto; width: 100%; box-shadow: 0 5px 10px rgba(0, 0, 0, .2); } ninput2>.input-container input,[data-is="ninput2"]>.input-container input{ grid-area: ctrl; display: inline-block; margin: 0; padding: 0 5px; padding-bottom: 5px; width: 100%; background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput2>.input-container .clear,[data-is="ninput2"]>.input-container .clear{ grid-area: clear; display: flex; margin: 0 auto; margin-top: 4px; padding: 0px 3px; align-items: center; justify-items: center; font-weight: bold; font-size: .7rem; width: 18px; height: 18px; color: silver; cursor: pointer; user-select: none; } ninput2>.input-container .clear:hover,[data-is="ninput2"]>.input-container .clear:hover{ color: red; } ninput2>.input-container input:-webkit-autofill,[data-is="ninput2"]>.input-container input:-webkit-autofill,ninput2>.input-container input:-webkit-autofill:hover,[data-is="ninput2"]>.input-container input:-webkit-autofill:hover,ninput2>.input-container input:-webkit-autofill:focus,[data-is="ninput2"]>.input-container input:-webkit-autofill:focus{ transition: background-color 5000s ease-in-out 0s; } ninput2>.input-container label,[data-is="ninput2"]>.input-container label{ position: absolute; top: 2rem; left: 14px; color: #555; transition: .2s; pointer-events: none; } ninput2>.input-container input:focus ~ label,[data-is="ninput2"]>.input-container input:focus ~ label{ top: .25rem; left: 10px; color: #f7497d; font-weight: bold; } ninput2>.input-container input:-webkit-autofill ~ label,[data-is="ninput2"]>.input-container input:-webkit-autofill ~ label,ninput2>.input-container input:valid ~ label,[data-is="ninput2"]>.input-container input:valid ~ label{ top: .25rem; left: 10px; color: cornflowerblue; font-weight: bold; } ninput2>.input-container input:focus,[data-is="ninput2"]>.input-container input:focus{ border-bottom: 2px solid #f7497d; } ninput2>.input-container input:valid,[data-is="ninput2"]>.input-container input:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
+riot.tag2('ninput', '<div class="input-container"> <input ref="input" type="{opts.type}" name="{opts.name}" riot-value="{opts.value}" required="" autocomplete="off"> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label> </div>', 'ninput,[data-is="ninput"]{ position: relative; display: grid; margin: 0 auto; padding: 0; grid-template-columns: 3px 1fr 3px; grid-template-rows: 3px auto 3px; grid-template-areas: \'. . .\' \'. input-ares .\' \'. . .\'; height: auto; width: 100%; background: transparent; } ninput>.input-container,[data-is="ninput"]>.input-container{ grid-area: input-ares; position: relative; display: grid; grid-template-columns: 2px 5px 1fr 5px 20px 2px; grid-template-rows: 5px 1.7rem auto 5px; grid-template-areas: \'. . . . . .\' \'. . . . . .\' \'. . ctrl . clear .\' \'. . . . . .\'; margin: 0; padding: 0; height: auto; width: 100%; } ninput>.input-container input,[data-is="ninput"]>.input-container input{ grid-area: ctrl; display: inline-block; margin: 0; padding: 0 5px; padding-bottom: 5px; width: 100%; background-color: transparent; box-sizing: border-box; box-shadow: none; outline: none; border: none; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput>.input-container .clear,[data-is="ninput"]>.input-container .clear{ grid-area: clear; display: flex; margin: 0 auto; margin-top: 4px; padding: 0px 3px; align-items: center; justify-items: center; font-weight: bold; font-size: .7rem; width: 18px; height: 18px; color: silver; cursor: pointer; user-select: none; } ninput>.input-container .clear:hover,[data-is="ninput"]>.input-container .clear:hover{ color: red; } ninput>.input-container input:-webkit-autofill,[data-is="ninput"]>.input-container input:-webkit-autofill,ninput>.input-container input:-webkit-autofill:hover,[data-is="ninput"]>.input-container input:-webkit-autofill:hover,ninput>.input-container input:-webkit-autofill:focus,[data-is="ninput"]>.input-container input:-webkit-autofill:focus{ transition: background-color 5000s ease-in-out 0s; } ninput>.input-container label,[data-is="ninput"]>.input-container label{ position: absolute; top: 2rem; left: 14px; color: #555; transition: .2s; pointer-events: none; } ninput>.input-container input:focus ~ label,[data-is="ninput"]>.input-container input:focus ~ label{ top: .25rem; left: 10px; color: #f7497d; font-weight: bold; } ninput>.input-container input:-webkit-autofill ~ label,[data-is="ninput"]>.input-container input:-webkit-autofill ~ label,ninput>.input-container input:valid ~ label,[data-is="ninput"]>.input-container input:valid ~ label{ top: .25rem; left: 10px; color: cornflowerblue; font-weight: bold; } ninput>.input-container input:focus,[data-is="ninput"]>.input-container input:focus{ border-bottom: 2px solid #f7497d; } ninput>.input-container input:valid,[data-is="ninput"]>.input-container input:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
         let self = this
 
         this.on('mount', () => {
@@ -185,6 +88,19 @@ riot.tag2('ninput2', '<div class="input-container"> <input ref="input" type="{op
 
         this.clear = () => { clearInputs() }
         this.focus = () => { if (input) input.focus() }
+        this.value = (text) => {
+            let ret;
+            if (input) {
+                if (text !== undefined && text !== null) {
+                    input.value = text
+                    checkOnBlur()
+                }
+                else {
+                    ret = input.value
+                }
+            }
+            return ret
+        }
 });
 riot.tag2('nselect', '<select ref="input"> <option each="{item in items}" riot-value="{item.value}">{item.text}</option> </select> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label>', 'nselect,[data-is="nselect"]{ margin: 0; margin-top: 5px; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: transparent; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } nselect select,[data-is="nselect"] select{ display: inline-block; padding: 20px 0 10px 0; margin-bottom: 0px; width: calc(100% - 25px); background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg fill=\'black\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/><path d=\'M0 0h24v24H0z\' fill=\'none\'/></svg>"); background-repeat: no-repeat; background-position-x: 100%; background-position-y: 20px; border-radius: 2px; } nselect .clear,[data-is="nselect"] .clear{ display: inline-block; margin: 0; padding: 0px 6px; font-size: 12px; font-weight: bold; width: 21px; height: 21px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } nselect .clear:hover,[data-is="nselect"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } nselect select:-webkit-autofill,[data-is="nselect"] select:-webkit-autofill,nselect select:-webkit-autofill:hover,[data-is="nselect"] select:-webkit-autofill:hover,nselect select:-webkit-autofill:focus,[data-is="nselect"] select:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } nselect label,[data-is="nselect"] label{ position: absolute; top: 30px; left: 14px; color: #555; transition: .2s; pointer-events: none; } nselect select:focus ~ label,[data-is="nselect"] select:focus ~ label{ top: 5px; left: 10px; color: #f7497d; font-weight: bold; } nselect select:-webkit-autofill ~ label,[data-is="nselect"] select:-webkit-autofill ~ label,nselect select:valid ~ label,[data-is="nselect"] select:valid ~ label{ top: 5px; left: 10px; color: cornflowerblue; font-weight: bold; } nselect select:focus,[data-is="nselect"] select:focus{ border-bottom: 2px solid #f7497d; } nselect select:valid,[data-is="nselect"] select:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
 
@@ -311,6 +227,103 @@ riot.tag2('nselect', '<select ref="input"> <option each="{item in items}" riot-v
 });
 
 riot.tag2('nselect2', '', '', '', function(opts) {
+});
+riot.tag2('ninput1', '<input ref="input" type="{opts.type}" name="{opts.name}" riot-value="{opts.value}" required="" autocomplete="off"> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label>', 'ninput1,[data-is="ninput1"]{ margin: 0; margin-top: 5px; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: transparent; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } ninput1 input,[data-is="ninput1"] input{ display: inline-block; padding: 20px 0 10px 0; margin-bottom: 0px; width: calc(100% - 25px); background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput1 .clear,[data-is="ninput1"] .clear{ display: inline-block; margin: 0; padding: 0px 5px; font-size: 12px; font-weight: bold; width: 20px; height: 20px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } ninput1 .clear:hover,[data-is="ninput1"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } ninput1 input:-webkit-autofill,[data-is="ninput1"] input:-webkit-autofill,ninput1 input:-webkit-autofill:hover,[data-is="ninput1"] input:-webkit-autofill:hover,ninput1 input:-webkit-autofill:focus,[data-is="ninput1"] input:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } ninput1 label,[data-is="ninput1"] label{ position: absolute; top: 30px; left: 14px; color: #555; transition: .2s; pointer-events: none; } ninput1 input:focus ~ label,[data-is="ninput1"] input:focus ~ label{ top: 5px; left: 10px; color: #f7497d; font-weight: bold; } ninput1 input:-webkit-autofill ~ label,[data-is="ninput1"] input:-webkit-autofill ~ label,ninput1 input:valid ~ label,[data-is="ninput1"] input:valid ~ label{ top: 5px; left: 10px; color: cornflowerblue; font-weight: bold; } ninput1 input:focus,[data-is="ninput1"] input:focus{ border-bottom: 2px solid #f7497d; } ninput1 input:valid,[data-is="ninput1"] input:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
+
+
+        let self = this;
+
+        let input, clear;
+
+        let initCtrls = () => {
+            input = self.refs['input'];
+            clear = self.refs['clear'];
+            checkOnBlur();
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => {
+            input = null;
+            clear = null;
+        }
+
+        let bindEvents = () => {
+            input.addEventListener('focus', checkOnFocus);
+            input.addEventListener('blur', checkOnBlur);
+            clear.addEventListener('click', onClear);
+        }
+        let unbindEvents = () => {
+            clear.removeEventListener('click', onClear);
+            input.removeEventListener('blur', checkOnBlur);
+            input.removeEventListener('focus', checkOnFocus);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            clearInputs();
+        });
+
+        let oType;
+        let checkOnFocus = () => {
+            if (input) {
+
+                if (!oType) {
+                    oType = input.type;
+                    if (self.opts.type === 'date') {
+
+                        input.value = moment().format('YYYY-MM-DD');
+                    }
+                }
+                if (oType === 'date' && self.opts.type === 'date') {
+                    if (input.value === '') {
+                        input.type = 'date'
+                    }
+                }
+            }
+        }
+        let checkOnBlur = () => {
+            if (input) {
+
+                if (!oType) {
+                    oType = input.type;
+                    if (self.opts.type === 'date') {
+
+                        input.value = moment().format('YYYY-MM-DD');
+                    }
+                }
+                if (oType === 'date' && self.opts.type === 'date') {
+                    if (input.value === '') {
+                        input.type = 'text'
+                    }
+                }
+            }
+        }
+        let onClear = () => {
+            if (input) input.value = '';
+            checkOnBlur();
+        }
+
+        this.clear = () => { if (input) input.value = ''; }
+        this.focus = () => { if (input) input.focus(); }
+        this.value = (text) => {
+            let ret;
+            if (input) {
+                if (text !== undefined && text !== null) {
+                    input.value = text;
+                    checkOnBlur();
+                }
+                else {
+                    ret = input.value;
+                }
+            }
+            return ret;
+        }
+
 });
 riot.tag2('ndialog', '<div class="modal-content"> <span ref="closeBtn" class="close">&times;</span> <div class="modal-content-area"> <yield></yield> </div> </div>', 'ndialog,[data-is="ndialog"]{ display: none; position: fixed; z-index: 1; left: 0; top: 0; margin: 0; padding: 0; width: 100%; height: 100%; overflow: none; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4); } ndialog .modal-content,[data-is="ndialog"] .modal-content{ position: relative; display: block; background-color: #fefefe; margin: 5% auto; padding: 10px; border: 1px solid #888; width: 80%; height: 80%; } ndialog .modal-content .modal-content-area,[data-is="ndialog"] .modal-content .modal-content-area{ position: relative; display: block; margin: 0; padding: 5%; width: 100%; height: 100%; overflow: hidden; } ndialog .close,[data-is="ndialog"] .close{ position: relative; float: right; color: #aaa; font-size: 28px; font-weight: bold; display: none; } ndialog .close:hover,[data-is="ndialog"] .close:hover,ndialog .close:focus,[data-is="ndialog"] .close:focus{ color: black; text-decoration: none; cursor: pointer; }', '', function(opts) {
         let self = this;
@@ -1525,7 +1538,7 @@ riot.tag2('branch-editor', '<div class="entry"> <tabcontrol class="tabs" content
         }
         this.refresh = () => {}
 });
-riot.tag2('branch-entry', '<ninput ref="branchName" title="{content.entry.branchName}" type="text" name="branchName"></ninput> <div class="padtop"></div>', 'branch-entry,[data-is="branch-entry"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; } branch-entry .padtop,[data-is="branch-entry"] .padtop{ position: relative; display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
+riot.tag2('branch-entry', '<ninput ref="branchName" title="{content.entry.branchName}" type="text" name="branchName"></ninput>', 'branch-entry,[data-is="branch-entry"]{ position: relative; display: block; margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
@@ -1893,7 +1906,7 @@ riot.tag2('device-editor', '<div class="entry"> <tabcontrol class="tabs" content
         }
         this.refresh = () => {}
 });
-riot.tag2('device-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="deviceName" title="{content.entry.deviceName}" type="text" name="deviceName"></ninput> <ninput ref="location" title="{content.entry.location}" type="text" name="location"></ninput> <virtual if="{isDefault()}"> <nselect ref="deviceTypes" title="{content.entry.deviceTypeId}"></nselect> </virtual>', 'device-entry,[data-is="device-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } device-entry .padtop,[data-is="device-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
+riot.tag2('device-entry', '<ninput ref="deviceName" title="{content.entry.deviceName}" type="text" name="deviceName"></ninput> <ninput ref="location" title="{content.entry.location}" type="text" name="location"></ninput> <virtual if="{isDefault()}"> <nselect ref="deviceTypes" title="{content.entry.deviceTypeId}"></nselect> </virtual>', 'device-entry,[data-is="device-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
@@ -2455,7 +2468,7 @@ riot.tag2('member-editor', '<div class="entry"> <tabcontrol class="tabs" content
         }
         this.refresh = () => {}
 });
-riot.tag2('member-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="prefix" title="{content.entry.prefix}" type="text" name="prefix"></ninput> <ninput ref="firstName" title="{content.entry.firstName}" type="text" name="firstName"></ninput> <ninput ref="lastName" title="{content.entry.lastName}" type="text" name="lastName"></ninput> <virtual if="{isDefault()}"> <ninput ref="userName" title="{content.entry.userName}" type="text" name="userName"></ninput> <ninput ref="passWord" title="{content.entry.passWord}" type="password" name="passWord"></ninput> <nselect ref="memberTypes" title="{content.entry.memberType}"></nselect> </virtual>', 'member-entry,[data-is="member-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } member-entry .padtop,[data-is="member-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
+riot.tag2('member-entry', '<ninput ref="prefix" title="{content.entry.prefix}" type="text" name="prefix"></ninput> <ninput ref="firstName" title="{content.entry.firstName}" type="text" name="firstName"></ninput> <ninput ref="lastName" title="{content.entry.lastName}" type="text" name="lastName"></ninput> <virtual if="{isDefault()}"> <ninput ref="userName" title="{content.entry.userName}" type="text" name="userName"></ninput> <ninput ref="passWord" title="{content.entry.passWord}" type="password" name="passWord"></ninput> <nselect ref="memberTypes" title="{content.entry.memberType}"></nselect> </virtual>', 'member-entry,[data-is="member-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
@@ -3755,7 +3768,7 @@ riot.tag2('customer-editor', '<div class="entry"> <tabcontrol class="tabs" conte
         }
         this.refresh = () => {}
 });
-riot.tag2('customer-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="customerName" title="{content.entry.customerName}" type="text" name="customerName"></ninput>', 'customer-entry,[data-is="customer-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } customer-entry .padtop,[data-is="customer-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
+riot.tag2('customer-entry', '<ninput ref="customerName" title="{content.entry.customerName}" type="text" name="customerName"></ninput>', 'customer-entry,[data-is="customer-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns
@@ -4040,7 +4053,7 @@ riot.tag2('staff-editor', '<div class="entry"> <tabcontrol class="tabs" content=
         }
         this.refresh = () => {}
 });
-riot.tag2('staff-entry', '<div class="padtop"></div> <div class="padtop"></div> <ninput ref="prefix" title="{content.entry.prefix}" type="text" name="prefix"></ninput> <ninput ref="firstName" title="{content.entry.firstName}" type="text" name="firstName"></ninput> <ninput ref="lastName" title="{content.entry.lastName}" type="text" name="lastName"></ninput> <virtual if="{isDefault()}"> <ninput ref="userName" title="{content.entry.userName}" type="text" name="userName"></ninput> <ninput ref="passWord" title="{content.entry.passWord}" type="password" name="passWord"></ninput> <nselect ref="memberTypes" title="{content.entry.memberType}"></nselect> </virtual>', 'staff-entry,[data-is="staff-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; } staff-entry .padtop,[data-is="staff-entry"] .padtop{ display: block; margin: 0 auto; width: 100%; min-height: 10px; }', '', function(opts) {
+riot.tag2('staff-entry', '<ninput ref="prefix" title="{content.entry.prefix}" type="text" name="prefix"></ninput> <ninput ref="firstName" title="{content.entry.firstName}" type="text" name="firstName"></ninput> <ninput ref="lastName" title="{content.entry.lastName}" type="text" name="lastName"></ninput> <virtual if="{isDefault()}"> <ninput ref="userName" title="{content.entry.userName}" type="text" name="userName"></ninput> <ninput ref="passWord" title="{content.entry.passWord}" type="password" name="passWord"></ninput> <nselect ref="memberTypes" title="{content.entry.memberType}"></nselect> </virtual>', 'staff-entry,[data-is="staff-entry"]{ margin: 0; padding: 0; width: 100%; height: 100%; }', '', function(opts) {
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
         let assigns = nlib.utils.assigns

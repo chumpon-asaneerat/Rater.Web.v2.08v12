@@ -1,6 +1,4 @@
 <device-entry>
-    <div class="padtop"></div>
-    <div class="padtop"></div>
     <ninput ref="deviceName" title="{ content.entry.deviceName }" type="text" name="deviceName"></ninput>
     <ninput ref="location" title="{ content.entry.location }" type="text" name="location"></ninput>
     <virtual if={ isDefault() }>
@@ -12,13 +10,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-        }
-    
-        :scope .padtop {
-            display: block;
-            margin: 0 auto;
-            width: 100%;
-            min-height: 10px;
         }
     </style>
     <script>

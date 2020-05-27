@@ -1,6 +1,4 @@
 <member-entry>
-    <div class="padtop"></div>
-    <div class="padtop"></div>
     <ninput ref="prefix" title="{ content.entry.prefix }" type="text" name="prefix"></ninput>
     <ninput ref="firstName" title="{ content.entry.firstName }" type="text" name="firstName"></ninput>
     <ninput ref="lastName" title="{ content.entry.lastName }" type="text" name="lastName"></ninput>
@@ -23,12 +21,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-        }
-        :scope .padtop {
-            display: block;
-            margin: 0 auto;
-            width: 100%;
-            min-height: 10px;
         }
     </style>
     <script>
