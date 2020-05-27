@@ -135,6 +135,7 @@ riot.tag2('nselect', '<div class="input-container"> <select ref="input"> <option
         let clearInputs = () => {
             if (input) {
                 input.selectedIndex = 0
+                if (onChangeCallback) onChangeCallback()
             }
         }
         let disableFirstOption = () => {
@@ -193,6 +194,16 @@ riot.tag2('nselect', '<div class="input-container"> <select ref="input"> <option
                 }
                 else {
                     ret = getSelectedValue()
+                }
+            }
+            return ret
+        }
+        this.selectedItem = () => {
+            let ret
+            if (input) {
+                let idx = input.selectedIndex
+                if (idx >= 0 && idx < self.items.length) {
+                    ret = self.items[idx].source
                 }
             }
             return ret
