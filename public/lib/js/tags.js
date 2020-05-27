@@ -102,7 +102,216 @@ riot.tag2('ninput', '<div class="input-container"> <input ref="input" type="{opt
             return ret
         }
 });
-riot.tag2('nselect', '<select ref="input"> <option each="{item in items}" riot-value="{item.value}">{item.text}</option> </select> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label>', 'nselect,[data-is="nselect"]{ margin: 0; margin-top: 5px; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: transparent; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } nselect select,[data-is="nselect"] select{ display: inline-block; padding: 20px 0 10px 0; margin-bottom: 0px; width: calc(100% - 25px); background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg fill=\'black\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/><path d=\'M0 0h24v24H0z\' fill=\'none\'/></svg>"); background-repeat: no-repeat; background-position-x: 100%; background-position-y: 20px; border-radius: 2px; } nselect .clear,[data-is="nselect"] .clear{ display: inline-block; margin: 0; padding: 0px 6px; font-size: 12px; font-weight: bold; width: 21px; height: 21px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } nselect .clear:hover,[data-is="nselect"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } nselect select:-webkit-autofill,[data-is="nselect"] select:-webkit-autofill,nselect select:-webkit-autofill:hover,[data-is="nselect"] select:-webkit-autofill:hover,nselect select:-webkit-autofill:focus,[data-is="nselect"] select:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } nselect label,[data-is="nselect"] label{ position: absolute; top: 30px; left: 14px; color: #555; transition: .2s; pointer-events: none; } nselect select:focus ~ label,[data-is="nselect"] select:focus ~ label{ top: 5px; left: 10px; color: #f7497d; font-weight: bold; } nselect select:-webkit-autofill ~ label,[data-is="nselect"] select:-webkit-autofill ~ label,nselect select:valid ~ label,[data-is="nselect"] select:valid ~ label{ top: 5px; left: 10px; color: cornflowerblue; font-weight: bold; } nselect select:focus,[data-is="nselect"] select:focus{ border-bottom: 2px solid #f7497d; } nselect select:valid,[data-is="nselect"] select:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
+riot.tag2('nselect', '<div class="input-container"> <select ref="input"> <option each="{item in items}" riot-value="{item.value}">{item.text}</option> </select> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label> </div>', 'nselect,[data-is="nselect"]{ position: relative; display: grid; margin: 0 auto; padding: 0; grid-template-columns: 3px 1fr 3px; grid-template-rows: 3px auto 3px; grid-template-areas: \'. . .\' \'. input-ares .\' \'. . .\'; height: auto; width: 100%; background: transparent; } nselect>.input-container,[data-is="nselect"]>.input-container{ grid-area: input-ares; position: relative; display: grid; grid-template-columns: 2px 5px 1fr 5px 20px 2px; grid-template-rows: 5px 1.7rem auto 5px; grid-template-areas: \'. . . . . .\' \'. . . . . .\' \'. . ctrl . clear .\' \'. . . . . .\'; margin: 0; padding: 0; height: auto; width: 100%; } nselect>.input-container select,[data-is="nselect"]>.input-container select{ grid-area: ctrl; display: inline-block; margin: 0; padding: 0 5px; padding-bottom: 5px; width: 100%; background-color: transparent; box-sizing: border-box; box-shadow: none; outline: none; border: none; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } nselect>.input-container .clear,[data-is="nselect"]>.input-container .clear{ grid-area: clear; display: flex; margin: 0 auto; margin-top: 4px; padding: 0px 3px; align-items: center; justify-items: center; font-weight: bold; font-size: .7rem; width: 18px; height: 18px; color: silver; cursor: pointer; user-select: none; } nselect>.input-container .clear:hover,[data-is="nselect"]>.input-container .clear:hover{ color: red; } nselect>.input-container select:-webkit-autofill,[data-is="nselect"]>.input-container select:-webkit-autofill,nselect>.input-container select:-webkit-autofill:hover,[data-is="nselect"]>.input-container select:-webkit-autofill:hover,nselect>.input-container select:-webkit-autofill:focus,[data-is="nselect"]>.input-container select:-webkit-autofill:focus{ transition: background-color 5000s ease-in-out 0s; } nselect>.input-container label,[data-is="nselect"]>.input-container label{ position: absolute; top: 2rem; left: 14px; color: #555; transition: .2s; pointer-events: none; } nselect>.input-container select:focus ~ label,[data-is="nselect"]>.input-container select:focus ~ label{ top: .25rem; left: 10px; color: #f7497d; font-weight: bold; } nselect>.input-container select:-webkit-autofill ~ label,[data-is="nselect"]>.input-container select:-webkit-autofill ~ label,nselect>.input-container select:valid ~ label,[data-is="nselect"]>.input-container select:valid ~ label{ top: .25rem; left: 10px; color: cornflowerblue; font-weight: bold; } nselect>.input-container select:focus,[data-is="nselect"]>.input-container select:focus{ border-bottom: 2px solid #f7497d; } nselect>.input-container select:valid,[data-is="nselect"]>.input-container select:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
+        let self = this
+        let fldmap = { valueField:'code', textField:'name' }
+        let defaultItem = {
+            value: '',
+            text: '-',
+            source: null
+        }
+        this.items = []
+        this.items.push(defaultItem)
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            clearInputs()
+        })
+
+        let input, clear
+        let initCtrls = () => {
+            input = self.refs['input']
+            clear = self.refs['clear']
+            disableFirstOption();
+        }
+        let freeCtrls = () => {
+            input = null;
+            clear = null;
+        }
+        let clearInputs = () => {
+            if (input) {
+                input.selectedIndex = 0
+            }
+        }
+        let disableFirstOption = () => {
+            if (input && input.options[0]) {
+                let opt = input.options[0]
+                opt.setAttribute('disable', '')
+                opt.setAttribute('selected', '')
+                opt.style.display = 'none'
+            }
+        }
+        let bindEvents = () => {
+            input.addEventListener('change', onSelection)
+            clear.addEventListener('click', onClear)
+        }
+        let unbindEvents = () => {
+            clear.removeEventListener('click', onClear)
+            input.removeEventListener('change', onSelection)
+        }
+        let onChangeCallback;
+        let onClear = () => { clearInputs() }
+        let onSelection = (e) => {
+            if (input) {
+                let idx = input.selectedIndex
+                let val = input.options[input.selectedIndex].value
+
+                if (onChangeCallback) onChangeCallback()
+            }
+        }
+        this.clear = () => { clearInputs(); }
+        this.focus = () => { if (input) input.focus(); }
+
+        let hasValue = (val) => { return (val !== undefined && val !== null) }
+        let getSelectedIndexByValue = (val) => {
+            let sVal = val.toString()
+            let opt, idx = 0
+            for (let i = 0; i < input.options.length; i++) {
+                opt = input.options[i]
+                if (opt.value.toString() === sVal) {
+
+                    idx = i
+                    break
+                }
+            }
+            return idx
+        }
+        let getSelectedValue = () => {
+            let idx = input.selectedIndex
+            let ret = (idx > 0) ? input.options[input.selectedIndex].value : null
+            return ret
+        }
+        this.value = (val) => {
+            let ret
+            if (input) {
+                if (hasValue(val)) {
+                    input.selectedIndex = getSelectedIndexByValue(val)
+                }
+                else {
+                    ret = getSelectedValue()
+                }
+            }
+            return ret
+        }
+        this.setup = (values, fldMap, callback) => {
+            fldmap = fldMap
+            onChangeCallback = callback
+            self.items = [];
+            self.items.push(defaultItem)
+            values.forEach(val => {
+                let item = {
+                    value: val[fldmap.valueField],
+                    text: val[fldmap.textField],
+                    source: val
+                }
+                self.items.push(item)
+            })
+            disableFirstOption()
+            self.update()
+        }
+});
+riot.tag2('ninput1', '<input ref="input" type="{opts.type}" name="{opts.name}" riot-value="{opts.value}" required="" autocomplete="off"> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label>', 'ninput1,[data-is="ninput1"]{ margin: 0; margin-top: 5px; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: transparent; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } ninput1 input,[data-is="ninput1"] input{ display: inline-block; padding: 20px 0 10px 0; margin-bottom: 0px; width: calc(100% - 25px); background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput1 .clear,[data-is="ninput1"] .clear{ display: inline-block; margin: 0; padding: 0px 5px; font-size: 12px; font-weight: bold; width: 20px; height: 20px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } ninput1 .clear:hover,[data-is="ninput1"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } ninput1 input:-webkit-autofill,[data-is="ninput1"] input:-webkit-autofill,ninput1 input:-webkit-autofill:hover,[data-is="ninput1"] input:-webkit-autofill:hover,ninput1 input:-webkit-autofill:focus,[data-is="ninput1"] input:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } ninput1 label,[data-is="ninput1"] label{ position: absolute; top: 30px; left: 14px; color: #555; transition: .2s; pointer-events: none; } ninput1 input:focus ~ label,[data-is="ninput1"] input:focus ~ label{ top: 5px; left: 10px; color: #f7497d; font-weight: bold; } ninput1 input:-webkit-autofill ~ label,[data-is="ninput1"] input:-webkit-autofill ~ label,ninput1 input:valid ~ label,[data-is="ninput1"] input:valid ~ label{ top: 5px; left: 10px; color: cornflowerblue; font-weight: bold; } ninput1 input:focus,[data-is="ninput1"] input:focus{ border-bottom: 2px solid #f7497d; } ninput1 input:valid,[data-is="ninput1"] input:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
+
+
+        let self = this;
+
+        let input, clear;
+
+        let initCtrls = () => {
+            input = self.refs['input'];
+            clear = self.refs['clear'];
+            checkOnBlur();
+        }
+        let freeCtrls = () => {
+            flipper = null;
+        }
+        let clearInputs = () => {
+            input = null;
+            clear = null;
+        }
+
+        let bindEvents = () => {
+            input.addEventListener('focus', checkOnFocus);
+            input.addEventListener('blur', checkOnBlur);
+            clear.addEventListener('click', onClear);
+        }
+        let unbindEvents = () => {
+            clear.removeEventListener('click', onClear);
+            input.removeEventListener('blur', checkOnBlur);
+            input.removeEventListener('focus', checkOnFocus);
+        }
+
+        this.on('mount', () => {
+            initCtrls();
+            bindEvents();
+        });
+        this.on('unmount', () => {
+            unbindEvents();
+            clearInputs();
+        });
+
+        let oType;
+        let checkOnFocus = () => {
+            if (input) {
+
+                if (!oType) {
+                    oType = input.type;
+                    if (self.opts.type === 'date') {
+
+                        input.value = moment().format('YYYY-MM-DD');
+                    }
+                }
+                if (oType === 'date' && self.opts.type === 'date') {
+                    if (input.value === '') {
+                        input.type = 'date'
+                    }
+                }
+            }
+        }
+        let checkOnBlur = () => {
+            if (input) {
+
+                if (!oType) {
+                    oType = input.type;
+                    if (self.opts.type === 'date') {
+
+                        input.value = moment().format('YYYY-MM-DD');
+                    }
+                }
+                if (oType === 'date' && self.opts.type === 'date') {
+                    if (input.value === '') {
+                        input.type = 'text'
+                    }
+                }
+            }
+        }
+        let onClear = () => {
+            if (input) input.value = '';
+            checkOnBlur();
+        }
+
+        this.clear = () => { if (input) input.value = ''; }
+        this.focus = () => { if (input) input.focus(); }
+        this.value = (text) => {
+            let ret;
+            if (input) {
+                if (text !== undefined && text !== null) {
+                    input.value = text;
+                    checkOnBlur();
+                }
+                else {
+                    ret = input.value;
+                }
+            }
+            return ret;
+        }
+
+});
+riot.tag2('nselect1', '<select ref="input"> <option each="{item in items}" riot-value="{item.value}">{item.text}</option> </select> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label>', 'nselect1,[data-is="nselect1"]{ margin: 0; margin-top: 5px; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: transparent; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } nselect1 select,[data-is="nselect1"] select{ display: inline-block; padding: 20px 0 10px 0; margin-bottom: 0px; width: calc(100% - 25px); background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg fill=\'black\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/><path d=\'M0 0h24v24H0z\' fill=\'none\'/></svg>"); background-repeat: no-repeat; background-position-x: 100%; background-position-y: 20px; border-radius: 2px; } nselect1 .clear,[data-is="nselect1"] .clear{ display: inline-block; margin: 0; padding: 0px 6px; font-size: 12px; font-weight: bold; width: 21px; height: 21px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } nselect1 .clear:hover,[data-is="nselect1"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } nselect1 select:-webkit-autofill,[data-is="nselect1"] select:-webkit-autofill,nselect1 select:-webkit-autofill:hover,[data-is="nselect1"] select:-webkit-autofill:hover,nselect1 select:-webkit-autofill:focus,[data-is="nselect1"] select:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } nselect1 label,[data-is="nselect1"] label{ position: absolute; top: 30px; left: 14px; color: #555; transition: .2s; pointer-events: none; } nselect1 select:focus ~ label,[data-is="nselect1"] select:focus ~ label{ top: 5px; left: 10px; color: #f7497d; font-weight: bold; } nselect1 select:-webkit-autofill ~ label,[data-is="nselect1"] select:-webkit-autofill ~ label,nselect1 select:valid ~ label,[data-is="nselect1"] select:valid ~ label{ top: 5px; left: 10px; color: cornflowerblue; font-weight: bold; } nselect1 select:focus,[data-is="nselect1"] select:focus{ border-bottom: 2px solid #f7497d; } nselect1 select:valid,[data-is="nselect1"] select:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
 
 
         let self = this;
@@ -226,105 +435,6 @@ riot.tag2('nselect', '<select ref="input"> <option each="{item in items}" riot-v
 
 });
 
-riot.tag2('nselect2', '', '', '', function(opts) {
-});
-riot.tag2('ninput1', '<input ref="input" type="{opts.type}" name="{opts.name}" riot-value="{opts.value}" required="" autocomplete="off"> <div ref="clear" class="clear"><span class="fas fa-times"></span></div> <label>{opts.title}</label>', 'ninput1,[data-is="ninput1"]{ margin: 0; margin-top: 5px; padding: 10px; font-size: 14px; display: inline-block; position: relative; height: auto; width: 100%; background: transparent; box-shadow: 0 5px 10px solid rgba(0, 0, 0, .2); } ninput1 input,[data-is="ninput1"] input{ display: inline-block; padding: 20px 0 10px 0; margin-bottom: 0px; width: calc(100% - 25px); background-color: whitesmoke; box-sizing: border-box; box-shadow: none; outline: none; border: none; font-size: 14px; box-shadow: 0 0 0px 1000px white inset; border-bottom: 2px solid #999; } ninput1 .clear,[data-is="ninput1"] .clear{ display: inline-block; margin: 0; padding: 0px 5px; font-size: 12px; font-weight: bold; width: 20px; height: 20px; color: white; cursor: pointer; user-select: none; border: 1px solid red; border-radius: 50%; background: rgba(255, 100, 100, .75); } ninput1 .clear:hover,[data-is="ninput1"] .clear:hover{ color: yellow; background: rgba(255, 0, 0, .8); } ninput1 input:-webkit-autofill,[data-is="ninput1"] input:-webkit-autofill,ninput1 input:-webkit-autofill:hover,[data-is="ninput1"] input:-webkit-autofill:hover,ninput1 input:-webkit-autofill:focus,[data-is="ninput1"] input:-webkit-autofill:focus{ font-size: 14px; transition: background-color 5000s ease-in-out 0s; } ninput1 label,[data-is="ninput1"] label{ position: absolute; top: 30px; left: 14px; color: #555; transition: .2s; pointer-events: none; } ninput1 input:focus ~ label,[data-is="ninput1"] input:focus ~ label{ top: 5px; left: 10px; color: #f7497d; font-weight: bold; } ninput1 input:-webkit-autofill ~ label,[data-is="ninput1"] input:-webkit-autofill ~ label,ninput1 input:valid ~ label,[data-is="ninput1"] input:valid ~ label{ top: 5px; left: 10px; color: cornflowerblue; font-weight: bold; } ninput1 input:focus,[data-is="ninput1"] input:focus{ border-bottom: 2px solid #f7497d; } ninput1 input:valid,[data-is="ninput1"] input:valid{ border-bottom: 2px solid cornflowerblue; }', '', function(opts) {
-
-
-        let self = this;
-
-        let input, clear;
-
-        let initCtrls = () => {
-            input = self.refs['input'];
-            clear = self.refs['clear'];
-            checkOnBlur();
-        }
-        let freeCtrls = () => {
-            flipper = null;
-        }
-        let clearInputs = () => {
-            input = null;
-            clear = null;
-        }
-
-        let bindEvents = () => {
-            input.addEventListener('focus', checkOnFocus);
-            input.addEventListener('blur', checkOnBlur);
-            clear.addEventListener('click', onClear);
-        }
-        let unbindEvents = () => {
-            clear.removeEventListener('click', onClear);
-            input.removeEventListener('blur', checkOnBlur);
-            input.removeEventListener('focus', checkOnFocus);
-        }
-
-        this.on('mount', () => {
-            initCtrls();
-            bindEvents();
-        });
-        this.on('unmount', () => {
-            unbindEvents();
-            clearInputs();
-        });
-
-        let oType;
-        let checkOnFocus = () => {
-            if (input) {
-
-                if (!oType) {
-                    oType = input.type;
-                    if (self.opts.type === 'date') {
-
-                        input.value = moment().format('YYYY-MM-DD');
-                    }
-                }
-                if (oType === 'date' && self.opts.type === 'date') {
-                    if (input.value === '') {
-                        input.type = 'date'
-                    }
-                }
-            }
-        }
-        let checkOnBlur = () => {
-            if (input) {
-
-                if (!oType) {
-                    oType = input.type;
-                    if (self.opts.type === 'date') {
-
-                        input.value = moment().format('YYYY-MM-DD');
-                    }
-                }
-                if (oType === 'date' && self.opts.type === 'date') {
-                    if (input.value === '') {
-                        input.type = 'text'
-                    }
-                }
-            }
-        }
-        let onClear = () => {
-            if (input) input.value = '';
-            checkOnBlur();
-        }
-
-        this.clear = () => { if (input) input.value = ''; }
-        this.focus = () => { if (input) input.focus(); }
-        this.value = (text) => {
-            let ret;
-            if (input) {
-                if (text !== undefined && text !== null) {
-                    input.value = text;
-                    checkOnBlur();
-                }
-                else {
-                    ret = input.value;
-                }
-            }
-            return ret;
-        }
-
-});
 riot.tag2('ndialog', '<div class="modal-content"> <span ref="closeBtn" class="close">&times;</span> <div class="modal-content-area"> <yield></yield> </div> </div>', 'ndialog,[data-is="ndialog"]{ display: none; position: fixed; z-index: 1; left: 0; top: 0; margin: 0; padding: 0; width: 100%; height: 100%; overflow: none; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4); } ndialog .modal-content,[data-is="ndialog"] .modal-content{ position: relative; display: block; background-color: #fefefe; margin: 5% auto; padding: 10px; border: 1px solid #888; width: 80%; height: 80%; } ndialog .modal-content .modal-content-area,[data-is="ndialog"] .modal-content .modal-content-area{ position: relative; display: block; margin: 0; padding: 5%; width: 100%; height: 100%; overflow: hidden; } ndialog .close,[data-is="ndialog"] .close{ position: relative; float: right; color: #aaa; font-size: 28px; font-weight: bold; display: none; } ndialog .close:hover,[data-is="ndialog"] .close:hover,ndialog .close:focus,[data-is="ndialog"] .close:focus{ color: black; text-decoration: none; cursor: pointer; }', '', function(opts) {
         let self = this;
 
