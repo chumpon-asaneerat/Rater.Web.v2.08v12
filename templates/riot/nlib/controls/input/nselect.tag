@@ -41,7 +41,7 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             */
         }
-        :scope>.input-container select {
+        :scope>.input-container>select {
             grid-area: ctrl;
             display: inline-block;
             margin: 0;
@@ -59,7 +59,7 @@
             box-shadow: 0 0 0px 1000px white inset;
             border-bottom: 2px solid #999;
         }
-        :scope>.input-container .clear {
+        :scope>.input-container>.clear {
             grid-area: clear;
             display: flex;
             margin: 0 auto;
@@ -75,16 +75,16 @@
             cursor: pointer;
             user-select: none;
         }
-        :scope>.input-container .clear:hover {
+        :scope>.input-container>.clear:hover {
             color: red;
         }
         /* Change Autocomplete styles in Chrome*/
-        :scope>.input-container select:-webkit-autofill,
-        :scope>.input-container select:-webkit-autofill:hover, 
-        :scope>.input-container select:-webkit-autofill:focus {
+        :scope>.input-container>select:-webkit-autofill,
+        :scope>.input-container>select:-webkit-autofill:hover, 
+        :scope>.input-container>select:-webkit-autofill:focus {
             transition: background-color 5000s ease-in-out 0s;
         }
-        :scope>.input-container label {
+        :scope>.input-container>label {
             position: absolute;
             top: 2rem;
             left: 14px;
@@ -92,23 +92,23 @@
             transition: .2s;
             pointer-events: none;
         }
-        :scope>.input-container select:focus ~ label {
+        :scope>.input-container>select:focus ~ label {
             top: .25rem;
             left: 10px;
             color: #f7497d;
             font-weight: bold;
         }
-        :scope>.input-container select:-webkit-autofill ~ label,
-        :scope>.input-container select:valid ~ label {
+        :scope>.input-container>select:-webkit-autofill ~ label,
+        :scope>.input-container>select:valid ~ label {
             top: .25rem;
             left: 10px;
             color: cornflowerblue;
             font-weight: bold;
         }
-        :scope>.input-container select:focus {
+        :scope>.input-container>select:focus {
             border-bottom: 2px solid #f7497d;
         }
-        :scope>.input-container select:valid {
+        :scope>.input-container>select:valid {
             border-bottom: 2px solid cornflowerblue;
         }
     </style>
