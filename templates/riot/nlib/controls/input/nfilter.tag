@@ -1,6 +1,6 @@
 <nfilter>
     <div class="input-container">
-        <span ref="input" value={ opts.value } contenteditable="true"></span>
+        <span ref="input" class="input" value={ opts.value } contenteditable></span>
         <div ref="clear" class="clear"><span class="fas fa-times"></span></div>
         <label>{ opts.title }</label>
     </div>
@@ -39,7 +39,7 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
             */
         }
-        :scope>.input-container>span {
+        :scope>.input-container>.input {
             grid-area: ctrl;
             display: inline-block;
             margin: 0;
@@ -73,8 +73,45 @@
             cursor: pointer;
             user-select: none;
         }
-        :scope>.input-container .clear:hover {
+        :scope>.input-container>.clear:hover {
             color: red;
+        }
+        :scope>.input-container>.clear:hover {
+            color: red;
+        }
+        /* Change Autocomplete styles in Chrome*/
+        :scope>.input-container>.input:-webkit-autofill,
+        :scope>.input-container>.input:-webkit-autofill:hover, 
+        :scope>.input-container>.input:-webkit-autofill:focus {
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        :scope>.input-container>label {
+            position: absolute;
+            top: 2rem;
+            left: 14px;
+            color: #555;
+            transition: .2s;
+            pointer-events: none;
+        }
+        :scope>.input-container>.input:focus ~ label {
+            top: .25rem;
+            left: 10px;
+            color: #f7497d;
+            font-weight: bold;
+        }
+        :scope>.input-container>.input:-webkit-autofill ~ label,
+        :scope>.input-container>.input:valid ~ label {
+            top: .25rem;
+            left: 10px;
+            color: cornflowerblue;
+            font-weight: bold;
+        }
+        :scope>.input-container>.input:focus {
+            background-color: #999;
+            border-bottom: 2px solid #f7497d;
+        }
+        :scope>.input-container>.input:valid {
+            border-bottom: 2px solid cornflowerblue;
         }
     </style>
     <script>
