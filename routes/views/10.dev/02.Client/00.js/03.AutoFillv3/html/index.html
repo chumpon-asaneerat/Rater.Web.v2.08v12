@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search suggestions.</title>
+    <!-- Font Awesome -->
+    <link href="/dist/css/fontawesome.all.min.css" rel="stylesheet" type="text/css"/>
+    <link href="autofill3/css/nlib.css"  rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h3>Search suggestions.</h3>
+    <!-- Concept -->
+    <div style="display: block; margin:0 auto; margin-top: 10px; width: 80%;">
+        <div>
+            <div id="tagQSet"></div>
+            <div id="tagQues"></div>
+            <div id="tagDate"></div>
+        </div>
+        <div id="txtSearch1"></div>
+        <button style="display: inline-block; margin: 0 auto; padding: 0; width: 10%;">Search</button>
+        <h4 id="outResult">Result:</h4>
+    </div>
+    <hr/>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum ligula vel hendrerit porta. Aenean lectus mi,
+    mollis a lorem quis, dignissim facilisis erat. Donec quis tempus quam, in fermentum elit. Nullam auctor libero et
+    fringilla tempor. Etiam ultrices quam rhoncus ante mollis tempus. Nullam luctus elementum lorem, vitae euismod metus
+    sodales eget. Aliquam feugiat metus eu urna sollicitudin vestibulum. Nulla tempor ligula et dolor venenatis pulvinar.
+    Pellentesque aliquam mattis enim. Nulla facilisi. Integer neque magna, fringilla a lobortis a, finibus vel ex. Praesent
+    porta finibus arcu a facilisis. Nam ipsum ex, lacinia vel libero ac, eleifend suscipit quam. Quisque sit amet efficitur
+    tortor.</p>
+
+    <!-- JQuery -->
+    <script src="/dist/js/jquery.min.js"></script>
+    <!-- Moment.js -->
+    <script src="/dist/js/moment.min.js"></script>
+    <!-- Riot.js -->
+    <script src="/dist/js/riot.min.js"></script>
+    <!-- nlib -->
+    <script src="autofill3/js/nlib.js"></script>
+    <script>
+        let searchElem = document.getElementById('txtSearch1');
+        let opts = {
+            buttons: [{
+                name: 'main-menu',
+                align: 'left',
+                css: { class: 'fas fa-caret-square-down' },
+                tooltip: 'Main Menu',
+                click: function (evt, autofill, button) {
+                    console.log(autofill, button);
+                    console.log('Main Menu click.');
+                }
+            }, {
+                name: 'select-all',
+                align: 'right',
+                css: { class: 'fas fa-bars' },
+                tooltip: 'Select all',
+                click: function (evt, autofill, button) {
+                    autofill.selectAll();
+                }
+            }]
+        }
+        let items =  [
+            { id: 'A1', name: 'Apple' },
+            { id: 'A2', name: 'Applicot' },
+            { id: 'A3', name: 'Action' },
+            { id: 'A4', name: 'Bison' },
+            { id: 'A5', name: 'Elephen' },
+            { id: 'A6', name: 'Eleven' },
+            { id: 'A7', name: 'Boston' },
+            { id: 'A8', name: 'CPP' },
+            { id: 'A9', name: 'Capture' },
+            { id: 'A10', name: 'Tiger' }
+        ];
+        let autofill = new NGui.AutoFill(searchElem, opts);
+        autofill.idMember = 'id';
+        autofill.valueMember = 'name';
+        autofill.datasource = items;
+        window.current = autofill;
+        // qsets
+        let qsetElem = document.getElementById('tagQSet');
+        let tagQSet = new NGui.TagBox(qsetElem);
+        tagQSet.idMember = autofill.idMember;
+        tagQSet.valueMember = autofill.valueMember;
+        let sitems = autofill.selectedItems;
+        tagQSet.items = sitems;
+        tagQSet.caption.text = 'Question Set:'
+
+        let searchSelectionChanged = (sender, evt) => {
+            tagQSet.idMember = autofill.idMember;
+            tagQSet.valueMember = autofill.valueMember;
+            let nitems = autofill.selectedItems;
+            tagQSet.items = nitems;
+        };
+        let qsetClearItems = (sender, evt) => {
+            autofill.unselectAll();
+            autofill.focus();
+        };
+        let qsetRemoveItem = (sender, evt) => {
+            let item = sender;
+            autofill.unselectItem(item);
+            autofill.focus();
+        };
+        // setup handlers
+        autofill.selectionChanged.add(searchSelectionChanged);
+        tagQSet.clearItems.add(qsetClearItems);
+        tagQSet.removeItem.add(qsetRemoveItem);
+
+        // questions
+        /*
+        let quesElem = document.getElementById('tagQues');
+        let tagQues = new NGui.TagBox(quesElem);
+        */
+        // date
+        /*
+        let dateElem = document.getElementById('tagDate');
+        let tagDate = new NGui.TagBox(dateElem);
+        */
+    </script>
+</body>
+</html>
