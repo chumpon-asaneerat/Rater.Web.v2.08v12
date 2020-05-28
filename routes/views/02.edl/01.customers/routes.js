@@ -46,4 +46,14 @@ const init_routes = (svr) => {
     svr.route('/edl/customer', router);
 };
 
+// required
+// need to add SP EDLSignin
+// need to add access customer by Id route.
+/*
+const init_routes = (svr) => {
+    svr.route('/edl/customer/:customerId', router);
+};
+*/
+
+
 module.exports.init_routes = exports.init_routes = init_routes;
