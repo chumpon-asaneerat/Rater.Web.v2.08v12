@@ -4602,7 +4602,44 @@ riot.tag2('company-selection', '<virtual each="{user in users}"> <div class="acc
 riot.tag2('register', '', '', '', function(opts) {
 });
 
-riot.tag2('signin', '<div class="content-area"></div>', 'signin,[data-is="signin"]{ margin: 0 auto; padding: 0; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } signin>.content-area,[data-is="signin"]>.content-area{ grid-area: content-area; position: relative; display: block; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+riot.tag2('signin', '<div class="content-area"> <div class="input-area"> <div class="input-group"> <ninput ref="username" title="User Name" type="email"></ninput> <ninput ref="password" type="password" title="Password"></ninput> </div> </div> <div class="button-area"> <div class="button-group"> <button ref="submit"> <span class="fas fa-user">&nbsp;</span> Sign In </button> </div> </div> </div>', 'signin,[data-is="signin"]{ margin: 0 auto; padding: 0; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } signin>.content-area,[data-is="signin"]>.content-area{ grid-area: content-area; position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 25px 250px 50px 1fr; grid-template-areas: \'.\' \'input-area\' \'button-area\' \'.\'; width: 100%; overflow: hidden; } signin>.content-area>.input-area,[data-is="signin"]>.content-area>.input-area{ grid-area: input-area; position: relative; display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: center; width: 100%; } signin>.content-area>.input-area>.input-group,[data-is="signin"]>.content-area>.input-area>.input-group{ position: relative; display: block; margin: 0 auto; padding: 0; width: 400px; } signin>.content-area>.input-area>.input-group ninput,[data-is="signin"]>.content-area>.input-area>.input-group ninput{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; } signin>.content-area>.button-area,[data-is="signin"]>.content-area>.button-area{ grid-area: button-area; position: relative; display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: center; width: 100%; } signin>.content-area>.button-area>.button-group,[data-is="signin"]>.content-area>.button-area>.button-group{ position: relative; display: block; margin: 0 auto; padding: 0; width: 400px; } signin>.content-area>.button-area>.button-group button,[data-is="signin"]>.content-area>.button-area>.button-group button{ position: relative; display: inline-block; display: block; margin: 5px auto; padding: 10px 15px; color: whitesmoke; background-color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; text-decoration: none; } signin>.content-area>.button-area>.button-group button:hover,[data-is="signin"]>.content-area>.button-area>.button-group button:hover{ background-color: darkgreen; }', '', function(opts) {
+
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let ctrlUser, ctrlPwd, ctrlSubmit
+        let initCtrls = () => {
+            ctrlUser = self.refs['username']
+            ctrlPwd = self.refs['password']
+            ctrlSubmit = self.refs['submit']
+        }
+        let freeCtrls = () => {
+            ctrlSubmit = null
+            ctrlPwd = null
+            ctrlUser = null
+        }
+        let bindEvents = () => {
+            ctrlSubmit.addEventListener('click', onSubmit)
+        }
+        let unbindEvents = () => {
+            ctrlSubmit.removeEventListener('click', onSubmit)
+        }
+        let onSubmit = () => {
+            let ret = {
+                usr: ctrlUser.value(),
+                pwd: ctrlPwd.value()
+            }
+            console.log(ret)
+        }
 });
 
 riot.tag2('dualscreen1', '<dual-layout ref="layout"> <yield to="left-panel"> <left-screen ref="leftpanel" class="view"></left-screen> </yield> <yield to="right-panel"> <right-screen ref="rightpanel" class="entry"></right-screen> </yield> </dual-layout>', 'dualscreen1,[data-is="dualscreen1"]{ margin: 0; padding: 0; }', '', function(opts) {
