@@ -4530,7 +4530,29 @@ riot.tag2('rater-home', '<div class="content-area"> <div class="padtop"></div> <
             self.update()
         }
 });
-riot.tag2('app-signin', '', '', '', function(opts) {
+riot.tag2('app-signin', '<div class="content-area"> <signin ref="signin"></signin> </div>', 'app-signin,[data-is="app-signin"]{ margin: 0 auto; padding: 0; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } app-signin>.content-area,[data-is="app-signin"]>.content-area{ grid-area: content-area; position: relative; display: block; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
+
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let signin
+        let initCtrls = () => {
+            signin = self.refs['signin']
+        }
+        let freeCtrls = () => {
+            signin = null
+        }
+        let bindEvents = () => {}
+        let unbindEvents = () => {}
 });
 
 riot.tag2('companies-dialog', '', '', '', function(opts) {
@@ -4580,7 +4602,7 @@ riot.tag2('company-selection', '<virtual each="{user in users}"> <div class="acc
 riot.tag2('register', '', '', '', function(opts) {
 });
 
-riot.tag2('signin', '', '', '', function(opts) {
+riot.tag2('signin', '<div class="content-area"></div>', 'signin,[data-is="signin"]{ margin: 0 auto; padding: 0; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } signin>.content-area,[data-is="signin"]>.content-area{ grid-area: content-area; position: relative; display: block; width: 100%; height: 100%; overflow: hidden; }', '', function(opts) {
 });
 
 riot.tag2('dualscreen1', '<dual-layout ref="layout"> <yield to="left-panel"> <left-screen ref="leftpanel" class="view"></left-screen> </yield> <yield to="right-panel"> <right-screen ref="rightpanel" class="entry"></right-screen> </yield> </dual-layout>', 'dualscreen1,[data-is="dualscreen1"]{ margin: 0; padding: 0; }', '', function(opts) {
