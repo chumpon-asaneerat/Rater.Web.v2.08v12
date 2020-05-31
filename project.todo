@@ -87,6 +87,8 @@ Project:
             ☐ @critical : All reports routes required to pay more attention.
             ☐ @critical : Retest all summaries reports when some Question Item remove.
             ☐ Prepare routes to stored question.json by QSetId.
+            ☐ need to add SP EDLSignin.
+            ☐ need to add access customer by Id route (svr.route('/edl/customer/:customerId', router)).
         Scenario:
             EDL middleware:
                 ☐ Routes checking change from StartsWith to RegEx for pattern match.
