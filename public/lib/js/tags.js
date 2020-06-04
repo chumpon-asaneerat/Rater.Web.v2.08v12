@@ -4558,8 +4558,80 @@ riot.tag2('app-signin', '<div class="content-area"> <signin ref="signin"></signi
 riot.tag2('companies-dialog', '', '', '', function(opts) {
 });
 riot.tag2('device-signin', '<div class="content-area"> <div class="input-area"> <div class="input-group"> <ninput ref="username" title="User Name" type="email"></ninput> <ninput ref="password" type="password" title="Password"></ninput> </div> </div> <div class="button-area"> <div class="button-group"> <button ref="submit"> <span class="fas fa-user">&nbsp;</span> Sign In </button> </div> </div> </div>', 'device-signin,[data-is="device-signin"]{ margin: 0 auto; padding: 0; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } device-signin>.content-area,[data-is="device-signin"]>.content-area{ grid-area: content-area; position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 25px 250px 50px 1fr; grid-template-areas: \'.\' \'input-area\' \'button-area\' \'.\'; width: 100%; overflow: hidden; } device-signin>.content-area>.input-area,[data-is="device-signin"]>.content-area>.input-area{ grid-area: input-area; position: relative; display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: center; width: 100%; } device-signin>.content-area>.input-area>.input-group,[data-is="device-signin"]>.content-area>.input-area>.input-group{ position: relative; display: block; margin: 0 auto; padding: 0; width: 400px; } device-signin>.content-area>.input-area>.input-group ninput,[data-is="device-signin"]>.content-area>.input-area>.input-group ninput{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; } device-signin>.content-area>.button-area,[data-is="device-signin"]>.content-area>.button-area{ grid-area: button-area; position: relative; display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: center; width: 100%; } device-signin>.content-area>.button-area>.button-group,[data-is="device-signin"]>.content-area>.button-area>.button-group{ position: relative; display: block; margin: 0 auto; padding: 0; width: 400px; } device-signin>.content-area>.button-area>.button-group button,[data-is="device-signin"]>.content-area>.button-area>.button-group button{ position: relative; display: inline-block; display: block; margin: 5px auto; padding: 10px 15px; color: whitesmoke; background-color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; text-decoration: none; } device-signin>.content-area>.button-area>.button-group button:hover,[data-is="device-signin"]>.content-area>.button-area>.button-group button:hover{ background-color: darkgreen; }', '', function(opts) {
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let ctrlUser, ctrlPwd, ctrlSubmit
+        let initCtrls = () => {
+            ctrlUser = self.refs['username']
+            ctrlPwd = self.refs['password']
+            ctrlSubmit = self.refs['submit']
+        }
+        let freeCtrls = () => {
+            ctrlSubmit = null
+            ctrlPwd = null
+            ctrlUser = null
+        }
+        let bindEvents = () => {
+            ctrlSubmit.addEventListener('click', onSubmit)
+        }
+        let unbindEvents = () => {
+            ctrlSubmit.removeEventListener('click', onSubmit)
+        }
+        let onSubmit = () => {
+            let ret = {
+                usr: ctrlUser.value(),
+                pwd: ctrlPwd.value()
+            }
+            console.log(ret)
+        }
 });
 riot.tag2('edl-signin', '<div class="content-area"> <div class="input-area"> <div class="input-group"> <ninput ref="username" title="User Name" type="email"></ninput> <ninput ref="password" type="password" title="Password"></ninput> </div> </div> <div class="button-area"> <div class="button-group"> <button ref="submit"> <span class="fas fa-user">&nbsp;</span> Sign In </button> </div> </div> </div>', 'edl-signin,[data-is="edl-signin"]{ margin: 0 auto; padding: 0; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } edl-signin>.content-area,[data-is="edl-signin"]>.content-area{ grid-area: content-area; position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 25px 250px 50px 1fr; grid-template-areas: \'.\' \'input-area\' \'button-area\' \'.\'; width: 100%; overflow: hidden; } edl-signin>.content-area>.input-area,[data-is="edl-signin"]>.content-area>.input-area{ grid-area: input-area; position: relative; display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: center; width: 100%; } edl-signin>.content-area>.input-area>.input-group,[data-is="edl-signin"]>.content-area>.input-area>.input-group{ position: relative; display: block; margin: 0 auto; padding: 0; width: 400px; } edl-signin>.content-area>.input-area>.input-group ninput,[data-is="edl-signin"]>.content-area>.input-area>.input-group ninput{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; } edl-signin>.content-area>.button-area,[data-is="edl-signin"]>.content-area>.button-area{ grid-area: button-area; position: relative; display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: center; width: 100%; } edl-signin>.content-area>.button-area>.button-group,[data-is="edl-signin"]>.content-area>.button-area>.button-group{ position: relative; display: block; margin: 0 auto; padding: 0; width: 400px; } edl-signin>.content-area>.button-area>.button-group button,[data-is="edl-signin"]>.content-area>.button-area>.button-group button{ position: relative; display: inline-block; display: block; margin: 5px auto; padding: 10px 15px; color: whitesmoke; background-color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; text-decoration: none; } edl-signin>.content-area>.button-area>.button-group button:hover,[data-is="edl-signin"]>.content-area>.button-area>.button-group button:hover{ background-color: darkgreen; }', '', function(opts) {
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let ctrlUser, ctrlPwd, ctrlSubmit
+        let initCtrls = () => {
+            ctrlUser = self.refs['username']
+            ctrlPwd = self.refs['password']
+            ctrlSubmit = self.refs['submit']
+        }
+        let freeCtrls = () => {
+            ctrlSubmit = null
+            ctrlPwd = null
+            ctrlUser = null
+        }
+        let bindEvents = () => {
+            ctrlSubmit.addEventListener('click', onSubmit)
+        }
+        let unbindEvents = () => {
+            ctrlSubmit.removeEventListener('click', onSubmit)
+        }
+        let onSubmit = () => {
+            let ret = {
+                usr: ctrlUser.value(),
+                pwd: ctrlPwd.value()
+            }
+            console.log(ret)
+        }
 });
 riot.tag2('company-selection', '<virtual each="{user in users}"> <div class="account"> <div class="info1"> <span class="label">{opts.companyname}</span> <span class="data">{user.CustomerName}</span> </div> <div class="info2"> <span class="label">{opts.fullname}</span> <span class="data">{user.FullName}</span> </div> <button onclick="{onSignIn}">&nbsp;<span class="fas fa-2x fa-sign-in-alt">&nbsp;</span></button> </div> <hr> </virtual>', 'company-selection,[data-is="company-selection"]{ display: block; margin: 0 auto; padding: 0; } company-selection .account,[data-is="company-selection"] .account{ margin: 0 auto; padding: 2px; height: 100%; width: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; grid-template-areas: \'info1 button\' \'info2 button\'; overflow: hidden; overflow-y: auto; } company-selection .account div,[data-is="company-selection"] .account div{ display: block; margin: 0 auto; padding: 0; } company-selection .account div.info1,[data-is="company-selection"] .account div.info1{ grid-area: info1; display: block; margin: 0; padding: 0; padding-left: 20px; } company-selection .account div.info2,[data-is="company-selection"] .account div.info2{ grid-area: info2; display: block; margin: 0; padding: 0; padding-left: 20px; } company-selection .account div.info1 span,[data-is="company-selection"] .account div.info1 span,company-selection .account div.info2 span,[data-is="company-selection"] .account div.info2 span{ display: inline-block; margin: 0; padding: 0; } company-selection .account div.info1 span.label,[data-is="company-selection"] .account div.info1 span.label,company-selection .account div.info2 span.label,[data-is="company-selection"] .account div.info2 span.label{ display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: navy; width: 100%; } company-selection .account div.info1 span.data,[data-is="company-selection"] .account div.info1 span.data,company-selection .account div.info2 span.data,[data-is="company-selection"] .account div.info2 span.data{ display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: forestgreen; width: 100%; } company-selection .account button,[data-is="company-selection"] .account button{ grid-area: button; display: inline-block; margin: 0 auto; padding: 0; font-weight: bold; color: forestgreen; width: 100%; }', '', function(opts) {
         let self = this
@@ -4603,7 +4675,6 @@ riot.tag2('register', '', '', '', function(opts) {
 });
 
 riot.tag2('signin', '<div class="content-area"> <div class="input-area"> <div class="input-group"> <ninput ref="username" title="User Name" type="email"></ninput> <ninput ref="password" type="password" title="Password"></ninput> </div> </div> <div class="button-area"> <div class="button-group"> <button ref="submit"> <span class="fas fa-user">&nbsp;</span> Sign In </button> </div> </div> </div>', 'signin,[data-is="signin"]{ margin: 0 auto; padding: 0; position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: \'content-area\'; overflow: hidden; } signin>.content-area,[data-is="signin"]>.content-area{ grid-area: content-area; position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: 25px 250px 50px 1fr; grid-template-areas: \'.\' \'input-area\' \'button-area\' \'.\'; width: 100%; overflow: hidden; } signin>.content-area>.input-area,[data-is="signin"]>.content-area>.input-area{ grid-area: input-area; position: relative; display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: center; width: 100%; } signin>.content-area>.input-area>.input-group,[data-is="signin"]>.content-area>.input-area>.input-group{ position: relative; display: block; margin: 0 auto; padding: 0; width: 400px; } signin>.content-area>.input-area>.input-group ninput,[data-is="signin"]>.content-area>.input-area>.input-group ninput{ position: relative; display: block; margin: 0 auto; padding: 0; width: 100%; } signin>.content-area>.button-area,[data-is="signin"]>.content-area>.button-area{ grid-area: button-area; position: relative; display: flex; margin: 0 auto; padding: 0; align-items: center; justify-content: center; width: 100%; } signin>.content-area>.button-area>.button-group,[data-is="signin"]>.content-area>.button-area>.button-group{ position: relative; display: block; margin: 0 auto; padding: 0; width: 400px; } signin>.content-area>.button-area>.button-group button,[data-is="signin"]>.content-area>.button-area>.button-group button{ position: relative; display: inline-block; display: block; margin: 5px auto; padding: 10px 15px; color: whitesmoke; background-color: forestgreen; font-weight: bold; cursor: pointer; width: 45%; text-decoration: none; } signin>.content-area>.button-area>.button-group button:hover,[data-is="signin"]>.content-area>.button-area>.button-group button:hover{ background-color: darkgreen; }', '', function(opts) {
-
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 

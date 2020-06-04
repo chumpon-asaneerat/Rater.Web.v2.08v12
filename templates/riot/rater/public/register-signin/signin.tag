@@ -110,7 +110,6 @@
         }
     </style>
     <script>
-        // required to implements common username/password input UI.
         let self = this
         let addEvt = events.doc.add, delEvt = events.doc.remove
 

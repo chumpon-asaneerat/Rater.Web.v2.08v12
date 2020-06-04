@@ -110,6 +110,41 @@
         }
     </style>
     <script>
-        // for member's device signin
+        let self = this
+        let addEvt = events.doc.add, delEvt = events.doc.remove
+
+        this.on('mount', () => {
+            initCtrls()
+            bindEvents()
+        })
+        this.on('unmount', () => {
+            unbindEvents()
+            freeCtrls()
+        })
+
+        let ctrlUser, ctrlPwd, ctrlSubmit
+        let initCtrls = () => {
+            ctrlUser = self.refs['username']
+            ctrlPwd = self.refs['password']
+            ctrlSubmit = self.refs['submit']
+        }
+        let freeCtrls = () => {
+            ctrlSubmit = null
+            ctrlPwd = null
+            ctrlUser = null
+        }
+        let bindEvents = () => {
+            ctrlSubmit.addEventListener('click', onSubmit)
+        }
+        let unbindEvents = () => {
+            ctrlSubmit.removeEventListener('click', onSubmit)
+        }
+        let onSubmit = () => {
+            let ret = {
+                usr: ctrlUser.value(),
+                pwd: ctrlPwd.value()
+            }
+            console.log(ret)
+        }
     </script>
 </device-signin>
