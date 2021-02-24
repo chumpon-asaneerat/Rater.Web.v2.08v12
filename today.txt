@@ -1,4 +1,7 @@
 -------------------------------------------------------------------------------------
+Update 2021-02-24 #4
+- Implements nlib-logger.js #1
+
 Update 2021-02-24 #3
 - Install logger packages
   - winston-daily-rotate-file
