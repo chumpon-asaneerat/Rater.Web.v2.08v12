@@ -1,4 +1,7 @@
 -------------------------------------------------------------------------------------
+Update 2021-02-25 #10
+- fixed nlib-logger bug and set log folder in default config.
+
 Update 2021-02-25 #9
 - Implements supports logger in nlib-mssql #3.
 
